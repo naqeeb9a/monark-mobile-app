@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/Home.dart';
 
 class SeeAll extends StatelessWidget {
   final String text;
-  SeeAll({Key? key, required this.text}) : super(key: key);
+  final dynamic array;
+  SeeAll({Key? key, required this.text, this.array}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class SeeAll extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            detailGrid(featuredArray)
+            detailGrid(array)
           ],
         ),
       ),
@@ -32,19 +32,17 @@ class SeeAll extends StatelessWidget {
 
 Widget detailGrid(image) {
   return Expanded(
-    child: Container(
-      child: GridView.builder(
-          itemCount: image.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-            crossAxisCount: 2,
-            childAspectRatio: 5 / 6.5,
-          ),
-          itemBuilder: (context, index) {
-            return basicCards(context, image[index]["imageUrl"],
-                image[index]["price"], image[index]["title"]);
-          }),
-    ),
+    child: GridView.builder(
+        itemCount: image.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          crossAxisCount: 2,
+          childAspectRatio: 5 / 6.5,
+        ),
+        itemBuilder: (context, index) {
+          return basicCards(context, image[index]["imageUrl"],
+              image[index]["price"], image[index]["title"]);
+        }),
   );
 }

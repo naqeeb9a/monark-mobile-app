@@ -32,7 +32,7 @@ class Home extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                rowText("Featured", context, text2: "See all", check: true),
+                rowText("Featured", context,array: featuredArray, text2: "See all", check: true),
                 SizedBox(
                   height: 20,
                 ),
@@ -40,7 +40,7 @@ class Home extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                rowText("Best Sell", context, text2: "See all", check: true),
+                rowText("Best Sell", context,array: bestSell, text2: "See all", check: true),
                 SizedBox(
                   height: 20,
                 ),
@@ -128,7 +128,7 @@ Widget searchbar() {
   );
 }
 
-Widget rowText(text, context, {text2 = "", bool check = false}) {
+Widget rowText(text, context, {array,text2 = "", bool check = false}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -142,7 +142,7 @@ Widget rowText(text, context, {text2 = "", bool check = false}) {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => SeeAll(text: text)));
+                        builder: (context) => SeeAll(text: text,array: array,)));
               },
               child: Text(
                 text2,
