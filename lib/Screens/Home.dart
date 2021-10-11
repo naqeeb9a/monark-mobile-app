@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/Data/CategoryData.dart';
+import 'package:monark_app/Screens/Detailpage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 
 class Home extends StatelessWidget {
@@ -24,7 +25,11 @@ class Home extends StatelessWidget {
                 SizedBox(
                   height: 30,
                 ),
-                rowText("Categories", context, text2: "See all", check: true),
+                rowText("Categories", context,
+                    array: imageArray,
+                    text2: "See all",
+                    check: true,
+                    categoryCheck: true),
                 SizedBox(
                   height: 20,
                 ),
@@ -32,7 +37,8 @@ class Home extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                rowText("Featured", context,array: featuredArray, text2: "See all", check: true),
+                rowText("Featured", context,
+                    array: featuredArray, text2: "See all", check: true),
                 SizedBox(
                   height: 20,
                 ),
@@ -40,7 +46,8 @@ class Home extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                rowText("Best Sell", context,array: bestSell, text2: "See all", check: true),
+                rowText("Best Sell", context,
+                    array: bestSell, text2: "See all", check: true),
                 SizedBox(
                   height: 20,
                 ),
@@ -128,7 +135,8 @@ Widget searchbar() {
   );
 }
 
-Widget rowText(text, context, {array,text2 = "", bool check = false}) {
+Widget rowText(text, context,
+    {array, text2 = "", bool check = false, bool categoryCheck = false}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -142,7 +150,11 @@ Widget rowText(text, context, {array,text2 = "", bool check = false}) {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => SeeAll(text: text,array: array,)));
+                        builder: (context) => SeeAll(
+                              check: categoryCheck,
+                              text: text,
+                              array: array,
+                            )));
               },
               child: Text(
                 text2,
@@ -225,27 +237,39 @@ Widget cardList(context, array) {
   );
 }
 
-Widget basicCards(context, imageUrl, text, text1) {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Container(
-          height: MediaQuery.of(context).size.height / 5,
-          width: MediaQuery.of(context).size.width / 3,
-          child: CachedNetworkImage(
-            imageUrl: imageUrl,
-            fit: BoxFit.cover,
+Widget basicCards(context, imageUrl, price, text) {
+  return InkWell(
+    onTap: () {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DetailPage(
+                    image: imageUrl,
+                    price: price,
+                    text: text,
+                  )));
+    },
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Container(
+            height: MediaQuery.of(context).size.height / 5,
+            width: MediaQuery.of(context).size.width / 3,
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
-      ),
-      Text(
-        text,
-        style: TextStyle(fontWeight: FontWeight.w500),
-      ),
-      Text(text1),
-    ],
+        Text(
+          price,
+          style: TextStyle(fontWeight: FontWeight.w500),
+        ),
+        Text(text),
+      ],
+    ),
   );
 }

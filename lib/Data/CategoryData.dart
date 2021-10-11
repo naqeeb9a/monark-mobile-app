@@ -12,6 +12,11 @@ var imageArray = [
   {
     "title": "Kids",
     "imageUrl": "https://images.indianexpress.com/2019/10/girl-fashion.jpg"
+  },
+  {
+    "title": "Adults",
+    "imageUrl":
+        "https://i.pinimg.com/550x/8e/22/d2/8e22d29cef155013a9e877730ba156c2.jpg"
   }
 ];
 var featuredArray = [
