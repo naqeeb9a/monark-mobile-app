@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:monark_app/Data/CategoryData.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   final String image;
   final String price;
   final String text;
@@ -10,18 +11,14 @@ class DetailPage extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(Icons.arrow_back_sharp)),
-        iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
+      appBar: bar2(context),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -36,18 +33,18 @@ class DetailPage extends StatelessWidget {
                 children: [
                   Center(
                     child: CachedNetworkImage(
-                      imageUrl: image,
+                      imageUrl: widget.image,
                       fit: BoxFit.cover,
                       height: MediaQuery.of(context).size.height / 3,
                       // width: MediaQuery.of(context).size.width / 1.2,
                     ),
                   ),
                   Text(
-                    text,
+                    widget.text,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                   ),
                   Text(
-                    price,
+                    widget.price,
                     style: TextStyle(fontWeight: FontWeight.w500),
                   ),
                   Divider(
@@ -124,34 +121,70 @@ class DetailPage extends StatelessWidget {
                 ],
               ),
             ),
-            Positioned(
-              bottom: 0,
-              child: MaterialButton(
-                color: Colors.blue,
-                height: MediaQuery.of(context).size.height / 14,
-                minWidth: MediaQuery.of(context).size.width,
-                onPressed: () {},
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.add_shopping_cart_sharp,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      "Add to Cart",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
-              ),
-            )
+            bottomButton(context, widget.image, widget.price, widget.text)
           ],
         ),
       ),
     );
   }
+}
+
+PreferredSizeWidget bar2(context, {cartCheck = false}) {
+  return AppBar(
+    leading: InkWell(
+        onTap: () {
+          Navigator.pop(context);
+        },
+        child: Icon(Icons.arrow_back_sharp)),
+    iconTheme: IconThemeData(color: Colors.black),
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+    actions: [
+      (cartCheck == true)
+          ? IconButton(
+              onPressed: () {
+                cartItems.clear();
+              },
+              icon: Icon(Icons.clear_all))
+          : Container()
+    ],
+  );
+}
+
+Widget bottomButton(context, image, price, text) {
+  return Positioned(
+    bottom: 0,
+    child: MaterialButton(
+      color: Colors.blue,
+      height: MediaQuery.of(context).size.height / 14,
+      minWidth: MediaQuery.of(context).size.width,
+      onPressed: () {
+        cartItems.add({"imageUrl": image, "price": price, "title": text});
+        var snackBar = SnackBar(
+          content: (cartItems.length > 1)
+              ? Text(cartItems.length.toString() + ' Items added to cart')
+              : Text(cartItems.length.toString() + ' Item added to cart'),
+          duration: const Duration(milliseconds: 500),
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      },
+      child: Row(
+        children: [
+          Icon(
+            Icons.add_shopping_cart_sharp,
+            color: Colors.white,
+            size: 30,
+          ),
+          SizedBox(
+            width: 20,
+          ),
+          Text(
+            "Add to Cart",
+            style: TextStyle(color: Colors.white),
+          ),
+        ],
+      ),
+    ),
+  );
 }

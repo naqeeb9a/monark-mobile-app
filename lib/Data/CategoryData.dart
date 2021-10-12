@@ -1,3 +1,5 @@
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+
 var imageArray = [
   {
     "title": "Women",
@@ -59,3 +61,5 @@ var bestSell = [
         "https://www.textiletoday.com.bd/wp-content/uploads/2018/03/Kids_wear.jpg"
   },
 ];
+var cartItems = [].obs;
+var addressList = [];

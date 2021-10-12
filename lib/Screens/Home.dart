@@ -1,6 +1,11 @@
+import 'dart:ui';
+
+import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:monark_app/Data/CategoryData.dart';
+import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/Detailpage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 
@@ -11,7 +16,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: bar(context),
-      drawer: Drawer(),
+      drawer: SafeArea(child: Drawer()),
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -78,16 +83,30 @@ PreferredSizeWidget bar(context, {check = false}) {
       actions: (check == true)
           ? [
               IconButton(onPressed: () {}, icon: Icon(Icons.search_outlined)),
-              IconButton(
-                  onPressed: () {}, icon: Icon(Icons.shopping_bag_outlined))
+              IconButton(onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Cart()));
+              }, icon: Obx(() {
+                return Badge(
+                    badgeContent: Text(
+                      cartItems.length.toString(),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    child: Icon(Icons.shopping_bag_outlined));
+              }))
             ]
           : [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.shopping_bag_outlined,
-                ),
-              ),
+              IconButton(onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Cart()));
+              }, icon: Obx(() {
+                return Badge(
+                    badgeContent: Text(
+                      cartItems.length.toString(),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    child: Icon(Icons.shopping_bag_outlined));
+              })),
               IconButton(
                 onPressed: () {},
                 icon: Icon(
