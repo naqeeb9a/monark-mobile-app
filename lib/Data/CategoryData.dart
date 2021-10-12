@@ -1,3 +1,5 @@
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+
 var imageArray = [
   {
     "title": "Women",
@@ -12,6 +14,11 @@ var imageArray = [
   {
     "title": "Kids",
     "imageUrl": "https://images.indianexpress.com/2019/10/girl-fashion.jpg"
+  },
+  {
+    "title": "Adults",
+    "imageUrl":
+        "https://i.pinimg.com/550x/8e/22/d2/8e22d29cef155013a9e877730ba156c2.jpg"
   }
 ];
 var featuredArray = [
@@ -54,3 +61,5 @@ var bestSell = [
         "https://www.textiletoday.com.bd/wp-content/uploads/2018/03/Kids_wear.jpg"
   },
 ];
+var cartItems = [].obs;
+var addressList = [];
