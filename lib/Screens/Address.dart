@@ -20,10 +20,26 @@ class AddressPage extends StatelessWidget {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
-              children: [rowText("Address", context)],
+              children: [
+                rowText("Address", context),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        "assets/noAddress.png",
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Text("No Addresses Found!")
+                    ],
+                  ),
+                )
+              ],
             ),
           ),
-          bottomButton2(context),
+          bottomButton2(context, "Add Address", Icons.home_outlined),
           bottomButton1(context, "Continue to Payment", () {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Payment()));
@@ -34,7 +50,7 @@ class AddressPage extends StatelessWidget {
   }
 }
 
-Widget bottomButton2(context) {
+Widget bottomButton2(context, text, icon) {
   return Positioned(
     bottom: 80,
     child: DottedBorder(
@@ -47,14 +63,14 @@ Widget bottomButton2(context) {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                Icons.home_outlined,
+                icon,
                 color: Colors.lightBlue,
               ),
               SizedBox(
                 width: 10,
               ),
               Text(
-                "Add Address",
+                text,
                 style: TextStyle(color: Colors.lightBlue),
               )
             ],

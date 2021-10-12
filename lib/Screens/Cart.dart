@@ -31,12 +31,18 @@ class Cart extends StatelessWidget {
               ),
               Obx(() {
                 return Flexible(
-                  child: ListView.builder(
-                      itemCount: cartItems.length,
-                      itemBuilder: (context, index) {
-                        return cartCard(index, context);
-                      }),
-                );
+                    child: (cartItems.length == 0)
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset("assets/emptyCart.png"),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text("No Items in Cart")
+                            ],
+                          )
+                        : cartList());
               })
             ]),
           ),
@@ -48,6 +54,14 @@ class Cart extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget cartList() {
+  return ListView.builder(
+      itemCount: cartItems.length,
+      itemBuilder: (context, index) {
+        return cartCard(index, context);
+      });
 }
 
 Widget cartCard(index, context) {
