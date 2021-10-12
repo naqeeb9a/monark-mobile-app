@@ -1,6 +1,9 @@
+import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:monark_app/Data/CategoryData.dart';
+import 'package:monark_app/Screens/Cart.dart';
 
 class DetailPage extends StatefulWidget {
   final String image;
@@ -18,7 +21,7 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: bar2(context,cartCheck: true),
+      appBar: bar2(context, cartCheck: true, icon: Icons.shopping_bag_outlined),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -143,9 +146,23 @@ PreferredSizeWidget bar2(context, {cartCheck = false, icon = Icons.clear_all}) {
       (cartCheck == true)
           ? IconButton(
               onPressed: () {
-                cartItems.clear();
+                if (icon == Icons.shopping_bag_outlined) {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Cart()));
+                } else {
+                  cartItems.clear();
+                }
               },
-              icon: Icon(icon))
+              icon: (icon == Icons.shopping_bag_outlined)
+                  ? Obx(() {
+                      return Badge(
+                          badgeContent: Text(
+                            cartItems.length.toString(),
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          child: Icon(Icons.shopping_bag_outlined));
+                    })
+                  : Icon(icon))
           : Container()
     ],
   );
