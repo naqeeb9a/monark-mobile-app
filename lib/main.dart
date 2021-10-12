@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:monark_app/Screens/Home.dart';
+import 'package:monark_app/Screens/Login.dart';
+import 'package:monark_app/Screens/SignUp.dart';
+import 'package:monark_app/Screens/Welcome.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: Home(),
+      home: Welcome(),
     );
   }
 }
