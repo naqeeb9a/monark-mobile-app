@@ -18,7 +18,7 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: bar2(context),
+      appBar: bar2(context,cartCheck: true),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -129,7 +129,7 @@ class _DetailPageState extends State<DetailPage> {
   }
 }
 
-PreferredSizeWidget bar2(context, {cartCheck = false}) {
+PreferredSizeWidget bar2(context, {cartCheck = false, icon = Icons.clear_all}) {
   return AppBar(
     leading: InkWell(
         onTap: () {
@@ -145,7 +145,7 @@ PreferredSizeWidget bar2(context, {cartCheck = false}) {
               onPressed: () {
                 cartItems.clear();
               },
-              icon: Icon(Icons.clear_all))
+              icon: Icon(icon))
           : Container()
     ],
   );
