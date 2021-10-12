@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:monark_app/Screens/Home.dart';
-import 'package:monark_app/Screens/Login.dart';
-import 'package:monark_app/Screens/SignUp.dart';
 import 'package:monark_app/Screens/Welcome.dart';
 
 void main() {

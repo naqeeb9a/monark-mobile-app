@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:monark_app/Screens/Login.dart';
 
-
-
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -45,7 +43,7 @@ class _SignUpState extends State<SignUp> {
                   cursorColor: Colors.grey,
                   decoration: InputDecoration(
                     contentPadding:
-                    EdgeInsets.symmetric(vertical: 16.0, horizontal: 14.0),
+                        EdgeInsets.symmetric(vertical: 16.0, horizontal: 14.0),
                     labelText: "Name",
                     labelStyle: TextStyle(
                       color: Colors.grey,
@@ -56,12 +54,13 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.02),
+                  padding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.02),
                   child: TextFormField(
                     cursorColor: Colors.grey,
                     decoration: InputDecoration(
-                      contentPadding:
-                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 14.0),
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 14.0),
                       labelText: "Email",
                       labelStyle: TextStyle(
                         color: Colors.grey,
@@ -90,8 +89,8 @@ class _SignUpState extends State<SignUp> {
                           color: Colors.grey,
                         ),
                       ),
-                      contentPadding:
-                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 14.0),
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 14.0),
                       labelText: "Password",
                       labelStyle: TextStyle(
                         color: Colors.grey,
@@ -108,28 +107,28 @@ class _SignUpState extends State<SignUp> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.74,
                     height: MediaQuery.of(context).size.height * 0.06,
-                    decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.lightBlue.withOpacity(0.2),
-                            spreadRadius: 4,
-                            blurRadius: 10,
-                            offset: Offset(7, 9),
-                          )
-                        ]
-                    ),
+                    decoration: BoxDecoration(boxShadow: [
+                      BoxShadow(
+                        color: Colors.lightBlue.withOpacity(0.2),
+                        spreadRadius: 4,
+                        blurRadius: 10,
+                        offset: Offset(7, 9),
+                      )
+                    ]),
                     child: TextButton(
-
                       style: ButtonStyle(
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                         ),
                         backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.blue),
+                            MaterialStateProperty.all<Color>(Colors.blue),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       child: Text(
                         'Sign Up',
                         style: TextStyle(color: Colors.white, fontSize: 18),
@@ -138,7 +137,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.05),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -147,18 +147,19 @@ class _SignUpState extends State<SignUp> {
                         style: TextStyle(fontSize: 14),
                       ),
                       InkWell(
-                          onTap: (){
-                            Navigator.pop(context);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Login(),
-                              ),
-                            );
-                          },
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Login(),
+                            ),
+                          );
+                        },
                         child: Text(
                           "Sign In",
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                       )
                     ],

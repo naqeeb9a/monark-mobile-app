@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monark_app/Screens/Home.dart';
 import 'package:monark_app/Screens/SignUp.dart';
 
 class Login extends StatefulWidget {
@@ -72,8 +73,8 @@ class _LoginState extends State<Login> {
                           color: Colors.grey,
                         ),
                       ),
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 16.0, horizontal: 14.0),
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 14.0),
                       labelText: "Password",
                       labelStyle: TextStyle(
                         color: Colors.grey,
@@ -90,20 +91,18 @@ class _LoginState extends State<Login> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.74,
                     height: MediaQuery.of(context).size.height * 0.06,
-                    decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.lightBlue.withOpacity(0.2),
-                            spreadRadius: 4,
-                            blurRadius: 10,
-                            offset: Offset(7, 9),
-                          )
-                        ]
-                    ),
+                    decoration: BoxDecoration(boxShadow: [
+                      BoxShadow(
+                        color: Colors.lightBlue.withOpacity(0.2),
+                        spreadRadius: 4,
+                        blurRadius: 10,
+                        offset: Offset(7, 9),
+                      )
+                    ]),
                     child: TextButton(
-
                       style: ButtonStyle(
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
@@ -111,7 +110,10 @@ class _LoginState extends State<Login> {
                         backgroundColor:
                             MaterialStateProperty.all<Color>(Colors.blue),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Home()));
+                      },
                       child: Text(
                         'Login',
                         style: TextStyle(color: Colors.white, fontSize: 18),
@@ -120,7 +122,8 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.05),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -129,7 +132,7 @@ class _LoginState extends State<Login> {
                         style: TextStyle(fontSize: 14),
                       ),
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           Navigator.pop(context);
                           Navigator.push(
                             context,
@@ -140,7 +143,8 @@ class _LoginState extends State<Login> {
                         },
                         child: Text(
                           "Sign Up",
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                       )
                     ],

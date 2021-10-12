@@ -1,9 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/Login.dart';
-import 'package:monark_app/Screens/SeeAll.dart';
 
 import 'SignUp.dart';
 
