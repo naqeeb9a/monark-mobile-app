@@ -43,7 +43,10 @@ class Cart extends StatelessWidget {
                             ],
                           )
                         : cartList());
-              })
+              }),
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 9,
+              )
             ]),
           ),
           bottomButton1(context, "Continue", () {

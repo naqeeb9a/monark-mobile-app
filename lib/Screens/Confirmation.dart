@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/Cart.dart';
 
 class ConfirmationPage extends StatelessWidget {
@@ -49,6 +50,7 @@ class ConfirmationPage extends StatelessWidget {
                   ],
                 ),
                 bottomButton1(context, "Back to Home", () {
+                  cartItems.clear();
                   Navigator.of(context).popUntil((route) => route.isFirst);
                 })
               ],

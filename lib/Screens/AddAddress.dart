@@ -83,6 +83,7 @@ Widget inputData(text, hinttext, type, {localAddressList}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 10),
     child: TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: type,
       decoration: InputDecoration(
         label: Text(
