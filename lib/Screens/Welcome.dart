@@ -88,7 +88,16 @@ class Welcome extends StatelessWidget {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.74,
                     height: MediaQuery.of(context).size.height * 0.06,
-                    decoration: BoxDecoration(),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.lightBlue.withOpacity(0.2),
+                          spreadRadius: 4,
+                          blurRadius: 10,
+                          offset: Offset(7, 9),
+                        )
+                      ],
+                    ),
                     child: TextButton(
                       style: ButtonStyle(
                         shape:
