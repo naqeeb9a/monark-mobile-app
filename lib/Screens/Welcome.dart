@@ -78,10 +78,8 @@ class Welcome extends StatelessWidget {
               ),
               Container(
                 child: Column(
-                  children: <Widget>[
-                    Image.network(
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC_ZREIo1znTIHF9urMXPmiV0gm8tvgKOI22AEcW7vgjv3OpUr_pQk7VcWjzMCu1bSGig&usqp=CAU',
-                    ),
+                  children: [
+                    Image.asset("assets/shopping.png")
                   ],
                 ),
               ),

@@ -1,5 +1,8 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:monark_app/Data/CategoryData.dart';
+import 'package:monark_app/Screens/AddAddress.dart';
 import 'package:monark_app/Screens/Cart.dart';
 
 import 'package:monark_app/Screens/DetailPage.dart';
@@ -7,9 +10,14 @@ import 'package:monark_app/Screens/Home.dart';
 
 import 'Payment.dart';
 
-class AddressPage extends StatelessWidget {
+class AddressPage extends StatefulWidget {
   const AddressPage({Key? key}) : super(key: key);
 
+  @override
+  State<AddressPage> createState() => _AddressPageState();
+}
+
+class _AddressPageState extends State<AddressPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,24 +30,21 @@ class AddressPage extends StatelessWidget {
             child: Column(
               children: [
                 rowText("Address", context),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        "assets/noAddress.png",
-                        width: MediaQuery.of(context).size.width,
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Text("No Addresses Found!")
-                    ],
-                  ),
+                SizedBox(
+                  height: 20,
+                ),
+                addressListBuilder(context),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 5,
                 )
               ],
             ),
           ),
-          bottomButton2(context, "Add Address", Icons.home_outlined),
+          bottomButton2(context, "Add Address", Icons.home_outlined,
+              function: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => AddAddress()));
+          }),
           bottomButton1(context, "Continue to Payment", () {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Payment()));
@@ -48,33 +53,105 @@ class AddressPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget addressListBuilder(context) {
+    return Obx(() {
+      return (addressList.length == 0)
+          ? Expanded(
+              child: Column(
+                children: [
+                  Image.asset(
+                    "assets/noAddress.png",
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text("No Addresses Found!")
+                ],
+              ),
+            )
+          : Expanded(
+              child: ListView.builder(
+                  itemCount: addressList.length,
+                  itemBuilder: (context, index) {
+                    return Row(
+                      children: [
+                        Radio(
+                            value: index,
+                            groupValue: int.parse(group.toString()),
+                            onChanged: (value) {
+                              print(value);
+                              setState(() {
+                                group = value as int;
+                              });
+                            }),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 20),
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 0.5),
+                              borderRadius: BorderRadius.circular(25)),
+                          padding: EdgeInsets.all(20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                addressList[index][1],
+                                style: TextStyle(
+                                    fontSize: 22, fontWeight: FontWeight.w400),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                addressList[index][0],
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                addressList[index][6],
+                                style: TextStyle(color: Colors.grey),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  }));
+    });
+  }
 }
 
-Widget bottomButton2(context, text, icon) {
+Widget bottomButton2(context, text, icon, {function}) {
   return Positioned(
     bottom: 80,
-    child: DottedBorder(
-      color: Colors.lightBlue,
-      strokeWidth: 1,
-      child: Container(
-          height: MediaQuery.of(context).size.height * 0.06,
-          width: MediaQuery.of(context).size.width / 1.3,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                color: Colors.lightBlue,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                text,
-                style: TextStyle(color: Colors.lightBlue),
-              )
-            ],
-          )),
+    child: InkWell(
+      onTap: function,
+      child: DottedBorder(
+        color: Colors.lightBlue,
+        strokeWidth: 1,
+        child: Container(
+            height: MediaQuery.of(context).size.height * 0.06,
+            width: MediaQuery.of(context).size.width / 1.3,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  icon,
+                  color: Colors.lightBlue,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  text,
+                  style: TextStyle(color: Colors.lightBlue),
+                )
+              ],
+            )),
+      ),
     ),
   );
 }

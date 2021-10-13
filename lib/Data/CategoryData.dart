@@ -62,4 +62,5 @@ var bestSell = [
   },
 ];
 var cartItems = [].obs;
-var addressList = [];
+var addressList = [].obs;
+int group = 0;

@@ -20,39 +20,85 @@ class CheckOut extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                rowText("CheckOut", context),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                    height: MediaQuery.of(context).size.height / 2.5,
-                    child: Obx(() {
-                      return (cartItems.length == 0)
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  rowText("CheckOut", context),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                      height: MediaQuery.of(context).size.height / 2.5,
+                      child: Obx(() {
+                        return (cartItems.length == 0)
+                            ? Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset("assets/emptyCart.png"),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text("No Items in Cart")
+                                ],
+                              )
+                            : cartList();
+                      })),
+                  Divider(
+                    thickness: 2,
+                  ),
+                  (addressList.length == 0)
+                      ? Container(
+                          padding: EdgeInsets.all(20),
+                          child: Text(
+                            "No Address Added Yet!",
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        )
+                      : Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Image.asset("assets/emptyCart.png"),
-                                SizedBox(
-                                  height: 20,
+                                Text(
+                                  addressList[group][1],
+                                  style: TextStyle(
+                                      fontSize: 22, fontWeight: FontWeight.w400),
                                 ),
-                                Text("No Items in Cart")
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  addressList[group][0],
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  addressList[group][6],
+                                  style: TextStyle(color: Colors.grey),
+                                )
                               ],
-                            )
-                          : cartList();
-                    })),
-                Divider(
-                  thickness: 2,
-                ),
-                totalRow("Subtotal", r"$160"),
-                totalRow("Discount", r"5%"),
-                totalRow("Shipping", r"$10"),
-                Divider(
-                  thickness: 2,
-                ),
-                totalRow("Total", r"$162")
-              ],
+                            ),
+                          ),
+                        ),
+                  Divider(
+                    thickness: 2,
+                  ),
+                  totalRow("Subtotal", r"$160"),
+                  totalRow("Discount", r"5%"),
+                  totalRow("Shipping", r"$10"),
+                  Divider(
+                    thickness: 2,
+                  ),
+                  totalRow("Total", r"$162"),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 9,
+                  )
+                ],
+              ),
             ),
           ),
           bottomButton1(context, "Buy", () {
