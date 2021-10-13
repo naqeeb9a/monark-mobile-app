@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/Screens/Login.dart';
 
@@ -10,6 +11,8 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   bool obscureText = true;
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,147 +28,177 @@ class _SignUpState extends State<SignUp> {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
           child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.15,
-                      child: Text(
-                        "Sign Up",
-                        style: TextStyle(fontSize: 30),
-                      ),
-                    ),
-                  ],
-                ),
-                TextFormField(
-                  cursorColor: Colors.grey,
-                  decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 16.0, horizontal: 14.0),
-                    labelText: "Name",
-                    labelStyle: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16.0,
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey)),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.02),
-                  child: TextFormField(
-                    cursorColor: Colors.grey,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 14.0),
-                      labelText: "Email",
-                      labelStyle: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 16.0,
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.02),
-                  child: TextFormField(
-                    obscureText: obscureText,
-                    cursorColor: Colors.grey,
-                    decoration: InputDecoration(
-                      suffixIcon: InkWell(
-                        onTap: () {
-                          setState(() {
-                            obscureText = !obscureText;
-                          });
-                        },
-                        child: Icon(
-                          Icons.remove_red_eye,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 14.0),
-                      labelText: "Password",
-                      labelStyle: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 16.0,
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.05),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.74,
-                    height: MediaQuery.of(context).size.height * 0.06,
-                    decoration: BoxDecoration(boxShadow: [
-                      BoxShadow(
-                        color: Colors.lightBlue.withOpacity(0.2),
-                        spreadRadius: 4,
-                        blurRadius: 10,
-                        offset: Offset(7, 9),
-                      )
-                    ]),
-                    child: TextButton(
-                      style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.blue),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        'Sign Up',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.05),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Don't have an account?  ",
-                        style: TextStyle(fontSize: 14),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Login(),
-                            ),
-                          );
-                        },
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.15,
                         child: Text(
-                          "Sign In",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
+                          "Sign Up",
+                          style: TextStyle(fontSize: 30),
                         ),
-                      )
+                      ),
                     ],
                   ),
-                ),
-              ],
+                  TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a valid name';
+                      }
+                      return null;
+                    },
+                    cursorColor: Colors.grey,
+                    decoration: InputDecoration(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 16.0, horizontal: 14.0),
+                      labelText: "Name",
+                      labelStyle: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 16.0,
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey)),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.height * 0.02),
+                    child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value!.isEmpty || !value.contains("@")) {
+                          return 'Please enter a valid Email';
+                        }
+                        return null;
+                      },
+                      cursorColor: Colors.grey,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 16.0, horizontal: 14.0),
+                        labelText: "Email",
+                        labelStyle: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16.0,
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.height * 0.02),
+                    child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value!.isEmpty || value.length < 8) {
+                          return 'Password must have 8 characters';
+                        }
+                        return null;
+                      },
+                      obscureText: obscureText,
+                      cursorColor: Colors.grey,
+                      decoration: InputDecoration(
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            setState(() {
+                              obscureText = !obscureText;
+                            });
+                          },
+                          child: Icon(
+                            Icons.remove_red_eye,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 16.0, horizontal: 14.0),
+                        labelText: "Password",
+                        labelStyle: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16.0,
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.05),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.74,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.lightBlue.withOpacity(0.2),
+                            spreadRadius: 4,
+                            blurRadius: 10,
+                            offset: Offset(7, 9),
+                          ),
+                        ],
+                      ),
+                      child: TextButton(
+                        style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.blue),
+                        ),
+                        onPressed: () {
+                          if (!_formKey.currentState!.validate()) {
+                            return;
+
+                          }
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          'Sign Up',
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.05),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Don't have an account?  ",
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Login(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Sign In",
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
