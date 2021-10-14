@@ -2,12 +2,14 @@ import 'dart:ui';
 
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/Detailpage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
+import 'package:monark_app/Screens/Welcome.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -16,7 +18,153 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: bar(context),
-      drawer: SafeArea(child: Drawer()),
+      drawer: SafeArea(
+        child: Container(
+          color: Colors.white,
+          child: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.265,
+                  child: DrawerHeader(
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.05),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CircleAvatar(
+                                  minRadius: 50,
+                                  backgroundColor: Colors.red,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.02),
+                            child: Text(
+                              "Adam Balina",
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    decoration: BoxDecoration(),
+                  ),
+                ),
+                ListTile(
+                  leading: Icon(Icons.person_outline),
+                  title: const Text(
+                    'Profile',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.shopping_cart_outlined),
+                  title: const Text(
+                    'Cart',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Cart(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.notifications_active_outlined),
+                  title: const Text(
+                    'Notification',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.help_outline),
+                  title: const Text(
+                    'Help',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.info_outline),
+                  title: const Text(
+                    'About Us',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.star_border_outlined),
+                  title: const Text(
+                    'Rate Us',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.15),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.1),
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    child: TextButton(
+                      style: ButtonStyle(
+                        shape:
+                        MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Welcome(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Logout',
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
