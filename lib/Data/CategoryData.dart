@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:monark_app/Screens/Orders.dart';
 
 var imageArray = [
   {
@@ -67,14 +68,10 @@ var addressList = [].obs;
 int group = 0;
 bool obscureText = true;
 List drawerItemList = [
-  {"icon": Icons.person_outline, "text": "Profile", "text1": "Profile"},
-  {"icon": Icons.shopping_cart_outlined, "text": "Orders", "text1": "Orders"},
-  {
-    "icon": Icons.notifications,
-    "text": "Notifications",
-    "text1": "Notifications"
-  },
-  {"icon": Icons.help, "text": "Help", "text1": "Help"},
-  {"icon": Icons.star, "text": "Rate Us", "text1": "Rate Us"},
-  {"icon": Icons.question_answer, "text": "About Us", "text1": "About Us"}
+  {"icon": Icons.person_outline, "text": "Profile", "screen": Orders()},
+  {"icon": Icons.shopping_cart_outlined, "text": "Orders", "screen": Orders()},
+  {"icon": Icons.notifications, "text": "Notifications", "screen": Orders()},
+  {"icon": Icons.help, "text": "Help", "screen": Orders()},
+  {"icon": Icons.star, "text": "Rate Us", "screen": Orders()},
+  {"icon": Icons.question_answer, "text": "About Us", "screen": Orders()}
 ];

@@ -328,7 +328,11 @@ Widget drawerItems(context) {
             itemBuilder: (context, index) {
               return ListTile(
                 onTap: () {
-                  print(drawerItemList[index]["text1"]);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              drawerItemList[index]["screen"]));
                 },
                 leading: Icon(drawerItemList[index]["icon"]),
                 title: Text(drawerItemList[index]["text"].toString()),
