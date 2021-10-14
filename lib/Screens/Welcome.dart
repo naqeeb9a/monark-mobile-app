@@ -49,7 +49,7 @@ class Welcome extends StatelessWidget {
   }
 }
 
-Widget coloredButton(context, text, {function = "", noColor}) {
+Widget coloredButton(context, text, {function = "", noColor=false}) {
   return (noColor == true)
       ? MaterialButton(
           onPressed: (function == "") ? () {} : function,
@@ -75,7 +75,7 @@ Widget coloredButton(context, text, {function = "", noColor}) {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             color: Colors.blue,
-            onPressed: function,
+            onPressed:(function=="")?(){} :function,
             child: Text(
               text,
               style: TextStyle(color: Colors.white, fontSize: 18),

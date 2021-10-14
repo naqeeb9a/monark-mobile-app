@@ -52,20 +52,23 @@ class _SignUpState extends State<SignUp> {
                       return null;
                     },
                   ),
-                  inputTextField(
-                    "Password",
-                    function: (value) {
-                      if (value!.isEmpty || value.length < 8) {
-                        return 'Password must have 8 characters';
-                      }
-                      return null;
-                    },
-                    password: true,
-                    icon: Icon(
-                      Icons.remove_red_eye,
-                      color: Colors.grey,
-                    ),
-                  ),
+                  inputTextField("Password",
+                      function: (value) {
+                        if (value!.isEmpty || value.length < 8) {
+                          return 'Password must have 8 characters';
+                        }
+                        return null;
+                      },
+                      icon: Icon(
+                        Icons.remove_red_eye,
+                        color: Colors.grey,
+                      ),
+                      password: true,
+                      function2: () {
+                        setState(() {
+                          obscureText = !obscureText;
+                        });
+                      }),
                   SizedBox(
                     height: MediaQuery.of(context).size.height / 11,
                   ),

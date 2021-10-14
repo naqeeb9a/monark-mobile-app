@@ -97,48 +97,25 @@ class _LoginState extends State<Login> {
 
 Widget inputTextField(text,
     {function = "", icon = "", function2 = "", password = false}) {
-  return (password == true)
-      ? TextFormField(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: (function == "") ? () {} : function,
-          cursorColor: Colors.grey,
-          obscureText: obscureText,
-          decoration: InputDecoration(
-            suffixIcon: (icon == "")
-                ? null
-                : InkWell(
-                    onTap: (function2 == "") ? () {} : function2, child: icon),
-            contentPadding:
-                EdgeInsets.symmetric(vertical: 16.0, horizontal: 14.0),
-            labelText: text,
-            labelStyle: TextStyle(
-              color: Colors.grey,
-              fontSize: 16.0,
-            ),
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey)),
-          ),
-        )
-      : TextFormField(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: (function == "") ? () {} : function,
-          cursorColor: Colors.grey,
-          decoration: InputDecoration(
-            suffixIcon: (icon == "")
-                ? null
-                : InkWell(
-                    onTap: (function2 == "") ? () {} : function2, child: icon),
-            contentPadding:
-                EdgeInsets.symmetric(vertical: 16.0, horizontal: 14.0),
-            labelText: text,
-            labelStyle: TextStyle(
-              color: Colors.grey,
-              fontSize: 16.0,
-            ),
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey)),
-          ),
-        );
+  return TextFormField(
+    autovalidateMode: AutovalidateMode.onUserInteraction,
+    validator: (function == "") ? () {} : function,
+    cursorColor: Colors.grey,
+    obscureText: (password == true) ? obscureText : false,
+    decoration: InputDecoration(
+      suffixIcon: (icon == "")
+          ? null
+          : InkWell(onTap: (function2 == "") ? () {} : function2, child: icon),
+      contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 14.0),
+      labelText: text,
+      labelStyle: TextStyle(
+        color: Colors.grey,
+        fontSize: 16.0,
+      ),
+      focusedBorder:
+          UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+    ),
+  );
 }
 
 Widget multiPropertyText(text, text1, {function = "", double size = 14}) {
