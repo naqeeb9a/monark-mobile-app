@@ -59,15 +59,15 @@ class Cart extends StatelessWidget {
   }
 }
 
-Widget cartList() {
+Widget cartList({ordersPage = false}) {
   return ListView.builder(
       itemCount: cartItems.length,
       itemBuilder: (context, index) {
-        return cartCard(index, context);
+        return cartCard(index, context, orders: ordersPage);
       });
 }
 
-Widget cartCard(index, context) {
+Widget cartCard(index, context, {orders}) {
   var quantity = 1.obs;
   return Container(
     padding: EdgeInsets.all(20),
@@ -102,45 +102,57 @@ Widget cartCard(index, context) {
               Container(
                 width: MediaQuery.of(context).size.width / 4,
                 padding: EdgeInsets.all(10),
-                color: Color(0xFFeeeeee),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        if (quantity > 1) {
-                          quantity--;
-                        }
-                      },
-                      child: Icon(
-                        Icons.remove,
-                        size: 15,
+                color: (orders == true) ? Colors.blue : Color(0xFFeeeeee),
+                child: (orders == true)
+                    ? Center(
+                        child: Text(
+                          "Order Again",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.03),
+                        ),
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              if (quantity > 1) {
+                                quantity--;
+                              }
+                            },
+                            child: Icon(
+                              Icons.remove,
+                              size: 15,
+                            ),
+                          ),
+                          Obx(() {
+                            return Text(quantity.toString());
+                          }),
+                          InkWell(
+                            onTap: () {
+                              quantity++;
+                            },
+                            child: Icon(
+                              Icons.add,
+                              size: 15,
+                            ),
+                          )
+                        ],
                       ),
-                    ),
-                    Obx(() {
-                      return Text(quantity.toString());
-                    }),
-                    InkWell(
-                      onTap: () {
-                        quantity++;
-                      },
-                      child: Icon(
-                        Icons.add,
-                        size: 15,
-                      ),
-                    )
-                  ],
-                ),
               )
             ],
           ),
-          Align(
-              alignment: Alignment.topRight,
-              child: InkWell(
-                  onTap: () {
-                    cartItems.remove(cartItems[index]);
-                  },
-                  child: Icon(Icons.close)))
+          (orders == true)
+              ? Container()
+              : Align(
+                  alignment: Alignment.topRight,
+                  child: InkWell(
+                      onTap: () {
+                        cartItems.remove(cartItems[index]);
+                      },
+                      child: Icon(Icons.close)))
         ],
       ),
     ),
