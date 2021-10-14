@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:monark_app/Data/CategoryData.dart';
+import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/Home.dart';
 import 'package:monark_app/Screens/SignUp.dart';
+import 'package:monark_app/Screens/Welcome.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
-
 
   @override
   State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  bool obscureText = true;
   final _formKey = GlobalKey<FormState>();
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffffffff),
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Color(0xffffffff),
-        iconTheme: IconThemeData(
-          color: Colors.grey,
-        ),
-      ),
+      appBar: bar2(context),
       body: SafeArea(
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -33,145 +27,64 @@ class _LoginState extends State<Login> {
             child: Form(
               key: _formKey,
               child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.15,
-                        child: Text(
-                          "Login",
-                          style: TextStyle(fontSize: 30),
-                        ),
-                      ),
-                    ],
+                children: [
+                  rowText("Login", context),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 12,
                   ),
-                  TextFormField(
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) {
-                      if (value!.isEmpty || !value.contains("@")) {
-                        return 'Please enter a valid Email';
-                      }
-                      return null;
-                    },
-                    cursorColor: Colors.grey,
-                    decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 16.0, horizontal: 14.0),
-                      labelText: "Email",
-                      labelStyle: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 16.0,
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height * 0.02),
-                    child: TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (value) {
+                  inputTextField("Email", function: (value) {
+                    if (value!.isEmpty || !value.contains("@")) {
+                      return 'Please enter a valid Email';
+                    }
+                    return null;
+                  }),
+                  inputTextField("Password",
+                      function: (value) {
                         if (value!.isEmpty || value.length < 8) {
                           return 'Password must have 8 characters';
                         }
                         return null;
                       },
-                      obscureText: obscureText,
-                      cursorColor: Colors.grey,
-                      decoration: InputDecoration(
-                        suffixIcon: InkWell(
-                          onTap: () {
-                            setState(() {
-                              obscureText = !obscureText;
-                            });
-                          },
-                          child: Icon(
-                            Icons.remove_red_eye,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 16.0, horizontal: 14.0),
-                        labelText: "Password",
-                        labelStyle: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16.0,
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey)),
+                      icon: Icon(
+                        Icons.remove_red_eye,
+                        color: Colors.grey,
                       ),
-                    ),
+                      password: true,
+                      function2: () {
+                        setState(() {
+                          obscureText = !obscureText;
+                        });
+                      }),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 11,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.05),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.74,
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      decoration: BoxDecoration(boxShadow: [
-                        BoxShadow(
-                          color: Colors.lightBlue.withOpacity(0.2),
-                          spreadRadius: 4,
-                          blurRadius: 10,
-                          offset: Offset(7, 9),
-                        )
-                      ]),
-                      child: TextButton(
-                        style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.blue),
-                        ),
-                        onPressed: () {
-                          if (!_formKey.currentState!.validate()) {
-                            return;
-                          }
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Home()));
-                        },
-                        child: Text(
-                          'Login',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                      ),
-                    ),
+                  coloredButton(
+                    context,
+                    "Login",
+                    function: () {
+                      if (!_formKey.currentState!.validate()) {
+                        return;
+                      }
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Home()));
+                    },
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.05),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "Don't have an account?  ",
-                          style: TextStyle(fontSize: 14),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SignUp(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            "Sign Up",
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          ),
-                        )
-                      ],
-                    ),
+                  SizedBox(
+                    height: 30,
                   ),
+                  multiPropertyText(
+                    "Don't have an account?  ",
+                    "Sign Up",
+                    function: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SignUp(),
+                        ),
+                      );
+                    },
+                  )
                 ],
               ),
             ),
@@ -180,4 +93,68 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+}
+
+Widget inputTextField(text,
+    {function = "", icon = "", function2 = "", password = false}) {
+  return (password == true)
+      ? TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (function == "") ? () {} : function,
+          cursorColor: Colors.grey,
+          obscureText: obscureText,
+          decoration: InputDecoration(
+            suffixIcon: (icon == "")
+                ? null
+                : InkWell(
+                    onTap: (function2 == "") ? () {} : function2, child: icon),
+            contentPadding:
+                EdgeInsets.symmetric(vertical: 16.0, horizontal: 14.0),
+            labelText: text,
+            labelStyle: TextStyle(
+              color: Colors.grey,
+              fontSize: 16.0,
+            ),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey)),
+          ),
+        )
+      : TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: (function == "") ? () {} : function,
+          cursorColor: Colors.grey,
+          decoration: InputDecoration(
+            suffixIcon: (icon == "")
+                ? null
+                : InkWell(
+                    onTap: (function2 == "") ? () {} : function2, child: icon),
+            contentPadding:
+                EdgeInsets.symmetric(vertical: 16.0, horizontal: 14.0),
+            labelText: text,
+            labelStyle: TextStyle(
+              color: Colors.grey,
+              fontSize: 16.0,
+            ),
+            focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey)),
+          ),
+        );
+}
+
+Widget multiPropertyText(text, text1, {function = "", double size = 14}) {
+  return InkWell(
+    onTap: (function == "") ? () {} : function,
+    child: RichText(
+        text: TextSpan(children: [
+      TextSpan(
+        text: text,
+        style: TextStyle(fontSize: size, color: Colors.black54),
+      ),
+      TextSpan(
+        text: text1,
+        style: TextStyle(
+            fontSize: size, color: Colors.black54, fontWeight: FontWeight.bold),
+      )
+    ])),
+  );
 }
