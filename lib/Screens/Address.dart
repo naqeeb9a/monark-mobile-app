@@ -57,19 +57,17 @@ class _AddressPageState extends State<AddressPage> {
   Widget addressListBuilder(context) {
     return Obx(() {
       return (addressList.length == 0)
-          ? Expanded(
-              child: Column(
-                children: [
-                  Image.asset(
-                    "assets/noAddress.png",
-                    width: MediaQuery.of(context).size.width,
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text("No Addresses Found!")
-                ],
-              ),
+          ? Column(
+              children: [
+                Image.asset(
+                  "assets/noAddress.png",
+                  width: MediaQuery.of(context).size.width,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text("No Addresses Found!")
+              ],
             )
           : Expanded(
               child: ListView.builder(
