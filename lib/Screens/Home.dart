@@ -10,6 +10,8 @@ import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/Detailpage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 
+import 'Orders.dart';
+
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -300,6 +302,18 @@ Widget basicCards(context, imageUrl, price, text) {
 }
 
 Widget drawerItems(context) {
+  List drawerItemList = [
+    {"icon": Icons.person_outline, "text": "Profile", "screen": Orders()},
+    {
+      "icon": Icons.shopping_cart_outlined,
+      "text": "Orders",
+      "screen": Orders()
+    },
+    {"icon": Icons.notifications, "text": "Notifications", "screen": Orders()},
+    {"icon": Icons.help, "text": "Help", "screen": Orders()},
+    {"icon": Icons.star, "text": "Rate Us", "screen": Orders()},
+    {"icon": Icons.question_answer, "text": "About Us", "screen": Orders()}
+  ];
   return Column(
     children: [
       SizedBox(
