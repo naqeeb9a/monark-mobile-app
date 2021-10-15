@@ -310,10 +310,14 @@ Widget drawerItems(context) {
       "text": "Orders",
       "screen": Orders()
     },
-    {"icon": Icons.notifications, "text": "Notifications", "screen": Orders()},
-    {"icon": Icons.help, "text": "Help", "screen": Orders()},
-    {"icon": Icons.star, "text": "Rate Us", "screen": Orders()},
-    {"icon": Icons.question_answer, "text": "About Us", "screen": Orders()}
+    {
+      "icon": Icons.notifications_outlined,
+      "text": "Notifications",
+      "screen": Orders()
+    },
+    {"icon": Icons.help_outline, "text": "Help", "screen": Orders()},
+    {"icon": Icons.star_outline, "text": "Rate Us", "screen": Orders()},
+    {"icon": Icons.info_outline, "text": "About Us", "screen": Orders()}
   ];
   return Column(
     children: [
