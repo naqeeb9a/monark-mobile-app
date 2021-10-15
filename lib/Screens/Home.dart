@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/Detailpage.dart';
+import 'package:monark_app/Screens/Profile.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 
 import 'Orders.dart';
@@ -303,7 +304,7 @@ Widget basicCards(context, imageUrl, price, text) {
 
 Widget drawerItems(context) {
   List drawerItemList = [
-    {"icon": Icons.person_outline, "text": "Profile", "screen": Orders()},
+    {"icon": Icons.person_outline, "text": "Profile", "screen": Profile()},
     {
       "icon": Icons.shopping_cart_outlined,
       "text": "Orders",
