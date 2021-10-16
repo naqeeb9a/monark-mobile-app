@@ -101,7 +101,13 @@ Widget detailGrid(function, context, check, {productCheck = false}) {
                           : basicCards(
                               context,
                               snapshot.data[index]["image"]["src"],
-                              snapshot.data[index]["title"]);
+                              snapshot.data[index]["title"],
+                              description: snapshot.data[index]["body_html"]
+                                  .toString()
+                                  .substring(
+                                      3,
+                                      snapshot.data[index]["body_html"].length -
+                                          4));
                     });
               } else {
                 return Image.asset(

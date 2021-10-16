@@ -344,17 +344,19 @@ Widget cardList(context, {function, products}) {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: (products == true)
                       ? basicCards(
-                          context,
-                          snapshot.data[index]["image"]["src"],
-                          snapshot.data[index]["title"],
+                          context, snapshot.data[index]["image"]["src"], snapshot.data[index]["title"],
                           price: snapshot.data[index]["variants"][0]["price"]
                               .toString()
-                              .substring(0, 5))
+                              .substring(0, 5),
+                          description: snapshot.data[index]["body_html"].toString().substring(
+                              3, snapshot.data[index]["body_html"].length - 4))
                       : basicCards(
                           context,
                           snapshot.data[index]["image"]["src"],
                           snapshot.data[index]["title"],
-                        ),
+                          description: snapshot.data[index]["body_html"]
+                              .toString()
+                              .substring(3, snapshot.data[index]["body_html"].length - 4)),
                 );
               }),
         );
@@ -371,7 +373,10 @@ Widget cardList(context, {function, products}) {
   );
 }
 
-Widget basicCards(context, imageUrl, text, {price = 650}) {
+Widget basicCards(context, imageUrl, text,
+    {price = 650,
+    description =
+        "A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine."}) {
   return InkWell(
     onTap: () {
       Navigator.push(
@@ -381,6 +386,7 @@ Widget basicCards(context, imageUrl, text, {price = 650}) {
                     image: imageUrl,
                     price: price.toString(),
                     text: text,
+                    description: description,
                   )));
     },
     child: Container(
