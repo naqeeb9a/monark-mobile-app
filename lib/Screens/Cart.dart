@@ -90,59 +90,65 @@ Widget cartCard(index, context, {orders}) {
             width: MediaQuery.of(context).size.width / 4,
             fit: BoxFit.cover,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(cartItems[index]["title"]),
-              Text(
-                cartItems[index]["price"],
-                style: TextStyle(color: Colors.blue),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width / 4,
-                padding: EdgeInsets.all(10),
-                color: (orders == true) ? Colors.blue : Color(0xFFeeeeee),
-                child: (orders == true)
-                    ? Center(
-                        child: Text(
-                          "Order Again",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize:
-                                  MediaQuery.of(context).size.width * 0.03),
-                        ),
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              if (quantity > 1) {
-                                quantity--;
-                              }
-                            },
-                            child: Icon(
-                              Icons.remove,
-                              size: 15,
-                            ),
+          Container(
+            width: MediaQuery.of(context).size.width / 3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  cartItems[index]["title"],
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  cartItems[index]["price"],
+                  style: TextStyle(color: Colors.blue),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 4,
+                  padding: EdgeInsets.all(10),
+                  color: (orders == true) ? Colors.blue : Color(0xFFeeeeee),
+                  child: (orders == true)
+                      ? Center(
+                          child: Text(
+                            "Order Again",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.03),
                           ),
-                          Obx(() {
-                            return Text(quantity.toString());
-                          }),
-                          InkWell(
-                            onTap: () {
-                              quantity++;
-                            },
-                            child: Icon(
-                              Icons.add,
-                              size: 15,
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                if (quantity > 1) {
+                                  quantity--;
+                                }
+                              },
+                              child: Icon(
+                                Icons.remove,
+                                size: 15,
+                              ),
                             ),
-                          )
-                        ],
-                      ),
-              )
-            ],
+                            Obx(() {
+                              return Text(quantity.toString());
+                            }),
+                            InkWell(
+                              onTap: () {
+                                quantity++;
+                              },
+                              child: Icon(
+                                Icons.add,
+                                size: 15,
+                              ),
+                            )
+                          ],
+                        ),
+                )
+              ],
+            ),
           ),
           (orders == true)
               ? Container()

@@ -1,12 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:monark_app/Screens/Home.dart';
+import 'package:http/http.dart' as http;
 
 class SeeAll extends StatelessWidget {
   final bool check;
   final String text;
-  final dynamic array;
-  SeeAll({Key? key, required this.text, this.array, required this.check})
-      : super(key: key);
+  final dynamic function;
+
+  SeeAll({
+    Key? key,
+    required this.text,
+    this.function,
+    required this.check,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,36 +32,79 @@ class SeeAll extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              detailGrid(array, context, check)
+              detailGrid(function, context, check),
+              SizedBox(
+                height: 20,
+              )
             ],
           ),
         ));
   }
 }
 
-Widget detailGrid(array, context, check) {
+Widget detailGrid(function, context, check) {
   return Expanded(
-    child: GridView.builder(
-        itemCount: array.length,
-        gridDelegate: (check == true)
-            ? SliverGridDelegateWithFixedCrossAxisCount(
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                crossAxisCount: 3,
-                childAspectRatio: 2 / 1.5,
-              )
-            : SliverGridDelegateWithFixedCrossAxisCount(
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                crossAxisCount: 2,
-                childAspectRatio: 5 / 6.5,
-              ),
-        itemBuilder: (context, index) {
-          return (check == true)
-              ? categoryCards(
-                  context, array[index]["title"], array[index]["imageUrl"])
-              : basicCards(context, array[index]["imageUrl"],
-                  array[index]["price"], array[index]["title"]);
-        }),
+    child: (check == true)
+        ? FutureBuilder(
+            future: function,
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              if (snapshot.connectionState == ConnectionState.done &&
+                  snapshot.data != null) {
+                return GridView.builder(
+                    itemCount: (snapshot.data as List).length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      crossAxisCount: 2,
+                      childAspectRatio: 2 / 1.5,
+                    ),
+                    itemBuilder: (context, index) {
+                      return categoryCards(
+                          context,
+                          snapshot.data[index]["title"],
+                          snapshot.data[index]["id"],
+                          check: true);
+                    });
+              } else {
+                return Image.asset(
+                  "assets/loader.gif",
+                  scale: 7,
+                );
+              }
+            },
+          )
+        : FutureBuilder(
+            future: function,
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.done &&
+                  snapshot.data != null) {
+                return GridView.builder(
+                    itemCount: (snapshot.data as List).length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      crossAxisCount: 2,
+                      childAspectRatio: 5 / 8,
+                    ),
+                    itemBuilder: (context, index) {
+                      return basicCards(
+                          context,
+                          snapshot.data[index]["image"]["src"],
+                          snapshot.data[index]["title"]);
+                    });
+              } else {
+                return Image.asset(
+                  "assets/loader.gif",
+                  scale: 7,
+                );
+              }
+            }),
   );
+}
+
+getShopifyCollection(id) async {
+  var response = await http.get(Uri.parse(
+      "https://32a2c56e6eeee31171cc4cb4349c2329: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@monark-clothings.myshopify.com/admin/api/2021-07/collections/$id/products.json"));
+  var jsonData = jsonDecode(response.body);
+  return jsonData["products"];
 }

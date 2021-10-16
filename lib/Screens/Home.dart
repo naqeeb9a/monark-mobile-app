@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:badges/badges.dart';
@@ -10,12 +11,18 @@ import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/Detailpage.dart';
 import 'package:monark_app/Screens/Profile.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
-
+import 'package:http/http.dart' as http;
 import 'Orders.dart';
+import 'dart:math' as math;
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +47,7 @@ class Home extends StatelessWidget {
                   height: 30,
                 ),
                 rowText("Categories", context,
-                    array: imageArray,
+                    function: getShopifyCategory(),
                     text2: "See all",
                     check: true,
                     categoryCheck: true),
@@ -51,21 +58,37 @@ class Home extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                rowText("Featured", context,
-                    array: featuredArray, text2: "See all", check: true),
+                rowText("New Arrivals", context,
+                    function: getShopifyCollection(95736987777),
+                    text2: "See all",
+                    check: true),
                 SizedBox(
                   height: 20,
                 ),
-                cardList(context, featuredArray),
+                cardList(context, function: getShopifyCollection(95736987777)),
                 SizedBox(
                   height: 20,
                 ),
-                rowText("Best Sell", context,
-                    array: bestSell, text2: "See all", check: true),
+                rowText("Made in Turkey", context,
+                    function: getShopifyCollection(95422742657),
+                    text2: "See all",
+                    check: true),
                 SizedBox(
                   height: 20,
                 ),
-                cardList(context, bestSell),
+                cardList(context, function: getShopifyCollection(95422742657)),
+                SizedBox(
+                  height: 20,
+                ),
+                rowText("Products", context,
+                    text2: "See all",
+                    check: true,
+                    function: getShopifyProducts()),
+                SizedBox(
+                  height: 20,
+                ),
+                cardList(context, function: getShopifyProducts())
+                // detailGrid(getShopifyProducts(), context, false)
               ],
             ),
           ),
@@ -164,7 +187,7 @@ Widget searchbar() {
 }
 
 Widget rowText(text, context,
-    {array, text2 = "", bool check = false, bool categoryCheck = false}) {
+    {function, text2 = "", bool check = false, bool categoryCheck = false}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -181,7 +204,7 @@ Widget rowText(text, context,
                         builder: (context) => SeeAll(
                               check: categoryCheck,
                               text: text,
-                              array: array,
+                              function: function,
                             )));
               },
               child: Text(
@@ -194,47 +217,89 @@ Widget rowText(text, context,
   );
 }
 
+getShopifyCategory() async {
+  var response = await http.get(Uri.parse(
+      "https://32a2c56e6eeee31171cc4cb4349c2329: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@monark-clothings.myshopify.com/admin/api/2021-07/smart_collections.json"));
+  var jsonData = jsonDecode(response.body);
+  return jsonData["smart_collections"];
+}
+
 Widget categoryList(context) {
   return SizedBox(
     height: MediaQuery.of(context).size.height * 0.1,
-    child: ListView.builder(
-        itemCount: imageArray.length,
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: categoryCards(context, imageArray[index]["title"],
-                imageArray[index]["imageUrl"]),
+    child: FutureBuilder(
+      future: getShopifyCategory(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.data != null) {
+          return ListView.builder(
+              itemCount: (snapshot.data as List).length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: categoryCards(context, snapshot.data[index]["title"],
+                      snapshot.data[index]["id"]),
+                );
+              });
+        } else {
+          return Image.asset(
+            "assets/loader.gif",
+            scale: 7,
           );
-        }),
+        }
+      },
+    ),
   );
 }
 
-Widget categoryCards(BuildContext context, imageText, imageUrl) {
+Widget categoryCards(
+  context,
+  imageText,
+  id, {
+  check = false,
+}) {
   return InkWell(
-    onTap: () {},
+    onTap: () {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SeeAll(
+                  text: imageText,
+                  function: getShopifyCollection(id),
+                  check: false)));
+    },
     child: Stack(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(25),
           child: Container(
-              width: MediaQuery.of(context).size.width * 0.3,
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: CachedNetworkImage(
-                imageUrl: imageUrl,
-                fit: BoxFit.cover,
-                errorWidget: (context, url, error) => Container(),
-              )),
+            width: (check == true)
+                ? null
+                : MediaQuery.of(context).size.width * 0.3,
+            height: (check == true)
+                ? null
+                : MediaQuery.of(context).size.height * 0.1,
+            decoration: BoxDecoration(
+                color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                    .withOpacity(1.0)),
+          ),
         ),
         ClipRRect(
           borderRadius: BorderRadius.circular(25),
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.3,
-            height: MediaQuery.of(context).size.height * 0.1,
+            padding: EdgeInsets.all(8),
+            width: (check == true)
+                ? null
+                : MediaQuery.of(context).size.width * 0.3,
+            height: (check == true)
+                ? null
+                : MediaQuery.of(context).size.height * 0.1,
             alignment: Alignment.center,
             child: Text(
               imageText,
+              textAlign: TextAlign.center,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -248,24 +313,50 @@ Widget categoryCards(BuildContext context, imageText, imageUrl) {
   );
 }
 
-Widget cardList(context, array) {
-  return Container(
-    height: MediaQuery.of(context).size.height * 0.28,
-    child: ListView.builder(
-        itemCount: featuredArray.length,
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: basicCards(context, array[index]["imageUrl"],
-                array[index]["price"], array[index]["title"]),
-          );
-        }),
+getShopifyProducts() async {
+  var response = await http.get(Uri.parse(
+      "https://32a2c56e6eeee31171cc4cb4349c2329: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@monark-clothings.myshopify.com/admin/api/2021-07/products.json"));
+  var jsonData = jsonDecode(response.body);
+  return jsonData["products"];
+}
+
+Widget cardList(context, {function}) {
+  return FutureBuilder(
+    future: function,
+    builder: (BuildContext context, AsyncSnapshot snapshot) {
+      if (snapshot.connectionState == ConnectionState.done &&
+          snapshot.data != null) {
+        return SizedBox(
+          height: MediaQuery.of(context).size.height * 0.28,
+          child: ListView.builder(
+              itemCount: (snapshot.data as List).length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: basicCards(
+                    context,
+                    snapshot.data[index]["image"]["src"],
+                    snapshot.data[index]["title"],
+                  ),
+                );
+              }),
+        );
+      } else {
+        return SizedBox(
+          height: MediaQuery.of(context).size.height * 0.28,
+          child: Image.asset(
+            "assets/loader.gif",
+            scale: 7,
+          ),
+        );
+      }
+    },
   );
 }
 
-Widget basicCards(context, imageUrl, price, text) {
+Widget basicCards(context, imageUrl, text, {price = 650}) {
   return InkWell(
     onTap: () {
       Navigator.push(
@@ -273,31 +364,50 @@ Widget basicCards(context, imageUrl, price, text) {
           MaterialPageRoute(
               builder: (context) => DetailPage(
                     image: imageUrl,
-                    price: price,
+                    price: price.toString(),
                     text: text,
                   )));
     },
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            height: MediaQuery.of(context).size.height / 5,
-            width: MediaQuery.of(context).size.width / 3,
-            child: CachedNetworkImage(
-              imageUrl: imageUrl,
-              fit: BoxFit.cover,
+    child: Container(
+      width: MediaQuery.of(context).size.width / 3,
+      margin: EdgeInsets.all(5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Container(
+              height: MediaQuery.of(context).size.height / 5,
+              width: MediaQuery.of(context).size.width / 3,
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.cover,
+                placeholder: (context, string) {
+                  return Image.asset(
+                    "assets/loader.gif",
+                    scale: 7,
+                  );
+                },
+              ),
             ),
           ),
-        ),
-        Text(
-          price,
-          style: TextStyle(fontWeight: FontWeight.w500),
-        ),
-        Text(text),
-      ],
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Rs. " + price.toString(),
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              text,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }
