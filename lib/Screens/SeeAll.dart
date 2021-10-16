@@ -8,11 +8,13 @@ class SeeAll extends StatelessWidget {
   final bool check;
   final String text;
   final dynamic function;
+  final dynamic checkProducts;
 
   SeeAll({
     Key? key,
     required this.text,
     this.function,
+    this.checkProducts = false,
     required this.check,
   }) : super(key: key);
 
@@ -32,7 +34,7 @@ class SeeAll extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              detailGrid(function, context, check),
+              detailGrid(function, context, check, productCheck: checkProducts),
               SizedBox(
                 height: 20,
               )
@@ -42,7 +44,7 @@ class SeeAll extends StatelessWidget {
   }
 }
 
-Widget detailGrid(function, context, check) {
+Widget detailGrid(function, context, check, {productCheck = false}) {
   return Expanded(
     child: (check == true)
         ? FutureBuilder(
@@ -87,10 +89,19 @@ Widget detailGrid(function, context, check) {
                       childAspectRatio: 5 / 8,
                     ),
                     itemBuilder: (context, index) {
-                      return basicCards(
-                          context,
-                          snapshot.data[index]["image"]["src"],
-                          snapshot.data[index]["title"]);
+                      return (productCheck == true)
+                          ? basicCards(
+                              context,
+                              snapshot.data[index]["image"]["src"],
+                              snapshot.data[index]["title"],
+                              price: snapshot.data[index]["variants"][0]
+                                      ["price"]
+                                  .toString()
+                                  .substring(0, 5))
+                          : basicCards(
+                              context,
+                              snapshot.data[index]["image"]["src"],
+                              snapshot.data[index]["title"]);
                     });
               } else {
                 return Image.asset(

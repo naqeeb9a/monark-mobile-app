@@ -83,11 +83,13 @@ class _HomeState extends State<Home> {
                 rowText("Products", context,
                     text2: "See all",
                     check: true,
-                    function: getShopifyProducts()),
+                    function: getShopifyProducts(),
+                    productCheck: true),
                 SizedBox(
                   height: 20,
                 ),
-                cardList(context, function: getShopifyProducts())
+                cardList(context,
+                    function: getShopifyProducts(), products: true)
                 // detailGrid(getShopifyProducts(), context, false)
               ],
             ),
@@ -187,7 +189,11 @@ Widget searchbar() {
 }
 
 Widget rowText(text, context,
-    {function, text2 = "", bool check = false, bool categoryCheck = false}) {
+    {function,
+    text2 = "",
+    bool check = false,
+    bool categoryCheck = false,
+    productCheck = false}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -205,6 +211,7 @@ Widget rowText(text, context,
                               check: categoryCheck,
                               text: text,
                               function: function,
+                              checkProducts: productCheck,
                             )));
               },
               child: Text(
@@ -320,7 +327,7 @@ getShopifyProducts() async {
   return jsonData["products"];
 }
 
-Widget cardList(context, {function}) {
+Widget cardList(context, {function, products}) {
   return FutureBuilder(
     future: function,
     builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -335,11 +342,19 @@ Widget cardList(context, {function}) {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: basicCards(
-                    context,
-                    snapshot.data[index]["image"]["src"],
-                    snapshot.data[index]["title"],
-                  ),
+                  child: (products == true)
+                      ? basicCards(
+                          context,
+                          snapshot.data[index]["image"]["src"],
+                          snapshot.data[index]["title"],
+                          price: snapshot.data[index]["variants"][0]["price"]
+                              .toString()
+                              .substring(0, 5))
+                      : basicCards(
+                          context,
+                          snapshot.data[index]["image"]["src"],
+                          snapshot.data[index]["title"],
+                        ),
                 );
               }),
         );

@@ -39,7 +39,6 @@ class _DetailPageState extends State<DetailPage> {
                       imageUrl: widget.image,
                       fit: BoxFit.cover,
                       height: MediaQuery.of(context).size.height / 3,
-                      // width: MediaQuery.of(context).size.width / 1.2,
                     ),
                   ),
                   Text(
@@ -47,7 +46,7 @@ class _DetailPageState extends State<DetailPage> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                   ),
                   Text(
-                    widget.price,
+                    "Rs. " + widget.price,
                     style: TextStyle(fontWeight: FontWeight.w500),
                   ),
                   Divider(
