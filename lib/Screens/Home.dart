@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monark_app/Data/CategoryData.dart';
+import 'package:monark_app/Screens/AboutUs.dart';
 import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/Detailpage.dart';
 import 'package:monark_app/Screens/Profile.dart';
@@ -448,7 +449,7 @@ Widget drawerItems(context) {
     },
     {"icon": Icons.help_outline, "text": "Help", "screen": Orders()},
     {"icon": Icons.star_outline, "text": "Rate Us", "screen": Orders()},
-    {"icon": Icons.info_outline, "text": "About Us", "screen": Orders()}
+    {"icon": Icons.info_outline, "text": "About Us", "screen": AboutUs()}
   ];
   return Column(
     children: [

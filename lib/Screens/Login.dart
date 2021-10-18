@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
@@ -101,6 +102,7 @@ Widget inputTextField(text,
     autovalidateMode: AutovalidateMode.onUserInteraction,
     validator: (function == "") ? () {} : function,
     cursorColor: Colors.grey,
+    keyboardType: TextInputType.emailAddress,
     obscureText: (password == true) ? obscureText : false,
     decoration: InputDecoration(
       suffixIcon: (icon == "")
