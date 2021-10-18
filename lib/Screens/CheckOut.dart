@@ -5,6 +5,7 @@ import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/Confirmation.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/Home.dart';
+import 'package:monark_app/config.dart';
 
 import 'Payment.dart';
 
@@ -49,7 +50,7 @@ class CheckOut extends StatelessWidget {
                         padding: EdgeInsets.all(20),
                         child: Text(
                           "No Address Added Yet!",
-                          style: TextStyle(color: Colors.red),
+                          style: TextStyle(color: myRed),
                         ),
                       )
                     : Align(
@@ -76,7 +77,7 @@ class CheckOut extends StatelessWidget {
                               ),
                               Text(
                                 addressList[group][6],
-                                style: TextStyle(color: Colors.grey),
+                                style: TextStyle(color: myGrey),
                               )
                             ],
                           ),

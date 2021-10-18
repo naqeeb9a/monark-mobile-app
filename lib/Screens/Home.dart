@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:badges/badges.dart';
@@ -7,15 +6,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/AboutUs.dart';
 import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/Detailpage.dart';
+import 'package:monark_app/Screens/Login.dart';
 import 'package:monark_app/Screens/Profile.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:monark_app/Screens/Welcome.dart';
+import 'package:monark_app/config.dart';
 import 'Orders.dart';
+import 'dart:math' as math;
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -31,7 +33,7 @@ class _HomeState extends State<Home> {
       appBar: bar(context),
       drawer: SafeArea(
         child: Container(
-          color: Colors.white,
+          color: myWhite,
           child: Drawer(child: drawerItems(context)),
         ),
       ),
@@ -114,7 +116,7 @@ PreferredSizeWidget bar(context, {check = false}) {
               },
               child: Icon(Icons.arrow_back_outlined))
           : null,
-      iconTheme: IconThemeData(color: Colors.black),
+      iconTheme: IconThemeData(color: myBlack),
       elevation: 0,
       actions: (check == true)
           ? [
@@ -126,29 +128,34 @@ PreferredSizeWidget bar(context, {check = false}) {
                 return Badge(
                     badgeContent: Text(
                       cartItems.length.toString(),
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: myWhite),
                     ),
                     child: Icon(Icons.shopping_bag_outlined));
               }))
             ]
           : [
-              IconButton(onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Cart()));
-              }, icon: Obx(() {
-                return Badge(
-                    badgeContent: Text(
-                      cartItems.length.toString(),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    child: Icon(Icons.shopping_bag_outlined));
-              })),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Cart()));
+                },
+                icon: Obx(
+                  () {
+                    return Badge(
+                        badgeContent: Text(
+                          cartItems.length.toString(),
+                          style: TextStyle(color: myWhite),
+                        ),
+                        child: Icon(Icons.shopping_bag_outlined));
+                  },
+                ),
+              ),
               IconButton(
                 onPressed: () {},
                 icon: Icon(
                   Icons.filter_list,
                 ),
-              )
+              ),
             ],
     ),
   );
@@ -158,11 +165,11 @@ Widget searchbar() {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 5),
     decoration: BoxDecoration(
-        color: Colors.white,
+        color: myWhite,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-              color: Colors.grey,
+              color: myGrey,
               spreadRadius: 2,
               blurRadius: 3,
               offset: Offset(2, 2))
@@ -218,7 +225,7 @@ Widget rowText(text, context,
               },
               child: Text(
                 text2,
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(color: myGrey),
               ),
             )
           : Container()
@@ -311,10 +318,10 @@ Widget categoryCards(
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: myWhite,
                   fontSize: MediaQuery.of(context).size.width * 0.04),
             ),
-            color: Colors.black26,
+            color: myBlack,
           ),
         )
       ],
@@ -484,18 +491,25 @@ Widget drawerItems(context) {
           height: MediaQuery.of(context).size.height * 0.07,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          color: Colors.blue,
-          onPressed: () {},
+          color: myRed,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Welcome(),
+              ),
+            );
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
                 Icons.logout_outlined,
-                color: Colors.white,
+                color: myWhite,
               ),
               Text(
                 "  Logout",
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: myWhite),
               ),
             ],
           ),
@@ -510,7 +524,7 @@ Widget profilePicture() {
     children: [
       CircleAvatar(
         minRadius: 50,
-        backgroundColor: Colors.red,
+        backgroundColor: titleRed,
         backgroundImage: NetworkImage(
             "https://cdn.allthings.how/wp-content/uploads/2020/11/allthings.how-how-to-change-your-picture-on-zoom-profile-picture-759x427.png?width=800"),
       ),
@@ -520,7 +534,7 @@ Widget profilePicture() {
       Text(
         "Adam Balina",
         style: TextStyle(
-            fontSize: 25, color: Colors.black, fontWeight: FontWeight.bold),
+            fontSize: 25, color: myBlack, fontWeight: FontWeight.bold),
       )
     ],
   );

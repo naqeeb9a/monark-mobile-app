@@ -7,6 +7,7 @@ import 'package:monark_app/Screens/Cart.dart';
 
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/Home.dart';
+import 'package:monark_app/config.dart';
 
 import 'Payment.dart';
 
@@ -110,7 +111,7 @@ class _AddressPageState extends State<AddressPage> {
                               ),
                               Text(
                                 addressList[index][6],
-                                style: TextStyle(color: Colors.grey),
+                                style: TextStyle(color: myGrey),
                               )
                             ],
                           ),
@@ -128,7 +129,7 @@ Widget bottomButton2(context, text, icon, {function}) {
     child: InkWell(
       onTap: function,
       child: DottedBorder(
-        color: Colors.lightBlue,
+        color: myRed,
         strokeWidth: 1,
         child: Container(
             height: MediaQuery.of(context).size.height * 0.06,
@@ -138,14 +139,14 @@ Widget bottomButton2(context, text, icon, {function}) {
               children: [
                 Icon(
                   icon,
-                  color: Colors.lightBlue,
+                  color: myRed,
                 ),
                 SizedBox(
                   width: 10,
                 ),
                 Text(
                   text,
-                  style: TextStyle(color: Colors.lightBlue),
+                  style: TextStyle(color:myRed),
                 )
               ],
             )),

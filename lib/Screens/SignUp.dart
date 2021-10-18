@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:monark_app/config.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/Login.dart';
 import 'package:monark_app/Screens/Welcome.dart';
@@ -20,7 +21,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffffffff),
+      backgroundColor: myWhite,
       appBar: bar2(context),
       body: SafeArea(
         child: Container(
@@ -61,7 +62,7 @@ class _SignUpState extends State<SignUp> {
                       },
                       icon: Icon(
                         Icons.remove_red_eye,
-                        color: Colors.grey,
+                        color: myBlack,
                       ),
                       password: true,
                       function2: () {

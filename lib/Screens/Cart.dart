@@ -5,6 +5,7 @@ import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/Address.dart';
 import 'package:monark_app/Screens/Detailpage.dart';
 import 'package:monark_app/Screens/Home.dart';
+import 'package:monark_app/config.dart';
 
 class Cart extends StatelessWidget {
   const Cart({Key? key}) : super(key: key);
@@ -72,7 +73,7 @@ Widget cartCard(index, context, {orders}) {
   return Container(
     padding: EdgeInsets.all(20),
     margin: EdgeInsets.symmetric(vertical: 10),
-    decoration: BoxDecoration(color: Colors.white, boxShadow: [
+    decoration: BoxDecoration(color:myWhite, boxShadow: [
       BoxShadow(
           color: Color(0xFFeeeeee),
           spreadRadius: 6,
@@ -102,7 +103,7 @@ Widget cartCard(index, context, {orders}) {
                 ),
                 Text(
                   cartItems[index]["price"],
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(color: myRed),
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width / 4,
@@ -113,7 +114,7 @@ Widget cartCard(index, context, {orders}) {
                           child: Text(
                             "Order Again",
                             style: TextStyle(
-                                color: Colors.white,
+                                color: myWhite,
                                 fontSize:
                                     MediaQuery.of(context).size.width * 0.03),
                           ),
@@ -169,13 +170,13 @@ Widget bottomButton1(context, text, page) {
   return Positioned(
     bottom: 20,
     child: MaterialButton(
-      color: Colors.lightBlue,
+      color: myRed,
       height: MediaQuery.of(context).size.height * 0.06,
       minWidth: MediaQuery.of(context).size.width / 1.3,
       onPressed: page,
       child: Text(
         text,
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: myWhite),
       ),
     ),
   );

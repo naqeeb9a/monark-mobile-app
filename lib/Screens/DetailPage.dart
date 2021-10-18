@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/Cart.dart';
+import 'package:monark_app/config.dart';
 
 class DetailPage extends StatefulWidget {
   final String image;
@@ -143,7 +144,7 @@ PreferredSizeWidget bar2(context, {cartCheck = false, icon = Icons.clear_all}) {
           Navigator.pop(context);
         },
         child: Icon(Icons.arrow_back_sharp)),
-    iconTheme: IconThemeData(color: Colors.black),
+    iconTheme: IconThemeData(color: myBlack),
     backgroundColor: Colors.transparent,
     elevation: 0,
     actions: [
@@ -162,7 +163,7 @@ PreferredSizeWidget bar2(context, {cartCheck = false, icon = Icons.clear_all}) {
                       return Badge(
                           badgeContent: Text(
                             cartItems.length.toString(),
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: myWhite),
                           ),
                           child: Icon(Icons.shopping_bag_outlined));
                     })
@@ -176,7 +177,7 @@ Widget bottomButton(context, image, price, text) {
   return Positioned(
     bottom: 0,
     child: MaterialButton(
-      color: Colors.blue,
+      color: myRed,
       height: MediaQuery.of(context).size.height / 14,
       minWidth: MediaQuery.of(context).size.width,
       onPressed: () {
@@ -194,7 +195,7 @@ Widget bottomButton(context, image, price, text) {
         children: [
           Icon(
             Icons.add_shopping_cart_sharp,
-            color: Colors.white,
+            color:myWhite,
             size: 30,
           ),
           SizedBox(
@@ -202,7 +203,7 @@ Widget bottomButton(context, image, price, text) {
           ),
           Text(
             "Add to Cart",
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: myWhite),
           ),
         ],
       ),

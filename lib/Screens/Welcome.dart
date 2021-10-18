@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:monark_app/config.dart';
 import 'package:monark_app/Screens/Login.dart';
-
 import 'SignUp.dart';
 
 class Welcome extends StatelessWidget {
@@ -21,7 +21,7 @@ class Welcome extends StatelessWidget {
                 multiPropertyText("Welcome to ", "Monark", size: 22),
                 Text(
                   "Explore Us",
-                  style: TextStyle(fontSize: 20, color: Colors.black87),
+                  style: TextStyle(fontSize: 20, color: myBlack),
                 ),
                 Image.asset("assets/shopping.png"),
                 coloredButton(context, "Login", function: () {
@@ -55,14 +55,14 @@ Widget coloredButton(context, text, {function = "", noColor=false}) {
           onPressed: (function == "") ? () {} : function,
           child: Text(
             text,
-            style: TextStyle(color: Colors.black, fontSize: 18),
+            style: TextStyle(color: myBlack, fontSize: 18),
           ),
         )
       : Container(
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Colors.lightBlue.withOpacity(0.2),
+                color: titleRed.withOpacity(0.2),
                 spreadRadius: 4,
                 blurRadius: 10,
                 offset: Offset(7, 9),
@@ -74,11 +74,11 @@ Widget coloredButton(context, text, {function = "", noColor=false}) {
             height: MediaQuery.of(context).size.height * 0.06,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            color: Colors.blue,
+            color: myRed,
             onPressed:(function=="")?(){} :function,
             child: Text(
               text,
-              style: TextStyle(color: Colors.white, fontSize: 18),
+              style: TextStyle(color: myWhite, fontSize: 18),
             ),
           ),
         );

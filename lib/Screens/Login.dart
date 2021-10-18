@@ -5,6 +5,7 @@ import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/Home.dart';
 import 'package:monark_app/Screens/SignUp.dart';
 import 'package:monark_app/Screens/Welcome.dart';
+import 'package:monark_app/config.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffffffff),
+      backgroundColor: myWhite,
       appBar: bar2(context),
       body: SafeArea(
         child: Container(
@@ -48,7 +49,7 @@ class _LoginState extends State<Login> {
                       },
                       icon: Icon(
                         Icons.remove_red_eye,
-                        color: Colors.grey,
+                        color: myBlack,
                       ),
                       password: true,
                       function2: () {
@@ -101,7 +102,7 @@ Widget inputTextField(text,
   return TextFormField(
     autovalidateMode: AutovalidateMode.onUserInteraction,
     validator: (function == "") ? () {} : function,
-    cursorColor: Colors.grey,
+    cursorColor: myBlack,
     keyboardType: TextInputType.emailAddress,
     obscureText: (password == true) ? obscureText : false,
     decoration: InputDecoration(
@@ -111,11 +112,11 @@ Widget inputTextField(text,
       contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 14.0),
       labelText: text,
       labelStyle: TextStyle(
-        color: Colors.grey,
+        color: myBlack,
         fontSize: 16.0,
       ),
       focusedBorder:
-          UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+          UnderlineInputBorder(borderSide: BorderSide(color: myGrey)),
     ),
   );
 }
@@ -127,12 +128,12 @@ Widget multiPropertyText(text, text1, {function = "", double size = 14}) {
         text: TextSpan(children: [
       TextSpan(
         text: text,
-        style: TextStyle(fontSize: size, color: Colors.black54),
+        style: TextStyle(fontSize: size, color: myBlack),
       ),
       TextSpan(
         text: text1,
         style: TextStyle(
-            fontSize: size, color: Colors.black54, fontWeight: FontWeight.bold),
+            fontSize: size, color: myBlack, fontWeight: FontWeight.bold),
       )
     ])),
   );

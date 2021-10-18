@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/Cart.dart';
+import 'package:monark_app/config.dart';
 
 class ConfirmationPage extends StatelessWidget {
   const ConfirmationPage({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class ConfirmationPage extends StatelessWidget {
         return false;
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: myWhite,
         body: SafeArea(
           child: Container(
             height: MediaQuery.of(context).size.height,
@@ -26,7 +27,7 @@ class ConfirmationPage extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: MediaQuery.of(context).size.width / 4,
-                      backgroundColor: Color(0xFFeeeeee),
+                      backgroundColor: myWhite,
                       child: Image.asset(
                         "assets/thumb.png",
                         width: MediaQuery.of(context).size.width / 2.3,

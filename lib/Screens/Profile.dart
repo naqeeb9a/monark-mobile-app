@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
+import 'package:monark_app/config.dart';
 import 'package:monark_app/Screens/Home.dart';
 
 class Profile extends StatelessWidget {
@@ -47,7 +48,7 @@ Widget profileText(text1, text2) {
         Text(
           text1,
           style: TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
+              fontSize: 16, color: myBlack, fontWeight: FontWeight.bold),
         ),
         SizedBox(
           height: 10,
@@ -56,7 +57,7 @@ Widget profileText(text1, text2) {
           text2,
           style: TextStyle(
             fontSize: 16,
-            color: Colors.black,
+            color: myBlack,
           ),
         ),
       ],
