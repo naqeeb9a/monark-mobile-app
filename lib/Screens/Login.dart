@@ -103,6 +103,7 @@ Widget inputTextField(text,
     autovalidateMode: AutovalidateMode.onUserInteraction,
     validator: (function == "") ? () {} : function,
     cursorColor: myBlack,
+    textInputAction: TextInputAction.next,
     keyboardType: TextInputType.emailAddress,
     obscureText: (password == true) ? obscureText : false,
     decoration: InputDecoration(
@@ -116,7 +117,7 @@ Widget inputTextField(text,
         fontSize: 16.0,
       ),
       focusedBorder:
-          UnderlineInputBorder(borderSide: BorderSide(color: myGrey)),
+          UnderlineInputBorder(borderSide: BorderSide(color: myBlack)),
     ),
   );
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:monark_app/config.dart';
 import 'package:monark_app/Screens/Login.dart';
+import 'package:monark_app/config.dart';
+
 import 'SignUp.dart';
 
 class Welcome extends StatelessWidget {
@@ -49,7 +50,7 @@ class Welcome extends StatelessWidget {
   }
 }
 
-Widget coloredButton(context, text, {function = "", noColor=false}) {
+Widget coloredButton(context, text, {function = "", noColor = false}) {
   return (noColor == true)
       ? MaterialButton(
           onPressed: (function == "") ? () {} : function,
@@ -64,8 +65,8 @@ Widget coloredButton(context, text, {function = "", noColor=false}) {
               BoxShadow(
                 color: titleRed.withOpacity(0.2),
                 spreadRadius: 4,
-                blurRadius: 10,
-                offset: Offset(7, 9),
+                blurRadius: 8,
+                offset: Offset(3, 6),
               )
             ],
           ),
@@ -75,7 +76,7 @@ Widget coloredButton(context, text, {function = "", noColor=false}) {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             color: myRed,
-            onPressed:(function=="")?(){} :function,
+            onPressed: (function == "") ? () {} : function,
             child: Text(
               text,
               style: TextStyle(color: myWhite, fontSize: 18),
