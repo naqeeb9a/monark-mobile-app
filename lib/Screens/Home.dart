@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:badges/badges.dart';
@@ -6,15 +7,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/AboutUs.dart';
 import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/Detailpage.dart';
 import 'package:monark_app/Screens/Profile.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
-import 'package:http/http.dart' as http;
+
 import 'Orders.dart';
-import 'dart:math' as math;
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

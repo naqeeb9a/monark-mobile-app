@@ -1,28 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:monark_app/Screens/Home.dart';
+import 'package:monark_app/config.dart';
 
 void main() {
   runApp(MyApp());
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: myRed,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  final MaterialColor primaryColor = const MaterialColor(
+    0xffb22f32,
+    const <int, Color>{
+      50: const Color(0xffb22f32),
+      100: const Color(0xffb22f32),
+      200: const Color(0xffb22f32),
+      300: const Color(0xffb22f32),
+      400: const Color(0xffb22f32),
+      500: const Color(0xffb22f32),
+      600: const Color(0xffb22f32),
+      700: const Color(0xffb22f32),
+      800: const Color(0xffb22f32),
+      900: const Color(0xffb22f32),
+    },
+  );
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+        appBarTheme: AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle.light,
+        ),
+        fontFamily: 'Basic-Commercial-LT-Com-Roman',
+        primarySwatch: primaryColor,
       ),
       home: Home(),
     );
