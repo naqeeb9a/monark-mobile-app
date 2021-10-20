@@ -397,7 +397,7 @@ Widget basicCards(context, imageUrl, text,
           MaterialPageRoute(
               builder: (context) => DetailPage(
                     image: imageUrl,
-                    price: price.toString(),
+                    price: double.parse(price).toInt().toString(),
                     text: text,
                     array: sizeOption,
                     description: description,

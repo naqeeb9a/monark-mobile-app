@@ -80,7 +80,6 @@ class CheckOut extends StatelessWidget {
                               ),
                               Text(
                                 addressList[group][6],
-                                style: TextStyle(color: myGrey),
                               )
                             ],
                           ),

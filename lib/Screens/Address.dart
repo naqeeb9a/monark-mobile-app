@@ -122,7 +122,6 @@ class _AddressPageState extends State<AddressPage> {
                               ),
                               Text(
                                 addressList[index][6],
-                                style: TextStyle(color: myGrey),
                               )
                             ],
                           ),
