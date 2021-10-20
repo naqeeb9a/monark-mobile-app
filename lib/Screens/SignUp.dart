@@ -1,11 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:monark_app/config.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/Login.dart';
-import 'package:monark_app/Screens/Welcome.dart';
+import 'package:monark_app/config.dart';
+import 'package:monark_app/widgets/coloredButton.dart';
+import 'package:monark_app/widgets/form_fields.dart';
+import 'package:monark_app/widgets/media_query.dart';
+import 'package:monark_app/widgets/rich_text.dart';
 
-import 'Home.dart';
+final _formKey = GlobalKey<FormState>();
+
+final fName = TextEditingController();
+final lName = TextEditingController();
+final email = TextEditingController();
+final password = TextEditingController();
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -16,7 +24,6 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   bool obscureText = true;
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -31,21 +38,57 @@ class _SignUpState extends State<SignUp> {
               key: _formKey,
               child: Column(
                 children: [
-                  rowText("Sign Up", context),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Sign Up",
+                        style: TextStyle(
+                          color: myBlack,
+                          fontWeight: FontWeight.w600,
+                          fontSize: dynamicWidth(context, .09),
+                        ),
+                      ),
+                    ],
+                  ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 12,
+                    height: dynamicHeight(context, .08),
                   ),
                   inputTextField(
-                    "Name",
+                    context,
+                    false,
+                    "First Name",
+                    fName,
                     function: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a valid name';
+                      if (value!.isEmpty) {
+                        return 'Please enter a valid Name';
                       }
                       return null;
                     },
                   ),
+                  SizedBox(
+                    height: dynamicHeight(context, .01),
+                  ),
                   inputTextField(
+                    context,
+                    false,
+                    "Last Name",
+                    lName,
+                    function: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter a valid Name';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: dynamicHeight(context, .01),
+                  ),
+                  inputTextField(
+                    context,
+                    false,
                     "Email",
+                    email,
                     function: (value) {
                       if (value!.isEmpty || !value.contains("@")) {
                         return 'Please enter a valid Email';
@@ -53,45 +96,39 @@ class _SignUpState extends State<SignUp> {
                       return null;
                     },
                   ),
-                  inputTextField("Password",
-                      function: (value) {
-                        if (value!.isEmpty || value.length < 8) {
-                          return 'Password must have 8 characters';
-                        }
-                        return null;
-                      },
-                      icon: Icon(
-                        Icons.remove_red_eye,
-                        color: myBlack,
-                      ),
-                      password: true,
-                      function2: () {
-                        setState(() {
-                          obscureText = !obscureText;
-                        });
-                      }),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 11,
+                    height: dynamicHeight(context, .01),
                   ),
-                  coloredButton(context, "Sign Up", function: () {
-                    if (!_formKey.currentState!.validate()) {
-                      return;
-                    }
-                    Navigator.pop(context);
-                  }),
+                  inputTextField(
+                    context,
+                    true,
+                    "Password",
+                    password,
+                    function: (value) {
+                      if (value!.isEmpty || value.length < 8) {
+                        return 'Password must have 8 characters';
+                      }
+                      return null;
+                    },
+                  ),
                   SizedBox(
-                    height: 30,
+                    height: dynamicHeight(context, .1),
                   ),
-                  multiPropertyText("Have an account already? ", "Sign In",
-                      function: () {
-                    Navigator.pop(context);
-                    Navigator.push(
+                  coloredButton(
+                      context, "SignUp", Login(), myRed, myWhite, false),
+                  SizedBox(
+                    height: dynamicHeight(context, .04),
+                  ),
+                  richTextWidget(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => Login(),
-                      ),
-                    );
-                  }),
+                      "Already have an account?  ",
+                      "Log In",
+                      dynamicWidth(context, .04),
+                      dynamicWidth(context, .05),
+                      Login(),
+                      myBlack,
+                      myRed,
+                      false),
                 ],
               ),
             ),

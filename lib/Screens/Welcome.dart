@@ -1,9 +1,12 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:monark_app/Screens/Login.dart';
-import 'package:monark_app/config.dart';
+import 'package:monark_app/Screens/Home.dart';
+import 'package:monark_app/widgets/coloredButton.dart';
+import 'package:monark_app/widgets/media_query.dart';
+import 'package:monark_app/widgets/rich_text.dart';
 
-import 'SignUp.dart';
+import '../config.dart';
+import 'Login.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({Key? key}) : super(key: key);
@@ -11,36 +14,51 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
+      body: SafeArea(
+        child: Center(
           child: Container(
-            height: MediaQuery.of(context).size.height / 1.1,
-            margin: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+            height: dynamicHeight(context, .92),
+            width: dynamicWidth(context, .92),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                multiPropertyText("Welcome to ", "Monark", size: 22),
-                Text(
+                richTextWidget(
+                    context,
+                    "Welcome to ",
+                    "Monark",
+                    dynamicWidth(context, .05),
+                    dynamicWidth(context, .064),
+                    "",
+                    myBlack,
+                    myRed,
+                    ""),
+                AutoSizeText(
                   "Explore Us",
-                  style: TextStyle(fontSize: 20, color: myBlack),
+                  style: TextStyle(fontSize: 20.0, color: myBlack),
                 ),
-                Image.asset("assets/shopping.png"),
-                coloredButton(context, "Login", function: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Login(),
+                Image.asset(
+                  "assets/shopping.png",
+                  height: dynamicHeight(context, .4),
+                ),
+                coloredButton(context, "Login", Login(), myRed, myWhite, true),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Home(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    "Continue as a Guest",
+                    style: TextStyle(
+                      fontSize: dynamicWidth(context, .056),
+                      color: myRed,
+                      fontWeight: FontWeight.w400,
                     ),
-                  );
-                }),
-                coloredButton(context, "SignUp", function: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SignUp(),
-                    ),
-                  );
-                }, noColor: true)
+                  ),
+                ),
               ],
             ),
           ),
@@ -48,39 +66,4 @@ class Welcome extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget coloredButton(context, text, {function = "", noColor = false}) {
-  return (noColor == true)
-      ? MaterialButton(
-          onPressed: (function == "") ? () {} : function,
-          child: Text(
-            text,
-            style: TextStyle(color: myBlack, fontSize: 18),
-          ),
-        )
-      : Container(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: titleRed.withOpacity(0.2),
-                spreadRadius: 4,
-                blurRadius: 8,
-                offset: Offset(3, 6),
-              )
-            ],
-          ),
-          child: MaterialButton(
-            minWidth: MediaQuery.of(context).size.width * 0.74,
-            height: MediaQuery.of(context).size.height * 0.06,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            color: myRed,
-            onPressed: (function == "") ? () {} : function,
-            child: Text(
-              text,
-              style: TextStyle(color: myWhite, fontSize: 18),
-            ),
-          ),
-        );
 }
