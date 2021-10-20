@@ -101,7 +101,6 @@ class _DetailPageState extends State<DetailPage> {
 }
 
 Widget sizeOptions(array, context) {
-  print(array);
   return Container(
     height: MediaQuery.of(context).size.height * 0.03,
     child: ListView.builder(
