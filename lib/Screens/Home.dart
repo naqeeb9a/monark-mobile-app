@@ -354,10 +354,7 @@ Widget cardList(context, {function, products}) {
                           context,
                           snapshot.data[index]["image"]["src"],
                           snapshot.data[index]["title"],
-                          price: snapshot.data[index]["variants"][0]["price"].toString().substring(
-                              0,
-                              snapshot.data[index]["variants"][0]["price"].length -
-                                  3),
+                          price: double.parse(snapshot.data[index]["variants"][0]["price"]).toInt().toString(),
                           sizeOption: snapshot.data[index]["options"][0]
                               ["values"],
                           description:

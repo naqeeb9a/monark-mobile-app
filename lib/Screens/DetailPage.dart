@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/config.dart';
+import 'package:monark_app/widgets/media_query.dart';
 
 class DetailPage extends StatefulWidget {
   final String image;
@@ -112,19 +113,26 @@ class _DetailPageState extends State<DetailPage> {
 Widget sizeOptions(array, context) {
   return Container(
     height: MediaQuery.of(context).size.height * 0.08,
-    child: ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: array.length,
-      shrinkWrap: true,
-      itemBuilder: (context, index) {
-        return CircleAvatar(
-          backgroundColor: myBlack,
-          child: Text(
-            array[index].toString(),
-            style: TextStyle(color: myGrey),
-          ),
-        );
-      },
+    child: Center(
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: array.length,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: dynamicWidth(context, .02),
+            ),
+            child: CircleAvatar(
+              backgroundColor: myBlack,
+              child: Text(
+                array[index].toString(),
+                style: TextStyle(color: myGrey),
+              ),
+            ),
+          );
+        },
+      ),
     ),
   );
 }
@@ -175,7 +183,7 @@ Widget bottomButton(context, image, price, text) {
       onPressed: () {
         cartItems.add({
           "imageUrl": image,
-          "price": price.toString().substring(0, price.length - 3),
+          "price": price,
           "title": text
         });
         var snackBar = SnackBar(
