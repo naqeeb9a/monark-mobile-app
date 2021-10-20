@@ -10,7 +10,6 @@ import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/AboutUs.dart';
 import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/Detailpage.dart';
-import 'package:monark_app/Screens/Login.dart';
 import 'package:monark_app/Screens/Profile.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:http/http.dart' as http;
@@ -208,7 +207,7 @@ Widget rowText(text, context,
     children: [
       Text(
         text,
-        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
       ),
       (check == true)
           ? InkWell(
@@ -225,7 +224,6 @@ Widget rowText(text, context,
               },
               child: Text(
                 text2,
-                style: TextStyle(color: myGrey),
               ),
             )
           : Container()
