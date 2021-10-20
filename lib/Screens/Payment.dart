@@ -11,6 +11,7 @@ class Payment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(cartItems);
     var subtotal = 0;
     for (var u in cartItems) {
       subtotal += int.parse(u["price"]);

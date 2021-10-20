@@ -47,8 +47,19 @@ class _AddressPageState extends State<AddressPage> {
                 context, MaterialPageRoute(builder: (context) => AddAddress()));
           }),
           bottomButton1(context, "Continue to Payment", () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Payment()));
+            if (cartItems.isNotEmpty && addressList.isNotEmpty) {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Payment()));
+            } else {
+              var snackBar = SnackBar(
+                content: (cartItems.isEmpty)
+                    ? Text('Cart is empty')
+                    : Text("No Address selected"),
+                duration: const Duration(milliseconds: 1000),
+              );
+
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
           })
         ],
       ),
@@ -146,7 +157,7 @@ Widget bottomButton2(context, text, icon, {function}) {
                 ),
                 Text(
                   text,
-                  style: TextStyle(color:myRed),
+                  style: TextStyle(color: myRed),
                 )
               ],
             )),
