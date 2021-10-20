@@ -181,11 +181,7 @@ Widget bottomButton(context, image, price, text) {
       height: MediaQuery.of(context).size.height / 14,
       minWidth: MediaQuery.of(context).size.width,
       onPressed: () {
-        cartItems.add({
-          "imageUrl": image,
-          "price": price,
-          "title": text
-        });
+        cartItems.add({"imageUrl": image, "price": price, "title": text});
         var snackBar = SnackBar(
           content: (cartItems.length > 1)
               ? Text(cartItems.length.toString() + ' Items added to cart')
