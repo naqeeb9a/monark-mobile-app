@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/Address.dart';
 import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/CheckOut.dart';
@@ -10,6 +11,10 @@ class Payment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var subtotal = 0;
+    for (var u in cartItems) {
+      subtotal += int.parse(u["price"]);
+    }
     return Scaffold(
       appBar: bar2(context),
       body: Stack(
@@ -27,13 +32,13 @@ class Payment extends StatelessWidget {
                 SizedBox(
                   height: 30,
                 ),
-                totalRow("Subtotal", r"$160"),
-                totalRow("Discount", r"5%"),
-                totalRow("Shipping", r"$10"),
+                totalRow("Subtotal", r"$ " + subtotal.toString()),
+                totalRow("Discount", r"0%"),
+                totalRow("Shipping", r"$ 0"),
                 Divider(
                   thickness: 2,
                 ),
-                totalRow("Total", r"$162")
+                totalRow("Total", r"$ " + subtotal.toString())
               ],
             ),
           ),

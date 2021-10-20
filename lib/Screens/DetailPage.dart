@@ -10,11 +10,13 @@ class DetailPage extends StatefulWidget {
   final String image;
   final String price;
   final String text;
+  final dynamic array;
   final dynamic description;
   const DetailPage({
     Key? key,
     required this.image,
     this.description,
+    this.array,
     required this.price,
     required this.text,
   }) : super(key: key);
@@ -72,60 +74,21 @@ class _DetailPageState extends State<DetailPage> {
                   Divider(
                     thickness: 2,
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     Text(
-                  //       "Select Size",
-                  //       style: TextStyle(
-                  //           fontSize: 20, fontWeight: FontWeight.w600),
-                  //     ),
-                  //     SizedBox(
-                  //       width: 30,
-                  //     ),
-                  //     Text(
-                  //       "Select Color",
-                  //       style: TextStyle(
-                  //           fontSize: 20, fontWeight: FontWeight.w300),
-                  //     )
-                  //   ],
-                  // ),
-                  // Divider(
-                  //   thickness: 2,
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: [
-                  //     CircleAvatar(
-                  //       backgroundColor: Color(0xffeeeeee),
-                  //       child: Text(
-                  //         "S",
-                  //         style: TextStyle(color: Colors.black),
-                  //       ),
-                  //     ),
-                  //     CircleAvatar(
-                  //       backgroundColor: Colors.lightBlue,
-                  //       child: Text(
-                  //         "M",
-                  //         style: TextStyle(color: Colors.black),
-                  //       ),
-                  //     ),
-                  //     CircleAvatar(
-                  //       backgroundColor: Color(0xffeeeeee),
-                  //       child: Text(
-                  //         "L",
-                  //         style: TextStyle(color: Colors.black),
-                  //       ),
-                  //     ),
-                  //     CircleAvatar(
-                  //       backgroundColor: Color(0xffeeeeee),
-                  //       child: Text(
-                  //         "XXL",
-                  //         style: TextStyle(color: Colors.black),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
+                  (widget.array.toString().contains("Default"))
+                      ? Container()
+                      : Text(
+                          "Select Size",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w600),
+                        ),
+                  (widget.array.toString().contains("Default"))
+                      ? Container()
+                      : Divider(
+                          thickness: 2,
+                        ),
+                  (widget.array.toString().contains("Default"))
+                      ? Container()
+                      : sizeOptions(widget.array, context),
                 ],
               ),
             ),
@@ -135,6 +98,25 @@ class _DetailPageState extends State<DetailPage> {
       ),
     );
   }
+}
+
+Widget sizeOptions(array, context) {
+  print(array);
+  return Container(
+    height: MediaQuery.of(context).size.height * 0.03,
+    child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: array.length,
+        itemBuilder: (context, index) {
+          return CircleAvatar(
+            backgroundColor: Color(0xffeeeeee),
+            child: Text(
+              array[index].toString(),
+              style: TextStyle(color: Colors.black),
+            ),
+          );
+        }),
+  );
 }
 
 PreferredSizeWidget bar2(context, {cartCheck = false, icon = Icons.clear_all}) {
@@ -181,7 +163,11 @@ Widget bottomButton(context, image, price, text) {
       height: MediaQuery.of(context).size.height / 14,
       minWidth: MediaQuery.of(context).size.width,
       onPressed: () {
-        cartItems.add({"imageUrl": image, "price": price, "title": text});
+        cartItems.add({
+          "imageUrl": image,
+          "price": price.toString().substring(0, price.length - 3),
+          "title": text
+        });
         var snackBar = SnackBar(
           content: (cartItems.length > 1)
               ? Text(cartItems.length.toString() + ' Items added to cart')
@@ -195,7 +181,7 @@ Widget bottomButton(context, image, price, text) {
         children: [
           Icon(
             Icons.add_shopping_cart_sharp,
-            color:myWhite,
+            color: myWhite,
             size: 30,
           ),
           SizedBox(

@@ -14,6 +14,10 @@ class CheckOut extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var subtotal = 0;
+    for (var u in cartItems) {
+      subtotal += int.parse(u["price"]);
+    }
     return Scaffold(
       appBar: bar2(context),
       body: Stack(
@@ -27,8 +31,7 @@ class CheckOut extends StatelessWidget {
                 SizedBox(
                   height: 30,
                 ),
-                Flexible(
-                    child: Obx(() {
+                Flexible(child: Obx(() {
                   return (cartItems.length == 0)
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -86,13 +89,13 @@ class CheckOut extends StatelessWidget {
                 Divider(
                   thickness: 2,
                 ),
-                totalRow("Subtotal", r"$160"),
-                totalRow("Discount", r"5%"),
-                totalRow("Shipping", r"$10"),
+                totalRow("Subtotal", r"$ " + subtotal.toString()),
+                totalRow("Discount", r"0%"),
+                totalRow("Shipping", r"$ 0"),
                 Divider(
                   thickness: 2,
                 ),
-                totalRow("Total", r"$162"),
+                totalRow("Total", r"$ " + subtotal.toString()),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 9,
                 )

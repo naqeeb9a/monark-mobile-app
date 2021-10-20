@@ -350,17 +350,19 @@ Widget cardList(context, {function, products}) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: (products == true)
-                      ? basicCards(
-                          context, snapshot.data[index]["image"]["src"], snapshot.data[index]["title"],
+                      ? basicCards(context, snapshot.data[index]["image"]["src"], snapshot.data[index]["title"],
                           price: snapshot.data[index]["variants"][0]["price"]
                               .toString()
-                              .substring(0, 5),
+                              .substring(
+                                  0,
+                                  snapshot.data[index]["variants"][0]["price"].length -
+                                      3),
+                          sizeOption: snapshot.data[index]["options"][0]
+                              ["values"],
                           description: snapshot.data[index]["body_html"].toString().substring(
                               3, snapshot.data[index]["body_html"].length - 4))
-                      : basicCards(
-                          context,
-                          snapshot.data[index]["image"]["src"],
-                          snapshot.data[index]["title"],
+                      : basicCards(context, snapshot.data[index]["image"]["src"], snapshot.data[index]["title"],
+                          id: snapshot.data[index]["id"],
                           description: snapshot.data[index]["body_html"]
                               .toString()
                               .substring(3, snapshot.data[index]["body_html"].length - 4)),
@@ -381,7 +383,9 @@ Widget cardList(context, {function, products}) {
 }
 
 Widget basicCards(context, imageUrl, text,
-    {price = 650,
+    {price = "650",
+    sizeOption = "",
+    id = 0,
     description =
         "A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine."}) {
   return InkWell(
@@ -393,6 +397,7 @@ Widget basicCards(context, imageUrl, text,
                     image: imageUrl,
                     price: price.toString(),
                     text: text,
+                    array: sizeOption,
                     description: description,
                   )));
     },
@@ -421,12 +426,30 @@ Widget basicCards(context, imageUrl, text,
             ),
           ),
           Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Rs. " + price.toString(),
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
-          ),
+              alignment: Alignment.centerLeft,
+              child: (id != 0)
+                  ? FutureBuilder(
+                      future: getPriceOfCollection(id),
+                      builder: (context, AsyncSnapshot snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done &&
+                            snapshot.data != null) {
+                          price = snapshot.data[0];
+                          sizeOption = snapshot.data[1];
+                          return Text(
+                            "Rs. " +
+                                price.toString().substring(
+                                    0, snapshot.data[0].toString().length - 3),
+                            style: TextStyle(fontWeight: FontWeight.w500),
+                          );
+                        } else {
+                          price = "fetching ...";
+                          return Text("fetching ...");
+                        }
+                      })
+                  : Text(
+                      "Rs. " + price.toString(),
+                      style: TextStyle(fontWeight: FontWeight.w500),
+                    )),
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
@@ -438,6 +461,16 @@ Widget basicCards(context, imageUrl, text,
       ),
     ),
   );
+}
+
+getPriceOfCollection(id) async {
+  var response = await http.get(Uri.parse(
+      "https://32a2c56e6eeee31171cc4cb4349c2329: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@monark-clothings.myshopify.com/admin/api/2021-07/products/$id.json"));
+  var jsonData = jsonDecode(response.body);
+  return [
+    jsonData["product"]["variants"][0]["price"],
+    jsonData["product"]["options"][0]["values"]
+  ];
 }
 
 Widget drawerItems(context) {

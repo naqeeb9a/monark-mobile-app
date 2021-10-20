@@ -89,24 +89,24 @@ Widget detailGrid(function, context, check, {productCheck = false}) {
                     ),
                     itemBuilder: (context, index) {
                       return (productCheck == true)
-                          ? basicCards(
-                              context,
-                              snapshot.data[index]["image"]["src"],
-                              snapshot.data[index]["title"],
-                              price: snapshot.data[index]["variants"][0]
-                                      ["price"]
+                          ? basicCards(context, snapshot.data[index]["image"]["src"], snapshot.data[index]["title"],
+                              price: snapshot.data[index]["variants"][0]["price"]
                                   .toString()
-                                  .substring(0, 5))
+                                  .substring(
+                                      0,
+                                      snapshot.data[index]["variants"][0]["price"].length -
+                                          3),
+                              description: snapshot.data[index]["body_html"].toString().substring(
+                                  3,
+                                  snapshot.data[index]["body_html"].length - 4))
                           : basicCards(
                               context,
                               snapshot.data[index]["image"]["src"],
                               snapshot.data[index]["title"],
+                              id: snapshot.data[index]["id"],
                               description: snapshot.data[index]["body_html"]
                                   .toString()
-                                  .substring(
-                                      3,
-                                      snapshot.data[index]["body_html"].length -
-                                          4));
+                                  .substring(3, snapshot.data[index]["body_html"].length - 4));
                     });
               } else {
                 return Image.asset(
