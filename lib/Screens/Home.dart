@@ -341,7 +341,7 @@ Widget cardList(context, {function, products}) {
       if (snapshot.connectionState == ConnectionState.done &&
           snapshot.data != null) {
         return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.28,
+          height: MediaQuery.of(context).size.height * 0.35,
           child: ListView.builder(
               itemCount: (snapshot.data as List).length,
               shrinkWrap: true,
@@ -350,22 +350,24 @@ Widget cardList(context, {function, products}) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: (products == true)
-                      ? basicCards(context, snapshot.data[index]["image"]["src"], snapshot.data[index]["title"],
-                          price: snapshot.data[index]["variants"][0]["price"]
-                              .toString()
-                              .substring(
-                                  0,
-                                  snapshot.data[index]["variants"][0]["price"].length -
-                                      3),
+                      ? basicCards(
+                          context,
+                          snapshot.data[index]["image"]["src"],
+                          snapshot.data[index]["title"],
+                          price: snapshot.data[index]["variants"][0]["price"].toString().substring(
+                              0,
+                              snapshot.data[index]["variants"][0]["price"].length -
+                                  3),
                           sizeOption: snapshot.data[index]["options"][0]
                               ["values"],
-                          description: snapshot.data[index]["body_html"].toString().substring(
-                              3, snapshot.data[index]["body_html"].length - 4))
-                      : basicCards(context, snapshot.data[index]["image"]["src"], snapshot.data[index]["title"],
+                          description:
+                              snapshot.data[index]["body_html"].toString())
+                      : basicCards(
+                          context,
+                          snapshot.data[index]["image"]["src"],
+                          snapshot.data[index]["title"],
                           id: snapshot.data[index]["id"],
-                          description: snapshot.data[index]["body_html"]
-                              .toString()
-                              .substring(3, snapshot.data[index]["body_html"].length - 4)),
+                          description: snapshot.data[index]["body_html"].toString()),
                 );
               }),
         );
@@ -454,6 +456,7 @@ Widget basicCards(context, imageUrl, text,
             alignment: Alignment.centerLeft,
             child: Text(
               text,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
           ),

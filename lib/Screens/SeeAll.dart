@@ -96,17 +96,14 @@ Widget detailGrid(function, context, check, {productCheck = false}) {
                                       0,
                                       snapshot.data[index]["variants"][0]["price"].length -
                                           3),
-                              description: snapshot.data[index]["body_html"].toString().substring(
-                                  3,
-                                  snapshot.data[index]["body_html"].length - 4))
+                              description: snapshot.data[index]["body_html"].toString())
                           : basicCards(
                               context,
                               snapshot.data[index]["image"]["src"],
                               snapshot.data[index]["title"],
                               id: snapshot.data[index]["id"],
                               description: snapshot.data[index]["body_html"]
-                                  .toString()
-                                  .substring(3, snapshot.data[index]["body_html"].length - 4));
+                                  .toString());
                     });
               } else {
                 return Image.asset(

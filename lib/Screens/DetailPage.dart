@@ -51,7 +51,7 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                   Text(
                     widget.text,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                   ),
                   Text(
                     "Rs. " + widget.price,
@@ -74,19 +74,22 @@ class _DetailPageState extends State<DetailPage> {
                   Divider(
                     thickness: 2,
                   ),
-                  (widget.array.toString().contains("Default"))
+                  (widget.array.toString().contains("Default") ||
+                          widget.array == "")
                       ? Container()
                       : Text(
                           "Select Size",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600),
                         ),
-                  (widget.array.toString().contains("Default"))
+                  (widget.array.toString().contains("Default") ||
+                          widget.array == "")
                       ? Container()
                       : Divider(
                           thickness: 2,
                         ),
-                  (widget.array.toString().contains("Default"))
+                  (widget.array.toString().contains("Default") ||
+                          widget.array == "")
                       ? Container()
                       : sizeOptions(widget.array, context),
                 ],
@@ -102,16 +105,19 @@ class _DetailPageState extends State<DetailPage> {
 
 Widget sizeOptions(array, context) {
   return Container(
-    height: MediaQuery.of(context).size.height * 0.03,
+    height: MediaQuery.of(context).size.height * 0.06,
     child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: array.length,
         itemBuilder: (context, index) {
-          return CircleAvatar(
-            backgroundColor: Color(0xffeeeeee),
-            child: Text(
-              array[index].toString(),
-              style: TextStyle(color: Colors.black),
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: CircleAvatar(
+              backgroundColor: Color(0xffeeeeee),
+              child: Text(
+                array[index].toString(),
+                style: TextStyle(color: Colors.black),
+              ),
             ),
           );
         }),
