@@ -111,22 +111,21 @@ class _DetailPageState extends State<DetailPage> {
 
 Widget sizeOptions(array, context) {
   return Container(
-    height: MediaQuery.of(context).size.height * 0.06,
+    height: MediaQuery.of(context).size.height * 0.08,
     child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: array.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: CircleAvatar(
-              backgroundColor: Color(0xffeeeeee),
-              child: Text(
-                array[index].toString(),
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-          );
-        }),
+      scrollDirection: Axis.horizontal,
+      itemCount: array.length,
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return CircleAvatar(
+          backgroundColor: myBlack,
+          child: Text(
+            array[index].toString(),
+            style: TextStyle(color: myGrey),
+          ),
+        );
+      },
+    ),
   );
 }
 
