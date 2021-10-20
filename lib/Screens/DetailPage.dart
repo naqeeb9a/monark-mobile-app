@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/Cart.dart';
@@ -12,6 +13,7 @@ class DetailPage extends StatefulWidget {
   final String text;
   final dynamic array;
   final dynamic description;
+
   const DetailPage({
     Key? key,
     required this.image,
@@ -66,10 +68,14 @@ class _DetailPageState extends State<DetailPage> {
                     "Description",
                     style: TextStyle(fontWeight: FontWeight.w800),
                   ),
-                  Text(
-                    widget.description,
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
+                  Html(
+                    data: widget.description,
+                    style: {
+                      'p': Style(
+                        maxLines: 4,
+                        textOverflow: TextOverflow.ellipsis,
+                      ),
+                    },
                   ),
                   Divider(
                     thickness: 2,

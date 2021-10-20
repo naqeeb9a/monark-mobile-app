@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-dynamicWidth(BuildContext context, dynamic size) {
-  return MediaQuery.of(context).size.width * size;
+dynamicWidth(BuildContext context, dynamic dynamicSize) {
+  return MediaQuery.of(context).size.width * dynamicSize;
 }
 
-dynamicHeight(BuildContext context, dynamic size) {
-  return MediaQuery.of(context).size.height * size;
+dynamicHeight(BuildContext context, dynamic dynamicSize) {
+  return MediaQuery.of(context).size.height * dynamicSize;
 }
