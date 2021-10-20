@@ -46,11 +46,17 @@ class _DetailPageState extends State<DetailPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
-                    child: CachedNetworkImage(
-                      imageUrl: widget.image,
-                      fit: BoxFit.cover,
-                      height: MediaQuery.of(context).size.height / 3,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: CachedNetworkImage(
+                        imageUrl: widget.image,
+                        fit: BoxFit.cover,
+                        height: MediaQuery.of(context).size.height / 4,
+                      ),
                     ),
+                  ),
+                  SizedBox(
+                    height: dynamicHeight(context, 0.03),
                   ),
                   Text(
                     widget.text,
@@ -181,11 +187,7 @@ Widget bottomButton(context, image, price, text) {
       height: MediaQuery.of(context).size.height / 14,
       minWidth: MediaQuery.of(context).size.width,
       onPressed: () {
-        cartItems.add({
-          "imageUrl": image,
-          "price": price,
-          "title": text
-        });
+        cartItems.add({"imageUrl": image, "price": price, "title": text});
         var snackBar = SnackBar(
           content: (cartItems.length > 1)
               ? Text(cartItems.length.toString() + ' Items added to cart')

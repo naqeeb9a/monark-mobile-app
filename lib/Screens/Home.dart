@@ -354,7 +354,10 @@ Widget cardList(context, {function, products}) {
                           context,
                           snapshot.data[index]["image"]["src"],
                           snapshot.data[index]["title"],
-                          price: double.parse(snapshot.data[index]["variants"][0]["price"]).toInt().toString(),
+                          price: double.parse(
+                                  snapshot.data[index]["variants"][0]["price"])
+                              .toInt()
+                              .toString(),
                           sizeOption: snapshot.data[index]["options"][0]
                               ["values"],
                           description:
@@ -410,8 +413,8 @@ Widget basicCards(context, imageUrl, text,
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Container(
-              height: MediaQuery.of(context).size.height / 5,
-              width: MediaQuery.of(context).size.width / 3,
+              height: MediaQuery.of(context).size.height / 4,
+              width: MediaQuery.of(context).size.width / 2,
               child: CachedNetworkImage(
                 imageUrl: imageUrl,
                 fit: BoxFit.cover,
@@ -453,7 +456,7 @@ Widget basicCards(context, imageUrl, text,
             alignment: Alignment.centerLeft,
             child: Text(
               text,
-              maxLines: 2,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
           ),
