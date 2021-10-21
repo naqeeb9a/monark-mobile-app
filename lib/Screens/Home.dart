@@ -385,23 +385,32 @@ Widget cardList(context, {function, products}) {
 }
 
 Widget basicCards(context, imageUrl, text,
-    {price = "650",
+    {price = "fetching ...",
     sizeOption = "",
     id = 0,
     description =
         "A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine."}) {
   return InkWell(
     onTap: () {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => DetailPage(
-                    image: imageUrl,
-                    price: double.parse(price).toInt().toString(),
-                    text: text,
-                    array: sizeOption,
-                    description: description,
-                  )));
+      if (price.contains("fetching")) {
+        var snackBar = SnackBar(
+          content: Text("Price is still fetching ......."),
+          duration: const Duration(milliseconds: 1000),
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      } else {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailPage(
+      
+                      price: price,
+                      text: text,
+                      array: sizeOption,
+                      description: description,
+                    )));
+      }
     },
     child: Container(
       width: MediaQuery.of(context).size.width / 3,
@@ -438,9 +447,7 @@ Widget basicCards(context, imageUrl, text,
                           price = snapshot.data[0];
                           sizeOption = snapshot.data[1];
                           return Text(
-                            "Rs. " +
-                                price.toString().substring(
-                                    0, snapshot.data[0].toString().length - 3),
+                            "Rs. " + double.parse(price).toInt().toString(),
                             style: TextStyle(fontWeight: FontWeight.w500),
                           );
                         } else {

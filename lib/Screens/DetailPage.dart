@@ -62,10 +62,15 @@ class _DetailPageState extends State<DetailPage> {
                     widget.text,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                   ),
-                  Text(
-                    "Rs. " + widget.price,
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
+                  (widget.price.contains("fetching"))
+                      ? Text(
+                          widget.price,
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        )
+                      : Text(
+                          "Rs. " + widget.price,
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
                   Divider(
                     thickness: 2,
                     endIndent: 50,
