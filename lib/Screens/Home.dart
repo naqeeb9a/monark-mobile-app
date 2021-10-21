@@ -16,6 +16,7 @@ import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:http/http.dart' as http;
 import 'package:monark_app/Screens/Welcome.dart';
 import 'package:monark_app/config.dart';
+import 'package:monark_app/widgets/media_query.dart';
 import 'Orders.dart';
 import 'dart:math' as math;
 
@@ -108,6 +109,10 @@ PreferredSizeWidget bar(context, {check = false}) {
   return PreferredSize(
     preferredSize: Size.fromHeight(50),
     child: AppBar(
+      title: Image.asset("assets/monark landscape.jpg",
+      width: dynamicWidth(context, .4),
+      ),
+      centerTitle: true,
       backgroundColor: Colors.transparent,
       leading: (check == true)
           ? InkWell(
