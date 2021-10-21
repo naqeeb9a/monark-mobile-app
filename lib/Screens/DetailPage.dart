@@ -5,6 +5,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/Cart.dart';
+import 'package:monark_app/Screens/SeeFullImage.dart';
 import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
@@ -48,10 +49,28 @@ class _DetailPageState extends State<DetailPage> {
                   Center(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
-                      child: CachedNetworkImage(
-                        imageUrl: widget.image,
-                        fit: BoxFit.cover,
-                        height: MediaQuery.of(context).size.height / 4,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SeeFullImage(
+                                        imageUrl: widget.image,
+                                      )));
+                        },
+                        child: Hero(
+                          tag: 1,
+                          child: CachedNetworkImage(
+                              imageUrl: widget.image,
+                              fit: BoxFit.cover,
+                              height: MediaQuery.of(context).size.height / 4,
+                              placeholder: (context, string) {
+                                return Image.asset(
+                                  "assets/loader.gif",
+                                  scale: 7,
+                                );
+                              }),
+                        ),
                       ),
                     ),
                   ),

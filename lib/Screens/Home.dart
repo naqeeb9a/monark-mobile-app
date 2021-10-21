@@ -499,7 +499,7 @@ Widget drawerItems(context) {
       "screen": Orders()
     },
     {
-      "icon": Icons.streetview,
+      "icon": Icons.streetview_sharp,
       "text": "Addresses",
       "screen": AddressPage(
         check: true,

@@ -51,21 +51,25 @@ Widget detailGrid(function, context, check, {productCheck = false}) {
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.connectionState == ConnectionState.done &&
                   snapshot.data != null) {
-                return GridView.builder(
-                    itemCount: (snapshot.data as List).length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      crossAxisCount: 2,
-                      childAspectRatio: 2 / 1.5,
-                    ),
-                    itemBuilder: (context, index) {
-                      return categoryCards(
-                          context,
-                          snapshot.data[index]["title"],
-                          snapshot.data[index]["id"],
-                          check: true);
-                    });
+                if ((snapshot.data as List).length != 0) {
+                  return GridView.builder(
+                      itemCount: (snapshot.data as List).length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        crossAxisCount: 2,
+                        childAspectRatio: 2 / 1.5,
+                      ),
+                      itemBuilder: (context, index) {
+                        return categoryCards(
+                            context,
+                            snapshot.data[index]["title"],
+                            snapshot.data[index]["id"],
+                            check: true);
+                      });
+                } else {
+                  return Center(child: Text("No products Found"));
+                }
               } else {
                 return Image.asset(
                   "assets/loader.gif",
@@ -79,32 +83,45 @@ Widget detailGrid(function, context, check, {productCheck = false}) {
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.done &&
                   snapshot.data != null) {
-                return GridView.builder(
-                    itemCount: (snapshot.data as List).length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      crossAxisCount: 2,
-                      childAspectRatio: 5 / 8,
-                    ),
-                    itemBuilder: (context, index) {
-                      return (productCheck == true)
-                          ? basicCards(context, snapshot.data[index]["image"]["src"], snapshot.data[index]["title"],
-                              price: snapshot.data[index]["variants"][0]["price"]
-                                  .toString()
-                                  .substring(
-                                      0,
-                                      snapshot.data[index]["variants"][0]["price"].length -
-                                          3),
-                              description: snapshot.data[index]["body_html"].toString())
-                          : basicCards(
-                              context,
-                              snapshot.data[index]["image"]["src"],
-                              snapshot.data[index]["title"],
-                              id: snapshot.data[index]["id"],
-                              description: snapshot.data[index]["body_html"]
-                                  .toString());
-                    });
+                if ((snapshot.data as List).length != 0) {
+                  return GridView.builder(
+                      itemCount: (snapshot.data as List).length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        crossAxisCount: 2,
+                        childAspectRatio: 5 / 8,
+                      ),
+                      itemBuilder: (context, index) {
+                        return (productCheck == true)
+                            ? basicCards(
+                                context,
+                                snapshot.data[index]["image"]["src"],
+                                snapshot.data[index]["title"],
+                                price: snapshot.data[index]["variants"][0]["price"]
+                                    .toString()
+                                    .substring(
+                                        0,
+                                        snapshot
+                                                .data[index]["variants"][0]
+                                                    ["price"]
+                                                .length -
+                                            3),
+                                description: snapshot.data[index]["body_html"]
+                                    .toString())
+                            : basicCards(
+                                context,
+                                snapshot.data[index]["image"]["src"],
+                                snapshot.data[index]["title"],
+                                id: snapshot.data[index]["id"],
+                                description:
+                                    snapshot.data[index]["body_html"].toString());
+                      });
+                } else {
+                  return Center(
+                    child: Text("No Products Found"),
+                  );
+                }
               } else {
                 return Image.asset(
                   "assets/loader.gif",
