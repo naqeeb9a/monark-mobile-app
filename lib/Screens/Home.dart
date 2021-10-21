@@ -109,11 +109,12 @@ PreferredSizeWidget bar(context, {check = false}) {
   return PreferredSize(
     preferredSize: Size.fromHeight(50),
     child: AppBar(
-      title: Image.asset("assets/monark landscape.jpg",
-      width: dynamicWidth(context, .4),
+      title: Image.asset(
+        "assets/monark landscape.jpg",
+        width: dynamicWidth(context, .4),
       ),
       centerTitle: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
       leading: (check == true)
           ? InkWell(
               onTap: () {
@@ -500,7 +501,9 @@ Widget drawerItems(context) {
     {
       "icon": Icons.streetview,
       "text": "Addresses",
-      "screen": AddressPage(check: true,)
+      "screen": AddressPage(
+        check: true,
+      )
     },
     {"icon": Icons.help_outline, "text": "Help", "screen": Orders()},
     {"icon": Icons.star_outline, "text": "Rate Us", "screen": Orders()},
