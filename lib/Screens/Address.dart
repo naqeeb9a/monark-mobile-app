@@ -8,6 +8,7 @@ import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/Home.dart';
 import 'package:monark_app/config.dart';
+import 'package:monark_app/widgets/media_query.dart';
 
 import 'Payment.dart';
 
@@ -102,13 +103,13 @@ class _AddressPageState extends State<AddressPage> {
                             value: index,
                             groupValue: int.parse(group.toString()),
                             onChanged: (value) {
-                              print(value);
                               setState(() {
                                 group = value as int;
                               });
                             }),
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 20),
+                          width: dynamicWidth(context, 0.75),
                           decoration: BoxDecoration(
                               border: Border.all(width: 0.5),
                               borderRadius: BorderRadius.circular(25)),
@@ -118,6 +119,7 @@ class _AddressPageState extends State<AddressPage> {
                             children: [
                               Text(
                                 addressList[index][1],
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                     fontSize: 22, fontWeight: FontWeight.w400),
                               ),
@@ -126,6 +128,7 @@ class _AddressPageState extends State<AddressPage> {
                               ),
                               Text(
                                 addressList[index][0],
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 20),
                               ),
                               SizedBox(
@@ -133,6 +136,8 @@ class _AddressPageState extends State<AddressPage> {
                               ),
                               Text(
                                 addressList[index][6],
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(color: myGrey),
                               )
                             ],
                           ),

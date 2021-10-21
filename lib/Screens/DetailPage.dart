@@ -87,7 +87,8 @@ class _DetailPageState extends State<DetailPage> {
                           style: TextStyle(fontWeight: FontWeight.w500),
                         )
                       : Text(
-                          "Rs. " + widget.price,
+                          "Rs. " +
+                              double.parse(widget.price).toInt().toString(),
                           style: TextStyle(fontWeight: FontWeight.w500),
                         ),
                   Divider(
@@ -132,7 +133,8 @@ class _DetailPageState extends State<DetailPage> {
                 ],
               ),
             ),
-            bottomButton(context, widget.image, widget.price, widget.text)
+            bottomButton(context, widget.image,
+                double.parse(widget.price).toInt().toString(), widget.text)
           ],
         ),
       ),
