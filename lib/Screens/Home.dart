@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/AboutUs.dart';
+import 'package:monark_app/Screens/Address.dart';
 import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/Detailpage.dart';
 import 'package:monark_app/Screens/Profile.dart';
@@ -404,7 +405,7 @@ Widget basicCards(context, imageUrl, text,
             context,
             MaterialPageRoute(
                 builder: (context) => DetailPage(
-      
+                      image: imageUrl,
                       price: price,
                       text: text,
                       array: sizeOption,
@@ -492,9 +493,9 @@ Widget drawerItems(context) {
       "screen": Orders()
     },
     {
-      "icon": Icons.notifications_outlined,
-      "text": "Notifications",
-      "screen": Orders()
+      "icon": Icons.streetview,
+      "text": "Addresses",
+      "screen": AddressPage(check: true,)
     },
     {"icon": Icons.help_outline, "text": "Help", "screen": Orders()},
     {"icon": Icons.star_outline, "text": "Rate Us", "screen": Orders()},

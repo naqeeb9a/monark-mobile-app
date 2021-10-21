@@ -12,7 +12,8 @@ import 'package:monark_app/config.dart';
 import 'Payment.dart';
 
 class AddressPage extends StatefulWidget {
-  const AddressPage({Key? key}) : super(key: key);
+  final dynamic check;
+  const AddressPage({Key? key, this.check = false}) : super(key: key);
 
   @override
   State<AddressPage> createState() => _AddressPageState();
@@ -36,31 +37,41 @@ class _AddressPageState extends State<AddressPage> {
                 ),
                 addressListBuilder(context),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 5,
+                  height: (widget.check == true)
+                      ? MediaQuery.of(context).size.height / 7
+                      : MediaQuery.of(context).size.height / 5,
                 )
               ],
             ),
           ),
-          bottomButton2(context, "Add Address", Icons.home_outlined,
-              function: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => AddAddress()));
-          }),
-          bottomButton1(context, "Continue to Payment", () {
-            if (cartItems.isNotEmpty && addressList.isNotEmpty) {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Payment()));
-            } else {
-              var snackBar = SnackBar(
-                content: (cartItems.isEmpty)
-                    ? Text('Cart is empty')
-                    : Text("No Address selected"),
-                duration: const Duration(milliseconds: 1000),
-              );
+          (widget.check == true)
+              ? bottomButton2(context, "Add Address", Icons.home_outlined,
+                  function: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AddAddress()));
+                }, bottom: 20)
+              : bottomButton2(context, "Add Address", Icons.home_outlined,
+                  function: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AddAddress()));
+                }),
+          (widget.check == true)
+              ? Container()
+              : bottomButton1(context, "Continue to Payment", () {
+                  if (cartItems.isNotEmpty && addressList.isNotEmpty) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Payment()));
+                  } else {
+                    var snackBar = SnackBar(
+                      content: (cartItems.isEmpty)
+                          ? Text('Cart is empty')
+                          : Text("No Address selected"),
+                      duration: const Duration(milliseconds: 1000),
+                    );
 
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            }
-          })
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                })
         ],
       ),
     );
@@ -133,9 +144,9 @@ class _AddressPageState extends State<AddressPage> {
   }
 }
 
-Widget bottomButton2(context, text, icon, {function}) {
+Widget bottomButton2(context, text, icon, {function, double bottom = 80}) {
   return Positioned(
-    bottom: 80,
+    bottom: bottom,
     child: InkWell(
       onTap: function,
       child: DottedBorder(
