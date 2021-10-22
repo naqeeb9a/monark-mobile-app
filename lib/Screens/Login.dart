@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/Home.dart';
 import 'package:monark_app/Screens/SignUp.dart';
 import 'package:monark_app/config.dart';
+import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/form_fields.dart';
 import 'package:monark_app/widgets/media_query.dart';

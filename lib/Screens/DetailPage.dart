@@ -1,12 +1,9 @@
-import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:get/get.dart';
-import 'package:monark_app/Data/CategoryData.dart';
-import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/SeeFullImage.dart';
 import 'package:monark_app/config.dart';
+import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
 class DetailPage extends StatefulWidget {
@@ -166,42 +163,6 @@ Widget sizeOptions(array, context) {
         },
       ),
     ),
-  );
-}
-
-PreferredSizeWidget bar2(context, {cartCheck = false, icon = Icons.clear_all}) {
-  return AppBar(
-    leading: InkWell(
-        onTap: () {
-          Navigator.pop(context);
-        },
-        child: Icon(Icons.arrow_back_sharp)),
-    iconTheme: IconThemeData(color: myBlack),
-    backgroundColor: Colors.transparent,
-    elevation: 0,
-    actions: [
-      (cartCheck == true)
-          ? IconButton(
-              onPressed: () {
-                if (icon == Icons.shopping_bag_outlined) {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Cart()));
-                } else {
-                  cartItems.clear();
-                }
-              },
-              icon: (icon == Icons.shopping_bag_outlined)
-                  ? Obx(() {
-                      return Badge(
-                          badgeContent: Text(
-                            cartItems.length.toString(),
-                            style: TextStyle(color: myWhite),
-                          ),
-                          child: Icon(Icons.shopping_bag_outlined));
-                    })
-                  : Icon(icon))
-          : Container()
-    ],
   );
 }
 

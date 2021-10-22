@@ -1,7 +1,9 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:monark_app/Screens/Home.dart';
-import 'package:http/http.dart' as http;
+import 'package:monark_app/config.dart';
+import 'package:monark_app/widgets/app_bar.dart';
+import 'package:monark_app/widgets/home_widgets.dart';
+import 'package:monark_app/widgets/media_query.dart';
 
 class SeeAll extends StatelessWidget {
   final bool check;
@@ -20,26 +22,29 @@ class SeeAll extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: bar(context, check: true),
-        body: Container(
-          margin: EdgeInsets.symmetric(horizontal: 25),
+      backgroundColor: myGrey,
+      appBar: bar(context, true),
+      body: Center(
+        child: Container(
+          width: dynamicWidth(context, .94),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 20,
-              ),
-              rowText(text, context),
-              SizedBox(
-                height: 20,
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: dynamicHeight(context, .03),
+                ),
+                child: rowText(text, context),
               ),
               detailGrid(function, context, check, productCheck: checkProducts),
               SizedBox(
-                height: 20,
+                height: dynamicHeight(context, .02),
               )
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
@@ -55,8 +60,8 @@ Widget detailGrid(function, context, check, {productCheck = false}) {
                   return GridView.builder(
                       itemCount: (snapshot.data as List).length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10,
+                        mainAxisSpacing: dynamicWidth(context, .02),
+                        crossAxisSpacing: dynamicHeight(context, .03),
                         crossAxisCount: 2,
                         childAspectRatio: 2 / 1.5,
                       ),
@@ -73,7 +78,7 @@ Widget detailGrid(function, context, check, {productCheck = false}) {
               } else {
                 return Image.asset(
                   "assets/loader.gif",
-                  scale: 7,
+                  scale: 6,
                 );
               }
             },
@@ -87,8 +92,8 @@ Widget detailGrid(function, context, check, {productCheck = false}) {
                   return GridView.builder(
                       itemCount: (snapshot.data as List).length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10,
+                        mainAxisSpacing: dynamicWidth(context, .02),
+                        crossAxisSpacing: dynamicHeight(context, .016),
                         crossAxisCount: 2,
                         childAspectRatio: 5 / 8,
                       ),
@@ -125,16 +130,9 @@ Widget detailGrid(function, context, check, {productCheck = false}) {
               } else {
                 return Image.asset(
                   "assets/loader.gif",
-                  scale: 7,
+                  scale: 4,
                 );
               }
             }),
   );
-}
-
-getShopifyCollection(id) async {
-  var response = await http.get(Uri.parse(
-      "https://32a2c56e6eeee31171cc4cb4349c2329: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@monark-clothings.myshopify.com/admin/api/2021-07/collections/$id/products.json"));
-  var jsonData = jsonDecode(response.body);
-  return jsonData["products"];
 }

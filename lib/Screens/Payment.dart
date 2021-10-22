@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/Address.dart';
 import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/CheckOut.dart';
-import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/Home.dart';
+import 'package:monark_app/widgets/app_bar.dart';
+
+import '../config.dart';
 
 class Payment extends StatelessWidget {
   const Payment({Key? key}) : super(key: key);

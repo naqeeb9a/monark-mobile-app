@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/config.dart';
 import 'package:monark_app/Screens/Home.dart';
+import 'package:monark_app/widgets/app_bar.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);

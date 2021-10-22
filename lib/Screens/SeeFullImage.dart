@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:monark_app/Screens/DetailPage.dart';
+import 'package:monark_app/widgets/app_bar.dart';
 
 class SeeFullImage extends StatelessWidget {
   final dynamic imageUrl;

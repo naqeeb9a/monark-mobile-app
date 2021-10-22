@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/config.dart';
 

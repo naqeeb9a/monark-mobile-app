@@ -42,3 +42,39 @@ Widget inputTextField(context, obscureText, label, myController, {function}) {
     ),
   );
 }
+
+Widget searchbar() {
+  return Container(
+    margin: EdgeInsets.symmetric(horizontal: 5),
+    decoration: BoxDecoration(
+        color: myWhite,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+              color: myGrey,
+              spreadRadius: 2,
+              blurRadius: 3,
+              offset: Offset(2, 2))
+        ]),
+    child: Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Icon(Icons.search_sharp),
+        ),
+        Expanded(
+          child: TextField(
+            decoration: InputDecoration(
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                contentPadding: EdgeInsets.only(left: 20),
+                hintText: "Search Your Product"),
+          ),
+        )
+      ],
+    ),
+  );
+}

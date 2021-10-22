@@ -1,11 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:monark_app/Data/CategoryData.dart';
 import 'package:monark_app/Screens/Address.dart';
-import 'package:monark_app/Screens/Detailpage.dart';
 import 'package:monark_app/Screens/Home.dart';
 import 'package:monark_app/config.dart';
+import 'package:monark_app/widgets/app_bar.dart';
 
 class Cart extends StatelessWidget {
   const Cart({Key? key}) : super(key: key);
@@ -73,7 +72,7 @@ Widget cartCard(index, context, {orders}) {
   return Container(
     padding: EdgeInsets.all(20),
     margin: EdgeInsets.symmetric(vertical: 10),
-    decoration: BoxDecoration(color:myWhite, boxShadow: [
+    decoration: BoxDecoration(color: myWhite, boxShadow: [
       BoxShadow(
           color: Color(0xFFeeeeee),
           spreadRadius: 6,
