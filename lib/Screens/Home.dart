@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
@@ -20,6 +21,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  ValueNotifier<bool> isDialOpen = ValueNotifier(false);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,6 +114,32 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
+      ),
+      floatingActionButton: SpeedDial(
+        animatedIcon: AnimatedIcons.menu_close,
+        openCloseDial: isDialOpen,
+        backgroundColor: myRed,
+        overlayColor: myGrey,
+        overlayOpacity: 0.5,
+        spacing: dynamicHeight(context, .01),
+        spaceBetweenChildren: dynamicHeight(context, .01),
+        closeManually: true,
+        children: [
+          SpeedDialChild(
+              child: Image.asset("assets/whatsapp.png"),
+              elevation: 2.0,
+              onTap: (){
+                print('Share Tapped');
+              }
+          ),
+          SpeedDialChild(
+              child: Image.asset("assets/messenger.png"),
+              elevation: 2.0,
+              onTap: (){
+                print('Mail Tapped');
+              }
+          ),
+        ],
       ),
     );
   }
