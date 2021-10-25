@@ -185,23 +185,4 @@ Widget rowText(text, context,
 
 
 
-Widget profilePicture() {
-  return Column(
-    children: [
-      CircleAvatar(
-        minRadius: 50,
-        backgroundColor: titleRed,
-        backgroundImage: NetworkImage(
-            "https://cdn.allthings.how/wp-content/uploads/2020/11/allthings.how-how-to-change-your-picture-on-zoom-profile-picture-759x427.png?width=800"),
-      ),
-      SizedBox(
-        height: 20,
-      ),
-      Text(
-        "Adam Balina",
-        style: TextStyle(
-            fontSize: 25, color: myBlack, fontWeight: FontWeight.bold),
-      )
-    ],
-  );
-}
+

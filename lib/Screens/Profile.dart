@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:monark_app/config.dart';
 import 'package:monark_app/Screens/Home.dart';
+import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
+import 'package:monark_app/widgets/drawer_items.dart';
+import 'package:monark_app/widgets/media_query.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -11,27 +13,27 @@ class Profile extends StatelessWidget {
     return Scaffold(
       appBar: bar2(context),
       body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-          child: Column(
-            children: [
-              rowText("Profile", context),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    profilePicture(),
-                    profileText("Email", "Yes@no.com"),
-                    profileText("Phone Number", "0000000"),
-                    profileText("Address", "CMC-MTech"),
-                    profileText("Postal Code", "i don't know"),
-                    SizedBox(
-                      height: 20,
-                    )
-                  ],
-                ),
-              )
-            ],
+        child: Center(
+          child: Container(
+            width: dynamicWidth(context, .9),
+            height: dynamicHeight(context, .8),
+            child: Column(
+              children: [
+                rowText("Profile", context),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      profilePicture(context),
+                      profileText(context, "Email", "Yes@no.com"),
+                      profileText(context, "Phone Number", "0000000"),
+                      profileText(context, "Address", "CMC-MTech"),
+                      profileText(context, "Postal Code", "i don't know"),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -39,7 +41,7 @@ class Profile extends StatelessWidget {
   }
 }
 
-Widget profileText(text1, text2) {
+Widget profileText(context, text1, text2) {
   return Align(
     alignment: Alignment.centerLeft,
     child: Column(
@@ -48,15 +50,18 @@ Widget profileText(text1, text2) {
         Text(
           text1,
           style: TextStyle(
-              fontSize: 16, color: myBlack, fontWeight: FontWeight.bold),
+            fontSize: dynamicWidth(context, .046),
+            color: myBlack,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         SizedBox(
-          height: 10,
+          height: dynamicHeight(context, .012),
         ),
         Text(
           text2,
           style: TextStyle(
-            fontSize: 16,
+            fontSize: dynamicWidth(context, .04),
             color: myBlack,
           ),
         ),
