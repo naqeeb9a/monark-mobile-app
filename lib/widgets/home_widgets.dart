@@ -378,7 +378,7 @@ dynamic imageAlert(context, image, assetImage) {
                           imageUrl: image,
                           fit: BoxFit.cover,
                           width: dynamicWidth(context, .96),
-                          height: dynamicHeight(context, .86),
+                          height: dynamicHeight(context, .8),
                           placeholder: (context, string) {
                             return Image.asset(
                               "assets/loader.gif",
