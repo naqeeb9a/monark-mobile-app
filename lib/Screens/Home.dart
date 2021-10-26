@@ -1,4 +1,3 @@
-
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -22,6 +21,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   ValueNotifier<bool> isDialOpen = ValueNotifier(false);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,18 +126,30 @@ class _HomeState extends State<Home> {
         closeManually: true,
         children: [
           SpeedDialChild(
-              child: Image.asset("assets/whatsapp.png"),
-              elevation: 2.0,
-              onTap: (){
-                print('Share Tapped');
-              }
+            onTap: () {
+              print('Share Tapped');
+            },
+            elevation: 2.0,
+            child: CircleAvatar(
+              backgroundColor: myWhite,
+              radius: dynamicWidth(context, .1),
+              backgroundImage: AssetImage(
+                "assets/whatsapp.png",
+              ),
+            ),
           ),
           SpeedDialChild(
-              child: Image.asset("assets/messenger.png"),
-              elevation: 2.0,
-              onTap: (){
-                print('Mail Tapped');
-              }
+            onTap: () {
+              print('Share Tapped');
+            },
+            elevation: 2.0,
+            child: CircleAvatar(
+              backgroundColor: myWhite,
+              radius: dynamicWidth(context, .1),
+              backgroundImage: AssetImage(
+                "assets/messenger.png",
+              ),
+            ),
           ),
         ],
       ),
@@ -179,10 +191,3 @@ Widget rowText(text, context,
     ],
   );
 }
-
-
-
-
-
-
-

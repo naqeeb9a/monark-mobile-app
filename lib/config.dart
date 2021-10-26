@@ -13,4 +13,4 @@ const noColor = Colors.transparent;
 var cartItems = [].obs;
 var addressList = [].obs;
 int group = 0;
-bool obscureText = false;
+bool obscureText = true;
