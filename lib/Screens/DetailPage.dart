@@ -168,7 +168,11 @@ class _DetailPageState extends State<DetailPage> {
                     (widget.array.toString().contains("Default") ||
                             widget.array == "")
                         ? Container()
-                        : sizeOptions(widget.array, context),
+                        : sizeOptions(context, widget.array, function: () {
+                            setState(() {
+                              sizeColor = myRed;
+                            });
+                          }),
                     (widget.array.toString().contains("Default") ||
                             widget.array == "")
                         ? Container()
@@ -226,9 +230,9 @@ class _DetailPageState extends State<DetailPage> {
   }
 }
 
-Widget sizeOptions(array, context) {
+Widget sizeOptions(context, array, {function}) {
   return Container(
-    height: MediaQuery.of(context).size.height * 0.06,
+    height: dynamicHeight(context, .06),
     child: Center(
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -239,11 +243,14 @@ Widget sizeOptions(array, context) {
             padding: EdgeInsets.symmetric(
               horizontal: dynamicWidth(context, .02),
             ),
-            child: CircleAvatar(
-              backgroundColor: myBlack,
-              child: Text(
-                array[index].toString(),
-                style: TextStyle(color: myGrey),
+            child: InkWell(
+              onTap: function == "" ? () {} : function,
+              child: CircleAvatar(
+                backgroundColor: myBlack,
+                child: Text(
+                  array[index].toString(),
+                  style: TextStyle(color: myGrey),
+                ),
               ),
             ),
           );
