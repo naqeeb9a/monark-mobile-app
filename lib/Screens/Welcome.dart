@@ -40,7 +40,14 @@ class Welcome extends StatelessWidget {
                   "assets/shopping.png",
                   height: dynamicHeight(context, .4),
                 ),
-                coloredButton(context, "Login", Login(), myRed, myWhite, true),
+                coloredButton(
+                  context,
+                  "Login",
+                  myRed,
+                  myWhite,
+                  true,
+                  page: Login(),
+                ),
                 InkWell(
                   onTap: () {
                     Navigator.push(

@@ -4,18 +4,19 @@ import 'package:monark_app/widgets/media_query.dart';
 
 import '../config.dart';
 
-Widget coloredButton(context, text, page, color, textColor, push) {
+Widget coloredButton(context, text, color, textColor, push,
+    {page, function = ""}) {
   return InkWell(
-    onTap: () {
+    onTap: function == "" ? () {
       push == false
           ? Navigator.pop(context)
           : Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => page,
-              ),
-            );
-    },
+        context,
+        MaterialPageRoute(
+          builder: (context) => page,
+        ),
+      );
+    } : function,
     child: Container(
       width: dynamicWidth(context, .8),
       height: dynamicHeight(context, .06),

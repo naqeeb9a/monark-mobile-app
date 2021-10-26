@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/Screens/Login.dart';
@@ -14,6 +15,7 @@ final fName = TextEditingController();
 final lName = TextEditingController();
 final email = TextEditingController();
 final password = TextEditingController();
+final cPassword = TextEditingController();
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -90,8 +92,9 @@ class _SignUpState extends State<SignUp> {
                     "Email",
                     email,
                     function: (value) {
-                      if (value!.isEmpty || !value.contains("@")) {
-                        return 'Please enter a valid Email';
+                      if (EmailValidator.validate(value)) {
+                      } else {
+                        return "Enter Valid Email";
                       }
                       return null;
                     },
@@ -110,12 +113,37 @@ class _SignUpState extends State<SignUp> {
                       }
                       return null;
                     },
+                  ),SizedBox(
+                    height: dynamicHeight(context, .01),
+                  ),
+                  inputTextField(
+                    context,
+                    true,
+                    "Confirm Password",
+                    cPassword,
+                    function: (value) {
+                      if (value!.isEmpty || value.toString() != password.text) {
+                        return 'Password must be same as above';
+                      }
+                      return null;
+                    },
                   ),
                   SizedBox(
-                    height: dynamicHeight(context, .1),
+                    height: dynamicHeight(context, .06),
                   ),
                   coloredButton(
-                      context, "SignUp", Login(), myRed, myWhite, false),
+                    context,
+                    "SignUp",
+                    myRed,
+                    myWhite,
+                    false,
+                    function: () {
+                      if (!_formKey.currentState!.validate()) {
+                        return;
+                      }
+                      Navigator.pop(context);
+                    },
+                  ),
                   SizedBox(
                     height: dynamicHeight(context, .04),
                   ),

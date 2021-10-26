@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/Screens/Home.dart';
@@ -58,8 +59,9 @@ class _LoginState extends State<Login> {
                       "Email",
                       email,
                       function: (value) {
-                        if (value!.isEmpty || !value.contains("@")) {
-                          return 'Please enter a valid Email';
+                        if (EmailValidator.validate(value)) {
+                        } else {
+                          return "Enter Valid Email";
                         }
                         return null;
                       },
@@ -83,20 +85,37 @@ class _LoginState extends State<Login> {
                       height: dynamicHeight(context, .1),
                     ),
                     coloredButton(
-                        context, "Login", Home(), myRed, myWhite, true),
+                      context,
+                      "Login",
+                      myRed,
+                      myWhite,
+                      true,
+                      function: () {
+                        if (!_formKey.currentState!.validate()) {
+                          return;
+                        }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Home(),
+                          ),
+                        );
+                      },
+                    ),
                     SizedBox(
                       height: dynamicHeight(context, .04),
                     ),
                     richTextWidget(
-                        context,
-                        "Don't have an account?  ",
-                        "Sign Up",
-                        dynamicWidth(context, .04),
-                        dynamicWidth(context, .05),
-                        SignUp(),
-                        myBlack,
-                        myRed,
-                        true),
+                      context,
+                      "Don't have an account?  ",
+                      "Sign Up",
+                      dynamicWidth(context, .04),
+                      dynamicWidth(context, .05),
+                      SignUp(),
+                      myBlack,
+                      myRed,
+                      true,
+                    ),
                   ],
                 ),
               ),

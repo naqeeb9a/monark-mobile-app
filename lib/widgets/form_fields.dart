@@ -3,7 +3,7 @@ import 'package:monark_app/widgets/media_query.dart';
 
 import '../config.dart';
 
-Widget inputTextField(context, obscureText, label, myController, {function}) {
+Widget inputTextField(context, obscureText, label, myController, {function, function2}) {
   return TextFormField(
     autovalidateMode: AutovalidateMode.onUserInteraction,
     validator: (function == "") ? () {} : function,
