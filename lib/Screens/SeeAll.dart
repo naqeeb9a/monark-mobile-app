@@ -102,7 +102,8 @@ Widget detailGrid(function, context, check, {productCheck = false}) {
                                 context,
                                 snapshot.data[index]["image"]["src"],
                                 snapshot.data[index]["title"],
-                                price: snapshot.data[index]["variants"][0]["price"]
+                                price: snapshot.data[index]["variants"][0]
+                                        ["price"]
                                     .toString()
                                     .substring(
                                         0,
@@ -118,8 +119,11 @@ Widget detailGrid(function, context, check, {productCheck = false}) {
                                 snapshot.data[index]["image"]["src"],
                                 snapshot.data[index]["title"],
                                 id: snapshot.data[index]["id"],
-                                description:
-                                    snapshot.data[index]["body_html"].toString());
+                                sizeOption: snapshot.data[index]["options"][0]
+                                    ["values"],
+                                description: snapshot.data[index]["body_html"]
+                                    .toString(),
+                              );
                       });
                 } else {
                   return Center(
