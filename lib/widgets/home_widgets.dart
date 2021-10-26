@@ -246,7 +246,7 @@ Widget basicCards(context, imageUrl, text,
                       } else {
                         price = "fetching ...";
                         return JumpingDotsProgressIndicator(
-                          fontSize: dynamicWidth(context, .05),
+                          fontSize: dynamicWidth(context, .034),
                         );
                       }
                     },
