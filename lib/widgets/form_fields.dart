@@ -3,22 +3,23 @@ import 'package:monark_app/widgets/media_query.dart';
 
 import '../config.dart';
 
-Widget inputTextField(context, obscureText, label, myController, {function, function2}) {
+Widget inputTextField(context, label, myController,
+    {function, function2, password = false}) {
   return TextFormField(
     autovalidateMode: AutovalidateMode.onUserInteraction,
     validator: (function == "") ? () {} : function,
     controller: myController,
     textInputAction: TextInputAction.next,
     keyboardType: TextInputType.emailAddress,
-    obscureText: obscureText,
+    obscureText: password == true ? obscureText : false,
     cursorColor: myBlack,
     cursorWidth: 2.0,
     cursorHeight: dynamicHeight(context, .034),
     decoration: InputDecoration(
-      suffixIcon: obscureText == false
+      suffixIcon: password == false
           ? null
           : InkWell(
-              onTap: () {},
+              onTap: function2 == "" ? () {} : function2,
               child: Icon(
                 Icons.remove_red_eye_rounded,
                 color: myRed,

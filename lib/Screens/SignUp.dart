@@ -25,8 +25,6 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  bool obscureText = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +56,6 @@ class _SignUpState extends State<SignUp> {
                   ),
                   inputTextField(
                     context,
-                    false,
                     "First Name",
                     fName,
                     function: (value) {
@@ -73,7 +70,6 @@ class _SignUpState extends State<SignUp> {
                   ),
                   inputTextField(
                     context,
-                    false,
                     "Last Name",
                     lName,
                     function: (value) {
@@ -88,7 +84,6 @@ class _SignUpState extends State<SignUp> {
                   ),
                   inputTextField(
                     context,
-                    false,
                     "Email",
                     email,
                     function: (value) {
@@ -104,28 +99,39 @@ class _SignUpState extends State<SignUp> {
                   ),
                   inputTextField(
                     context,
-                    true,
                     "Password",
                     password,
+                    password: true,
                     function: (value) {
                       if (value!.isEmpty || value.length < 8) {
                         return 'Password must have 8 characters';
                       }
                       return null;
                     },
-                  ),SizedBox(
+                    function2: () {
+                      setState(() {
+                        obscureText = !obscureText;
+                      });
+                    },
+                  ),
+                  SizedBox(
                     height: dynamicHeight(context, .01),
                   ),
                   inputTextField(
                     context,
-                    true,
                     "Confirm Password",
                     cPassword,
+                    password: true,
                     function: (value) {
                       if (value!.isEmpty || value.toString() != password.text) {
                         return 'Password must be same as above';
                       }
                       return null;
+                    },
+                    function2: () {
+                      setState(() {
+                        obscureText = !obscureText;
+                      });
                     },
                   ),
                   SizedBox(

@@ -55,7 +55,6 @@ class _LoginState extends State<Login> {
                     ),
                     inputTextField(
                       context,
-                      false,
                       "Email",
                       email,
                       function: (value) {
@@ -71,14 +70,19 @@ class _LoginState extends State<Login> {
                     ),
                     inputTextField(
                       context,
-                      true,
                       "Password",
                       password,
+                      password: true,
                       function: (value) {
                         if (value!.isEmpty || value.length < 8) {
                           return 'Password must have 8 characters';
                         }
                         return null;
+                      },
+                      function2: () {
+                        setState(() {
+                          obscureText = !obscureText;
+                        });
                       },
                     ),
                     SizedBox(
