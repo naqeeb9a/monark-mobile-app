@@ -388,6 +388,7 @@ dynamic imageAlert(context, image, assetImage) {
                         )
                       : Image.asset(
                           image,
+                          width: dynamicWidth(context, .96),
                         ),
                 ),
               ),
@@ -405,7 +406,7 @@ dynamic imageAlert(context, image, assetImage) {
                       child: Icon(
                         Icons.clear,
                         color: myRed,
-                        size: dynamicWidth(context, .1),
+                        size: dynamicWidth(context, .08),
                       ),
                     ),
                   ],

@@ -169,12 +169,15 @@ class _DetailPageState extends State<DetailPage> {
                             widget.array == "")
                         ? Container()
                         : sizeOptions(widget.array, context),
-                    Divider(
-                      thickness: 2,
-                      endIndent: dynamicWidth(context, .1),
-                      indent: dynamicWidth(context, .1),
-                      height: dynamicHeight(context, .03),
-                    ),
+                    (widget.array.toString().contains("Default") ||
+                            widget.array == "")
+                        ? Container()
+                        : Divider(
+                            thickness: 2,
+                            endIndent: dynamicWidth(context, .1),
+                            indent: dynamicWidth(context, .1),
+                            height: dynamicHeight(context, .03),
+                          ),
                     ExpansionPanelList(
                       animationDuration: Duration(milliseconds: 600),
                       children: [
