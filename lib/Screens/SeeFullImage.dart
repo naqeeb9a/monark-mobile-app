@@ -11,21 +11,22 @@ class SeeFullImage extends StatelessWidget {
     return Scaffold(
       appBar: bar2(context),
       body: Center(
-        child: Hero(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: Hero(
             tag: 1,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: CachedNetworkImage(
-                  imageUrl: imageUrl,
-                  height: MediaQuery.of(context).size.height / 4,
-                  placeholder: (context, string) {
-                    return Image.asset(
-                      "assets/loader.gif",
-                      scale: 7,
-                    );
-                  }),
-            )),
+            child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.cover,
+                width: MediaQuery.of(context).size.width * 0.9,
+                placeholder: (context, string) {
+                  return Image.asset(
+                    "assets/loader.gif",
+                    scale: 7,
+                  );
+                }),
+          ),
+        ),
       ),
     );
   }
