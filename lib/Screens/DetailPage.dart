@@ -28,6 +28,7 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   bool _expanded = false;
+  String selectedSize = "";
 
   @override
   Widget build(BuildContext context) {
@@ -168,11 +169,7 @@ class _DetailPageState extends State<DetailPage> {
                     (widget.array.toString().contains("Default") ||
                             widget.array == "")
                         ? Container()
-                        : sizeOptions(context, widget.array, function: () {
-                            setState(() {
-                              sizeColor = myRed;
-                            });
-                          }),
+                        : sizeOptions(context, widget.array),
                     (widget.array.toString().contains("Default") ||
                             widget.array == "")
                         ? Container()
@@ -228,36 +225,44 @@ class _DetailPageState extends State<DetailPage> {
       ),
     );
   }
-}
 
-Widget sizeOptions(context, array, {function}) {
-  return Container(
-    height: dynamicHeight(context, .06),
-    child: Center(
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: array.length,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return Padding(
+  Widget sizeOptions(context, array, {function}) {
+    return Container(
+      height: dynamicHeight(context, .06),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(
+          array.length,
+          (index) => Padding(
             padding: EdgeInsets.symmetric(
               horizontal: dynamicWidth(context, .02),
             ),
-            child: InkWell(
-              onTap: function == "" ? () {} : function,
-              child: CircleAvatar(
-                backgroundColor: myBlack,
-                child: Text(
-                  array[index].toString(),
-                  style: TextStyle(color: myGrey),
+            child: Material(
+              color: noColor,
+              child: InkWell(
+                onTap: () {
+                  setState(() {
+                    selectedSize = array[index];
+                  });
+                  print(selectedSize);
+                },
+                child: Ink(
+                  child: CircleAvatar(
+                    backgroundColor:
+                        selectedSize == array[index] ? myRed : myBlack,
+                    child: Text(
+                      array[index].toString(),
+                      style: TextStyle(color: myGrey),
+                    ),
+                  ),
                 ),
               ),
             ),
-          );
-        },
+          ),
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 Widget bottomButton(context, image, price, text) {
