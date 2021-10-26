@@ -1,10 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:monark_app/Screens/SeeAll.dart';
-import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/drawer_items.dart';
 import 'package:monark_app/widgets/form_fields.dart';
@@ -20,8 +15,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  ValueNotifier<bool> isDialOpen = ValueNotifier(false);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,79 +108,7 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      floatingActionButton: SpeedDial(
-        animatedIcon: AnimatedIcons.menu_close,
-        openCloseDial: isDialOpen,
-        backgroundColor: myRed,
-        overlayColor: myGrey,
-        overlayOpacity: 0.5,
-        spacing: dynamicHeight(context, .01),
-        spaceBetweenChildren: dynamicHeight(context, .01),
-        closeManually: true,
-        children: [
-          SpeedDialChild(
-            onTap: () {
-              print('Share Tapped');
-            },
-            elevation: 2.0,
-            child: CircleAvatar(
-              backgroundColor: myWhite,
-              radius: dynamicWidth(context, .1),
-              backgroundImage: AssetImage(
-                "assets/whatsapp.png",
-              ),
-            ),
-          ),
-          SpeedDialChild(
-            onTap: () {
-              print('Share Tapped');
-            },
-            elevation: 2.0,
-            child: CircleAvatar(
-              backgroundColor: myWhite,
-              radius: dynamicWidth(context, .1),
-              backgroundImage: AssetImage(
-                "assets/messenger.png",
-              ),
-            ),
-          ),
-        ],
-      ),
+      floatingActionButton: floatingButton(context),
     );
   }
-}
-
-Widget rowText(text, context,
-    {function,
-    text2 = "",
-    bool check = false,
-    bool categoryCheck = false,
-    productCheck = false}) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Text(
-        text,
-        style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-      ),
-      (check == true)
-          ? InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SeeAll(
-                              check: categoryCheck,
-                              text: text,
-                              function: function,
-                              checkProducts: productCheck,
-                            )));
-              },
-              child: Text(
-                text2,
-              ),
-            )
-          : Container()
-    ],
-  );
 }

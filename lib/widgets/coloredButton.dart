@@ -7,16 +7,18 @@ import '../config.dart';
 Widget coloredButton(context, text, color, textColor, push,
     {page, function = ""}) {
   return InkWell(
-    onTap: function == "" ? () {
-      push == false
-          ? Navigator.pop(context)
-          : Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => page,
-        ),
-      );
-    } : function,
+    onTap: function == ""
+        ? () {
+            push == false
+                ? Navigator.pop(context)
+                : Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => page,
+                    ),
+                  );
+          }
+        : function,
     child: Container(
       width: dynamicWidth(context, .8),
       height: dynamicHeight(context, .06),

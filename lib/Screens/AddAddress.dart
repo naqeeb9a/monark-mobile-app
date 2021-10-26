@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:monark_app/Screens/Cart.dart';
-import 'package:monark_app/Screens/Home.dart';
 import 'package:monark_app/widgets/app_bar.dart';
+import 'package:monark_app/widgets/home_widgets.dart';
 
 import '../config.dart';
 

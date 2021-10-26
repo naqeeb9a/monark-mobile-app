@@ -27,111 +27,172 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  bool _expanded = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: myGrey,
       appBar: bar2(context, cartCheck: true, icon: Icons.shopping_bag_outlined),
       body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
+        height: dynamicHeight(context, 1),
+        width: dynamicWidth(context, 1),
         child: Stack(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 25),
-              height: MediaQuery.of(context).size.height / 1.3,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
+              margin: EdgeInsets.symmetric(
+                horizontal: dynamicWidth(context, .04),
+              ),
+              height: dynamicHeight(context, .81),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(
+                          dynamicWidth(context, .02),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SeeFullImage(
-                                        imageUrl: widget.image,
-                                      )));
-                        },
-                        child: Hero(
-                          tag: 1,
-                          child: CachedNetworkImage(
+                                builder: (context) => SeeFullImage(
+                                  imageUrl: widget.image,
+                                ),
+                              ),
+                            );
+                          },
+                          child: Hero(
+                            tag: 1,
+                            child: CachedNetworkImage(
                               imageUrl: widget.image,
                               fit: BoxFit.cover,
-                              height: MediaQuery.of(context).size.height / 4,
+                              height: dynamicHeight(context, .36),
                               placeholder: (context, string) {
                                 return Image.asset(
                                   "assets/loader.gif",
                                   scale: 7,
                                 );
-                              }),
+                              },
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: dynamicHeight(context, 0.03),
-                  ),
-                  Text(
-                    widget.text,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                  ),
-                  (widget.price.contains("fetching"))
-                      ? Text(
-                          widget.price,
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        )
-                      : Text(
-                          "Rs. " +
-                              double.parse(widget.price).toInt().toString(),
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                  Divider(
-                    thickness: 2,
-                    endIndent: 50,
-                    indent: 50,
-                  ),
-                  Text(
-                    "Description",
-                    style: TextStyle(fontWeight: FontWeight.w800),
-                  ),
-                  Html(
-                    data: widget.description,
-                    style: {
-                      'p': Style(
-                        maxLines: 4,
-                        textOverflow: TextOverflow.ellipsis,
+                    SizedBox(
+                      height: dynamicHeight(context, 0.04),
+                    ),
+                    Text(
+                      widget.text,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: dynamicWidth(context, .06),
                       ),
-                    },
-                  ),
-                  Divider(
-                    thickness: 2,
-                  ),
-                  (widget.array.toString().contains("Default") ||
-                          widget.array == "")
-                      ? Container()
-                      : Text(
-                          "Select Size",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: dynamicHeight(context, 0.02),
+                    ),
+                    Text(
+                      "SKU : " + double.parse(widget.price).toInt().toString(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: dynamicWidth(context, .04),
+                      ),
+                    ),
+                    SizedBox(
+                      height: dynamicHeight(context, 0.02),
+                    ),
+                    widget.price.contains("fetching")
+                        ? Text(
+                            widget.price,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: dynamicWidth(context, .044),
+                            ),
+                          )
+                        : Text(
+                            "Rs. " +
+                                double.parse(widget.price).toInt().toString(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: dynamicWidth(context, .044),
+                            ),
+                          ),
+                    Divider(
+                      thickness: 2,
+                      height: dynamicHeight(context, .04),
+                    ),
+                    (widget.array.toString().contains("Default") ||
+                            widget.array == "")
+                        ? Container()
+                        : Text(
+                            "Select Size",
+                            style: TextStyle(
+                              fontSize: dynamicWidth(context, .05),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                    (widget.array.toString().contains("Default") ||
+                            widget.array == "")
+                        ? Container()
+                        : Divider(
+                            thickness: 2,
+                            height: dynamicHeight(context, .03),
+                          ),
+                    (widget.array.toString().contains("Default") ||
+                            widget.array == "")
+                        ? Container()
+                        : sizeOptions(widget.array, context),
+                    Divider(
+                      thickness: 2,
+                      endIndent: dynamicWidth(context, .1),
+                      indent: dynamicWidth(context, .1),
+                      height: dynamicHeight(context, .03),
+                    ),
+                    ExpansionPanelList(
+                      animationDuration: Duration(milliseconds: 600),
+                      children: [
+                        ExpansionPanel(
+                          headerBuilder: (context, isExpanded) {
+                            return ListTile(
+                              title: Text(
+                                "Description",
+                                style: TextStyle(
+                                  fontSize: dynamicWidth(context, .05),
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                            );
+                          },
+                          body: ListTile(
+                            title: Html(
+                              data: widget.description,
+                            ),
+                          ),
+                          isExpanded: _expanded,
+                          canTapOnHeader: true,
+                          backgroundColor: myGrey,
                         ),
-                  (widget.array.toString().contains("Default") ||
-                          widget.array == "")
-                      ? Container()
-                      : Divider(
-                          thickness: 2,
-                        ),
-                  (widget.array.toString().contains("Default") ||
-                          widget.array == "")
-                      ? Container()
-                      : sizeOptions(widget.array, context),
-                ],
+                      ],
+                      elevation: 0.0,
+                      expansionCallback: (panelIndex, isExpanded) {
+                        _expanded = !_expanded;
+                        setState(() {});
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
-            bottomButton(context, widget.image,
-                double.parse(widget.price).toInt().toString(), widget.text)
+            bottomButton(
+              context,
+              widget.image,
+              double.parse(widget.price).toInt().toString(),
+              widget.text,
+            )
           ],
         ),
       ),
@@ -141,7 +202,7 @@ class _DetailPageState extends State<DetailPage> {
 
 Widget sizeOptions(array, context) {
   return Container(
-    height: MediaQuery.of(context).size.height * 0.08,
+    height: MediaQuery.of(context).size.height * 0.06,
     child: Center(
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -171,7 +232,7 @@ Widget bottomButton(context, image, price, text) {
     bottom: 0,
     child: MaterialButton(
       color: myRed,
-      height: MediaQuery.of(context).size.height / 14,
+      height: dynamicHeight(context, .062),
       minWidth: MediaQuery.of(context).size.width,
       onPressed: () {
         cartItems.add({"imageUrl": image, "price": price, "title": text});
