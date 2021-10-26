@@ -311,10 +311,10 @@ Widget floatingButton(context) {
 
 Widget rowText(text, context,
     {function,
-      text2 = "",
-      bool check = false,
-      bool categoryCheck = false,
-      productCheck = false}) {
+    text2 = "",
+    bool check = false,
+    bool categoryCheck = false,
+    productCheck = false}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -325,26 +325,96 @@ Widget rowText(text, context,
           fontWeight: FontWeight.w600,
         ),
       ),
-      (check == true)
+      check == true
           ? InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SeeAll(
-                check: categoryCheck,
-                text: text,
-                function: function,
-                checkProducts: productCheck,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SeeAll(
+                      check: categoryCheck,
+                      text: text,
+                      function: function,
+                      checkProducts: productCheck,
+                    ),
+                  ),
+                );
+              },
+              child: Text(
+                text2,
               ),
-            ),
-          );
-        },
-        child: Text(
-          text2,
-        ),
-      )
+            )
           : Container()
     ],
+  );
+}
+
+dynamic imageAlert(context, image, assetImage) {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(
+              context,
+              dynamicWidth(context, .03),
+            ),
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .03),
+          ),
+          child: Stack(
+            children: [
+              Hero(
+                tag: 1,
+                child: InteractiveViewer(
+                  child: assetImage == false
+                      ? CachedNetworkImage(
+                          imageUrl: image,
+                          fit: BoxFit.cover,
+                          width: dynamicWidth(context, .96),
+                          height: dynamicHeight(context, .86),
+                          placeholder: (context, string) {
+                            return Image.asset(
+                              "assets/loader.gif",
+                              scale: 4,
+                            );
+                          },
+                        )
+                      : Image.asset(
+                          image,
+                        ),
+                ),
+              ),
+              Container(
+                width: dynamicWidth(context, 1),
+                height: dynamicHeight(context, .05),
+                color: noColor,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        right: dynamicWidth(context, .02),
+                      ),
+                      child: Icon(
+                        Icons.clear,
+                        color: myRed,
+                        size: dynamicWidth(context, .1),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
   );
 }

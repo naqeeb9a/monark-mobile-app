@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:monark_app/Screens/SeeFullImage.dart';
 import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
+import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
 class DetailPage extends StatefulWidget {
@@ -56,13 +56,10 @@ class _DetailPageState extends State<DetailPage> {
                         ),
                         child: InkWell(
                           onTap: () {
-                            Navigator.push(
+                            imageAlert(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) => SeeFullImage(
-                                  imageUrl: widget.image,
-                                ),
-                              ),
+                              widget.image,
+                              false,
                             );
                           },
                           child: Hero(
@@ -128,12 +125,38 @@ class _DetailPageState extends State<DetailPage> {
                     (widget.array.toString().contains("Default") ||
                             widget.array == "")
                         ? Container()
-                        : Text(
-                            "Select Size",
-                            style: TextStyle(
-                              fontSize: dynamicWidth(context, .05),
-                              fontWeight: FontWeight.w600,
-                            ),
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Select Size",
+                                style: TextStyle(
+                                  fontSize: dynamicWidth(context, .05),
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  imageAlert(
+                                    context,
+                                    "assets/size_guide.jpg",
+                                    true,
+                                  );
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: dynamicHeight(context, .01),
+                                  ),
+                                  child: Text(
+                                    "Size Guide",
+                                    style: TextStyle(
+                                      fontSize: dynamicWidth(context, .04),
+                                      fontWeight: FontWeight.w200,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                     (widget.array.toString().contains("Default") ||
                             widget.array == "")
