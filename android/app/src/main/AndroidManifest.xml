@@ -2,7 +2,7 @@
     package="com.monark.mobile_app.monark_app">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="monark_app"
+        android:label="Monark"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
