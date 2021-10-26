@@ -112,6 +112,8 @@ Widget detailGrid(function, context, check, {productCheck = false}) {
                                                     ["price"]
                                                 .length -
                                             3),
+                                sizeOption: snapshot.data[index]["options"][0]
+                                    ["values"],
                                 description: snapshot.data[index]["body_html"]
                                     .toString())
                             : basicCards(
@@ -119,8 +121,6 @@ Widget detailGrid(function, context, check, {productCheck = false}) {
                                 snapshot.data[index]["image"]["src"],
                                 snapshot.data[index]["title"],
                                 id: snapshot.data[index]["id"],
-                                sizeOption: snapshot.data[index]["options"][0]
-                                    ["values"],
                                 description: snapshot.data[index]["body_html"]
                                     .toString(),
                               );
