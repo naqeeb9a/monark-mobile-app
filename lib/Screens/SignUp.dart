@@ -28,7 +28,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: myWhite,
+      backgroundColor: myGrey,
       appBar: bar2(context),
       body: SafeArea(
         child: Container(

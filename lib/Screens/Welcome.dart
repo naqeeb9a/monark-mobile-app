@@ -14,6 +14,7 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: myGrey,
       body: SafeArea(
         child: Center(
           child: Container(
@@ -57,12 +58,17 @@ class Welcome extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Text(
-                    "Continue as a Guest",
-                    style: TextStyle(
-                      fontSize: dynamicWidth(context, .056),
-                      color: myRed,
-                      fontWeight: FontWeight.w400,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: dynamicHeight(context, .02),
+                    ),
+                    child: Text(
+                      "Continue as a Guest",
+                      style: TextStyle(
+                        fontSize: dynamicWidth(context, .056),
+                        color: myRed,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
                 ),
