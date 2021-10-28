@@ -73,160 +73,161 @@ class AboutUs extends StatelessWidget {
                         vertical: dynamicHeight(context, .04),
                         horizontal: dynamicWidth(context, .06),
                       ),
-                      child: Container(
-                        width: dynamicWidth(context, 1),
-                        height: dynamicHeight(context, .28),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "HERE TO HELP",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: dynamicWidth(context, .056),
-                                    color: myRed,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: dynamicHeight(context, .02),
-                                bottom: dynamicHeight(context, .01),
-                              ),
-                              child: Row(
+                      child: Expanded(
+                        child: Container(
+                          width: dynamicWidth(context, 1),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(
-                                    Icons.location_on,
-                                    color: myRed,
-                                    size: dynamicWidth(context, .06),
-                                  ),
-                                  SizedBox(
-                                    width: dynamicWidth(context, .04),
-                                  ),
-                                  Flexible(
-                                    child: Text(
-                                      "81 Babar block, Garden Town Lahore,Pakistan.",
-                                      style: TextStyle(
-                                        color: myBlack,
-                                        fontSize: dynamicWidth(context, .04),
-                                      ),
-                                      maxLines: 2,
+                                  Text(
+                                    "HERE TO HELP",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: dynamicWidth(context, .056),
+                                      color: myRed,
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                launch("mailto:customercare@monark.com.pk");
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: dynamicHeight(context, .01),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  top: dynamicHeight(context, .02),
+                                  bottom: dynamicHeight(context, .01),
                                 ),
                                 child: Row(
                                   children: [
                                     Icon(
-                                      Icons.mail_rounded,
+                                      Icons.location_on,
                                       color: myRed,
                                       size: dynamicWidth(context, .06),
                                     ),
                                     SizedBox(
                                       width: dynamicWidth(context, .04),
                                     ),
-                                    Text(
-                                      "customercare@monark.com.pk",
-                                      style: TextStyle(
-                                        color: myBlack,
-                                        fontSize: dynamicWidth(context, .04),
+                                    Flexible(
+                                      child: Text(
+                                        "81 Babar block, Garden Town Lahore,Pakistan.",
+                                        style: TextStyle(
+                                          color: myBlack,
+                                          fontSize: dynamicWidth(context, .04),
+                                        ),
+                                        maxLines: 2,
                                       ),
-                                      maxLines: 2,
                                     ),
                                   ],
                                 ),
                               ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                launch("tel:0423500451");
-                              },
-                              child: Padding(
+                              InkWell(
+                                onTap: () {
+                                  launch("mailto:customercare@monark.com.pk");
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: dynamicHeight(context, .01),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.mail_rounded,
+                                        color: myRed,
+                                        size: dynamicWidth(context, .06),
+                                      ),
+                                      SizedBox(
+                                        width: dynamicWidth(context, .04),
+                                      ),
+                                      Text(
+                                        "customercare@monark.com.pk",
+                                        style: TextStyle(
+                                          color: myBlack,
+                                          fontSize: dynamicWidth(context, .04),
+                                        ),
+                                        maxLines: 2,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  launch("tel:0423500451");
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: dynamicHeight(context, .01),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.call,
+                                        color: myRed,
+                                        size: dynamicWidth(context, .06),
+                                      ),
+                                      SizedBox(
+                                        width: dynamicWidth(context, .04),
+                                      ),
+                                      Text(
+                                        "042 3500451",
+                                        style: TextStyle(
+                                          color: myBlack,
+                                          fontSize: dynamicWidth(context, .04),
+                                        ),
+                                        maxLines: 2,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Padding(
                                 padding: EdgeInsets.symmetric(
-                                  vertical: dynamicHeight(context, .01),
+                                  vertical: dynamicHeight(context, .02),
                                 ),
                                 child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Icon(
-                                      Icons.call,
-                                      color: myRed,
-                                      size: dynamicWidth(context, .06),
-                                    ),
-                                    SizedBox(
-                                      width: dynamicWidth(context, .04),
-                                    ),
-                                    Text(
-                                      "042 3500451",
-                                      style: TextStyle(
-                                        color: myBlack,
-                                        fontSize: dynamicWidth(context, .04),
+                                    InkWell(
+                                      onTap: () {
+                                        print("object");
+                                        launch(
+                                            "https://www.facebook.com/monark.com.pk");
+                                      },
+                                      child: FaIcon(
+                                        FontAwesomeIcons.facebook,
+                                        color: myRed,
+                                        size: dynamicWidth(context, .07),
                                       ),
-                                      maxLines: 2,
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        print("object");
+                                        launch(
+                                            "https://www.instagram.com/monarkpakistan/");
+                                      },
+                                      child: FaIcon(
+                                        FontAwesomeIcons.instagram,
+                                        color: myRed,
+                                        size: dynamicWidth(context, .07),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        print("object");
+                                        launch(
+                                            "https://www.youtube.com/channel/UCo-RW5EuPY0iGOWWYJEkuFw");
+                                      },
+                                      child: FaIcon(
+                                        FontAwesomeIcons.youtube,
+                                        color: myRed,
+                                        size: dynamicWidth(context, .07),
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: dynamicHeight(context, .02),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      print("object");
-                                      launch(
-                                          "https://www.facebook.com/monark.com.pk");
-                                    },
-                                    child: FaIcon(
-                                      FontAwesomeIcons.facebook,
-                                      color: myRed,
-                                      size: dynamicWidth(context, .07),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      print("object");
-                                      launch(
-                                          "https://www.instagram.com/monarkpakistan/");
-                                    },
-                                    child: FaIcon(
-                                      FontAwesomeIcons.instagram,
-                                      color: myRed,
-                                      size: dynamicWidth(context, .07),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      print("object");
-                                      launch(
-                                          "https://www.youtube.com/channel/UCo-RW5EuPY0iGOWWYJEkuFw");
-                                    },
-                                    child: FaIcon(
-                                      FontAwesomeIcons.youtube,
-                                      color: myRed,
-                                      size: dynamicWidth(context, .07),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
