@@ -12,7 +12,7 @@ import 'package:monark_app/widgets/shopify_functions.dart';
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
   var accessToken;
-  Home({Key? key, this.accessToken}) : super(key: key);
+  Home({Key? key, this.accessToken = ""}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -22,7 +22,9 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    getUserData(widget.accessToken);
+    if (widget.accessToken != "") {
+      getUserData(widget.accessToken);
+    }
   }
 
   getUserData(accessToken) async {
