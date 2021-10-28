@@ -390,7 +390,7 @@ dynamic imageAlert(context, image, assetImage) {
                       : Image.asset(
                           image,
                           width: dynamicWidth(context, .96),
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fitHeight,
                         ),
                 ),
               ),

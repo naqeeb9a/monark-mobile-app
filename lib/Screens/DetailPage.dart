@@ -41,40 +41,42 @@ class _DetailPageState extends State<DetailPage> {
         child: Stack(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(
-                horizontal: dynamicWidth(context, .04),
-              ),
               height: dynamicHeight(context, .81),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Center(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                          dynamicWidth(context, .02),
-                        ),
-                        child: InkWell(
-                          onTap: () {
-                            imageAlert(
-                              context,
-                              widget.image,
-                              false,
-                            );
-                          },
-                          child: Hero(
-                            tag: 1,
-                            child: CachedNetworkImage(
-                              imageUrl: widget.image,
-                              fit: BoxFit.cover,
-                              height: dynamicHeight(context, .36),
-                              placeholder: (context, string) {
-                                return Image.asset(
-                                  "assets/loader.gif",
-                                  scale: 7,
-                                );
-                              },
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: dynamicWidth(context, .04),
+                      ),
+                      child: Center(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(
+                            dynamicWidth(context, .02),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              imageAlert(
+                                context,
+                                widget.image,
+                                false,
+                              );
+                            },
+                            child: Hero(
+                              tag: 1,
+                              child: CachedNetworkImage(
+                                imageUrl: widget.image,
+                                fit: BoxFit.cover,
+                                height: dynamicHeight(context, .36),
+                                placeholder: (context, string) {
+                                  return Image.asset(
+                                    "assets/loader.gif",
+                                    scale: 7,
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ),
@@ -83,88 +85,124 @@ class _DetailPageState extends State<DetailPage> {
                     SizedBox(
                       height: dynamicHeight(context, 0.04),
                     ),
-                    Text(
-                      widget.text,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: dynamicWidth(context, .06),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: dynamicWidth(context, .04),
+                      ),
+                      child: Text(
+                        widget.text,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: dynamicWidth(context, .06),
+                        ),
                       ),
                     ),
                     SizedBox(
                       height: dynamicHeight(context, 0.02),
                     ),
-                    Text(
-                      "SKU : " + double.parse(widget.price).toInt().toString(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: dynamicWidth(context, .04),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: dynamicWidth(context, .04),
+                      ),
+                      child: Text(
+                        "SKU : " +
+                            double.parse(widget.price).toInt().toString(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: dynamicWidth(context, .04),
+                        ),
                       ),
                     ),
                     SizedBox(
                       height: dynamicHeight(context, 0.02),
                     ),
                     widget.price.contains("fetching")
-                        ? Text(
-                            widget.price,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: dynamicWidth(context, .044),
+                        ? Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: dynamicWidth(context, .04),
+                            ),
+                            child: Text(
+                              widget.price,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: dynamicWidth(context, .044),
+                              ),
                             ),
                           )
-                        : Text(
-                            "Rs. " +
-                                double.parse(widget.price).toInt().toString(),
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: dynamicWidth(context, .044),
+                        : Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: dynamicWidth(context, .04),
+                            ),
+                            child: Text(
+                              "Rs. " +
+                                  double.parse(widget.price).toInt().toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: dynamicWidth(context, .044),
+                              ),
                             ),
                           ),
-                    Divider(
-                      thickness: 2,
-                      height: dynamicHeight(context, .04),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: dynamicWidth(context, .04),
+                      ),
+                      child: Divider(
+                        thickness: 2,
+                        height: dynamicHeight(context, .04),
+                      ),
                     ),
                     (widget.array.toString().contains("Default") ||
                             widget.array == "")
                         ? Container()
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Select Size",
-                                style: TextStyle(
-                                  fontSize: dynamicWidth(context, .05),
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  imageAlert(
-                                    context,
-                                    "assets/size_guide.jpg",
-                                    true,
-                                  );
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: dynamicHeight(context, .01),
+                        : Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: dynamicWidth(context, .04),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Select Size",
+                                  style: TextStyle(
+                                    fontSize: dynamicWidth(context, .05),
+                                    fontWeight: FontWeight.w600,
                                   ),
-                                  child: Text(
-                                    "Size Guide",
-                                    style: TextStyle(
-                                      fontSize: dynamicWidth(context, .04),
-                                      fontWeight: FontWeight.w200,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    imageAlert(
+                                      context,
+                                      "assets/size_guide.jpg",
+                                      true,
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: dynamicHeight(context, .01),
+                                    ),
+                                    child: Text(
+                                      "Size Guide",
+                                      style: TextStyle(
+                                        fontSize: dynamicWidth(context, .04),
+                                        fontWeight: FontWeight.w200,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                     (widget.array.toString().contains("Default") ||
                             widget.array == "")
                         ? Container()
-                        : Divider(
-                            thickness: 2,
-                            height: dynamicHeight(context, .03),
+                        : Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: dynamicWidth(context, .04),
+                            ),
+                            child: Divider(
+                              thickness: 2,
+                              height: dynamicHeight(context, .03),
+                            ),
                           ),
                     (widget.array.toString().contains("Default") ||
                             widget.array == "")
@@ -173,13 +211,19 @@ class _DetailPageState extends State<DetailPage> {
                     (widget.array.toString().contains("Default") ||
                             widget.array == "")
                         ? Container()
-                        : Divider(
-                            thickness: 2,
-                            endIndent: dynamicWidth(context, .1),
-                            indent: dynamicWidth(context, .1),
-                            height: dynamicHeight(context, .03),
+                        : Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: dynamicWidth(context, .04),
+                            ),
+                            child: Divider(
+                              thickness: 2,
+                              endIndent: dynamicWidth(context, .1),
+                              indent: dynamicWidth(context, .1),
+                              height: dynamicHeight(context, .03),
+                            ),
                           ),
                     ExpansionPanelList(
+                      expandedHeaderPadding: EdgeInsets.zero,
                       animationDuration: Duration(milliseconds: 600),
                       children: [
                         ExpansionPanel(
