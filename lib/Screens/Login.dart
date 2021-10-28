@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql/client.dart';
 import 'package:monark_app/Screens/Home.dart';
 import 'package:monark_app/Screens/SignUp.dart';
 import 'package:monark_app/config.dart';
@@ -22,6 +23,50 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  loginUser() async {
+    const createUserAccessToken = r'''
+mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
+  customerAccessTokenCreate(input: $input) {
+    customerAccessToken {
+      accessToken
+      expiresAt
+    }
+    customerUserErrors {
+      code
+      field
+      message
+    }
+  }
+}
+ ''';
+    var variables = {
+      "input": {
+        "email": email.text.toString(),
+        "password": password.text.toString()
+      }
+    };
+    final HttpLink httpLink = HttpLink(
+        "https://monark-clothings.myshopify.com/api/2021-10/graphql.json",
+        defaultHeaders: {
+          "X-Shopify-Storefront-Access-Token":
+              "fce9486a511f6a4f45939c2c6829cdaa"
+        });
+    GraphQLClient client = GraphQLClient(link: httpLink, cache: GraphQLCache());
+    final QueryOptions options = QueryOptions(
+        document: gql(createUserAccessToken), variables: variables);
+    final QueryResult result = await client.query(options);
+
+    if (result.hasException) {
+      return "Server Error";
+    } else {
+      print(result.data);
+      print(result.data!["customerAccessTokenCreate"]["customerAccessToken"]
+          ["accessToken"]);
+      return result.data!["customerAccessTokenCreate"]["customerAccessToken"]
+          ["accessToken"];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,16 +139,25 @@ class _LoginState extends State<Login> {
                       myRed,
                       myWhite,
                       true,
-                      function: () {
+                      function: () async {
                         if (!_formKey.currentState!.validate()) {
                           return;
                         }
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Home(),
-                          ),
-                        );
+                        var accessToken = await loginUser();
+                        if (accessToken == "Server Error") {
+                          print("Server Error");
+                        } else if (accessToken != "") {
+                          print(accessToken);
+                          print("success");
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Home(
+                                        accessToken: accessToken,
+                                      )));
+                        } else {
+                          print("Unidenitified error");
+                        }
                       },
                     ),
                     SizedBox(
