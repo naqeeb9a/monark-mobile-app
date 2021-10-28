@@ -59,10 +59,11 @@ PreferredSizeWidget bar(context, check) {
   );
 }
 
-PreferredSizeWidget bar2(context, {cartCheck = false, icon = Icons.clear_all}) {
+PreferredSizeWidget bar2(context,
+    {cartCheck = false, icon = Icons.clear_all, color = myBlack}) {
   return AppBar(
     iconTheme: IconThemeData(
-      color: myBlack,
+      color: color,
     ),
     backgroundColor: Colors.transparent,
     elevation: 0,
