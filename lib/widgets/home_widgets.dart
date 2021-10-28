@@ -8,6 +8,7 @@ import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
 import 'package:progress_indicators/progress_indicators.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../config.dart';
 import 'media_query.dart';
@@ -281,7 +282,7 @@ Widget floatingButton(context) {
     children: [
       SpeedDialChild(
         onTap: () {
-          print('Share Tapped');
+          launch("whatsapp://send?phone=+923036663017&text=https://monark.com.pk/ I'm interested in this product and I have a few questions. Can you help?");
         },
         elevation: 2.0,
         child: CircleAvatar(
@@ -294,7 +295,7 @@ Widget floatingButton(context) {
       ),
       SpeedDialChild(
         onTap: () {
-          print('Share Tapped');
+          launch("https://web.facebook.com/v3.3/plugins/customer_chat/bubble");
         },
         elevation: 2.0,
         child: CircleAvatar(
