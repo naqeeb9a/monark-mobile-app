@@ -175,7 +175,8 @@ class _LoginState extends State<Login> {
                                 SharedPreferences saveUser =
                                     await SharedPreferences.getInstance();
                                 print(accessToken);
-                                print("success");
+                                saveUser.setString(
+                                    "loginInfo", accessToken.toString());
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
                                         builder: (BuildContext context) => Home(
