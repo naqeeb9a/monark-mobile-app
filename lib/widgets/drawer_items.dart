@@ -74,7 +74,7 @@ mutation customerAccessTokenDelete($customerAccessToken: String!) {
     },
     {
       "icon": Icons.store_outlined,
-      "text": "Rate Us",
+      "text": "Store Locator",
       "screen": StoreFinder(),
     },
     {
