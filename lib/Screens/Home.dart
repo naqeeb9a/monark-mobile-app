@@ -106,11 +106,11 @@ class _HomeState extends State<Home> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: dynamicHeight(context, .02),
+                    height: dynamicHeight(context, .03),
                   ),
                   searchbar(),
                   SizedBox(
-                    height: dynamicHeight(context, .06),
+                    height: dynamicHeight(context, .03),
                   ),
                   rowText(
                     "Categories",
