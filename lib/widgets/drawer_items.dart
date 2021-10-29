@@ -5,6 +5,7 @@ import 'package:monark_app/Screens/Address.dart';
 import 'package:monark_app/Screens/Orders.dart';
 import 'package:monark_app/Screens/Profile.dart';
 import 'package:monark_app/Screens/Welcome.dart';
+import 'package:monark_app/Screens/store_finder.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
 import '../config.dart';
@@ -70,9 +71,9 @@ mutation customerAccessTokenDelete($accessToken: String!) {
       "screen": Orders(),
     },
     {
-      "icon": Icons.star_outline,
-      "text": "Rate Us",
-      "screen": Orders(),
+      "icon": Icons.store_outlined,
+      "text": "Store Locator",
+      "screen": StoreFinder(),
     },
     {
       "icon": Icons.info_outline,

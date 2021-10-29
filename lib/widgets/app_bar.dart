@@ -65,6 +65,11 @@ PreferredSizeWidget bar2(context,
     iconTheme: IconThemeData(
       color: color,
     ),
+    title: Image.asset(
+      "assets/monark landscape.jpg",
+      width: dynamicWidth(context, .4),
+    ),
+    centerTitle: true,
     backgroundColor: Colors.transparent,
     elevation: 0,
     actions: [
