@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:monark_app/Screens/store_finder.dart';
 import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/media_query.dart';
@@ -19,15 +20,14 @@ class AboutUs extends StatelessWidget {
           child: Column(
             children: [
               bar2(context),
-              SizedBox(
-                height: dynamicHeight(context, 0.04),
-              ),
               ClipRRect(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(
+                  dynamicWidth(context, .03),
+                ),
                 child: Image.asset(
                   "assets/aboutUs.jpg",
                   fit: BoxFit.cover,
-                  width: dynamicWidth(context, 0.8),
+                  width: dynamicWidth(context, 0.9),
                 ),
               ),
               Padding(
