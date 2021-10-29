@@ -9,7 +9,6 @@ import 'package:monark_app/Screens/SignUp.dart';
 import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
-import 'package:monark_app/widgets/dialog_widget.dart';
 import 'package:monark_app/widgets/form_fields.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/rich_text.dart';

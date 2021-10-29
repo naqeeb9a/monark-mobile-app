@@ -48,7 +48,7 @@ mutation customerAccessTokenDelete($customerAccessToken: String!) {
       return "Server Error";
     } else {
       print(result.data);
-      await saveUser.remove("loginInfo");
+      await saveUser.clear();
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (BuildContext context) => Welcome()),
           (Route<dynamic> route) => false);
@@ -66,7 +66,9 @@ mutation customerAccessTokenDelete($customerAccessToken: String!) {
     {
       "icon": Icons.shopping_cart_outlined,
       "text": "Orders",
-      "screen": Orders(),
+      "screen": Orders(
+        customerInfo: customerInfo,
+      ),
     },
     {
       "icon": Icons.location_on_outlined,

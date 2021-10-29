@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +36,6 @@ class _HomeState extends State<Home> {
 
   checkLoginStatus() async {
     SharedPreferences saveUser = await SharedPreferences.getInstance();
-    // saveUser.clear();
     if (saveUser.getString("loginInfo") == null) {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (BuildContext context) => Welcome()),
@@ -85,14 +83,6 @@ class _HomeState extends State<Home> {
       print(result.hasException);
       return "Server Error";
     } else {
-      print(result.data!["customer"]["id"]);
-      print(result.data!["customer"]["firstName"]);
-      print(result.data!["customer"]["lastName"]);
-      var covert = Base64Codec().decode(result.data!["customer"]["id"]);
-      var utfC = utf8.decode(covert);
-      var aStr = utfC.replaceAll(RegExp(r'[^0-9]'), ''); // '23'
-      var aInt = int.parse(aStr);
-      print(aInt);
       return result.data!["customer"];
     }
   }
