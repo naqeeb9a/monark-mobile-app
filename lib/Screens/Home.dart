@@ -42,8 +42,7 @@ class _HomeState extends State<Home> {
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (BuildContext context) => Welcome()),
           (Route<dynamic> route) => false);
-    }
-    else {
+    } else {
       setState(() {
         widget.accessToken = saveUser.getString("loginInfo");
         print(widget.accessToken);

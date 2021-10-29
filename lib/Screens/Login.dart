@@ -66,12 +66,17 @@ class _LoginState extends State<Login> {
     if (result.hasException) {
       return "Server Error";
     } else {
-      saveUser.setString(
-          "loginInfo",
-          result.data!["customerAccessTokenCreate"]["customerAccessToken"]
-              ["accessToken"]);
-      return result.data!["customerAccessTokenCreate"]["customerAccessToken"]
-          ["accessToken"];
+      if (result.data!["customerAccessTokenCreate"]["customerAccessToken"] !=
+          null) {
+        saveUser.setString(
+            "loginInfo",
+            result.data!["customerAccessTokenCreate"]["customerAccessToken"]
+                ["accessToken"]);
+        return result.data!["customerAccessTokenCreate"]["customerAccessToken"]
+            ["accessToken"];
+      } else {
+        return result.data!["customerAccessTokenCreate"]["customerAccessToken"];
+      }
     }
   }
 
@@ -171,7 +176,7 @@ class _LoginState extends State<Login> {
                                 setState(() {
                                   isloading = false;
                                 });
-                              } else if (accessToken != "") {
+                              } else if (accessToken != null) {
                                 SharedPreferences saveUser =
                                     await SharedPreferences.getInstance();
                                 print(accessToken);
@@ -184,13 +189,17 @@ class _LoginState extends State<Login> {
                                                   .getString("loginInfo"),
                                             )),
                                     (Route<dynamic> route) => false);
+                                email.clear();
+                                password.clear();
                               } else {
-                                Dialog(
-                                  child: Text("Unidenitified error"),
-                                );
                                 setState(() {
                                   isloading = false;
                                 });
+
+                                // show erroe dialog
+                                Dialog(
+                                  child: Text("Unidenitified error"),
+                                );
                               }
                             },
                           ),
