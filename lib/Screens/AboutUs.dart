@@ -188,7 +188,6 @@ class AboutUs extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
-                                print("object");
                                 launch(
                                   "https://www.facebook.com/monark.com.pk",
                                   forceSafariVC: false,
@@ -203,7 +202,6 @@ class AboutUs extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                print("object");
                                 launch(
                                     "https://www.instagram.com/monarkpakistan/");
                               },
@@ -215,7 +213,6 @@ class AboutUs extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                print("object");
                                 launch(
                                     "https://www.youtube.com/channel/UCo-RW5EuPY0iGOWWYJEkuFw");
                               },
