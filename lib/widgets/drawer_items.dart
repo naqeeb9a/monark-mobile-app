@@ -132,13 +132,18 @@ mutation customerAccessTokenDelete($customerAccessToken: String!) {
           onPressed: () {
             if (accessToken == "") {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Login()));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Login(),
+                ),
+              );
             } else {
               CoolAlert.show(
                 context: context,
                 type: CoolAlertType.loading,
+                backgroundColor: noColor,
               );
-              // logoutUser(accessToken);
+              logoutUser(accessToken);
             }
           },
           child: Row(
