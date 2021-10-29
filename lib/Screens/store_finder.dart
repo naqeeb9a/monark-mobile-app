@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:monark_app/Screens/policies.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -157,34 +156,24 @@ class _StoreFinderState extends State<StoreFinder> {
       appBar: bar2(context),
       body: Column(
         children: [
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Policies(),
-                ),
-              );
-            },
-            child: Padding(
-              padding: EdgeInsets.only(
-                top: dynamicHeight(context, .04),
-                bottom: dynamicHeight(context, .04),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Store Locator",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: dynamicWidth(context, .07),
-                      color: myBlack,
-                      decoration: TextDecoration.underline,
-                    ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: dynamicHeight(context, .04),
+              bottom: dynamicHeight(context, .04),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Store Locator",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: dynamicWidth(context, .07),
+                    color: myBlack,
+                    decoration: TextDecoration.underline,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           SizedBox(

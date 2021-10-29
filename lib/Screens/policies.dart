@@ -4,14 +4,14 @@ import 'package:monark_app/widgets/media_query.dart';
 
 import '../config.dart';
 
-class Policies extends StatefulWidget {
-  const Policies({Key? key}) : super(key: key);
+class PoliciesPage extends StatefulWidget {
+  const PoliciesPage({Key? key}) : super(key: key);
 
   @override
-  _PoliciesState createState() => _PoliciesState();
+  _PoliciesPageState createState() => _PoliciesPageState();
 }
 
-class _PoliciesState extends State<Policies> {
+class _PoliciesPageState extends State<PoliciesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

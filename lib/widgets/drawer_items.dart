@@ -6,6 +6,7 @@ import 'package:monark_app/Screens/Login.dart';
 import 'package:monark_app/Screens/Orders.dart';
 import 'package:monark_app/Screens/Profile.dart';
 import 'package:monark_app/Screens/Welcome.dart';
+import 'package:monark_app/Screens/policies.dart';
 import 'package:monark_app/Screens/store_finder.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -74,9 +75,9 @@ mutation customerAccessTokenDelete($customerAccessToken: String!) {
       ),
     },
     {
-      "icon": Icons.help_outline,
-      "text": "Help",
-      "screen": Orders(),
+      "icon": Icons.policy_outlined,
+      "text": "Policies",
+      "screen": PoliciesPage(),
     },
     {
       "icon": Icons.store_outlined,
