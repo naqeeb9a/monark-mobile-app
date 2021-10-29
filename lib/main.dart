@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:monark_app/Screens/Welcome.dart';
+import 'package:monark_app/Screens/Home.dart';
 import 'package:monark_app/config.dart';
 
 void main() {
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Basic-Commercial-LT-Com-Roman',
         primarySwatch: primaryColor,
       ),
-      home: Welcome(),
+      home: Home(),
     );
   }
 }

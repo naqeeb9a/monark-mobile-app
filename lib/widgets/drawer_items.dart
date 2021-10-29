@@ -5,12 +5,15 @@ import 'package:monark_app/Screens/Address.dart';
 import 'package:monark_app/Screens/Login.dart';
 import 'package:monark_app/Screens/Orders.dart';
 import 'package:monark_app/Screens/Profile.dart';
+import 'package:monark_app/Screens/Welcome.dart';
 import 'package:monark_app/widgets/media_query.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../config.dart';
 
 Widget drawerItems(context, {customerInfo = false, accessToken = ""}) {
   logoutUser(accessToken) async {
+    SharedPreferences saveUser = await SharedPreferences.getInstance();
     print(accessToken);
     var deleteUserAccessToken = r'''
 mutation customerAccessTokenDelete($customerAccessToken: String!) {
@@ -42,7 +45,10 @@ mutation customerAccessTokenDelete($customerAccessToken: String!) {
       return "Server Error";
     } else {
       print(result.data);
-      Navigator.of(context).popUntil((route) => route.isFirst);
+      await saveUser.remove("loginInfo");
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => Welcome()),
+          (Route<dynamic> route) => false);
     }
   }
 

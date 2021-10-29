@@ -4,13 +4,19 @@ import 'package:monark_app/Screens/Home.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/rich_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../config.dart';
 import 'Login.dart';
 
-class Welcome extends StatelessWidget {
-  const Welcome({Key? key}) : super(key: key);
+class Welcome extends StatefulWidget {
+  Welcome({Key? key}) : super(key: key);
 
+  @override
+  State<Welcome> createState() => _WelcomeState();
+}
+
+class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,13 +56,16 @@ class Welcome extends StatelessWidget {
                   page: Login(),
                 ),
                 InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Home(),
-                      ),
-                    );
+                  onTap: () async {
+                    SharedPreferences saveUser =
+                        await SharedPreferences.getInstance();
+                    saveUser.setString("loginInfo", "");
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => Home(
+                                  accessToken: saveUser.getString("loginInfo"),
+                                )),
+                        (Route<dynamic> route) => false);
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(

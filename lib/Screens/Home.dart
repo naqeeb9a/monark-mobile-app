@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
+import 'package:monark_app/Screens/Welcome.dart';
 import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/drawer_items.dart';
@@ -11,6 +12,7 @@ import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
 import 'package:progress_indicators/progress_indicators.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
@@ -22,6 +24,35 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var _loading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    checkLoginStatus();
+    setState(() {
+      _loading = true;
+    });
+  }
+
+  checkLoginStatus() async {
+    SharedPreferences saveUser = await SharedPreferences.getInstance();
+    // saveUser.clear();
+    if (saveUser.getString("loginInfo") == null) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => Welcome()),
+          (Route<dynamic> route) => false);
+    } else if (saveUser.getString("loginInfo") == "") {
+      setState(() {
+        _loading = false;
+      });
+    } else {
+      setState(() {
+        _loading = false;
+      });
+    }
+  }
+
   var customerinfo;
   getUserData(accessToken) async {
     print(accessToken);
@@ -70,119 +101,127 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: myGrey,
-      appBar: bar(context, false),
-      drawer: SafeArea(
-        child: (widget.accessToken == "")
-            ? Drawer(
-                child: drawerItems(
-                  context,
-                ),
-              )
-            : FutureBuilder(
-                future: getUserData(widget.accessToken),
-                builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return Drawer(
-                      child: drawerItems(context,
-                          customerInfo: snapshot.data,
-                          accessToken: widget.accessToken),
-                    );
-                  } else {
-                    return Drawer(
-                      child: JumpingDotsProgressIndicator(
-                        fontSize: 20,
-                      ),
-                    );
-                  }
-                }),
-      ),
-      body: SafeArea(
-        child: Center(
-          child: Container(
-            width: dynamicWidth(context, .94),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: dynamicHeight(context, .03),
-                  ),
-                  searchbar(),
-                  SizedBox(
-                    height: dynamicHeight(context, .03),
-                  ),
-                  rowText(
-                    "Categories",
-                    context,
-                    function: getShopifyCategory(),
-                    text2: "See all",
-                    check: true,
-                    categoryCheck: true,
-                  ),
-                  SizedBox(
-                    height: dynamicHeight(context, .02),
-                  ),
-                  categoryList(context),
-                  SizedBox(
-                    height: dynamicHeight(context, .04),
-                  ),
-                  rowText(
-                    "New Arrivals",
-                    context,
-                    function: getShopifyCollection(95736987777),
-                    text2: "See all",
-                    check: true,
-                  ),
-                  SizedBox(
-                    height: dynamicHeight(context, .02),
-                  ),
-                  cardList(context,
-                      function: getShopifyCollection(95736987777)),
-                  SizedBox(
-                    height: dynamicHeight(context, .04),
-                  ),
-                  rowText(
-                    "Made in Turkey",
-                    context,
-                    function: getShopifyCollection(95422742657),
-                    text2: "See all",
-                    check: true,
-                  ),
-                  SizedBox(
-                    height: dynamicHeight(context, .02),
-                  ),
-                  cardList(context,
-                      function: getShopifyCollection(95422742657)),
-                  SizedBox(
-                    height: dynamicHeight(context, .04),
-                  ),
-                  rowText(
-                    "Products",
-                    context,
-                    text2: "See all",
-                    check: true,
-                    function: getShopifyProducts(),
-                    productCheck: true,
-                  ),
-                  SizedBox(
-                    height: dynamicHeight(context, .02),
-                  ),
-                  cardList(
-                    context,
-                    function: getShopifyProducts(),
-                    products: true,
-                  ),
-                  SizedBox(
-                    height: dynamicHeight(context, .02),
-                  ),
-                ],
+    return (_loading == true)
+        ? Scaffold(
+            body: Center(
+              child: JumpingDotsProgressIndicator(
+                fontSize: 20,
               ),
             ),
-          ),
-        ),
-      ),
-      floatingActionButton: floatingButton(context),
-    );
+          )
+        : Scaffold(
+            backgroundColor: myGrey,
+            appBar: bar(context, false),
+            drawer: SafeArea(
+              child: (widget.accessToken == "")
+                  ? Drawer(
+                      child: drawerItems(
+                        context,
+                      ),
+                    )
+                  : FutureBuilder(
+                      future: getUserData(widget.accessToken),
+                      builder: (context, AsyncSnapshot snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return Drawer(
+                            child: drawerItems(context,
+                                customerInfo: snapshot.data,
+                                accessToken: widget.accessToken),
+                          );
+                        } else {
+                          return Drawer(
+                            child: JumpingDotsProgressIndicator(
+                              fontSize: 20,
+                            ),
+                          );
+                        }
+                      }),
+            ),
+            body: SafeArea(
+              child: Center(
+                child: Container(
+                  width: dynamicWidth(context, .94),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: dynamicHeight(context, .03),
+                        ),
+                        searchbar(),
+                        SizedBox(
+                          height: dynamicHeight(context, .03),
+                        ),
+                        rowText(
+                          "Categories",
+                          context,
+                          function: getShopifyCategory(),
+                          text2: "See all",
+                          check: true,
+                          categoryCheck: true,
+                        ),
+                        SizedBox(
+                          height: dynamicHeight(context, .02),
+                        ),
+                        categoryList(context),
+                        SizedBox(
+                          height: dynamicHeight(context, .04),
+                        ),
+                        rowText(
+                          "New Arrivals",
+                          context,
+                          function: getShopifyCollection(95736987777),
+                          text2: "See all",
+                          check: true,
+                        ),
+                        SizedBox(
+                          height: dynamicHeight(context, .02),
+                        ),
+                        cardList(context,
+                            function: getShopifyCollection(95736987777)),
+                        SizedBox(
+                          height: dynamicHeight(context, .04),
+                        ),
+                        rowText(
+                          "Made in Turkey",
+                          context,
+                          function: getShopifyCollection(95422742657),
+                          text2: "See all",
+                          check: true,
+                        ),
+                        SizedBox(
+                          height: dynamicHeight(context, .02),
+                        ),
+                        cardList(context,
+                            function: getShopifyCollection(95422742657)),
+                        SizedBox(
+                          height: dynamicHeight(context, .04),
+                        ),
+                        rowText(
+                          "Products",
+                          context,
+                          text2: "See all",
+                          check: true,
+                          function: getShopifyProducts(),
+                          productCheck: true,
+                        ),
+                        SizedBox(
+                          height: dynamicHeight(context, .02),
+                        ),
+                        cardList(
+                          context,
+                          function: getShopifyProducts(),
+                          products: true,
+                        ),
+                        SizedBox(
+                          height: dynamicHeight(context, .02),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            floatingActionButton: floatingButton(context),
+          );
   }
 }

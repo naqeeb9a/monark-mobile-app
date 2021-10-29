@@ -4,7 +4,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
-import 'package:monark_app/Screens/Home.dart';
 import 'package:monark_app/Screens/SignUp.dart';
 import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
@@ -13,6 +12,9 @@ import 'package:monark_app/widgets/form_fields.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/rich_text.dart';
 import 'package:progress_indicators/progress_indicators.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'Home.dart';
 
 final _formKey = GlobalKey<FormState>();
 final email = TextEditingController();
@@ -28,6 +30,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   bool isloading = false;
   loginUser() async {
+    SharedPreferences saveUser = await SharedPreferences.getInstance();
     const createUserAccessToken = r'''
                 mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
                   customerAccessTokenCreate(input: $input) {
@@ -63,9 +66,10 @@ class _LoginState extends State<Login> {
     if (result.hasException) {
       return "Server Error";
     } else {
-      print(result.data);
-      print(result.data!["customerAccessTokenCreate"]["customerAccessToken"]
-          ["accessToken"]);
+      saveUser.setString(
+          "loginInfo",
+          result.data!["customerAccessTokenCreate"]["customerAccessToken"]
+              ["accessToken"]);
       return result.data!["customerAccessTokenCreate"]["customerAccessToken"]
           ["accessToken"];
     }
@@ -168,14 +172,17 @@ class _LoginState extends State<Login> {
                                   isloading = false;
                                 });
                               } else if (accessToken != "") {
+                                SharedPreferences saveUser =
+                                    await SharedPreferences.getInstance();
                                 print(accessToken);
                                 print("success");
-                                Navigator.push(
-                                    context,
+                                Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
-                                        builder: (context) => Home(
-                                              accessToken: accessToken,
-                                            )));
+                                        builder: (BuildContext context) => Home(
+                                              accessToken: saveUser
+                                                  .getString("loginInfo"),
+                                            )),
+                                    (Route<dynamic> route) => false);
                               } else {
                                 Dialog(
                                   child: Text("Unidenitified error"),
