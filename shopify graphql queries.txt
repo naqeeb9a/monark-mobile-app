@@ -1,0 +1,15 @@
+get customer detail
+
+
+{
+    customer (customerAccessToken: "10dcdee28d928f26b0ca1a106e70cfd0")
+    {
+         id
+         email
+         defaultAddress{
+             address1
+         }
+         firstName
+         lastName
+    }
+}

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
@@ -8,6 +10,7 @@ import 'package:monark_app/widgets/form_fields.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
@@ -19,14 +22,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  @override
-  void initState() {
-    super.initState();
-    if (widget.accessToken != "") {
-      getUserData(widget.accessToken);
-    }
-  }
-
+  var customerinfo;
   getUserData(accessToken) async {
     print(accessToken);
     var createUserAccessToken = '''
@@ -61,6 +57,14 @@ class _HomeState extends State<Home> {
       return "Server Error";
     } else {
       print(result.data!["customer"]["id"]);
+      print(result.data!["customer"]["firstName"]);
+      print(result.data!["customer"]["lastName"]);
+      var covert = Base64Codec().decode(result.data!["customer"]["id"]);
+      var utfC = utf8.decode(covert);
+      var aStr = utfC.replaceAll(RegExp(r'[^0-9]'), ''); // '23'
+      var aInt = int.parse(aStr);
+      print(aInt);
+      return result.data!["customer"];
     }
   }
 
@@ -70,9 +74,29 @@ class _HomeState extends State<Home> {
       backgroundColor: myGrey,
       appBar: bar(context, false),
       drawer: SafeArea(
-        child: Drawer(
-          child: drawerItems(context),
-        ),
+        child: (widget.accessToken == "")
+            ? Drawer(
+                child: drawerItems(
+                  context,
+                ),
+              )
+            : FutureBuilder(
+                future: getUserData(widget.accessToken),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Drawer(
+                      child: drawerItems(context,
+                          customerInfo: snapshot.data,
+                          accessToken: widget.accessToken),
+                    );
+                  } else {
+                    return Drawer(
+                      child: JumpingDotsProgressIndicator(
+                        fontSize: 20,
+                      ),
+                    );
+                  }
+                }),
       ),
       body: SafeArea(
         child: Center(

@@ -6,7 +6,8 @@ import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({Key? key}) : super(key: key);
+  var customerInfo;
+  Profile({Key? key, this.customerInfo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class Profile extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      profilePicture(context),
+                      profilePicture(context, customerInfo),
                       profileText(context, "Email", "Yes@no.com"),
                       profileText(context, "Phone Number", "0000000"),
                       profileText(context, "Address", "CMC-MTech"),
