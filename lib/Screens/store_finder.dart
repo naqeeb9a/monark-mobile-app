@@ -14,74 +14,79 @@ class StoreFinder extends StatefulWidget {
 }
 
 class _StoreFinderState extends State<StoreFinder> {
+  List locationData = [
+    {
+      'name': "name",
+      'address': "address2",
+      'state': "state",
+      'city': "city",
+      'phone': "phone",
+      'email': "",
+      'url': "url",
+      'workTime': "workTime",
+      'holiday': "holiday",
+    },
+    {
+      'name': "name1",
+      'address': "address1",
+      'state': "state",
+      'city': "city",
+      'phone': "phone",
+      'email': "email",
+      'url': "url",
+      'workTime': "workTime",
+      'holiday': "holiday",
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: bar2(context),
-      body: Container(
-        width: dynamicWidth(context, 1),
-        height: dynamicHeight(context, 1),
-        // color: Colors.yellow,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  top: dynamicHeight(context, .04),
-                  bottom: dynamicHeight(context, .04),
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              top: dynamicHeight(context, .04),
+              bottom: dynamicHeight(context, .04),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Store Locator",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: dynamicWidth(context, .07),
+                    color: myRed,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Store Locator",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: dynamicWidth(context, .07),
-                        color: myRed,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: dynamicHeight(context, .02),
-                ),
-                child: storeCard(
-                  context,
-                  "name",
-                  "address",
-                  "state",
-                  "city",
-                  "phone",
-                  "email",
-                  "url",
-                  "workTime",
-                  "holiday",
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: dynamicHeight(context, .02),
-                ),
-                child: storeCard(
-                  context,
-                  "name",
-                  "address",
-                  "state",
-                  "city",
-                  "phone",
-                  "email",
-                  "url",
-                  "workTime",
-                  "holiday",
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+          SizedBox(
+            width: dynamicWidth(context, 1),
+            height: dynamicHeight(context, .74),
+            child: ListView.builder(
+              itemCount: locationData.length,
+              itemBuilder: (context, i) {
+                return storeCard(
+                  context,
+                  locationData[i]["name"],
+                  locationData[i]["address"],
+                  locationData[i]["state"],
+                  locationData[i]["city"],
+                  locationData[i]["phone"],
+                  locationData[i]["email"].toString(),
+                  locationData[i]["url"],
+                  locationData[i]["workTime"],
+                  locationData[i]["holiday"],
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -89,7 +94,7 @@ class _StoreFinderState extends State<StoreFinder> {
 
 Widget storeCard(
     context, name, address, state, city, phone, email, url, workTime, holiday) {
-  return Expanded(
+  return Flexible(
     child: Container(
       width: dynamicWidth(context, .9),
       decoration: BoxDecoration(
@@ -107,6 +112,9 @@ Widget storeCard(
         ],
       ),
       padding: EdgeInsets.all(
+        dynamicWidth(context, .04),
+      ),
+      margin: EdgeInsets.all(
         dynamicWidth(context, .04),
       ),
       child: Column(
