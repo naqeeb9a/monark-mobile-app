@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:monark_app/Screens/AboutUs.dart';
 import 'package:monark_app/Screens/Address.dart';
+import 'package:monark_app/Screens/Login.dart';
 import 'package:monark_app/Screens/Orders.dart';
 import 'package:monark_app/Screens/Profile.dart';
-import 'package:monark_app/Screens/Welcome.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
 import '../config.dart';
@@ -12,9 +12,9 @@ import '../config.dart';
 Widget drawerItems(context, {customerInfo = false, accessToken = ""}) {
   logoutUser(accessToken) async {
     print(accessToken);
-    var deleteUserAccessToken = '''
-mutation customerAccessTokenDelete($accessToken: String!) {
-  customerAccessTokenDelete(customerAccessToken: $accessToken) {
+    var deleteUserAccessToken = r'''
+mutation customerAccessTokenDelete($customerAccessToken: String!) {
+  customerAccessTokenDelete(customerAccessToken: $customerAccessToken) {
     deletedAccessToken
     deletedCustomerAccessTokenId
     userErrors {
@@ -24,8 +24,9 @@ mutation customerAccessTokenDelete($accessToken: String!) {
   }
 }
 
+
  ''';
-    var variables = {"customerAccessToken": "$accessToken"};
+    var variables = {"customerAccessToken": accessToken.toString()};
     final HttpLink httpLink = HttpLink(
         "https://monark-clothings.myshopify.com/api/2021-10/graphql.json",
         defaultHeaders: {
@@ -40,7 +41,8 @@ mutation customerAccessTokenDelete($accessToken: String!) {
       print(result.hasException);
       return "Server Error";
     } else {
-      Navigator.pop(context);
+      print(result.data);
+      Navigator.of(context).popUntil((route) => route.isFirst);
     }
   }
 
@@ -108,46 +110,57 @@ mutation customerAccessTokenDelete($accessToken: String!) {
               );
             }),
       ),
-      (accessToken == "")
-          ? Container()
-          : Container(
-              margin: EdgeInsets.symmetric(
-                vertical: dynamicHeight(context, .03),
-                horizontal: dynamicWidth(context, .1),
-              ),
-              child: MaterialButton(
-                height: dynamicHeight(context, 0.07),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                color: myRed,
-                onPressed: () {
-                  logoutUser(accessToken);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Welcome(),
-                    ),
-                  );
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
+      Container(
+        margin: EdgeInsets.symmetric(
+          vertical: dynamicHeight(context, .03),
+          horizontal: dynamicWidth(context, .1),
+        ),
+        child: MaterialButton(
+          height: dynamicHeight(context, 0.07),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          color: myRed,
+          onPressed: () {
+            if (accessToken == "") {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Login()));
+            } else {
+              logoutUser(accessToken);
+            }
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              (accessToken == "")
+                  ? Icon(
+                      Icons.login,
+                      color: myWhite,
+                      size: dynamicWidth(context, .07),
+                    )
+                  : Icon(
                       Icons.logout_outlined,
                       color: myWhite,
                       size: dynamicWidth(context, .07),
                     ),
-                    Text(
+              (accessToken == "")
+                  ? Text(
+                      "  Sign In",
+                      style: TextStyle(
+                        color: myWhite,
+                        fontSize: dynamicWidth(context, .05),
+                      ),
+                    )
+                  : Text(
                       "  Logout",
                       style: TextStyle(
                         color: myWhite,
                         fontSize: dynamicWidth(context, .05),
                       ),
                     ),
-                  ],
-                ),
-              ),
-            )
+            ],
+          ),
+        ),
+      )
     ],
   );
 }
