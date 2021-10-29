@@ -49,5 +49,3 @@ class _StoreFinderState extends State<StoreFinder> {
     );
   }
 }
-
-Widget
