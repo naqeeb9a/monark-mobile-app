@@ -83,7 +83,7 @@ Widget storeCard(
       ],
     ),
     padding: EdgeInsets.all(
-      dynamicWidth(context, .06),
+      dynamicWidth(context, .04),
     ),
     child: Column(
       children: [
