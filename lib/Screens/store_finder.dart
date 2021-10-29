@@ -80,7 +80,8 @@ class _StoreFinderState extends State<StoreFinder> {
       'url': "https://www.monark.com.pk",
       'workTime': "10:00 - 22:00",
       'holiday': "SUNDAY OFF",
-    },{
+    },
+    {
       'name': "Mall of Multan",
       'address': "Mall of Multan, Ground Floor",
       'state': "Punjab",
@@ -104,7 +105,8 @@ class _StoreFinderState extends State<StoreFinder> {
     },
     {
       'name': "Kings mall",
-      'address': "Kings Mall, First Floor, GT Road By-Pass , Opposite to WAPDA TOWN, Gujranwala",
+      'address':
+          "Kings Mall, First Floor, GT Road By-Pass , Opposite to WAPDA TOWN, Gujranwala",
       'state': "Punjab",
       'city': "Gujranwala , 52250",
       'phone': "055-4283088",
@@ -253,13 +255,15 @@ Widget storeCard(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                AutoSizeText(
-                  "Address : $address",
-                  style: TextStyle(
-                    fontSize: dynamicWidth(context, .04),
-                    color: myBlack,
+                Flexible(
+                  child: AutoSizeText(
+                    "Address : $address",
+                    style: TextStyle(
+                      fontSize: dynamicWidth(context, .04),
+                      color: myBlack,
+                    ),
+                    maxLines: 2,
                   ),
-                  maxLines: 2,
                 ),
               ],
             ),
@@ -302,7 +306,7 @@ Widget storeCard(
           ),
           InkWell(
             onTap: () {
-              launch(phone.toString());
+              launch("tel:$phone");
             },
             child: Padding(
               padding: EdgeInsets.symmetric(
