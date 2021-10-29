@@ -70,7 +70,7 @@ PreferredSizeWidget bar2(context,
       width: dynamicWidth(context, .4),
     ),
     centerTitle: true,
-    backgroundColor: Colors.transparent,
+    backgroundColor: myWhite,
     elevation: 0,
     actions: [
       cartCheck == true
