@@ -162,12 +162,12 @@ class _LoginState extends State<Login> {
                             myWhite,
                             true,
                             function: () async {
-                              setState(() {
-                                isloading = true;
-                              });
                               if (!_formKey.currentState!.validate()) {
                                 return;
                               }
+                              setState(() {
+                                isloading = true;
+                              });
                               var accessToken = await loginUser();
                               if (accessToken == "Server Error") {
                                 Dialog(
