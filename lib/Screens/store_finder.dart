@@ -169,7 +169,7 @@ class _StoreFinderState extends State<StoreFinder> {
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: dynamicWidth(context, .07),
-                    color: myRed,
+                    color: myBlack,
                     decoration: TextDecoration.underline,
                   ),
                 ),
@@ -242,7 +242,7 @@ Widget storeCard(
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: dynamicWidth(context, .06),
-                    color: myBlack,
+                    color: myRed,
                   ),
                 ),
               ],
