@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:monark_app/Screens/AboutUs.dart';
@@ -133,7 +134,11 @@ mutation customerAccessTokenDelete($customerAccessToken: String!) {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Login()));
             } else {
-              logoutUser(accessToken);
+              CoolAlert.show(
+                context: context,
+                type: CoolAlertType.loading,
+              );
+              // logoutUser(accessToken);
             }
           },
           child: Row(

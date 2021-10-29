@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cool_alert/cool_alert.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:monark_app/Screens/SignUp.dart';
 import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
+import 'package:monark_app/widgets/dialog_widget.dart';
 import 'package:monark_app/widgets/form_fields.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/rich_text.dart';
@@ -29,6 +31,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool isloading = false;
+
   loginUser() async {
     SharedPreferences saveUser = await SharedPreferences.getInstance();
     const createUserAccessToken = r'''
@@ -196,9 +199,15 @@ class _LoginState extends State<Login> {
                                   isloading = false;
                                 });
 
-                                // show erroe dialog
-                                Dialog(
-                                  child: Text("Unidenitified error"),
+                                CoolAlert.show(
+                                  context: context,
+                                  type: CoolAlertType.error,
+                                  title: "",
+                                  text: "Username or Password not Matched!!",
+                                  backgroundColor: myRed,
+                                  confirmBtnColor: myRed,
+                                  animType: CoolAlertAnimType.scale,
+                                  flareAnimationName: "Dance",
                                 );
                               }
                             },
