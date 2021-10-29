@@ -191,7 +191,10 @@ class AboutUs extends StatelessWidget {
                               onTap: () {
                                 print("object");
                                 launch(
-                                    "https://www.facebook.com/monark.com.pk");
+                                  "https://www.facebook.com/monark.com.pk",
+                                  forceSafariVC: false,
+                                  forceWebView: false,
+                                );
                               },
                               child: FaIcon(
                                 FontAwesomeIcons.facebook,
