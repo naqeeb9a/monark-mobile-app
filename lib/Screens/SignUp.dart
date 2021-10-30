@@ -35,18 +35,18 @@ class _SignUpState extends State<SignUp> {
     print(fName.text);
     print(lName.text);
     const createUserAccessToken = r'''
-                mutation customerCreate($input: CustomerCreateInput!) {
-                                  customerCreate(input: $input) {
-                                    customer {
-                                      id
-                                    }
-                                    customerUserErrors {
-                                      code
-                                      field
-                                      message
-                                    }
-                                  }
-                                }
+              mutation customerCreate($input: CustomerCreateInput!) {
+  customerCreate(input: $input) {
+    customer {
+      id
+    }
+    customerUserErrors {
+      code
+      field
+      message
+    }
+  }
+}
 
             ''';
     var variables = {
@@ -72,8 +72,8 @@ class _SignUpState extends State<SignUp> {
       print(result.data);
       return "Server Error";
     } else {
-      print(result.data);
       if (result.data!["customerCreate"]["customer"] != null) {
+        print(result.data!["customerCreate"]["customer"]["id"]);
         return result.data!["customerCreate"]["customer"]["id"];
       } else {
         return result.data!["customerCreate"]["customer"];
@@ -219,29 +219,32 @@ class _SignUpState extends State<SignUp> {
                             var response = await userSignUp();
                             print(response);
                             if (response == "Server Error") {
+                              setState(() {
+                                isloading = false;
+                              });
                               CoolAlert.show(
                                   context: context,
                                   type: CoolAlertType.error,
-                                  title: "Server Error");
+                                  title:
+                                      "Creating Customer Limit exceeded. Please try again later.");
                             } else if (response == null) {
+                              setState(() {
+                                isloading = false;
+                              });
                               CoolAlert.show(
                                   context: context,
                                   type: CoolAlertType.warning,
                                   title: "Email already Taken");
                             } else if (response != null) {
-                              CoolAlert.show(
-                                  context: context,
-                                  type: CoolAlertType.success,
-                                  title:
-                                      "Account created Check your email to confim and login");
                               sEmail.clear();
                               sPassword.clear();
                               fName.clear();
                               lName.clear();
-                              Navigator.pop(context);
+                              cPassword.clear();
                               setState(() {
                                 isloading = false;
                               });
+                              Navigator.pop(context);
                             } else {
                               CoolAlert.show(
                                   context: context,
