@@ -23,7 +23,7 @@ class _OrdersState extends State<Orders> {
     print(customerInfo["id"]);
     var covert = Base64Codec().decode(widget.customerInfo["id"]);
     var utfC = utf8.decode(covert);
-    var aStr = utfC.replaceAll(RegExp(r'[^0-9]'), ''); // '23'
+    var aStr = utfC.replaceAll(RegExp(r'[^0-9]'), '');
     var aInt = int.parse(aStr);
     print(aInt);
     var response = await http.get(Uri.parse(
@@ -35,7 +35,6 @@ class _OrdersState extends State<Orders> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getUserOrders(widget.customerInfo);
   }
