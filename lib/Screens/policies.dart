@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/media_query.dart';
@@ -79,10 +80,52 @@ class _PoliciesPageState extends State<PoliciesPage> {
                   ),
                   Container(
                     color: myWhite,
-                    child: Center(
-                      child: Text(
-                        'Returns',
-                      ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: dynamicHeight(context, .04),
+                            horizontal: dynamicWidth(context, .04),
+                          ),
+                          child: Row(
+                            children: [
+                              Flexible(
+                                child: AutoSizeText(
+                                  "Returns & Exchanges Policy For An Online Purchase",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: dynamicWidth(context, .05),
+                                    color: myBlack,
+                                  ),
+                                  maxLines: 2,
+                                  textAlign: TextAlign.justify,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: dynamicHeight(context, .04),
+                            horizontal: dynamicWidth(context, .04),
+                          ),
+                          child: Row(
+                            children: [
+                              Flexible(
+                                child: AutoSizeText(
+                                  "Returns & Exchanges Policy For An Online Purchase",
+                                  style: TextStyle(
+                                    fontSize: dynamicWidth(context, .05),
+                                    color: myBlack,
+                                  ),
+
+                                  textAlign: TextAlign.justify,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
