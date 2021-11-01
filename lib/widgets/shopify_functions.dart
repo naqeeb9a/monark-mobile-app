@@ -94,7 +94,7 @@ getShopifyProducts() async {
 }
 
 getShopifyCollection(handle) async {
-  var createUserAccessToken = '''
+  var shopifyCollection = '''
 {
   collectionByHandle(handle:"$handle") {
     products(first:250) {
@@ -140,7 +140,7 @@ getShopifyCollection(handle) async {
       });
   GraphQLClient client = GraphQLClient(link: httpLink, cache: GraphQLCache());
   final QueryOptions options = QueryOptions(
-    document: gql(createUserAccessToken),
+    document: gql(shopifyCollection),
   );
   final QueryResult result = await client.query(options);
 
