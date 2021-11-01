@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
@@ -51,7 +50,6 @@ class _HomeState extends State<Home> {
 
   var customerinfo;
   getUserData(accessToken) async {
-    print(accessToken);
     var createUserAccessToken = '''
 {
     customer (customerAccessToken: "$accessToken")
@@ -89,6 +87,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    // getShopifyProducts();
     return (_loading == true)
         ? Scaffold(
             body: Center(
@@ -157,7 +156,7 @@ class _HomeState extends State<Home> {
                         rowText(
                           "New Arrivals",
                           context,
-                          function: getShopifyCollection(95736987777),
+                          function: getShopifyCollection("new-arrivals"),
                           text2: "See all",
                           check: true,
                         ),
@@ -165,14 +164,14 @@ class _HomeState extends State<Home> {
                           height: dynamicHeight(context, .02),
                         ),
                         cardList(context,
-                            function: getShopifyCollection(95736987777)),
+                            function: getShopifyCollection("new-arrivals")),
                         SizedBox(
                           height: dynamicHeight(context, .04),
                         ),
                         rowText(
-                          "Made in Turkey",
+                          "Facebook shop",
                           context,
-                          function: getShopifyCollection(95422742657),
+                          function: getShopifyCollection("facebook-shop"),
                           text2: "See all",
                           check: true,
                         ),
@@ -180,7 +179,7 @@ class _HomeState extends State<Home> {
                           height: dynamicHeight(context, .02),
                         ),
                         cardList(context,
-                            function: getShopifyCollection(95422742657)),
+                            function: getShopifyCollection("facebook-shop")),
                         SizedBox(
                           height: dynamicHeight(context, .04),
                         ),
@@ -190,7 +189,6 @@ class _HomeState extends State<Home> {
                           text2: "See all",
                           check: true,
                           function: getShopifyProducts(),
-                          productCheck: true,
                         ),
                         SizedBox(
                           height: dynamicHeight(context, .02),
@@ -198,7 +196,6 @@ class _HomeState extends State<Home> {
                         cardList(
                           context,
                           function: getShopifyProducts(),
-                          products: true,
                         ),
                         SizedBox(
                           height: dynamicHeight(context, .02),

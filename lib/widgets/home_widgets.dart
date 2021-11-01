@@ -7,7 +7,6 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../config.dart';
@@ -34,8 +33,8 @@ Widget categoryList(context) {
                   ),
                   child: categoryCards(
                     context,
-                    snapshot.data[index]["title"],
-                    snapshot.data[index]["id"],
+                    snapshot.data[index]["node"]["title"],
+                    snapshot.data[index]["node"]["handle"],
                   ),
                 );
               });
@@ -50,7 +49,7 @@ Widget categoryList(context) {
   );
 }
 
-Widget categoryCards(context, cardText, id, {check = false}) {
+Widget categoryCards(context, cardText, handle, {check = false}) {
   return InkWell(
     onTap: () {
       Navigator.push(
@@ -58,7 +57,7 @@ Widget categoryCards(context, cardText, id, {check = false}) {
         MaterialPageRoute(
           builder: (context) => SeeAll(
             text: cardText,
-            function: getShopifyCollection(id),
+            function: getShopifyCollection(handle),
             check: false,
           ),
         ),
@@ -107,7 +106,7 @@ Widget categoryCards(context, cardText, id, {check = false}) {
   );
 }
 
-Widget cardList(context, {function, products}) {
+Widget cardList(context, {function}) {
   return FutureBuilder(
     future: function,
     builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -121,32 +120,21 @@ Widget cardList(context, {function, products}) {
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               return Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: dynamicWidth(context, 0.018),
-                ),
-                child: (products == true)
-                    ? basicCards(
-                        context,
-                        snapshot.data[index]["image"]["src"],
-                        snapshot.data[index]["title"],
-                        price: double.parse(
-                                snapshot.data[index]["variants"][0]["price"])
-                            .toInt()
-                            .toString(),
-                        sizeOption: snapshot.data[index]["options"][0]
-                            ["values"],
-                        description:
-                            snapshot.data[index]["body_html"].toString(),
-                      )
-                    : basicCards(
-                        context,
-                        snapshot.data[index]["image"]["src"],
-                        snapshot.data[index]["title"],
-                        id: snapshot.data[index]["id"],
-                        description:
-                            snapshot.data[index]["body_html"].toString(),
-                      ),
-              );
+                  padding: EdgeInsets.symmetric(
+                    horizontal: dynamicWidth(context, 0.018),
+                  ),
+                  child: basicCards(
+                      context,
+                      snapshot.data[index]["node"]["images"]["edges"][0]["node"]
+                          ["src"],
+                      snapshot.data[index]["node"]["title"],
+                      price: snapshot.data[index]["node"]["variants"]["edges"]
+                          [0]["node"]["price"],
+                      sizeOption: snapshot.data[index]["node"]["options"][0]
+                          ["values"],
+                      description: snapshot.data[index]["node"]["description"],
+                      sku: snapshot.data[index]["node"]["variants"]["edges"][0]
+                          ["node"]["sku"]));
             },
           ),
         );
@@ -166,8 +154,8 @@ Widget cardList(context, {function, products}) {
 Widget basicCards(context, imageUrl, text,
     {price = "fetching ...",
     sizeOption = "",
-    id = 0,
-    description = "No Description"}) {
+    description = "No Description",
+    sku = ""}) {
   return InkWell(
     onTap: () {
       if (price.contains("fetching")) {
@@ -183,12 +171,12 @@ Widget basicCards(context, imageUrl, text,
           context,
           MaterialPageRoute(
             builder: (context) => DetailPage(
-              image: imageUrl,
-              price: price,
-              text: text,
-              array: sizeOption,
-              description: description,
-            ),
+                image: imageUrl,
+                price: price,
+                text: text,
+                array: sizeOption,
+                description: description,
+                sku: sku),
           ),
         );
       }
@@ -232,36 +220,13 @@ Widget basicCards(context, imageUrl, text,
           ),
           Align(
             alignment: Alignment.centerLeft,
-            child: (id != 0)
-                ? FutureBuilder(
-                    future: getPriceOfCollection(id),
-                    builder: (context, AsyncSnapshot snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done &&
-                          snapshot.data != null) {
-                        price = snapshot.data[0];
-                        sizeOption = snapshot.data[1];
-                        return Text(
-                          "Rs. " + double.parse(price).toInt().toString(),
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: dynamicWidth(context, .034),
-                          ),
-                        );
-                      } else {
-                        price = "fetching ...";
-                        return JumpingDotsProgressIndicator(
-                          fontSize: dynamicWidth(context, .034),
-                        );
-                      }
-                    },
-                  )
-                : Text(
-                    "Rs. " + price.toString(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: dynamicWidth(context, .034),
-                    ),
-                  ),
+            child: Text(
+              "Rs. " + price,
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: dynamicWidth(context, .034),
+              ),
+            ),
           ),
         ],
       ),
@@ -282,7 +247,8 @@ Widget floatingButton(context) {
     children: [
       SpeedDialChild(
         onTap: () {
-          launch("whatsapp://send?phone=+923036663017&text=https://monark.com.pk/ I'm interested in this product and I have a few questions. Can you help?");
+          launch(
+              "whatsapp://send?phone=+923036663017&text=https://monark.com.pk/ I'm interested in this product and I have a few questions. Can you help?");
         },
         elevation: 2.0,
         child: CircleAvatar(
@@ -311,11 +277,7 @@ Widget floatingButton(context) {
 }
 
 Widget rowText(text, context,
-    {function,
-    text2 = "",
-    bool check = false,
-    bool categoryCheck = false,
-    productCheck = false}) {
+    {function, text2 = "", bool check = false, bool categoryCheck = false}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -336,7 +298,6 @@ Widget rowText(text, context,
                       check: categoryCheck,
                       text: text,
                       function: function,
-                      checkProducts: productCheck,
                     ),
                   ),
                 );

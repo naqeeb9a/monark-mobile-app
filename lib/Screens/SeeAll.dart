@@ -8,13 +8,11 @@ class SeeAll extends StatelessWidget {
   final bool check;
   final String text;
   final dynamic function;
-  final dynamic checkProducts;
 
   SeeAll({
     Key? key,
     required this.text,
     this.function,
-    this.checkProducts = false,
     required this.check,
   }) : super(key: key);
 
@@ -35,7 +33,7 @@ class SeeAll extends StatelessWidget {
                 ),
                 child: rowText(text, context),
               ),
-              detailGrid(function, context, check, productCheck: checkProducts),
+              detailGrid(function, context, check),
               SizedBox(
                 height: dynamicHeight(context, .02),
               )
@@ -47,7 +45,7 @@ class SeeAll extends StatelessWidget {
   }
 }
 
-Widget detailGrid(function, context, check, {productCheck = false}) {
+Widget detailGrid(function, context, check) {
   return Expanded(
     child: (check == true)
         ? FutureBuilder(
@@ -67,8 +65,8 @@ Widget detailGrid(function, context, check, {productCheck = false}) {
                       itemBuilder: (context, index) {
                         return categoryCards(
                             context,
-                            snapshot.data[index]["title"],
-                            snapshot.data[index]["id"],
+                            snapshot.data[index]["node"]["title"],
+                            snapshot.data[index]["node"]["handle"],
                             check: true);
                       });
                 } else {
@@ -97,33 +95,19 @@ Widget detailGrid(function, context, check, {productCheck = false}) {
                         childAspectRatio: 5 / 8,
                       ),
                       itemBuilder: (context, index) {
-                        return (productCheck == true)
-                            ? basicCards(
-                                context,
-                                snapshot.data[index]["image"]["src"],
-                                snapshot.data[index]["title"],
-                                price: snapshot.data[index]["variants"][0]
-                                        ["price"]
-                                    .toString()
-                                    .substring(
-                                        0,
-                                        snapshot
-                                                .data[index]["variants"][0]
-                                                    ["price"]
-                                                .length -
-                                            3),
-                                sizeOption: snapshot.data[index]["options"][0]
-                                    ["values"],
-                                description: snapshot.data[index]["body_html"]
-                                    .toString())
-                            : basicCards(
-                                context,
-                                snapshot.data[index]["image"]["src"],
-                                snapshot.data[index]["title"],
-                                id: snapshot.data[index]["id"],
-                                description: snapshot.data[index]["body_html"]
-                                    .toString(),
-                              );
+                        return basicCards(
+                            context,
+                            snapshot.data[index]["node"]["images"]["edges"][0]
+                                ["node"]["src"],
+                            snapshot.data[index]["node"]["title"],
+                            price: snapshot.data[index]["node"]["variants"]
+                                ["edges"][0]["node"]["price"],
+                            sizeOption: snapshot.data[index]["node"]["options"]
+                                [0]["values"],
+                            description: snapshot.data[index]["node"]
+                                ["description"],
+                            sku: snapshot.data[index]["node"]["variants"]
+                                ["edges"][0]["node"]["sku"]);
                       });
                 } else {
                   return Center(

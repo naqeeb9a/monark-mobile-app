@@ -12,6 +12,7 @@ class DetailPage extends StatefulWidget {
   final String text;
   final dynamic array;
   final dynamic description;
+  final String sku;
 
   const DetailPage({
     Key? key,
@@ -20,6 +21,7 @@ class DetailPage extends StatefulWidget {
     this.array,
     required this.price,
     required this.text,
+    required this.sku,
   }) : super(key: key);
 
   @override
@@ -108,8 +110,7 @@ class _DetailPageState extends State<DetailPage> {
                         horizontal: dynamicWidth(context, .04),
                       ),
                       child: Text(
-                        "SKU : " +
-                            double.parse(widget.price).toInt().toString(),
+                        "SKU : " + widget.sku.toString(),
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: dynamicWidth(context, .04),
