@@ -6,7 +6,7 @@ getShopifyCategory() async {
   	collections(first: 250) {
     	edges {
       	node {
-        	id
+        	  id
             title
             handle
             image{
