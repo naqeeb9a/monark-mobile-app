@@ -22,22 +22,26 @@ Widget categoryList(context) {
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.data != null) {
-          return ListView.builder(
-              itemCount: (snapshot.data as List).length,
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: dynamicWidth(context, .02),
-                  ),
-                  child: categoryCards(
-                    context,
-                    snapshot.data[index]["node"]["title"],
-                    snapshot.data[index]["node"]["handle"],
-                  ),
-                );
-              });
+          if (snapshot.data == "Server Error") {
+            return Text("Network Error");
+          } else {
+            return ListView.builder(
+                itemCount: (snapshot.data as List).length,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: dynamicWidth(context, .02),
+                    ),
+                    child: categoryCards(
+                      context,
+                      snapshot.data[index]["node"]["title"],
+                      snapshot.data[index]["node"]["handle"],
+                    ),
+                  );
+                });
+          }
         } else {
           return Image.asset(
             "assets/loader.gif",
@@ -112,32 +116,37 @@ Widget cardList(context, {function}) {
     builder: (BuildContext context, AsyncSnapshot snapshot) {
       if (snapshot.connectionState == ConnectionState.done &&
           snapshot.data != null) {
-        return SizedBox(
-          height: dynamicHeight(context, .35),
-          child: ListView.builder(
-            itemCount: (snapshot.data as List).length,
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: dynamicWidth(context, 0.018),
-                  ),
-                  child: basicCards(
-                      context,
-                      snapshot.data[index]["node"]["images"]["edges"][0]["node"]
-                          ["src"],
-                      snapshot.data[index]["node"]["title"],
-                      price: snapshot.data[index]["node"]["variants"]["edges"]
-                          [0]["node"]["price"],
-                      sizeOption: snapshot.data[index]["node"]["options"][0]
-                          ["values"],
-                      description: snapshot.data[index]["node"]["description"],
-                      sku: snapshot.data[index]["node"]["variants"]["edges"][0]
-                          ["node"]["sku"]));
-            },
-          ),
-        );
+        if (snapshot.data == "Server Error") {
+          return Text("Network Error");
+        } else {
+          return SizedBox(
+            height: dynamicHeight(context, .35),
+            child: ListView.builder(
+              itemCount: (snapshot.data as List).length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: dynamicWidth(context, 0.018),
+                    ),
+                    child: basicCards(
+                        context,
+                        snapshot.data[index]["node"]["images"]["edges"][0]
+                            ["node"]["src"],
+                        snapshot.data[index]["node"]["title"],
+                        price: snapshot.data[index]["node"]["variants"]["edges"]
+                            [0]["node"]["price"],
+                        sizeOption: snapshot.data[index]["node"]["options"][0]
+                            ["values"],
+                        description: snapshot.data[index]["node"]
+                            ["description"],
+                        sku: snapshot.data[index]["node"]["variants"]["edges"]
+                            [0]["node"]["sku"]));
+              },
+            ),
+          );
+        }
       } else {
         return SizedBox(
           height: MediaQuery.of(context).size.height * 0.28,

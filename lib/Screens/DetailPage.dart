@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
@@ -243,9 +242,7 @@ class _DetailPageState extends State<DetailPage> {
                             );
                           },
                           body: ListTile(
-                            title: Html(
-                              data: widget.description,
-                            ),
+                            title: Text(widget.description),
                           ),
                           isExpanded: _expanded,
                           canTapOnHeader: true,

@@ -53,7 +53,9 @@ Widget detailGrid(function, context, check) {
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.connectionState == ConnectionState.done &&
                   snapshot.data != null) {
-                if ((snapshot.data as List).length != 0) {
+                if (snapshot.data == "Server Error") {
+                  return Text("Network Error");
+                } else if ((snapshot.data as List).length != 0) {
                   return GridView.builder(
                       itemCount: (snapshot.data as List).length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -85,7 +87,9 @@ Widget detailGrid(function, context, check) {
             builder: (context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.done &&
                   snapshot.data != null) {
-                if ((snapshot.data as List).length != 0) {
+                if (snapshot.data == "Server Error") {
+                  return Text("Network Error");
+                } else if ((snapshot.data as List).length != 0) {
                   return GridView.builder(
                       itemCount: (snapshot.data as List).length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
