@@ -167,28 +167,18 @@ Widget basicCards(context, imageUrl, text,
     sku = ""}) {
   return InkWell(
     onTap: () {
-      if (price.contains("fetching")) {
-        var snackBar = SnackBar(
-          backgroundColor: myRed,
-          content: Text("Price is still fetching ..."),
-          duration: const Duration(milliseconds: 1000),
-        );
-
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      } else {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailPage(
-                image: imageUrl,
-                price: price,
-                text: text,
-                array: sizeOption,
-                description: description,
-                sku: sku),
-          ),
-        );
-      }
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DetailPage(
+              image: imageUrl,
+              price: price,
+              text: text,
+              array: sizeOption,
+              description: description,
+              sku: sku),
+        ),
+      );
     },
     child: Container(
       width: dynamicWidth(context, .3),
@@ -230,7 +220,7 @@ Widget basicCards(context, imageUrl, text,
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Rs. " + price,
+              "Rs. " + double.parse(price).toInt().toString(),
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: dynamicWidth(context, .034),

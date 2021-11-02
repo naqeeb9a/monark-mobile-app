@@ -119,20 +119,7 @@ class _DetailPageState extends State<DetailPage> {
                     SizedBox(
                       height: dynamicHeight(context, 0.02),
                     ),
-                    widget.price.contains("fetching")
-                        ? Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: dynamicWidth(context, .04),
-                            ),
-                            child: Text(
-                              widget.price,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: dynamicWidth(context, .044),
-                              ),
-                            ),
-                          )
-                        : Padding(
+                    Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: dynamicWidth(context, .04),
                             ),
