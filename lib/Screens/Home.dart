@@ -154,9 +154,9 @@ class _HomeState extends State<Home> {
                           height: dynamicHeight(context, .04),
                         ),
                         rowText(
-                          "New Arrivals",
+                          "Suits",
                           context,
-                          function: getShopifyCollection("new-arrivals"),
+                          function: getShopifyCollection("suits"),
                           text2: "See all",
                           check: true,
                         ),
@@ -164,14 +164,14 @@ class _HomeState extends State<Home> {
                           height: dynamicHeight(context, .02),
                         ),
                         cardList(context,
-                            function: getShopifyCollection("new-arrivals")),
+                            function: getShopifyCollection("suits")),
                         SizedBox(
                           height: dynamicHeight(context, .04),
                         ),
                         rowText(
-                          "Facebook shop",
+                          "Made In Turkey",
                           context,
-                          function: getShopifyCollection("facebook-shop"),
+                          function: getShopifyCollection("made-in-turkey"),
                           text2: "See all",
                           check: true,
                         ),
@@ -179,7 +179,7 @@ class _HomeState extends State<Home> {
                           height: dynamicHeight(context, .02),
                         ),
                         cardList(context,
-                            function: getShopifyCollection("facebook-shop")),
+                            function: getShopifyCollection("made-in-turkey")),
                         SizedBox(
                           height: dynamicHeight(context, .04),
                         ),
