@@ -14,11 +14,15 @@ class AboutUs extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: myGrey,
-        // appBar: bar2(context,),
+        appBar: bar2(
+          context,
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              bar2(context),
+              SizedBox(
+                height: dynamicHeight(context, 0.04),
+              ),
               ClipRRect(
                 borderRadius: BorderRadius.circular(
                   dynamicWidth(context, .03),
