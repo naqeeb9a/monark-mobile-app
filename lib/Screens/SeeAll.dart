@@ -111,7 +111,7 @@ Widget detailGrid(function, context, check) {
                             description: snapshot.data[index]["node"]
                                 ["description"],
                             sku: snapshot.data[index]["node"]["variants"]
-                                ["edges"][0]["node"]["sku"]);
+                                ["edges"]);
                       });
                 } else {
                   return Center(
