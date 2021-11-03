@@ -102,11 +102,10 @@ Widget detailGrid(function, context, check) {
                       itemBuilder: (context, index) {
                         return basicCards(
                             context,
-                            snapshot.data[index]["node"]["images"]["edges"][0]
-                                ["node"]["src"],
+                            snapshot.data[index]["node"]["images"]["edges"],
                             snapshot.data[index]["node"]["title"],
                             price: snapshot.data[index]["node"]["variants"]
-                                ["edges"][0]["node"]["price"],
+                                ["edges"],
                             sizeOption: snapshot.data[index]["node"]["options"]
                                 [0]["values"],
                             description: snapshot.data[index]["node"]

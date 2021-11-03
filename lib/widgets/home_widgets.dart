@@ -146,16 +146,13 @@ Widget cardList(context, {function}) {
                   ),
                   child: basicCards(
                     context,
-                    snapshot.data[index]["node"]["images"]["edges"][0]["node"]
-                        ["src"],
+                    snapshot.data[index]["node"]["images"]["edges"],
                     snapshot.data[index]["node"]["title"],
-                    price: snapshot.data[index]["node"]["variants"]["edges"][0]
-                        ["node"]["price"],
+                    price: snapshot.data[index]["node"]["variants"]["edges"],
                     sizeOption: snapshot.data[index]["node"]["options"][0]
                         ["values"],
                     description: snapshot.data[index]["node"]["description"],
-                    sku: snapshot.data[index]["node"]["variants"]["edges"][0]
-                        ["node"]["sku"],
+                    sku: snapshot.data[index]["node"]["variants"]["edges"],
                   ),
                 );
               },
@@ -211,7 +208,7 @@ Widget basicCards(context, imageUrl, text,
               width: dynamicWidth(context, .5),
               color: myWhite,
               child: CachedNetworkImage(
-                imageUrl: imageUrl,
+                imageUrl: imageUrl[0]["node"]["src"],
                 fit: BoxFit.cover,
                 placeholder: (context, string) {
                   return Image.asset(
@@ -236,7 +233,8 @@ Widget basicCards(context, imageUrl, text,
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              "Rs. " + double.parse(price).toInt().toString(),
+              "Rs. " +
+                  double.parse(price[0]["node"]["price"]).toInt().toString(),
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: dynamicWidth(context, .034),
