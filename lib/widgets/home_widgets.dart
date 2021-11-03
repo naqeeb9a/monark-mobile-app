@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -23,29 +21,34 @@ Widget categoryList(context) {
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.data != null) {
           if (snapshot.data == "Server Error") {
-            return Text("Network Error");
+            return SizedBox(
+              height: dynamicHeight(context, .2),
+              child: Image.asset("assets/network_error.png"),
+            );
           } else {
             return ListView.builder(
-                itemCount: (snapshot.data as List).length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: dynamicWidth(context, .02),
-                    ),
-                    child: categoryCards(
-                      context,
-                      snapshot.data[index]["node"]["title"],
-                      snapshot.data[index]["node"]["handle"],
-                    ),
-                  );
-                });
+              itemCount: (snapshot.data as List).length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: dynamicWidth(context, .02),
+                  ),
+                  child: categoryCards(
+                    context,
+                    snapshot.data[index]["node"]["title"],
+                    snapshot.data[index]["node"]["handle"],
+                    snapshot.data[index]["node"]["image"]["src"],
+                  ),
+                );
+              },
+            );
           }
         } else {
           return Image.asset(
             "assets/loader.gif",
-            scale: 7,
+            scale: 6,
           );
         }
       },
@@ -53,7 +56,7 @@ Widget categoryList(context) {
   );
 }
 
-Widget categoryCards(context, cardText, handle, {check = false}) {
+Widget categoryCards(context, cardText, handle, image, {check = false}) {
   return InkWell(
     onTap: () {
       Navigator.push(
@@ -74,11 +77,19 @@ Widget categoryCards(context, cardText, handle, {check = false}) {
             dynamicWidth(context, .03),
           ),
           child: Container(
-            width: check == true ? null : dynamicWidth(context, .3),
+            width: check == true
+                ? dynamicWidth(context, 1)
+                : dynamicWidth(context, .3),
             height: (check == true) ? null : dynamicHeight(context, .12),
-            decoration: BoxDecoration(
-              color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                  .withOpacity(1.0),
+            child: CachedNetworkImage(
+              imageUrl: image,
+              fit: BoxFit.cover,
+              placeholder: (context, string) {
+                return Image.asset(
+                  "assets/loader.gif",
+                  scale: 8,
+                );
+              },
             ),
           ),
         ),
@@ -87,7 +98,7 @@ Widget categoryCards(context, cardText, handle, {check = false}) {
             dynamicWidth(context, .03),
           ),
           child: Container(
-            color: Colors.transparent,
+            color: myBlack.withOpacity(.4),
             padding: EdgeInsets.all(
               dynamicWidth(context, .02),
             ),
@@ -100,7 +111,7 @@ Widget categoryCards(context, cardText, handle, {check = false}) {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: myWhite,
-                fontSize: dynamicWidth(context, .04),
+                fontSize: dynamicWidth(context, .046),
               ),
             ),
           ),
@@ -117,7 +128,10 @@ Widget cardList(context, {function}) {
       if (snapshot.connectionState == ConnectionState.done &&
           snapshot.data != null) {
         if (snapshot.data == "Server Error") {
-          return Text("Network Error");
+          return SizedBox(
+            height: dynamicHeight(context, .25),
+            child: Image.asset("assets/network_error.png"),
+          );
         } else {
           return SizedBox(
             height: dynamicHeight(context, .35),
@@ -127,22 +141,23 @@ Widget cardList(context, {function}) {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: dynamicWidth(context, 0.018),
-                    ),
-                    child: basicCards(
-                        context,
-                        snapshot.data[index]["node"]["images"]["edges"][0]
-                            ["node"]["src"],
-                        snapshot.data[index]["node"]["title"],
-                        price: snapshot.data[index]["node"]["variants"]["edges"]
-                            [0]["node"]["price"],
-                        sizeOption: snapshot.data[index]["node"]["options"][0]
-                            ["values"],
-                        description: snapshot.data[index]["node"]
-                            ["description"],
-                        sku: snapshot.data[index]["node"]["variants"]["edges"]
-                            [0]["node"]["sku"]));
+                  padding: EdgeInsets.symmetric(
+                    horizontal: dynamicWidth(context, 0.018),
+                  ),
+                  child: basicCards(
+                    context,
+                    snapshot.data[index]["node"]["images"]["edges"][0]["node"]
+                        ["src"],
+                    snapshot.data[index]["node"]["title"],
+                    price: snapshot.data[index]["node"]["variants"]["edges"][0]
+                        ["node"]["price"],
+                    sizeOption: snapshot.data[index]["node"]["options"][0]
+                        ["values"],
+                    description: snapshot.data[index]["node"]["description"],
+                    sku: snapshot.data[index]["node"]["variants"]["edges"][0]
+                        ["node"]["sku"],
+                  ),
+                );
               },
             ),
           );
@@ -171,12 +186,13 @@ Widget basicCards(context, imageUrl, text,
         context,
         MaterialPageRoute(
           builder: (context) => DetailPage(
-              image: imageUrl,
-              price: price,
-              text: text,
-              array: sizeOption,
-              description: description,
-              sku: sku),
+            image: imageUrl,
+            price: price,
+            text: text,
+            array: sizeOption,
+            description: description,
+            sku: sku,
+          ),
         ),
       );
     },
@@ -301,8 +317,14 @@ Widget rowText(text, context,
                   ),
                 );
               },
-              child: Text(
-                text2,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: dynamicHeight(context, .01),
+                  horizontal: dynamicWidth(context, .02),
+                ),
+                child: Text(
+                  text2,
+                ),
               ),
             )
           : Container()

@@ -69,6 +69,7 @@ Widget detailGrid(function, context, check) {
                             context,
                             snapshot.data[index]["node"]["title"],
                             snapshot.data[index]["node"]["handle"],
+                            snapshot.data[index]["node"]["image"]["src"],
                             check: true);
                       });
                 } else {

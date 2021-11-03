@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
   var accessToken;
+
   Home({Key? key, this.accessToken = ""}) : super(key: key);
 
   @override
@@ -49,6 +50,7 @@ class _HomeState extends State<Home> {
   }
 
   var customerinfo;
+
   getUserData(accessToken) async {
     print(accessToken);
     globalAccessToken = accessToken;
