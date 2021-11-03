@@ -43,6 +43,7 @@ class _HomeState extends State<Home> {
     } else {
       setState(() {
         widget.accessToken = saveUser.getString("loginInfo");
+        globalAccessToken = widget.accessToken;
         print(widget.accessToken);
         _loading = false;
       });
@@ -117,7 +118,7 @@ class _HomeState extends State<Home> {
                           return Drawer(
                             child: drawerItems(context,
                                 customerInfo: snapshot.data,
-                                accessToken: widget.accessToken),
+                                accessToken: globalAccessToken),
                           );
                         } else {
                           return Drawer(

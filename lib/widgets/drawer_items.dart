@@ -66,9 +66,7 @@ mutation customerAccessTokenDelete($customerAccessToken: String!) {
     {
       "icon": Icons.shopping_cart_outlined,
       "text": "Orders",
-      "screen": Orders(
-        customerInfo: customerInfo,
-      ),
+      "screen": Orders(),
     },
     {
       "icon": Icons.location_on_outlined,
@@ -103,22 +101,42 @@ mutation customerAccessTokenDelete($customerAccessToken: String!) {
       ),
       Flexible(
         child: ListView.builder(
-            itemCount: drawerItemList.length,
+            itemCount: (accessToken == "")
+                ? drawerItemList.length - 3
+                : drawerItemList.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => drawerItemList[index]["screen"],
-                    ),
-                  );
-                },
-                leading: Icon(drawerItemList[index]["icon"]),
-                title: Text(
-                  drawerItemList[index]["text"].toString(),
-                ),
-              );
+              index = index + 3;
+              if (accessToken == "") {
+                return ListTile(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => drawerItemList[index]["screen"],
+                      ),
+                    );
+                  },
+                  leading: Icon(drawerItemList[index]["icon"]),
+                  title: Text(
+                    drawerItemList[index]["text"].toString(),
+                  ),
+                );
+              } else {
+                return ListTile(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => drawerItemList[index]["screen"],
+                      ),
+                    );
+                  },
+                  leading: Icon(drawerItemList[index]["icon"]),
+                  title: Text(
+                    drawerItemList[index]["text"].toString(),
+                  ),
+                );
+              }
             }),
       ),
       Container(
@@ -200,7 +218,7 @@ Widget profilePicture(context, customerInfo) {
       ),
       (customerInfo == false || customerInfo == null)
           ? Text(
-              "Adam Balina",
+              "Sign In",
               style: TextStyle(
                 fontSize: dynamicWidth(context, .07),
                 color: myBlack,

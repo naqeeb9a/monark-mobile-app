@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:graphql/client.dart';
 import 'package:monark_app/Screens/AddAddress.dart';
 import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/config.dart';
@@ -20,6 +21,53 @@ class AddressPage extends StatefulWidget {
 }
 
 class _AddressPageState extends State<AddressPage> {
+  getUserAddresses() async {
+    var createUserAccessToken = '''
+{
+    customer (customerAccessToken: "$globalAccessToken")
+    {
+         addresses(first:5){
+             edges{
+                 node{
+                     address1
+                     address2
+                     city
+                     country
+                     firstName
+                     lastName
+                 }
+             } 
+         }
+    }
+}
+ ''';
+    final HttpLink httpLink = HttpLink(
+        "https://monark-clothings.myshopify.com/api/2021-10/graphql.json",
+        defaultHeaders: {
+          "X-Shopify-Storefront-Access-Token":
+              "fce9486a511f6a4f45939c2c6829cdaa"
+        });
+    GraphQLClient client = GraphQLClient(link: httpLink, cache: GraphQLCache());
+    final QueryOptions options = QueryOptions(
+      document: gql(createUserAccessToken),
+    );
+    final QueryResult result = await client.query(options);
+
+    if (result.hasException) {
+      print(result.hasException);
+      return "Server Error";
+    } else {
+      print(result.data!["customer"]["addresses"]["edges"].length);
+      return result.data!["customer"]["addresses"]["edges"];
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserAddresses();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

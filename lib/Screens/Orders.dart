@@ -1,42 +1,66 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:graphql/client.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
-import 'package:http/http.dart' as http;
 import '../config.dart';
 import 'Cart.dart';
 
 // ignore: must_be_immutable
 class Orders extends StatefulWidget {
-  var customerInfo;
-  Orders({Key? key, this.customerInfo}) : super(key: key);
+  Orders({Key? key}) : super(key: key);
 
   @override
   State<Orders> createState() => _OrdersState();
 }
 
 class _OrdersState extends State<Orders> {
-  getUserOrders(customerInfo) async {
-    print(customerInfo);
-    print(customerInfo["id"]);
-    var covert = Base64Codec().decode(widget.customerInfo["id"]);
-    var utfC = utf8.decode(covert);
-    var aStr = utfC.replaceAll(RegExp(r'[^0-9]'), '');
-    var aInt = int.parse(aStr);
-    print(aInt);
-    var response = await http.get(Uri.parse(
-        "https://32a2c56e6eeee31171cc4cb4349c2329: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@monark-clothings.myshopify.com/admin/api/2021-10/customers/$aInt/orders.json"));
-    var jsonData = jsonDecode(response.body);
-    print(jsonData);
-    return jsonData;
+  getUserOrders() async {
+    var createUserAccessToken = '''
+{
+    customer (customerAccessToken: "$globalAccessToken")
+    {
+         orders(first:5){
+             edges{
+                 node{
+                     lineItems{
+                         edges{
+                             node{
+                                 title
+                             }
+                         }
+                     }
+                 }
+             }
+         }
+    }
+}
+ ''';
+    final HttpLink httpLink = HttpLink(
+        "https://monark-clothings.myshopify.com/api/2021-10/graphql.json",
+        defaultHeaders: {
+          "X-Shopify-Storefront-Access-Token":
+              "fce9486a511f6a4f45939c2c6829cdaa"
+        });
+    GraphQLClient client = GraphQLClient(link: httpLink, cache: GraphQLCache());
+    final QueryOptions options = QueryOptions(
+      document: gql(createUserAccessToken),
+    );
+    final QueryResult result = await client.query(options);
+
+    if (result.hasException) {
+      print(result.hasException);
+      return "Server Error";
+    } else {
+      print(result.data!["customer"]["orders"]["edges"]);
+      return result.data!["customer"]["orders"]["edges"];
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    getUserOrders(widget.customerInfo);
+    getUserOrders();
   }
 
   @override
