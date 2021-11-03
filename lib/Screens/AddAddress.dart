@@ -36,7 +36,7 @@ class _AddAddressState extends State<AddAddress> {
 }
     ''';
     var variable = {
-      "customerAccessToken": "ae0f1d2e179c9571122a0595a6ac8125",
+      "customerAccessToken": "$globalAccessToken",
       "address": {
         "firstName": localAddressList[0].toString(),
         "lastName": localAddressList[1].toString(),
@@ -46,7 +46,7 @@ class _AddAddressState extends State<AddAddress> {
         "province": localAddressList[5].toString(),
         "city": localAddressList[6].toString(),
         "zip": localAddressList[7].toString(),
-        "phone": localAddressList[8].toString(),
+        "phone": localAddressList[8].toString()
       }
     };
     final HttpLink httpLink = HttpLink(
@@ -64,7 +64,8 @@ class _AddAddressState extends State<AddAddress> {
       print(result.hasException);
       return "Server Error";
     } else {
-      return result.data!["collections"]["edges"];
+      print(result.data!);
+      return result.data;
     }
   }
 
@@ -130,7 +131,12 @@ class _AddAddressState extends State<AddAddress> {
               }
               _formKey.currentState!.save();
               addressList.add(localAddressList);
-              saveAddress();
+              var response = saveAddress();
+              if (response == "Server Error") {
+                print(response);
+              } else {
+                print("success");
+              }
               Navigator.pop(context);
             },
           )
