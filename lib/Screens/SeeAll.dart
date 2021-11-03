@@ -59,8 +59,8 @@ Widget detailGrid(function, context, check) {
                   return GridView.builder(
                       itemCount: (snapshot.data as List).length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        mainAxisSpacing: dynamicWidth(context, .02),
-                        crossAxisSpacing: dynamicHeight(context, .03),
+                        mainAxisSpacing: dynamicWidth(context, .03),
+                        crossAxisSpacing: dynamicHeight(context, .014),
                         crossAxisCount: 2,
                         childAspectRatio: 2 / 1.5,
                       ),

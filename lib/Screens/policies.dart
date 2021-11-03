@@ -118,7 +118,6 @@ class _PoliciesPageState extends State<PoliciesPage> {
                                     fontSize: dynamicWidth(context, .05),
                                     color: myBlack,
                                   ),
-
                                   textAlign: TextAlign.justify,
                                 ),
                               ),
