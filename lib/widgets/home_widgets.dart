@@ -357,7 +357,7 @@ dynamic imageAlert(context, image, assetImage) {
                   child: assetImage == false
                       ? CachedNetworkImage(
                           imageUrl: image,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fitWidth,
                           width: dynamicWidth(context, .96),
                           height: dynamicHeight(context, .8),
                           placeholder: (context, string) {
@@ -385,10 +385,13 @@ dynamic imageAlert(context, image, assetImage) {
                       padding: EdgeInsets.only(
                         right: dynamicWidth(context, .02),
                       ),
-                      child: Icon(
-                        Icons.clear,
-                        color: myRed,
-                        size: dynamicWidth(context, .08),
+                      child: ColoredBox(
+                        color: myWhite,
+                        child: Icon(
+                          Icons.clear,
+                          color: myRed,
+                          size: dynamicWidth(context, .08),
+                        ),
                       ),
                     ),
                   ],

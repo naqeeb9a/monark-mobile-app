@@ -6,12 +6,12 @@ import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
 class DetailPage extends StatefulWidget {
-  final String image;
-  final String price;
+  final dynamic image;
+  final dynamic price;
   final String text;
   final dynamic array;
   final dynamic description;
-  final String sku;
+  final dynamic sku;
 
   const DetailPage({
     Key? key,
@@ -30,6 +30,8 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   bool _expanded = false;
   String selectedSize = "";
+
+  int priceIndex = 0, skuIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -64,14 +66,15 @@ class _DetailPageState extends State<DetailPage> {
                             onTap: () {
                               imageAlert(
                                 context,
-                                widget.image,
+                                widget.image[0]["node"]["src"].toString(),
                                 false,
                               );
                             },
                             child: Hero(
                               tag: 1,
                               child: CachedNetworkImage(
-                                imageUrl: widget.image,
+                                imageUrl:
+                                    widget.image[0]["node"]["src"].toString(),
                                 fit: BoxFit.cover,
                                 height: dynamicHeight(context, .36),
                                 placeholder: (context, string) {
@@ -109,7 +112,8 @@ class _DetailPageState extends State<DetailPage> {
                         horizontal: dynamicWidth(context, .04),
                       ),
                       child: Text(
-                        "SKU : " + widget.sku.toString(),
+                        "SKU : " +
+                            widget.sku[skuIndex]["node"]["sku"].toString(),
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: dynamicWidth(context, .04),
@@ -120,18 +124,21 @@ class _DetailPageState extends State<DetailPage> {
                       height: dynamicHeight(context, 0.02),
                     ),
                     Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: dynamicWidth(context, .04),
-                            ),
-                            child: Text(
-                              "Rs. " +
-                                  double.parse(widget.price).toInt().toString(),
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: dynamicWidth(context, .044),
-                              ),
-                            ),
-                          ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: dynamicWidth(context, .04),
+                      ),
+                      child: Text(
+                        "Rs. " +
+                            double.parse(
+                                    widget.price[priceIndex]["node"]["price"])
+                                .toInt()
+                                .toString(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: dynamicWidth(context, .044),
+                        ),
+                      ),
+                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: dynamicWidth(context, .04),
@@ -249,7 +256,9 @@ class _DetailPageState extends State<DetailPage> {
             bottomButton(
               context,
               widget.image,
-              double.parse(widget.price).toInt().toString(),
+              double.parse(widget.price[priceIndex]["node"]["price"])
+                  .toInt()
+                  .toString(),
               widget.text,
             )
           ],
@@ -275,8 +284,12 @@ class _DetailPageState extends State<DetailPage> {
                 onTap: () {
                   setState(() {
                     selectedSize = array[index];
+                    priceIndex = index;
+                    skuIndex = index;
                   });
                   print(selectedSize);
+                  print(priceIndex);
+                  print(skuIndex);
                 },
                 child: Ink(
                   child: CircleAvatar(
