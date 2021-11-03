@@ -16,3 +16,4 @@ int group = 0;
 bool obscureText = true;
 
 var sizeColor = myBlack;
+var globalAccessToken = "";

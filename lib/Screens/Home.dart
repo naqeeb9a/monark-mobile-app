@@ -50,6 +50,7 @@ class _HomeState extends State<Home> {
 
   var customerinfo;
   getUserData(accessToken) async {
+    globalAccessToken = accessToken;
     var createUserAccessToken = '''
 {
     customer (customerAccessToken: "$accessToken")

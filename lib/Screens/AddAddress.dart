@@ -130,6 +130,7 @@ class _AddAddressState extends State<AddAddress> {
               }
               _formKey.currentState!.save();
               addressList.add(localAddressList);
+              saveAddress();
               Navigator.pop(context);
             },
           )
