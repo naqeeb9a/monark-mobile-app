@@ -105,8 +105,8 @@ mutation customerAccessTokenDelete($customerAccessToken: String!) {
                 ? drawerItemList.length - 3
                 : drawerItemList.length,
             itemBuilder: (context, index) {
-              index = index + 3;
               if (accessToken == "") {
+                index = index + 3;
                 return ListTile(
                   onTap: () {
                     Navigator.push(
