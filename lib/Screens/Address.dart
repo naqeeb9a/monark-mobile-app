@@ -160,7 +160,7 @@ class _AddressPageState extends State<AddressPage> {
                     children: <Widget>[
                       Image.asset(
                         "assets/noAddress.png",
-                        width: MediaQuery.of(context).size.width * 0.5,
+                        width: dynamicWidth(context, 0.5),
                       ),
                       SizedBox(
                         height: dynamicHeight(context, .03),
@@ -172,7 +172,9 @@ class _AddressPageState extends State<AddressPage> {
                     itemCount: (snapshot.data as List).length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        padding: EdgeInsets.symmetric(
+                          vertical: dynamicHeight(context, 0.01),
+                        ),
                         child: Row(
                           children: [
                             Radio(
