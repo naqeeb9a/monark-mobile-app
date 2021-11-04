@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
@@ -402,5 +403,77 @@ dynamic imageAlert(context, image, assetImage) {
         ),
       );
     },
+  );
+}
+
+Widget homeSlider(context, height, length, viewFraction, image, detail) {
+  return CarouselSlider.builder(
+    itemCount: length,
+    itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
+        detail == true
+            ? InkWell(
+                onTap: () {
+                  imageAlert(
+                    context,
+                    image[itemIndex]["node"]["src"].toString(),
+                    false,
+                  );
+                },
+                child: sliderContainer(
+                  context,
+                  image[itemIndex]["node"]["src"].toString(),
+                ),
+              )
+            : sliderContainer(context, image[itemIndex]),
+    options: CarouselOptions(
+      height: height,
+      enlargeCenterPage: true,
+      viewportFraction: viewFraction,
+      autoPlay: true,
+      autoPlayInterval: Duration(seconds: 6),
+      autoPlayAnimationDuration: Duration(seconds: 2),
+      aspectRatio: 16 / 9,
+      autoPlayCurve: Curves.fastLinearToSlowEaseIn,
+    ),
+  );
+
+  // CarouselSlider(
+  //   items: itemArray,
+  //   options: CarouselOptions(
+  //     height: height,
+  //     enlargeCenterPage: true,
+  //     viewportFraction: viewFraction,
+  //     autoPlay: true,
+  //     autoPlayInterval: Duration(seconds: 6),
+  //     autoPlayAnimationDuration: Duration(seconds: 2),
+  //     aspectRatio: 16 / 9,
+  //     autoPlayCurve: Curves.fastLinearToSlowEaseIn,
+  //   ),
+  // );
+}
+
+Widget sliderContainer(context, String image) {
+  return Container(
+    width: dynamicWidth(context, 1),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(
+        dynamicWidth(context, .02),
+      ),
+    ),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(
+        dynamicWidth(context, .03),
+      ),
+      child: CachedNetworkImage(
+        imageUrl: image,
+        fit: BoxFit.cover,
+        placeholder: (context, string) {
+          return Image.asset(
+            "assets/loader.gif",
+            scale: 6,
+          );
+        },
+      ),
+    ),
   );
 }

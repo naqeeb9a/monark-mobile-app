@@ -45,6 +45,9 @@ dependencies:
   shared_preferences: ^2.0.8
   cool_alert: ^1.1.0
   tab_indicator_styler: ^2.0.0
+  top_snackbar_flutter: ^1.0.1
+  carousel_slider: ^4.0.0
+
 
 dev_dependencies:
   flutter_test:

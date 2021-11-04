@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
@@ -62,28 +61,15 @@ class _DetailPageState extends State<DetailPage> {
                           borderRadius: BorderRadius.circular(
                             dynamicWidth(context, .02),
                           ),
-                          child: InkWell(
-                            onTap: () {
-                              imageAlert(
-                                context,
-                                widget.image[0]["node"]["src"].toString(),
-                                false,
-                              );
-                            },
-                            child: Hero(
-                              tag: 1,
-                              child: CachedNetworkImage(
-                                imageUrl:
-                                    widget.image[0]["node"]["src"].toString(),
-                                fit: BoxFit.cover,
-                                height: dynamicHeight(context, .36),
-                                placeholder: (context, string) {
-                                  return Image.asset(
-                                    "assets/loader.gif",
-                                    scale: 7,
-                                  );
-                                },
-                              ),
+                          child: Hero(
+                            tag: 1,
+                            child: homeSlider(
+                              context,
+                              dynamicHeight(context, .36),
+                              widget.image.length,
+                              .6,
+                              widget.image,
+                              true,
                             ),
                           ),
                         ),

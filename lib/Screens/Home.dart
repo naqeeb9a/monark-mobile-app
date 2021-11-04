@@ -25,6 +25,13 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var _loading = false;
 
+  List sliderImage = [
+    'https://images.unsplash.com/photo-1577538928305-3807c3993047?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c2FsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
+    'https://images.unsplash.com/photo-1607082350899-7e105aa886ae?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c2FsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
+    'https://media.istockphoto.com/photos/neon-flash-sale-banner-discount-product-advertising-marketing-banner-picture-id1204428300?k=20&m=1204428300&s=612x612&w=0&h=gmBsK52vSWsOR5qj_lXr9R43RAhP5k1WIn8igeua4BA=',
+    'https://www.sanasafinaz.com/media/catalog/category/Sale-inner-Banner_1.jpg',
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -141,7 +148,18 @@ class _HomeState extends State<Home> {
                         ),
                         searchbar(),
                         SizedBox(
-                          height: dynamicHeight(context, .03),
+                          height: dynamicHeight(context, .02),
+                        ),
+                        homeSlider(
+                          context,
+                          dynamicHeight(context, .22),
+                          sliderImage.length,
+                          .9,
+                          sliderImage,
+                          false,
+                        ),
+                        SizedBox(
+                          height: dynamicHeight(context, .02),
                         ),
                         rowText(
                           "Categories",
