@@ -144,7 +144,7 @@ class _HomeState extends State<Home> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: dynamicHeight(context, .03),
+                          height: dynamicHeight(context, .02),
                         ),
                         searchbar(),
                         SizedBox(
@@ -183,9 +183,6 @@ class _HomeState extends State<Home> {
                           text2: "See all",
                           check: true,
                         ),
-                        SizedBox(
-                          height: dynamicHeight(context, .02),
-                        ),
                         cardList(context,
                             function: getShopifyCollection("suits")),
                         SizedBox(
@@ -198,9 +195,6 @@ class _HomeState extends State<Home> {
                           text2: "See all",
                           check: true,
                         ),
-                        SizedBox(
-                          height: dynamicHeight(context, .02),
-                        ),
                         cardList(context,
                             function: getShopifyCollection("made-in-turkey")),
                         SizedBox(
@@ -212,9 +206,6 @@ class _HomeState extends State<Home> {
                           text2: "See all",
                           check: true,
                           function: getShopifyProducts(),
-                        ),
-                        SizedBox(
-                          height: dynamicHeight(context, .02),
                         ),
                         cardList(
                           context,

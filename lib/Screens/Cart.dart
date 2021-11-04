@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:monark_app/Screens/Address.dart';
 import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
+import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
+import 'package:monark_app/widgets/media_query.dart';
 
 class Cart extends StatelessWidget {
   const Cart({Key? key}) : super(key: key);
@@ -137,18 +139,4 @@ Widget cartCard(index, context, {orders}) {
   );
 }
 
-Widget bottomButton1(context, text, page) {
-  return Positioned(
-    bottom: 20,
-    child: MaterialButton(
-      color: myRed,
-      height: MediaQuery.of(context).size.height * 0.06,
-      minWidth: MediaQuery.of(context).size.width / 1.3,
-      onPressed: page,
-      child: Text(
-        text,
-        style: TextStyle(color: myWhite),
-      ),
-    ),
-  );
-}
+

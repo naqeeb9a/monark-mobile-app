@@ -79,3 +79,38 @@ Widget searchbar() {
     ),
   );
 }
+
+Widget addressInput(context, text, hintText, type, {localAddressList}) {
+  return Padding(
+    padding: EdgeInsets.symmetric(
+      vertical: dynamicHeight(context, .01),
+    ),
+    child: TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      textInputAction: TextInputAction.next,
+      keyboardType: type,
+      decoration: InputDecoration(
+        label: Text(
+          text,
+          style: TextStyle(
+            color: Colors.grey,
+          ),
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .02),
+          ),
+        ),
+        hintText: hintText,
+      ),
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Please complete this field";
+        }
+      },
+      onSaved: (value) {
+        localAddressList.add(value);
+      },
+    ),
+  );
+}

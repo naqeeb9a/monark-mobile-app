@@ -52,7 +52,7 @@ class _DetailPageState extends State<DetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: dynamicHeight(context, 0.01),
+                      height: dynamicHeight(context, 0.016),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -78,7 +78,7 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                     ),
                     SizedBox(
-                      height: dynamicHeight(context, 0.04),
+                      height: dynamicHeight(context, 0.02),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(

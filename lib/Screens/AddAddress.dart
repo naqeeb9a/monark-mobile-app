@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
-import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/widgets/app_bar.dart';
+import 'package:monark_app/widgets/coloredButton.dart';
+import 'package:monark_app/widgets/form_fields.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
+import 'package:monark_app/widgets/media_query.dart';
 
 import '../config.dart';
 
@@ -16,6 +18,7 @@ class AddAddress extends StatefulWidget {
 class _AddAddressState extends State<AddAddress> {
   var localAddressList = [];
   final _formKey = GlobalKey<FormState>();
+
   saveAddress() async {
     print(localAddressList);
     var addressQuery = r'''
@@ -85,37 +88,78 @@ class _AddAddressState extends State<AddAddress> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    rowText("Create Address", context),
-                    SizedBox(height: 20),
-                    inputData(
-                        "First name", "Enter Your Name", TextInputType.name,
-                        localAddressList: localAddressList),
-                    inputData(
-                        "Last name", "Enter Your Name", TextInputType.name,
-                        localAddressList: localAddressList),
-                    inputData("Address 1", "Add Your Address",
-                        TextInputType.streetAddress,
-                        localAddressList: localAddressList),
-                    inputData("Address 2", "Add Your Address",
-                        TextInputType.streetAddress,
-                        localAddressList: localAddressList),
-                    inputData("Country", "Enter the Province Name",
-                        TextInputType.text,
-                        localAddressList: localAddressList),
-                    inputData("Province", "Enter the Province Name",
-                        TextInputType.text,
-                        localAddressList: localAddressList),
-                    inputData(
-                        "City", "Enter your city name", TextInputType.text,
-                        localAddressList: localAddressList),
-                    inputData("Postal Code", "Enter your Postal Code",
-                        TextInputType.phone,
-                        localAddressList: localAddressList),
-                    inputData("Phone Number", "Enter your Phone Number",
-                        TextInputType.phone,
-                        localAddressList: localAddressList),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height / 9,
+                      height: dynamicHeight(context, .02),
+                    ),
+                    rowText("Create Address", context),
+                    SizedBox(
+                      height: dynamicHeight(context, .014),
+                    ),
+                    addressInput(
+                      context,
+                      "First name",
+                      "Enter Your Name",
+                      TextInputType.name,
+                      localAddressList: localAddressList,
+                    ),
+                    addressInput(
+                      context,
+                      "Last name",
+                      "Enter Your Name",
+                      TextInputType.name,
+                      localAddressList: localAddressList,
+                    ),
+                    addressInput(
+                      context,
+                      "Address 1",
+                      "Add Your Address",
+                      TextInputType.streetAddress,
+                      localAddressList: localAddressList,
+                    ),
+                    addressInput(
+                      context,
+                      "Address 2",
+                      "Add Your Address",
+                      TextInputType.streetAddress,
+                      localAddressList: localAddressList,
+                    ),
+                    addressInput(
+                      context,
+                      "City",
+                      "Enter your city name",
+                      TextInputType.text,
+                      localAddressList: localAddressList,
+                    ),
+                    addressInput(
+                      context,
+                      "Province",
+                      "Enter the Province Name",
+                      TextInputType.text,
+                      localAddressList: localAddressList,
+                    ),
+                    addressInput(
+                      context,
+                      "Country",
+                      "Enter the Province Name",
+                      TextInputType.text,
+                      localAddressList: localAddressList,
+                    ),
+                    addressInput(
+                      context,
+                      "Postal Code",
+                      "Enter your Postal Code",
+                      TextInputType.phone,
+                      localAddressList: localAddressList,
+                    ),
+                    addressInput(
+                      context,
+                      "Phone Number",
+                      "Enter your Phone Number",
+                      TextInputType.phone,
+                      localAddressList: localAddressList,
+                    ),
+                    SizedBox(
+                      height: dynamicHeight(context, .1),
                     )
                   ],
                 ),
@@ -144,30 +188,4 @@ class _AddAddressState extends State<AddAddress> {
       ),
     );
   }
-}
-
-Widget inputData(text, hinttext, type, {localAddressList}) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 10),
-    child: TextFormField(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      keyboardType: type,
-      decoration: InputDecoration(
-        label: Text(
-          text,
-          style: TextStyle(color: Colors.grey),
-        ),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-        hintText: hinttext,
-      ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return "Please complete this field";
-        }
-      },
-      onSaved: (value) {
-        localAddressList.add(value);
-      },
-    ),
-  );
 }
