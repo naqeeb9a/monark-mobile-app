@@ -160,7 +160,7 @@ class _AddressPageState extends State<AddressPage> {
                     children: <Widget>[
                       Image.asset(
                         "assets/noAddress.png",
-                        width: MediaQuery.of(context).size.width / 2,
+                        width: MediaQuery.of(context).size.width * 0.5,
                       ),
                       SizedBox(
                         height: dynamicHeight(context, .03),
