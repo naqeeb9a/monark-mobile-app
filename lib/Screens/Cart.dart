@@ -68,7 +68,6 @@ Widget cartList({ordersPage = false}) {
 }
 
 Widget cartCard(index, context, {orders}) {
-  var quantity = 1.obs;
   return Container(
     padding: EdgeInsets.all(20),
     margin: EdgeInsets.symmetric(vertical: 10),
@@ -118,34 +117,7 @@ Widget cartCard(index, context, {orders}) {
                                     MediaQuery.of(context).size.width * 0.03),
                           ),
                         )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                if (quantity > 1) {
-                                  quantity--;
-                                }
-                              },
-                              child: Icon(
-                                Icons.remove,
-                                size: 15,
-                              ),
-                            ),
-                            Obx(() {
-                              return Text(quantity.toString());
-                            }),
-                            InkWell(
-                              onTap: () {
-                                quantity++;
-                              },
-                              child: Icon(
-                                Icons.add,
-                                size: 15,
-                              ),
-                            )
-                          ],
-                        ),
+                      : SizedBox(),
                 )
               ],
             ),

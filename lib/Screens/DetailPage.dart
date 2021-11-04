@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
@@ -29,8 +31,8 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   bool _expanded = false;
   String selectedSize = "";
-
   int priceIndex = 0, skuIndex = 0;
+  var quantity = 1.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -205,6 +207,95 @@ class _DetailPageState extends State<DetailPage> {
                               height: dynamicHeight(context, .03),
                             ),
                           ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: dynamicHeight(context, .01),
+                        horizontal: dynamicWidth(context, .04),
+                      ),
+                      child: Text(
+                        "Select Quantity",
+                        style: TextStyle(
+                          fontSize: dynamicWidth(context, .05),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: dynamicWidth(context, .04),
+                      ),
+                      child: Divider(
+                        thickness: 2,
+                        height: dynamicHeight(context, .02),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: dynamicHeight(context, .01),
+                      ),
+                      child: Center(
+                        child: Container(
+                          width: dynamicWidth(context, .4),
+                          color: myWhite,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  if (quantity > 1) {
+                                    quantity--;
+                                  }
+                                },
+                                child: Container(
+                                  width: dynamicWidth(context, .12),
+                                  height: dynamicWidth(context, .12),
+                                  color: myBlack,
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.remove,
+                                      size: dynamicWidth(context, .06),
+                                      color: myWhite,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Obx(() {
+                                return Text(
+                                  quantity.toString(),
+                                  style: TextStyle(
+                                    fontSize: dynamicWidth(context, .06),
+                                  ),
+                                );
+                              }),
+                              InkWell(
+                                onTap: () {
+                                  quantity++;
+                                },
+                                child: Container(
+                                  width: dynamicWidth(context, .12),
+                                  height: dynamicWidth(context, .12),
+                                  color: myBlack,
+                                  child: Icon(
+                                    Icons.add,
+                                    size: dynamicWidth(context, .06),
+                                    color: myWhite,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: dynamicWidth(context, .04),
+                      ),
+                      child: Divider(
+                        thickness: 2,
+                        height: dynamicHeight(context, .02),
+                      ),
+                    ),
                     ExpansionPanelList(
                       expandedHeaderPadding: EdgeInsets.zero,
                       animationDuration: Duration(milliseconds: 600),
@@ -241,7 +332,7 @@ class _DetailPageState extends State<DetailPage> {
             ),
             bottomButton(
               context,
-              widget.image,
+              widget.image[0]["node"]["src"],
               double.parse(widget.price[priceIndex]["node"]["price"])
                   .toInt()
                   .toString(),
@@ -319,14 +410,17 @@ Widget bottomButton(context, image, price, text) {
           Icon(
             Icons.add_shopping_cart_sharp,
             color: myWhite,
-            size: 30,
+            size: dynamicWidth(context, .08),
           ),
           SizedBox(
-            width: 20,
+            width: dynamicWidth(context, .04),
           ),
           Text(
             "Add to Cart",
-            style: TextStyle(color: myWhite),
+            style: TextStyle(
+              color: myWhite,
+              fontSize: dynamicWidth(context, .05),
+            ),
           ),
         ],
       ),
