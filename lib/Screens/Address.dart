@@ -7,6 +7,7 @@ import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 import 'Payment.dart';
 
@@ -58,14 +59,9 @@ class _AddressPageState extends State<AddressPage> {
       print(result.hasException);
       return "Server Error";
     } else {
+      print((result.data!["customer"]["addresses"]["edges"] as List).length);
       return result.data!["customer"]["addresses"]["edges"];
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    shopifyAddress = getUserAddresses();
   }
 
   @override
@@ -91,7 +87,7 @@ class _AddressPageState extends State<AddressPage> {
                   SizedBox(
                     height: widget.check == true
                         ? dynamicHeight(context, .3)
-                        : dynamicHeight(context, .5),
+                        : dynamicHeight(context, .16),
                   )
                 ],
               ),
@@ -152,91 +148,106 @@ class _AddressPageState extends State<AddressPage> {
   }
 
   Widget addressListBuilder(context) {
-    return Obx(
-      () {
-        return addressList.length == 0
-            ? Column(
-                children: [
-                  Image.asset(
-                    "assets/noAddress.png",
-                    width: MediaQuery.of(context).size.width,
-                  ),
-                  SizedBox(
-                    height: dynamicHeight(context, .03),
-                  ),
-                  Text("No Addresses Found!")
-                ],
-              )
-            : Expanded(
-                child: ListView.builder(
-                  itemCount: shopifyAddress.length,
-                  itemBuilder: (context, index) {
-                    return Row(
-                      children: [
-                        Radio(
-                            value: index,
-                            groupValue: int.parse(group.toString()),
-                            onChanged: (value) {
-                              setState(() {
-                                group = value as int;
-                              });
-                            }),
-                        Container(
-                          width: dynamicWidth(context, 0.75),
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 1),
-                            borderRadius: BorderRadius.circular(
-                              dynamicWidth(context, 0.04),
+    return Expanded(
+      child: FutureBuilder(
+        future: getUserAddresses(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          print(snapshot.data);
+          if (snapshot.connectionState == ConnectionState.done) {
+            return (snapshot.data == null)
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset(
+                        "assets/noAddress.png",
+                        width: MediaQuery.of(context).size.width / 2,
+                      ),
+                      SizedBox(
+                        height: dynamicHeight(context, .03),
+                      ),
+                      Text("No Addresses Found!")
+                    ],
+                  )
+                : ListView.builder(
+                    itemCount: (snapshot.data as List).length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Row(
+                          children: [
+                            Radio(
+                                value: index,
+                                groupValue: int.parse(group.toString()),
+                                onChanged: (value) {
+                                  setState(() {
+                                    group = value as int;
+                                  });
+                                }),
+                            Container(
+                              width: dynamicWidth(context, 0.75),
+                              decoration: BoxDecoration(
+                                border: Border.all(width: 1),
+                                borderRadius: BorderRadius.circular(
+                                  dynamicWidth(context, 0.04),
+                                ),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: dynamicWidth(context, 0.04),
+                                vertical: dynamicHeight(context, .01),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    snapshot.data[index]["node"]["address1"],
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: dynamicWidth(context, 0.06),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    maxLines: 2,
+                                  ),
+                                  SizedBox(
+                                    height: dynamicHeight(context, .01),
+                                  ),
+                                  Text(
+                                    snapshot.data[index]["node"]["firstName"] +
+                                        " " +
+                                        snapshot.data[index]["node"]
+                                            ["lastName"],
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: dynamicWidth(context, 0.05),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    snapshot.data[index]["node"]["city"],
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: myBlack,
+                                      fontSize: dynamicWidth(context, 0.04),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: dynamicWidth(context, 0.04),
-                            vertical: dynamicHeight(context, .01),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                shopifyAddress[index]["node"]["address1"],
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: dynamicWidth(context, 0.06),
-                                  fontWeight: FontWeight.w400,
-                                ),
-                                maxLines: 2,
-                              ),
-                              SizedBox(
-                                height: dynamicHeight(context, .01),
-                              ),
-                              Text(
-                                shopifyAddress[index]["node"]["firstName"] +
-                                    " " +
-                                    shopifyAddress[index]["node"]["lastName"],
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: dynamicWidth(context, 0.05),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                shopifyAddress[index]["node"]["city"],
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: myBlack,
-                                  fontSize: dynamicWidth(context, 0.04),
-                                ),
-                              )
-                            ],
-                          ),
+                          ],
                         ),
-                      ],
-                    );
-                  },
-                ),
-              );
-      },
+                      );
+                    },
+                  );
+          } else {
+            return Center(
+              child: JumpingDotsProgressIndicator(
+                fontSize: 20,
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }
