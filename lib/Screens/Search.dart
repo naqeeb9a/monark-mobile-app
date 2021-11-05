@@ -20,7 +20,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: myGrey,
-      appBar: bar2(context),
+      // appBar: bar2(context),
       body: SafeArea(
         child: Center(
           child: Container(
@@ -29,7 +29,7 @@ class _SearchPageState extends State<SearchPage> {
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    vertical: dynamicHeight(context, .01),
+                    vertical: dynamicHeight(context, .02),
                   ),
                   child: Hero(
                     tag: "SearchBar",

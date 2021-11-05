@@ -396,7 +396,6 @@ class _DetailPageState extends State<DetailPage> {
 }
 
 Widget bottomButton(context, image, price, text, cartQuantity) {
-  var localQuantity = cartQuantity;
   return Positioned(
     bottom: 0,
     child: MaterialButton(
@@ -409,7 +408,7 @@ Widget bottomButton(context, image, price, text, cartQuantity) {
             "imageUrl": image,
             "price": price,
             "title": text,
-            "quantity": localQuantity,
+            "quantity": cartQuantity.value,
             "total": int.parse(price.toString()) *
                 int.parse(cartQuantity.toString()),
           });
@@ -429,7 +428,7 @@ Widget bottomButton(context, image, price, text, cartQuantity) {
               "imageUrl": image,
               "price": price,
               "title": text,
-              "quantity": localQuantity,
+              "quantity": cartQuantity,
               "total": int.parse(price.toString()) *
                   int.parse(cartQuantity.toString()),
             });
