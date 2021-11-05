@@ -414,13 +414,15 @@ Widget bottomButton(context, image, price, text, cartQuantity) {
           });
         } else {
           if (text.toString() == cartItems[0]["title"]) {
+            print(cartItems[0]["quantity"]);
+            print(cartQuantity);
             cartItems[0]["quantity"] =
                 int.parse(cartItems[0]["quantity"].toString()) +
                     int.parse(cartQuantity.toString());
             cartItems[0]["total"] =
                 int.parse(cartItems[0]["price"].toString()) +
-                    int.parse(price.toString()) *
-                        int.parse(cartQuantity.toString());
+                    (int.parse(price.toString()) *
+                        int.parse(cartQuantity.toString()));
           } else {
             cartItems.add({
               "imageUrl": image,
