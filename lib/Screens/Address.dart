@@ -121,21 +121,27 @@ class _AddressPageState extends State<AddressPage> {
                   context,
                   "Continue to Payment",
                   () {
-                    if (cartItems.isNotEmpty && addressList.isNotEmpty) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Payment(),
-                        ),
-                      );
-                    } else {
-                      var snackBar = SnackBar(
-                        content: Text("No Address selected"),
-                        duration: const Duration(milliseconds: 1000),
-                      );
+                    // if (cartItems.isNotEmpty && addressList.isNotEmpty) {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => Payment(),
+                    //     ),
+                    //   );
+                    // } else {
+                    //   var snackBar = SnackBar(
+                    //     content: Text("No Address selected"),
+                    //     duration: const Duration(milliseconds: 1000),
+                    //   );
 
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    }
+                    //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    // }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Payment(),
+                      ),
+                    );
                   },
                 )
         ],

@@ -16,7 +16,6 @@ class CheckOut extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(addressList[0]["node"]["address1"]);
     var subtotal = 0;
     for (var u in cartItems) {
       subtotal += int.parse(u["total"].toString());
@@ -106,9 +105,14 @@ class CheckOut extends StatelessWidget {
               ],
             ),
           ),
-          bottomButton1(context, "Buy", () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ConfirmationPage()));
+          bottomButton1(context, "Buy", () async {
+            var response = await orderItems();
+            if (response == 201) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ConfirmationPage()));
+            } else {
+              print(Error);
+            }
           })
         ],
       ),
@@ -118,9 +122,13 @@ class CheckOut extends StatelessWidget {
 
 orderItems() async {
   for (var i = 0; i < cartItems.length; i++) {
+    var iddddd = base64Decode(cartItems[i]["variantId"]);
+    var a = utf8.decode(iddddd);
+    var aStr = a.replaceAll(new RegExp(r'[^0-9]'), '');
+    var aInt = int.parse(aStr);
     var response = await http.post(
         Uri.parse(
-            "https://7c8a49023a84d8ad678b0b5c20d823ba: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@unzepk.myshopify.com/admin/api/2020-07/orders.json"),
+            "https://32a2c56e6eeee31171cc4cb4349c2329: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@monark-clothings.myshopify.com/admin/api/2021-10/orders.json"),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           "order": {
@@ -136,19 +144,17 @@ orderItems() async {
             "tags": "ordered via mobile application",
             "line_items": [
               {
-                "id": cartItems[i]["id"],
                 "sku": cartItems[i]["sku"],
                 "title": cartItems[i]["title"],
                 "price": cartItems[i]["price"],
-                "varient_id": cartItems[i]["variant_id"],
-                "quantity": 1
+                "varient_id": aInt,
+                "quantity": cartItems[i]["quantity"]
               }
             ]
           }
         }));
-    // ignore: avoid_print
     print(response.statusCode);
-    // ignore: avoid_print
     print(response.body);
+    return response.statusCode;
   }
 }
