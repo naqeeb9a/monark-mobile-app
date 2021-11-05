@@ -429,7 +429,7 @@ Widget bottomButton(context, image, price, text, cartQuantity) {
               "imageUrl": image,
               "price": price,
               "title": text,
-              "quantity": cartQuantity,
+              "quantity": localQuantity,
               "total": int.parse(price.toString()) *
                   int.parse(cartQuantity.toString()),
             });
