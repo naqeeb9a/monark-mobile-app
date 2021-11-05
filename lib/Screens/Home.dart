@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
+import 'package:monark_app/Screens/Search.dart';
 import 'package:monark_app/Screens/Welcome.dart';
 import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
@@ -51,7 +52,6 @@ class _HomeState extends State<Home> {
       setState(() {
         widget.accessToken = saveUser.getString("loginInfo");
         globalAccessToken = widget.accessToken;
-        print(widget.accessToken);
         _loading = false;
       });
     }
@@ -60,7 +60,6 @@ class _HomeState extends State<Home> {
   var customerinfo;
 
   getUserData(accessToken) async {
-    print(accessToken);
     globalAccessToken = accessToken;
     var createUserAccessToken = '''
 {
@@ -146,7 +145,17 @@ class _HomeState extends State<Home> {
                         SizedBox(
                           height: dynamicHeight(context, .02),
                         ),
-                        searchbar(),
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SearchPage()));
+                            },
+                            child: Hero(
+                                tag: "SearchBar",
+                                child: Material(
+                                    child: searchbar(enabled: false)))),
                         SizedBox(
                           height: dynamicHeight(context, .02),
                         ),

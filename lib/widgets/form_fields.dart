@@ -44,7 +44,7 @@ Widget inputTextField(context, label, myController,
   );
 }
 
-Widget searchbar() {
+Widget searchbar({enabled = true, controller, setstateFunction}) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 5),
     decoration: BoxDecoration(
@@ -65,6 +65,9 @@ Widget searchbar() {
         ),
         Expanded(
           child: TextField(
+            controller: controller,
+            enabled: enabled,
+            autofocus: enabled,
             decoration: InputDecoration(
                 border: InputBorder.none,
                 focusedBorder: InputBorder.none,
@@ -73,6 +76,11 @@ Widget searchbar() {
                 disabledBorder: InputBorder.none,
                 contentPadding: EdgeInsets.only(left: 20),
                 hintText: "Search Your Product"),
+            onSubmitted: (value) {
+              controller.text = value;
+              print(controller.text);
+              setstateFunction();
+            },
           ),
         )
       ],
