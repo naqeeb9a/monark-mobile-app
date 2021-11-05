@@ -276,7 +276,7 @@ class _DetailPageState extends State<DetailPage> {
                               }),
                               InkWell(
                                 onTap: () {
-                                  if (quantity > 4) {
+                                  if (quantity < 4) {
                                     quantity++;
                                   }
                                 },
