@@ -129,12 +129,12 @@ class _AddressPageState extends State<AddressPage> {
                     //     ),
                     //   );
                     // } else {
-                    //   var snackBar = SnackBar(
-                    //     content: Text("No Address selected"),
-                    //     duration: const Duration(milliseconds: 1000),
-                    //   );
+                      // var snackBar = SnackBar(
+                      //   content: Text("No Address selected"),
+                      //   duration: const Duration(milliseconds: 1000),
+                      // );
 
-                    //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     // }
                     Navigator.push(
                       context,

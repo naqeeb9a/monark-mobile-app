@@ -111,7 +111,12 @@ class CheckOut extends StatelessWidget {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ConfirmationPage()));
             } else {
-              print(Error);
+              var snackBar = SnackBar(
+                        content: Text("No Address selected"),
+                        duration: const Duration(milliseconds: 1000),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
           })
         ],
