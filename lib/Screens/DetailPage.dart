@@ -35,6 +35,13 @@ class _DetailPageState extends State<DetailPage> {
   var quantity = 1.obs;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    selectedSize = widget.array[0];
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: myGrey,
@@ -337,6 +344,7 @@ class _DetailPageState extends State<DetailPage> {
                   .toInt()
                   .toString(),
               widget.text,
+              quantity,
             )
           ],
         ),
@@ -387,7 +395,7 @@ class _DetailPageState extends State<DetailPage> {
   }
 }
 
-Widget bottomButton(context, image, price, text) {
+Widget bottomButton(context, image, price, text, cartQuantity) {
   return Positioned(
     bottom: 0,
     child: MaterialButton(
@@ -395,7 +403,36 @@ Widget bottomButton(context, image, price, text) {
       height: dynamicHeight(context, .062),
       minWidth: MediaQuery.of(context).size.width,
       onPressed: () {
-        cartItems.add({"imageUrl": image, "price": price, "title": text});
+        if (cartItems.length == 0) {
+          cartItems.add({
+            "imageUrl": image,
+            "price": price,
+            "title": text,
+            "quantity": cartQuantity,
+            "total": int.parse(price.toString()) *
+                int.parse(cartQuantity.toString()),
+          });
+        } else {
+          if (text.toString() == cartItems[0]["title"]) {
+            cartItems[0]["quantity"] =
+                int.parse(cartItems[0]["quantity"].toString()) +
+                    int.parse(cartQuantity.toString());
+            cartItems[0]["total"] =
+                int.parse(cartItems[0]["price"].toString()) +
+                    int.parse(price.toString()) *
+                        int.parse(cartQuantity.toString());
+          } else {
+            cartItems.add({
+              "imageUrl": image,
+              "price": price,
+              "title": text,
+              "quantity": cartQuantity,
+              "total": int.parse(price.toString()) *
+                  int.parse(cartQuantity.toString()),
+            });
+          }
+        }
+
         var snackBar = SnackBar(
           content: (cartItems.length > 1)
               ? Text(cartItems.length.toString() + ' Items added to cart')

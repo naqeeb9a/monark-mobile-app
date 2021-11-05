@@ -131,9 +131,7 @@ class _AddressPageState extends State<AddressPage> {
                       );
                     } else {
                       var snackBar = SnackBar(
-                        content: (cartItems.isEmpty)
-                            ? Text('Cart is empty')
-                            : Text("No Address selected"),
+                        content: Text("No Address selected"),
                         duration: const Duration(milliseconds: 1000),
                       );
 
@@ -222,7 +220,7 @@ class _AddressPageState extends State<AddressPage> {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 10,
+                                    height: dynamicHeight(context, .01),
                                   ),
                                   Text(
                                     snapshot.data[index]["node"]["city"],
@@ -243,7 +241,8 @@ class _AddressPageState extends State<AddressPage> {
           } else {
             return Center(
               child: JumpingDotsProgressIndicator(
-                fontSize: 20,
+                fontSize: dynamicWidth(context, .08),
+                numberOfDots: 5,
               ),
             );
           }

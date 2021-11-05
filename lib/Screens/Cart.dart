@@ -6,6 +6,7 @@ import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
+import 'package:monark_app/widgets/media_query.dart';
 
 class Cart extends StatelessWidget {
   const Cart({Key? key}) : super(key: key);
@@ -17,42 +18,62 @@ class Cart extends StatelessWidget {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(children: [
-              rowText("Cart", context),
-              SizedBox(
-                height: 20,
+          Center(
+            child: Container(
+              width: dynamicWidth(context, .9),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: dynamicHeight(context, .02),
+                  ),
+                  rowText("Cart", context),
+                  SizedBox(
+                    height: dynamicHeight(context, .02),
+                  ),
+                  Obx(() {
+                    return Text("Total items : " + cartItems.length.toString());
+                  }),
+                  SizedBox(
+                    height: dynamicHeight(context, .02),
+                  ),
+                  Obx(() {
+                    return Flexible(
+                        child: (cartItems.length == 0)
+                            ? Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset("assets/emptyCart.png"),
+                                  SizedBox(
+                                    height: dynamicHeight(context, .02),
+                                  ),
+                                  Text("No Items in Cart")
+                                ],
+                              )
+                            : cartList());
+                  }),
+                  SizedBox(
+                    height: dynamicHeight(context, .1),
+                  ),
+                ],
               ),
-              Obx(() {
-                return Text("Total items : " + cartItems.length.toString());
-              }),
-              SizedBox(
-                height: 20,
-              ),
-              Obx(() {
-                return Flexible(
-                    child: (cartItems.length == 0)
-                        ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset("assets/emptyCart.png"),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Text("No Items in Cart")
-                            ],
-                          )
-                        : cartList());
-              }),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 9,
-              )
-            ]),
+            ),
           ),
           bottomButton1(context, "Continue", () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddressPage()));
+            if (cartItems.length == 0) {
+              var snackBar = SnackBar(
+                content: Text('Cart is empty'),
+                duration: const Duration(milliseconds: 1000),
+              );
+
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddressPage(),
+                ),
+              );
+            }
           })
         ],
       ),
@@ -62,80 +83,115 @@ class Cart extends StatelessWidget {
 
 Widget cartList({ordersPage = false}) {
   return ListView.builder(
-      itemCount: cartItems.length,
-      itemBuilder: (context, index) {
-        return cartCard(index, context, orders: ordersPage);
-      });
+    itemCount: cartItems.length,
+    itemBuilder: (context, index) {
+      return cartCard(index, context, orders: ordersPage);
+    },
+  );
 }
 
 Widget cartCard(index, context, {orders}) {
-  return Container(
-    padding: EdgeInsets.all(20),
-    margin: EdgeInsets.symmetric(vertical: 10),
-    decoration: BoxDecoration(color: myWhite, boxShadow: [
-      BoxShadow(
-          color: Color(0xFFeeeeee),
-          spreadRadius: 6,
-          blurRadius: 4,
-          offset: Offset(2, 2))
-    ]),
-    child: IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          CachedNetworkImage(
-            imageUrl: cartItems[index]["imageUrl"],
-            height: MediaQuery.of(context).size.height / 9,
-            width: MediaQuery.of(context).size.width / 4,
-            fit: BoxFit.cover,
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width / 3,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  cartItems[index]["title"],
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Text(
-                  cartItems[index]["price"],
-                  style: TextStyle(color: myRed),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width / 4,
-                  padding: EdgeInsets.all(10),
-                  color: (orders == true) ? Colors.blue : Color(0xFFeeeeee),
-                  child: (orders == true)
-                      ? Center(
-                          child: Text(
-                            "Order Again",
-                            style: TextStyle(
-                                color: myWhite,
-                                fontSize:
-                                    MediaQuery.of(context).size.width * 0.03),
+  return Padding(
+    padding: EdgeInsets.symmetric(
+      vertical: dynamicHeight(context, .01),
+      horizontal: dynamicWidth(context, .01),
+    ),
+    child: Container(
+      padding: EdgeInsets.all(
+        dynamicHeight(context, .01),
+      ),
+      decoration: BoxDecoration(
+        color: myWhite,
+        boxShadow: [
+          BoxShadow(
+            color: myBlack.withOpacity(.2),
+            spreadRadius: 2,
+            blurRadius: 6,
+            offset: Offset(2, 2),
+          )
+        ],
+      ),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            CachedNetworkImage(
+              imageUrl: cartItems[index]["imageUrl"],
+              height: dynamicHeight(context, .12),
+              width: dynamicWidth(context, .24),
+              fit: BoxFit.cover,
+            ),
+            Container(
+              width: dynamicWidth(context, .44),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    cartItems[index]["title"],
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "Price : ",
+                          style: TextStyle(
+                            fontSize: dynamicWidth(context, .038),
+                            color: myBlack,
+                          ),
+                        ),
+                        TextSpan(
+                          text: cartItems[index]["price"].toString() +
+                              " x " +
+                              cartItems[index]["quantity"].toString(),
+                          style: TextStyle(
+                            fontSize: dynamicWidth(context, .042),
+                            color: myRed,
+                            fontWeight: FontWeight.bold,
                           ),
                         )
-                      : SizedBox(),
-                )
-              ],
+                      ],
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "Total : ",
+                          style: TextStyle(
+                            fontSize: dynamicWidth(context, .038),
+                            color: myBlack,
+                          ),
+                        ),
+                        TextSpan(
+                          text: cartItems[index]["total"].toString(),
+                          style: TextStyle(
+                            fontSize: dynamicWidth(context, .042),
+                            color: myRed,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          (orders == true)
-              ? Container()
-              : Align(
-                  alignment: Alignment.topRight,
-                  child: InkWell(
-                      onTap: () {
-                        cartItems.remove(cartItems[index]);
-                      },
-                      child: Icon(Icons.close)))
-        ],
+            (orders == true)
+                ? Container()
+                : Align(
+                    alignment: Alignment.topRight,
+                    child: InkWell(
+                        onTap: () {
+                          cartItems.remove(cartItems[index]);
+                        },
+                        child: Icon(Icons.close)))
+          ],
+        ),
       ),
     ),
   );
 }
-
-
