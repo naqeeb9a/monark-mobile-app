@@ -31,7 +31,7 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  bool _expanded = false;
+  bool _expanded = true;
   String selectedSize = "";
   int priceIndex = 0, skuIndex = 0;
   var quantity = 1.obs;
@@ -349,6 +349,8 @@ class _DetailPageState extends State<DetailPage> {
                   .toString(),
               widget.text,
               quantity,
+              widget.sku[skuIndex]["node"]["sku"],
+              widget.variantId[skuIndex]["node"]["id"],
             )
           ],
         ),
@@ -376,9 +378,6 @@ class _DetailPageState extends State<DetailPage> {
                     priceIndex = index;
                     skuIndex = index;
                   });
-                  print(selectedSize);
-                  print(priceIndex);
-                  print(skuIndex);
                 },
                 child: Ink(
                   child: CircleAvatar(
@@ -399,7 +398,7 @@ class _DetailPageState extends State<DetailPage> {
   }
 }
 
-Widget bottomButton(context, image, price, text, cartQuantity) {
+Widget bottomButton(context, image, price, text, cartQuantity, sku, variantId) {
   return Positioned(
     bottom: 0,
     child: MaterialButton(
@@ -415,10 +414,11 @@ Widget bottomButton(context, image, price, text, cartQuantity) {
             "quantity": cartQuantity.value,
             "total": int.parse(price.toString()) *
                 int.parse(cartQuantity.value.toString()),
+            "sku": sku,
+            "variantId": variantId,
           });
         } else {
           if (text.toString() == cartItems[0]["title"]) {
-            print(cartItems[0]["price"]);
             cartItems[0]["quantity"] =
                 int.parse(cartItems[0]["quantity"].toString()) +
                     int.parse(cartQuantity.toString());
@@ -434,6 +434,8 @@ Widget bottomButton(context, image, price, text, cartQuantity) {
               "quantity": cartQuantity.value,
               "total": int.parse(price.toString()) *
                   int.parse(cartQuantity.value.toString()),
+              "sku": sku,
+              "variantId": variantId,
             });
           }
         }
