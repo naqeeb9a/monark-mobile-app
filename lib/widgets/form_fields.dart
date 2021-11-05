@@ -44,7 +44,7 @@ Widget inputTextField(context, label, myController,
   );
 }
 
-Widget searchbar({enabled = true, controller, setstateFunction}) {
+Widget searchbar({enabled = true, controller, setStateFunction}) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 5),
     decoration: BoxDecoration(
@@ -79,7 +79,7 @@ Widget searchbar({enabled = true, controller, setstateFunction}) {
             onSubmitted: (value) {
               controller.text = value;
               print(controller.text);
-              setstateFunction();
+              setStateFunction();
             },
           ),
         )

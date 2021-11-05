@@ -103,7 +103,8 @@ class _HomeState extends State<Home> {
         ? Scaffold(
             body: Center(
               child: JumpingDotsProgressIndicator(
-                fontSize: 20,
+                numberOfDots: 5,
+                fontSize: dynamicWidth(context, .07),
               ),
             ),
           )
@@ -129,7 +130,8 @@ class _HomeState extends State<Home> {
                         } else {
                           return Drawer(
                             child: JumpingDotsProgressIndicator(
-                              fontSize: 20,
+                              numberOfDots: 5,
+                              fontSize: dynamicWidth(context, .07),
                             ),
                           );
                         }
@@ -143,19 +145,25 @@ class _HomeState extends State<Home> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: dynamicHeight(context, .02),
+                          height: dynamicHeight(context, .01),
                         ),
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SearchPage()));
-                            },
-                            child: Hero(
-                                tag: "SearchBar",
-                                child: Material(
-                                    child: searchbar(enabled: false)))),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SearchPage(),
+                              ),
+                            );
+                          },
+                          child: Hero(
+                            tag: "SearchBar",
+                            child: Material(
+                              color: noColor,
+                              child: searchbar(enabled: false),
+                            ),
+                          ),
+                        ),
                         SizedBox(
                           height: dynamicHeight(context, .02),
                         ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
+import 'package:monark_app/config.dart';
+import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/form_fields.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
@@ -16,30 +18,46 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(searchText.text);
     return Scaffold(
+      backgroundColor: myGrey,
+      appBar: bar2(context),
       body: SafeArea(
+        child: Center(
           child: Container(
-        width: dynamicWidth(context, 0.9),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Hero(
-                  tag: "SearchBar",
-                  child: Material(
+            width: dynamicWidth(context, 0.94),
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: dynamicHeight(context, .01),
+                  ),
+                  child: Hero(
+                    tag: "SearchBar",
+                    child: Material(
+                      color: noColor,
                       child: searchbar(
-                          controller: searchText,
-                          setstateFunction: () {
-                            setState(() {});
-                          }))),
+                        controller: searchText,
+                        setStateFunction: () {
+                          setState(
+                            () {},
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                searchText.text == ""
+                    ? Container()
+                    : detailGrid(
+                        getSearchResults(searchText.text),
+                        context,
+                        false,
+                      ),
+              ],
             ),
-            (searchText.text == "")
-                ? Container()
-                : detailGrid(getSearchResults(searchText.text), context, false)
-          ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }
@@ -87,7 +105,10 @@ getSearchResults(query) async {
       defaultHeaders: {
         "X-Shopify-Storefront-Access-Token": "fce9486a511f6a4f45939c2c6829cdaa"
       });
-  GraphQLClient client = GraphQLClient(link: httpLink, cache: GraphQLCache());
+  GraphQLClient client = GraphQLClient(
+    link: httpLink,
+    cache: GraphQLCache(),
+  );
   final QueryOptions options = QueryOptions(
     document: gql(searchResult),
   );
