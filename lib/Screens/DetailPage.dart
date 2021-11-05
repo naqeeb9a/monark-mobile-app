@@ -276,7 +276,9 @@ class _DetailPageState extends State<DetailPage> {
                               }),
                               InkWell(
                                 onTap: () {
-                                  quantity++;
+                                  if (quantity > 4) {
+                                    quantity++;
+                                  }
                                 },
                                 child: Container(
                                   width: dynamicWidth(context, .12),
@@ -410,27 +412,26 @@ Widget bottomButton(context, image, price, text, cartQuantity) {
             "title": text,
             "quantity": cartQuantity.value,
             "total": int.parse(price.toString()) *
-                int.parse(cartQuantity.toString()),
+                int.parse(cartQuantity.value.toString()),
           });
         } else {
           if (text.toString() == cartItems[0]["title"]) {
-            print(cartItems[0]["quantity"]);
-            print(cartQuantity);
+            print(cartItems[0]["price"]);
             cartItems[0]["quantity"] =
                 int.parse(cartItems[0]["quantity"].toString()) +
                     int.parse(cartQuantity.toString());
             cartItems[0]["total"] =
-                int.parse(cartItems[0]["price"].toString()) +
+                int.parse(cartItems[0]["total"].toString()) +
                     (int.parse(price.toString()) *
-                        int.parse(cartQuantity.toString()));
+                        int.parse(cartQuantity.value.toString()));
           } else {
             cartItems.add({
               "imageUrl": image,
               "price": price,
               "title": text,
-              "quantity": cartQuantity,
+              "quantity": cartQuantity.value,
               "total": int.parse(price.toString()) *
-                  int.parse(cartQuantity.toString()),
+                  int.parse(cartQuantity.value.toString()),
             });
           }
         }
