@@ -14,7 +14,7 @@ class Payment extends StatelessWidget {
     print(cartItems);
     var subtotal = 0;
     for (var u in cartItems) {
-      subtotal += int.parse(u["price"]);
+      subtotal += int.parse(u["total"].toString());
     }
     return Scaffold(
       appBar: bar2(context),
@@ -33,13 +33,13 @@ class Payment extends StatelessWidget {
                 SizedBox(
                   height: 30,
                 ),
-                totalRow("Subtotal", r"$ " + subtotal.toString()),
+                totalRow("Subtotal", r"Rs " + subtotal.toString()),
                 totalRow("Discount", r"0%"),
-                totalRow("Shipping", r"$ 0"),
+                totalRow("Shipping", r"Rs 0"),
                 Divider(
                   thickness: 2,
                 ),
-                totalRow("Total", r"$ " + subtotal.toString())
+                totalRow("Total", r"Rs " + subtotal.toString())
               ],
             ),
           ),

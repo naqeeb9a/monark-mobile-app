@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monark_app/Screens/Cart.dart';
@@ -6,7 +8,7 @@ import 'package:monark_app/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
-
+import 'package:http/http.dart' as http;
 import 'Payment.dart';
 
 class CheckOut extends StatelessWidget {
@@ -14,9 +16,10 @@ class CheckOut extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(addressList[0]["node"]["address1"]);
     var subtotal = 0;
     for (var u in cartItems) {
-      subtotal += int.parse(u["price"]);
+      subtotal += int.parse(u["total"].toString());
     }
     return Scaffold(
       appBar: bar2(context),
@@ -64,7 +67,7 @@ class CheckOut extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                addressList[group][1],
+                                addressList[group]["node"]["address1"],
                                 style: TextStyle(
                                     fontSize: 22, fontWeight: FontWeight.w400),
                               ),
@@ -72,14 +75,16 @@ class CheckOut extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                addressList[group][0],
+                                addressList[group]["node"]["city"],
                                 style: TextStyle(fontSize: 20),
                               ),
                               SizedBox(
                                 height: 10,
                               ),
                               Text(
-                                addressList[group][6],
+                                addressList[group]["node"]["firstName"] +
+                                    " " +
+                                    addressList[group]["node"]["lastName"],
                               )
                             ],
                           ),
@@ -88,13 +93,13 @@ class CheckOut extends StatelessWidget {
                 Divider(
                   thickness: 2,
                 ),
-                totalRow("Subtotal", r"$ " + subtotal.toString()),
+                totalRow("Subtotal", r"Rs " + subtotal.toString()),
                 totalRow("Discount", r"0%"),
-                totalRow("Shipping", r"$ 0"),
+                totalRow("Shipping", r"RS 0"),
                 Divider(
                   thickness: 2,
                 ),
-                totalRow("Total", r"$ " + subtotal.toString()),
+                totalRow("Total", r"Rs " + subtotal.toString()),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 9,
                 )
@@ -108,5 +113,42 @@ class CheckOut extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+orderItems() async {
+  for (var i = 0; i < cartItems.length; i++) {
+    var response = await http.post(
+        Uri.parse(
+            "https://7c8a49023a84d8ad678b0b5c20d823ba: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@unzepk.myshopify.com/admin/api/2020-07/orders.json"),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          "order": {
+            "financial_status": "pending",
+            "processing_method": "manual",
+            "shipping_lines": [
+              {
+                "price": "0",
+                "title": "Cash on Delivery",
+                "source": "Lahore_post"
+              }
+            ],
+            "tags": "ordered via mobile application",
+            "line_items": [
+              {
+                "id": cartItems[i]["id"],
+                "sku": cartItems[i]["sku"],
+                "title": cartItems[i]["title"],
+                "price": cartItems[i]["price"],
+                "varient_id": cartItems[i]["variant_id"],
+                "quantity": 1
+              }
+            ]
+          }
+        }));
+    // ignore: avoid_print
+    print(response.statusCode);
+    // ignore: avoid_print
+    print(response.body);
   }
 }

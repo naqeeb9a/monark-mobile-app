@@ -154,6 +154,7 @@ Widget cardList(context, {function}) {
                         ["values"],
                     description: snapshot.data[index]["node"]["description"],
                     sku: snapshot.data[index]["node"]["variants"]["edges"],
+                    variantId: snapshot.data[index]["node"]["variants"]["edges"]
                   ),
                 );
               },
@@ -177,7 +178,8 @@ Widget basicCards(context, imageUrl, text,
     {price = "fetching ...",
     sizeOption = "",
     description = "No Description",
-    sku = ""}) {
+    sku = "",
+    variantId = ""}) {
   return InkWell(
     onTap: () {
       Navigator.push(
@@ -190,6 +192,7 @@ Widget basicCards(context, imageUrl, text,
             array: sizeOption,
             description: description,
             sku: sku,
+            variantId: variantId,
           ),
         ),
       );

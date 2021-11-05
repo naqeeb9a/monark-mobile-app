@@ -11,18 +11,20 @@ class DetailPage extends StatefulWidget {
   final dynamic price;
   final String text;
   final dynamic array;
+  final dynamic variantId;
   final dynamic description;
   final dynamic sku;
 
-  const DetailPage({
-    Key? key,
-    required this.image,
-    this.description,
-    this.array,
-    required this.price,
-    required this.text,
-    required this.sku,
-  }) : super(key: key);
+  const DetailPage(
+      {Key? key,
+      required this.image,
+      this.description,
+      this.array,
+      required this.price,
+      required this.text,
+      required this.sku,
+      required this.variantId})
+      : super(key: key);
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -31,8 +33,7 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   bool _expanded = false;
   String selectedSize = "";
-  int priceIndex = 0,
-      skuIndex = 0;
+  int priceIndex = 0, skuIndex = 0;
   var quantity = 1.obs;
 
   @override
@@ -126,7 +127,7 @@ class _DetailPageState extends State<DetailPage> {
                       child: Text(
                         "Rs. " +
                             double.parse(
-                                widget.price[priceIndex]["node"]["price"])
+                                    widget.price[priceIndex]["node"]["price"])
                                 .toInt()
                                 .toString(),
                         style: TextStyle(
@@ -145,76 +146,76 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                     ),
                     (widget.array.toString().contains("Default") ||
-                        widget.array == "")
+                            widget.array == "")
                         ? Container()
                         : Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: dynamicWidth(context, .04),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Select Size",
-                            style: TextStyle(
-                              fontSize: dynamicWidth(context, .05),
-                              fontWeight: FontWeight.w600,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: dynamicWidth(context, .04),
                             ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              imageAlert(
-                                context,
-                                "assets/size_guide.jpg",
-                                true,
-                              );
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: dynamicHeight(context, .01),
-                              ),
-                              child: Text(
-                                "Size Guide",
-                                style: TextStyle(
-                                  fontSize: dynamicWidth(context, .04),
-                                  fontWeight: FontWeight.w200,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Select Size",
+                                  style: TextStyle(
+                                    fontSize: dynamicWidth(context, .05),
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
+                                InkWell(
+                                  onTap: () {
+                                    imageAlert(
+                                      context,
+                                      "assets/size_guide.jpg",
+                                      true,
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: dynamicHeight(context, .01),
+                                    ),
+                                    child: Text(
+                                      "Size Guide",
+                                      style: TextStyle(
+                                        fontSize: dynamicWidth(context, .04),
+                                        fontWeight: FontWeight.w200,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
                     (widget.array.toString().contains("Default") ||
-                        widget.array == "")
+                            widget.array == "")
                         ? Container()
                         : Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: dynamicWidth(context, .04),
-                      ),
-                      child: Divider(
-                        thickness: 2,
-                        height: dynamicHeight(context, .03),
-                      ),
-                    ),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: dynamicWidth(context, .04),
+                            ),
+                            child: Divider(
+                              thickness: 2,
+                              height: dynamicHeight(context, .03),
+                            ),
+                          ),
                     (widget.array.toString().contains("Default") ||
-                        widget.array == "")
+                            widget.array == "")
                         ? Container()
                         : sizeOptions(context, widget.array),
                     (widget.array.toString().contains("Default") ||
-                        widget.array == "")
+                            widget.array == "")
                         ? Container()
                         : Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: dynamicWidth(context, .04),
-                      ),
-                      child: Divider(
-                        thickness: 2,
-                        endIndent: dynamicWidth(context, .1),
-                        indent: dynamicWidth(context, .1),
-                        height: dynamicHeight(context, .03),
-                      ),
-                    ),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: dynamicWidth(context, .04),
+                            ),
+                            child: Divider(
+                              thickness: 2,
+                              endIndent: dynamicWidth(context, .1),
+                              indent: dynamicWidth(context, .1),
+                              height: dynamicHeight(context, .03),
+                            ),
+                          ),
                     Padding(
                       padding: EdgeInsets.symmetric(
                         vertical: dynamicHeight(context, .01),
@@ -362,37 +363,36 @@ class _DetailPageState extends State<DetailPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
           array.length,
-              (index) =>
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: dynamicWidth(context, .02),
-                ),
-                child: Material(
-                  color: noColor,
-                  child: InkWell(
-                    onTap: () {
-                      setState(() {
-                        selectedSize = array[index];
-                        priceIndex = index;
-                        skuIndex = index;
-                      });
-                      print(selectedSize);
-                      print(priceIndex);
-                      print(skuIndex);
-                    },
-                    child: Ink(
-                      child: CircleAvatar(
-                        backgroundColor:
+          (index) => Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: dynamicWidth(context, .02),
+            ),
+            child: Material(
+              color: noColor,
+              child: InkWell(
+                onTap: () {
+                  setState(() {
+                    selectedSize = array[index];
+                    priceIndex = index;
+                    skuIndex = index;
+                  });
+                  print(selectedSize);
+                  print(priceIndex);
+                  print(skuIndex);
+                },
+                child: Ink(
+                  child: CircleAvatar(
+                    backgroundColor:
                         selectedSize == array[index] ? myRed : myBlack,
-                        child: Text(
-                          array[index].toString(),
-                          style: TextStyle(color: myGrey),
-                        ),
-                      ),
+                    child: Text(
+                      array[index].toString(),
+                      style: TextStyle(color: myGrey),
                     ),
                   ),
                 ),
               ),
+            ),
+          ),
         ),
       ),
     );
@@ -405,10 +405,7 @@ Widget bottomButton(context, image, price, text, cartQuantity) {
     child: MaterialButton(
       color: myRed,
       height: dynamicHeight(context, .062),
-      minWidth: MediaQuery
-          .of(context)
-          .size
-          .width,
+      minWidth: MediaQuery.of(context).size.width,
       onPressed: () {
         if (cartItems.length == 0) {
           cartItems.add({

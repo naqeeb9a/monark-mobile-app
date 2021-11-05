@@ -58,7 +58,6 @@ class _AddressPageState extends State<AddressPage> {
       print(result.hasException);
       return "Server Error";
     } else {
-      print((result.data!["customer"]["addresses"]["edges"] as List).length);
       return result.data!["customer"]["addresses"]["edges"];
     }
   }
@@ -168,6 +167,7 @@ class _AddressPageState extends State<AddressPage> {
                 : ListView.builder(
                     itemCount: (snapshot.data as List).length,
                     itemBuilder: (context, index) {
+                      addressList.add(snapshot.data[index]);
                       return Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: dynamicHeight(context, 0.01),
