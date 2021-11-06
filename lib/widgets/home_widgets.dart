@@ -221,59 +221,7 @@ Widget basicCards(context, imageUrl, text, availableForSale,
           child: Stack(
             alignment: Alignment.center,
             children: [
-              Container(
-                width: dynamicWidth(context, 0.41),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(
-                        dynamicWidth(context, .03),
-                      ),
-                      child: Container(
-                        height: dynamicHeight(context, .26),
-                        width: dynamicWidth(context, .5),
-                        color: myWhite,
-                        child: CachedNetworkImage(
-                          imageUrl: imageUrl[0]["node"]["src"],
-                          fit: BoxFit.cover,
-                          placeholder: (context, string) {
-                            return Image.asset(
-                              "assets/loader.gif",
-                              scale: 6,
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        text,
-                        style: TextStyle(
-                          fontSize: dynamicWidth(context, .03),
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Rs. " +
-                            double.parse(price[0]["node"]["price"])
-                                .toInt()
-                                .toString(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: dynamicWidth(context, .034),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              internalWidgetCard(context, imageUrl, price, text),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -306,60 +254,60 @@ Widget basicCards(context, imageUrl, text, availableForSale,
               ),
             );
           },
+          child: internalWidgetCard(context, imageUrl, price, text));
+}
+
+Widget internalWidgetCard(context, imageUrl, price, text) {
+  return Container(
+    width: dynamicWidth(context, 0.41),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .03),
+          ),
           child: Container(
-            width: dynamicWidth(context, .3),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(
-                    dynamicWidth(context, .03),
-                  ),
-                  child: Container(
-                    height: dynamicHeight(context, .26),
-                    width: dynamicWidth(context, .5),
-                    color: myWhite,
-                    child: CachedNetworkImage(
-                      imageUrl: imageUrl[0]["node"]["src"],
-                      fit: BoxFit.cover,
-                      placeholder: (context, string) {
-                        return Image.asset(
-                          "assets/loader.gif",
-                          scale: 6,
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    text,
-                    style: TextStyle(
-                      fontSize: dynamicWidth(context, .03),
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Rs. " +
-                        double.parse(price[0]["node"]["price"])
-                            .toInt()
-                            .toString(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: dynamicWidth(context, .034),
-                    ),
-                  ),
-                ),
-              ],
+            height: dynamicHeight(context, .26),
+            width: dynamicWidth(context, .5),
+            color: myWhite,
+            child: CachedNetworkImage(
+              imageUrl: imageUrl[0]["node"]["src"],
+              fit: BoxFit.cover,
+              placeholder: (context, string) {
+                return Image.asset(
+                  "assets/loader.gif",
+                  scale: 6,
+                );
+              },
             ),
           ),
-        );
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: dynamicWidth(context, .03),
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Rs. " + double.parse(price[0]["node"]["price"]).toInt().toString(),
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: dynamicWidth(context, .034),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 }
 
 Widget floatingButton(context) {
