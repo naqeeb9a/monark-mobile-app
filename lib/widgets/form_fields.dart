@@ -90,9 +90,14 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
             },
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: Icon(Icons.search_sharp),
+        InkWell(
+          onTap: () {
+            setStateFunction();
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: Icon(Icons.search_sharp),
+          ),
         ),
       ],
     ),
