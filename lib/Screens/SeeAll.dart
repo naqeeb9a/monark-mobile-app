@@ -100,20 +100,41 @@ Widget detailGrid(function, context, check) {
                         childAspectRatio: 5 / 8,
                       ),
                       itemBuilder: (context, index) {
-                        return basicCards(
-                            context,
-                            snapshot.data[index]["node"]["images"]["edges"],
-                            snapshot.data[index]["node"]["title"],
-                            price: snapshot.data[index]["node"]["variants"]
-                                ["edges"],
-                            sizeOption: snapshot.data[index]["node"]["options"]
-                                [0]["values"],
-                            description: snapshot.data[index]["node"]
-                                ["description"],
-                            sku: snapshot.data[index]["node"]["variants"]
-                                ["edges"],
-                            variantId: snapshot.data[index]["node"]["variants"]
-                                ["edges"]);
+                        if (snapshot.data[index]["node"]["availableForSale"] ==
+                            true) {
+                          return basicCards(
+                              context,
+                              snapshot.data[index]["node"]["images"]["edges"],
+                              snapshot.data[index]["node"]["title"],
+                              snapshot.data[index]["node"]["availableForSale"],
+                              price: snapshot.data[index]["node"]["variants"]
+                                  ["edges"],
+                              sizeOption: snapshot.data[index]["node"]
+                                  ["options"][0]["values"],
+                              description: snapshot.data[index]["node"]
+                                  ["description"],
+                              sku: snapshot.data[index]["node"]["variants"]
+                                  ["edges"],
+                              variantId: snapshot.data[index]["node"]
+                                  ["variants"]["edges"]);
+                        } else {
+                          return basicCards(
+                              context,
+                              snapshot.data[index]["node"]["images"]["edges"],
+                              snapshot.data[index]["node"]["title"],
+                              snapshot.data[index]["node"]["availableForSale"],
+                              price: snapshot.data[index]["node"]["variants"]
+                                  ["edges"],
+                              sizeOption: snapshot.data[index]["node"]
+                                  ["options"][0]["values"],
+                              description: snapshot.data[index]["node"]
+                                  ["description"],
+                              sku: snapshot.data[index]["node"]["variants"]
+                                  ["edges"],
+                              variantId: snapshot.data[index]["node"]
+                                  ["variants"]["edges"],
+                              check: true);
+                        }
                       });
                 } else {
                   return Center(

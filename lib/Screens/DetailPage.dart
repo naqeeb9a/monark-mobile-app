@@ -14,6 +14,7 @@ class DetailPage extends StatefulWidget {
   final dynamic variantId;
   final dynamic description;
   final dynamic sku;
+  final bool availableForSale;
 
   const DetailPage(
       {Key? key,
@@ -23,7 +24,8 @@ class DetailPage extends StatefulWidget {
       required this.price,
       required this.text,
       required this.sku,
-      required this.variantId})
+      required this.variantId,
+      required this.availableForSale})
       : super(key: key);
 
   @override
@@ -38,7 +40,6 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     selectedSize = widget.array[0];
   }
@@ -80,7 +81,7 @@ class _DetailPageState extends State<DetailPage> {
                               widget.image.length,
                               .6,
                               widget.image,
-                              true,
+                              false,
                             ),
                           ),
                         ),

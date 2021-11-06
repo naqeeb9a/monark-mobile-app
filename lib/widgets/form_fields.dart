@@ -44,7 +44,7 @@ Widget inputTextField(context, label, myController,
   );
 }
 
-Widget searchbar({enabled = true, controller, setStateFunction}) {
+Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: 5),
     decoration: BoxDecoration(
@@ -59,10 +59,17 @@ Widget searchbar({enabled = true, controller, setStateFunction}) {
         ]),
     child: Row(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: Icon(Icons.search_sharp),
-        ),
+        (enabled == true)
+            ? InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Icon(Icons.arrow_back),
+                ),
+              )
+            : Container(),
         Expanded(
           child: TextField(
             controller: controller,
@@ -82,7 +89,11 @@ Widget searchbar({enabled = true, controller, setStateFunction}) {
               setStateFunction();
             },
           ),
-        )
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: Icon(Icons.search_sharp),
+        ),
       ],
     ),
   );

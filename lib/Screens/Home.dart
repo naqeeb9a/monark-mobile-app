@@ -160,7 +160,7 @@ class _HomeState extends State<Home> {
                             tag: "SearchBar",
                             child: Material(
                               color: noColor,
-                              child: searchbar(enabled: false),
+                              child: searchbar(context, enabled: false),
                             ),
                           ),
                         ),
@@ -173,7 +173,7 @@ class _HomeState extends State<Home> {
                           sliderImage.length,
                           .9,
                           sliderImage,
-                          false,
+                          true,
                         ),
                         SizedBox(
                           height: dynamicHeight(context, .02),

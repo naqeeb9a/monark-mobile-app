@@ -81,7 +81,11 @@ class _AddressPageState extends State<AddressPage> {
                   SizedBox(
                     height: dynamicHeight(context, .02),
                   ),
-                  addressListBuilder(context),
+                  (globalAccessToken == "")
+                      ? SizedBox(
+                          height: dynamicHeight(context, 0.6),
+                          child: Center(child: Text("Sign in to continue")))
+                      : addressListBuilder(context),
                   SizedBox(
                     height: widget.check == true
                         ? dynamicHeight(context, .3)
@@ -108,12 +112,20 @@ class _AddressPageState extends State<AddressPage> {
                 )
               : bottomButton2(context, "Add Address", Icons.home_outlined,
                   function: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AddAddress(),
-                    ),
-                  );
+                  if (globalAccessToken == "") {
+                    var snackBar = SnackBar(
+                      content: Text("Please Sign in to add Addresses"),
+                      duration: const Duration(milliseconds: 1000),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddAddress(),
+                      ),
+                    );
+                  }
                 }),
           widget.check == true
               ? Container()
@@ -121,27 +133,28 @@ class _AddressPageState extends State<AddressPage> {
                   context,
                   "Continue to Payment",
                   () {
-                    // if (cartItems.isNotEmpty && addressList.isNotEmpty) {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => Payment(),
-                    //     ),
-                    //   );
-                    // } else {
-                      // var snackBar = SnackBar(
-                      //   content: Text("No Address selected"),
-                      //   duration: const Duration(milliseconds: 1000),
-                      // );
+                    if (globalAccessToken == "") {
+                      var snackBar = SnackBar(
+                        content: Text("Please sign in to continue"),
+                        duration: const Duration(milliseconds: 1000),
+                      );
 
-                      // ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    // }
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Payment(),
-                      ),
-                    );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else if (cartItems.isNotEmpty && addressList.isNotEmpty) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Payment(),
+                        ),
+                      );
+                    } else {
+                      var snackBar = SnackBar(
+                        content: Text("No Address selected"),
+                        duration: const Duration(milliseconds: 1000),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
                   },
                 )
         ],

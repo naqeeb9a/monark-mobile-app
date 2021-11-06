@@ -19,7 +19,6 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: myGrey,
-      // appBar: bar2(context),
       body: SafeArea(
         child: Center(
           child: Container(
@@ -35,6 +34,7 @@ class _SearchPageState extends State<SearchPage> {
                     child: Material(
                       color: noColor,
                       child: searchbar(
+                        context,
                         controller: searchText,
                         setStateFunction: () {
                           setState(
