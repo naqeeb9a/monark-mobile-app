@@ -3,7 +3,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
-import '../config.dart';
+import '../utils/config.dart';
 
 Widget coloredButton(context, text, color, textColor, push,
     {page, function = ""}) {

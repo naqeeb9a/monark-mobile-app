@@ -6,7 +6,7 @@ import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/rich_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../config.dart';
+import '../utils/config.dart';
 import 'Login.dart';
 
 class Welcome extends StatefulWidget {

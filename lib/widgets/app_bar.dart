@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:monark_app/Screens/Cart.dart';
 
-import '../config.dart';
+import '../utils/config.dart';
 import 'media_query.dart';
 
 PreferredSizeWidget bar(context, check) {
@@ -23,6 +23,12 @@ PreferredSizeWidget bar(context, check) {
       backgroundColor: myWhite,
       elevation: 0,
       actions: [
+        IconButton(
+          onPressed: () {},
+          icon: Icon(
+            check == true ? Icons.search_outlined : null,
+          ),
+        ),
         IconButton(
           onPressed: () {
             Navigator.push(
@@ -48,12 +54,6 @@ PreferredSizeWidget bar(context, check) {
             },
           ),
         ),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(
-            check == true ? Icons.search_outlined : Icons.filter_list,
-          ),
-        )
       ],
     ),
   );

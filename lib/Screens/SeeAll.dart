@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:monark_app/config.dart';
+import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';

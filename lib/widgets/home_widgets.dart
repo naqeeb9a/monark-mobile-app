@@ -8,7 +8,7 @@ import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../config.dart';
+import '../utils/config.dart';
 import 'media_query.dart';
 
 ValueNotifier<bool> isDialOpen = ValueNotifier(false);

@@ -12,7 +12,7 @@ import 'package:monark_app/Screens/store_finder.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../config.dart';
+import '../utils/config.dart';
 
 Widget drawerItems(context, {customerInfo = false, accessToken = ""}) {
   logoutUser(accessToken) async {

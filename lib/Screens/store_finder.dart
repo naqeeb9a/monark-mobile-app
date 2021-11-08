@@ -4,7 +4,7 @@ import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../config.dart';
+import '../utils/config.dart';
 
 class StoreFinder extends StatefulWidget {
   const StoreFinder({Key? key}) : super(key: key);
