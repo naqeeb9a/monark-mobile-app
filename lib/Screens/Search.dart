@@ -114,6 +114,7 @@ getSearchResults(query) async {
   final QueryResult result = await client.query(options);
 
   if (result.hasException) {
+    getSearchResults(query);
     print(result.hasException);
     return "Server Error";
   } else {

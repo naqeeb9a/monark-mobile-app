@@ -8,12 +8,10 @@ import 'package:monark_app/widgets/media_query.dart';
 
 class DetailPage extends StatefulWidget {
   final dynamic image;
-  final dynamic price;
+  final dynamic variantProduct;
   final String text;
   final dynamic array;
-  final dynamic variantId;
   final dynamic description;
-  final dynamic sku;
   final bool availableForSale;
 
   const DetailPage(
@@ -21,10 +19,8 @@ class DetailPage extends StatefulWidget {
       required this.image,
       this.description,
       this.array,
-      required this.price,
+      required this.variantProduct,
       required this.text,
-      required this.sku,
-      required this.variantId,
       required this.availableForSale})
       : super(key: key);
 
@@ -111,7 +107,8 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                       child: Text(
                         "SKU : " +
-                            widget.sku[skuIndex]["node"]["sku"].toString(),
+                            widget.variantProduct[skuIndex]["node"]["sku"]
+                                .toString(),
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: dynamicWidth(context, .04),
@@ -127,8 +124,8 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                       child: Text(
                         "Rs. " +
-                            double.parse(
-                                    widget.price[priceIndex]["node"]["price"])
+                            double.parse(widget.variantProduct[priceIndex]
+                                    ["node"]["price"])
                                 .toInt()
                                 .toString(),
                         style: TextStyle(
@@ -345,13 +342,13 @@ class _DetailPageState extends State<DetailPage> {
             bottomButton(
               context,
               widget.image[0]["node"]["src"],
-              double.parse(widget.price[priceIndex]["node"]["price"])
+              double.parse(widget.variantProduct[priceIndex]["node"]["price"])
                   .toInt()
                   .toString(),
               widget.text,
               quantity,
-              widget.sku[skuIndex]["node"]["sku"],
-              widget.variantId[skuIndex]["node"]["id"],
+              widget.variantProduct[skuIndex]["node"]["sku"],
+              widget.variantProduct[skuIndex]["node"]["id"],
             )
           ],
         ),
