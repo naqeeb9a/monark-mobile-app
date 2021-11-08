@@ -125,29 +125,38 @@ class _DetailPageState extends State<DetailPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Rs. " +
-                                double.parse(widget.variantProduct[priceIndex]
-                                        ["node"]["compareAtPrice"])
-                                    .toInt()
-                                    .toString(),
-                            style: TextStyle(
-                              decoration: TextDecoration.lineThrough,
-                              color: myBlack.withOpacity(.4),
-                              fontWeight: FontWeight.w500,
-                              fontSize: dynamicWidth(context, .044),
-                            ),
-                          ),
-                          Text(
-                            "Rs. " +
-                                double.parse(widget.variantProduct[priceIndex]
-                                        ["node"]["price"])
-                                    .toInt()
-                                    .toString(),
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: dynamicWidth(context, .044),
-                            ),
+                          Row(
+                            children: [
+                              Text(
+                                "Rs. " +
+                                    double.parse(
+                                            widget.variantProduct[priceIndex]
+                                                ["node"]["compareAtPrice"])
+                                        .toInt()
+                                        .toString(),
+                                style: TextStyle(
+                                  decoration: TextDecoration.lineThrough,
+                                  color: myBlack.withOpacity(.4),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: dynamicWidth(context, .044),
+                                ),
+                              ),
+                              SizedBox(
+                                width: dynamicWidth(context, 0.03),
+                              ),
+                              Text(
+                                "Rs. " +
+                                    double.parse(
+                                            widget.variantProduct[priceIndex]
+                                                ["node"]["price"])
+                                        .toInt()
+                                        .toString(),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: dynamicWidth(context, .044),
+                                ),
+                              ),
+                            ],
                           ),
                           Container(
                             padding: EdgeInsets.all(
