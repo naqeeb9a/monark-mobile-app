@@ -118,73 +118,91 @@ class _DetailPageState extends State<DetailPage> {
                     SizedBox(
                       height: dynamicHeight(context, 0.02),
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: dynamicWidth(context, .04),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                "Rs. " +
-                                    double.parse(
-                                            widget.variantProduct[priceIndex]
-                                                ["node"]["compareAtPrice"])
-                                        .toInt()
-                                        .toString(),
-                                style: TextStyle(
-                                  decoration: TextDecoration.lineThrough,
-                                  color: myBlack.withOpacity(.4),
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: dynamicWidth(context, .044),
-                                ),
-                              ),
-                              SizedBox(
-                                width: dynamicWidth(context, 0.03),
-                              ),
-                              Text(
-                                "Rs. " +
-                                    double.parse(
-                                            widget.variantProduct[priceIndex]
-                                                ["node"]["price"])
-                                        .toInt()
-                                        .toString(),
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: dynamicWidth(context, .044),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(
-                              dynamicWidth(context, .01),
+                    (widget.variantProduct[priceIndex]["node"]
+                                ["compareAtPrice"] ==
+                            widget.variantProduct[priceIndex]["node"]["price"])
+                        ? Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: dynamicWidth(context, .04),
                             ),
-                            decoration: BoxDecoration(
-                                color: titleRed,
-                                borderRadius: BorderRadius.circular(5)),
                             child: Text(
-                              " - " +
-                                  discountPrice(
-                                    double.parse(widget.variantProduct[0]
-                                            ["node"]["compareAtPrice"])
-                                        .toInt(),
-                                    double.parse(widget.variantProduct[0]
-                                            ["node"]["price"])
-                                        .toInt(),
-                                  ).toInt().toString() +
-                                  "%",
+                              "Rs. " +
+                                  double.parse(widget.variantProduct[priceIndex]
+                                          ["node"]["price"])
+                                      .toInt()
+                                      .toString(),
                               style: TextStyle(
-                                color: myWhite,
-                                fontSize: dynamicWidth(context, .028),
+                                fontWeight: FontWeight.w500,
+                                fontSize: dynamicWidth(context, .044),
                               ),
                             ),
+                          )
+                        : Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: dynamicWidth(context, .04),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Rs. " +
+                                          double.parse(widget.variantProduct[
+                                                      priceIndex]["node"]
+                                                  ["compareAtPrice"])
+                                              .toInt()
+                                              .toString(),
+                                      style: TextStyle(
+                                        decoration: TextDecoration.lineThrough,
+                                        color: myBlack.withOpacity(.4),
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: dynamicWidth(context, .044),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: dynamicWidth(context, 0.03),
+                                    ),
+                                    Text(
+                                      "Rs. " +
+                                          double.parse(widget.variantProduct[
+                                                  priceIndex]["node"]["price"])
+                                              .toInt()
+                                              .toString(),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: dynamicWidth(context, .044),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(
+                                    dynamicWidth(context, .01),
+                                  ),
+                                  decoration: BoxDecoration(
+                                      color: titleRed,
+                                      borderRadius: BorderRadius.circular(5)),
+                                  child: Text(
+                                    " - " +
+                                        discountPrice(
+                                          double.parse(widget.variantProduct[0]
+                                                  ["node"]["compareAtPrice"])
+                                              .toInt(),
+                                          double.parse(widget.variantProduct[0]
+                                                  ["node"]["price"])
+                                              .toInt(),
+                                        ).toInt().toString() +
+                                        "%",
+                                    style: TextStyle(
+                                      color: myWhite,
+                                      fontSize: dynamicWidth(context, .028),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
-                      ),
-                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: dynamicWidth(context, .04),
