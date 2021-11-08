@@ -27,7 +27,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'holiday': "SUNDAY OFF",
     },
     {
-      'name': "Fortress Sqare Mall",
+      'name': "Fortress Square Mall",
       'address': "Fortress Stadium، Mian Mir Bridge, Lahore, 54000",
       'state': "Punjab",
       'city': "Lahore , 54000",
