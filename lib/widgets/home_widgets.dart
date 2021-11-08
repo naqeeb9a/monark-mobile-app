@@ -147,19 +147,16 @@ Widget cardList(context, {function}) {
                       horizontal: dynamicWidth(context, 0.018),
                     ),
                     child: basicCards(
-                        context,
-                        snapshot.data[index]["node"]["images"]["edges"],
-                        snapshot.data[index]["node"]["title"],
-                        snapshot.data[index]["node"]["availableForSale"],
-                        price: snapshot.data[index]["node"]["variants"]
-                            ["edges"],
-                        sizeOption: snapshot.data[index]["node"]["options"][0]
-                            ["values"],
-                        description: snapshot.data[index]["node"]
-                            ["description"],
-                        sku: snapshot.data[index]["node"]["variants"]["edges"],
-                        variantId: snapshot.data[index]["node"]["variants"]
-                            ["edges"]),
+                      context,
+                      snapshot.data[index]["node"]["images"]["edges"],
+                      snapshot.data[index]["node"]["title"],
+                      snapshot.data[index]["node"]["availableForSale"],
+                      variantProduct: snapshot.data[index]["node"]["variants"]
+                          ["edges"],
+                      sizeOption: snapshot.data[index]["node"]["options"][0]
+                          ["values"],
+                      description: snapshot.data[index]["node"]["description"],
+                    ),
                   );
                 } else {
                   return Padding(
@@ -171,15 +168,12 @@ Widget cardList(context, {function}) {
                         snapshot.data[index]["node"]["images"]["edges"],
                         snapshot.data[index]["node"]["title"],
                         snapshot.data[index]["node"]["availableForSale"],
-                        price: snapshot.data[index]["node"]["variants"]
+                        variantProduct: snapshot.data[index]["node"]["variants"]
                             ["edges"],
                         sizeOption: snapshot.data[index]["node"]["options"][0]
                             ["values"],
                         description: snapshot.data[index]["node"]
                             ["description"],
-                        sku: snapshot.data[index]["node"]["variants"]["edges"],
-                        variantId: snapshot.data[index]["node"]["variants"]
-                            ["edges"],
                         check: true),
                   );
                 }
@@ -201,11 +195,9 @@ Widget cardList(context, {function}) {
 }
 
 Widget basicCards(context, imageUrl, text, availableForSale,
-    {price = "fetching ...",
-    sizeOption = "",
+    {sizeOption = "",
     description = "No Description",
-    sku = "",
-    variantId = "",
+    variantProduct = "",
     check = false}) {
   return (check == true)
       ? InkWell(
@@ -221,7 +213,7 @@ Widget basicCards(context, imageUrl, text, availableForSale,
           child: Stack(
             alignment: Alignment.center,
             children: [
-              internalWidgetCard(context, imageUrl, price, text),
+              internalWidgetCard(context, imageUrl, variantProduct, text),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -243,21 +235,42 @@ Widget basicCards(context, imageUrl, text, availableForSale,
               MaterialPageRoute(
                 builder: (context) => DetailPage(
                   image: imageUrl,
-                  price: price,
+                  price: variantProduct,
                   text: text,
                   array: sizeOption,
                   description: description,
-                  sku: sku,
-                  variantId: variantId,
+                  sku: variantProduct,
+                  variantId: variantProduct,
                   availableForSale: availableForSale,
                 ),
               ),
             );
           },
-          child: internalWidgetCard(context, imageUrl, price, text));
+          child: (variantProduct[0]["node"]["compareAtPrice"] ==
+                  variantProduct[0]["node"]["price"])
+              ? internalWidgetCard(context, imageUrl, variantProduct, text)
+              : Stack(
+                  children: [
+                    internalWidgetCard(context, imageUrl, variantProduct, text),
+                    Positioned(
+                      right: 10,
+                      top: 20,
+                      child: Container(
+                        padding: EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                            color: titleRed,
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Text(
+                          " - 5%",
+                          style: TextStyle(color: myWhite),
+                        ),
+                      ),
+                    ),
+                  ],
+                ));
 }
 
-Widget internalWidgetCard(context, imageUrl, price, text) {
+Widget internalWidgetCard(context, imageUrl, variantProduct, text) {
   return Container(
     width: dynamicWidth(context, 0.41),
     child: Column(
@@ -298,7 +311,10 @@ Widget internalWidgetCard(context, imageUrl, price, text) {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            "Rs. " + double.parse(price[0]["node"]["price"]).toInt().toString(),
+            "Rs. " +
+                double.parse(variantProduct[0]["node"]["price"])
+                    .toInt()
+                    .toString(),
             style: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: dynamicWidth(context, .034),
