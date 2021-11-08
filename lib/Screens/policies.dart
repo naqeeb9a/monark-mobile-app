@@ -121,7 +121,24 @@ class _PoliciesPageState extends State<PoliciesPage> {
                                   ),
                                   child: bulletText(
                                     context,
-                                    "We will gladly accept any unworn, unwashed merchandise with original tags that has been purchased from our online store. The article has to be sent back within 15 days of purchase for a refund or an exchange.",
+                                    "Please return goods with a copy of the invoice and mention the reason for returning the items.",
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: dynamicHeight(context, .01),
+                                  ),
+                                  child: bulletText(
+                                    context,
+                                    "Delivery Charges will not be refunded.",
+                                  ),
+                                ),Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: dynamicHeight(context, .01),
+                                  ),
+                                  child: bulletText(
+                                    context,
+                                    "Incase of an Exchange, once products are received by our representative. A coupon code will be shared with the consignee of the amount that the product returned is being retailed at the time.",
                                   ),
                                 ),
                               ],
