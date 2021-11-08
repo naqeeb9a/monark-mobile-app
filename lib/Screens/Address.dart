@@ -169,94 +169,99 @@ class _AddressPageState extends State<AddressPage> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           print(snapshot.data);
           if (snapshot.connectionState == ConnectionState.done) {
-            return (snapshot.data == null)
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Image.asset(
-                        "assets/noAddress.png",
-                        width: dynamicWidth(context, 0.5),
-                      ),
-                      SizedBox(
-                        height: dynamicHeight(context, .03),
-                      ),
-                      Text("No Addresses Found!")
-                    ],
-                  )
-                : ListView.builder(
-                    itemCount: (snapshot.data as List).length,
-                    itemBuilder: (context, index) {
-                      addressList.add(snapshot.data[index]);
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: dynamicHeight(context, 0.01),
+            if (snapshot.data == "Server Error") {
+              return Center(child: Text("Server Error"));
+            } else {
+              return (snapshot.data == null)
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Image.asset(
+                          "assets/noAddress.png",
+                          width: dynamicWidth(context, 0.5),
                         ),
-                        child: Row(
-                          children: [
-                            Radio(
-                                value: index,
-                                groupValue: int.parse(group.toString()),
-                                onChanged: (value) {
-                                  setState(() {
-                                    group = value as int;
-                                  });
-                                }),
-                            Container(
-                              width: dynamicWidth(context, 0.75),
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 1),
-                                borderRadius: BorderRadius.circular(
-                                  dynamicWidth(context, 0.04),
+                        SizedBox(
+                          height: dynamicHeight(context, .03),
+                        ),
+                        Text("No Addresses Found!")
+                      ],
+                    )
+                  : ListView.builder(
+                      itemCount: (snapshot.data as List).length,
+                      itemBuilder: (context, index) {
+                        addressList.add(snapshot.data[index]);
+                        return Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: dynamicHeight(context, 0.01),
+                          ),
+                          child: Row(
+                            children: [
+                              Radio(
+                                  value: index,
+                                  groupValue: int.parse(group.toString()),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      group = value as int;
+                                    });
+                                  }),
+                              Container(
+                                width: dynamicWidth(context, 0.75),
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 1),
+                                  borderRadius: BorderRadius.circular(
+                                    dynamicWidth(context, 0.04),
+                                  ),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: dynamicWidth(context, 0.04),
+                                  vertical: dynamicHeight(context, .01),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      snapshot.data[index]["node"]["address1"],
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontSize: dynamicWidth(context, 0.06),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      maxLines: 2,
+                                    ),
+                                    SizedBox(
+                                      height: dynamicHeight(context, .01),
+                                    ),
+                                    Text(
+                                      snapshot.data[index]["node"]
+                                              ["firstName"] +
+                                          " " +
+                                          snapshot.data[index]["node"]
+                                              ["lastName"],
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontSize: dynamicWidth(context, 0.05),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: dynamicHeight(context, .01),
+                                    ),
+                                    Text(
+                                      snapshot.data[index]["node"]["city"],
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: myBlack,
+                                        fontSize: dynamicWidth(context, 0.04),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: dynamicWidth(context, 0.04),
-                                vertical: dynamicHeight(context, .01),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    snapshot.data[index]["node"]["address1"],
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: dynamicWidth(context, 0.06),
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    maxLines: 2,
-                                  ),
-                                  SizedBox(
-                                    height: dynamicHeight(context, .01),
-                                  ),
-                                  Text(
-                                    snapshot.data[index]["node"]["firstName"] +
-                                        " " +
-                                        snapshot.data[index]["node"]
-                                            ["lastName"],
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: dynamicWidth(context, 0.05),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: dynamicHeight(context, .01),
-                                  ),
-                                  Text(
-                                    snapshot.data[index]["node"]["city"],
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: myBlack,
-                                      fontSize: dynamicWidth(context, 0.04),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
+                            ],
+                          ),
+                        );
+                      },
+                    );
+            }
           } else {
             return Center(
               child: JumpingDotsProgressIndicator(

@@ -178,6 +178,15 @@ class _AddAddressState extends State<AddAddress> {
               var response = await saveAddress();
               if (response == "Server Error") {
                 print(response);
+              } else if (response["customerAddressCreate"]["customerAddress"] ==
+                  null) {
+                var snackBar = SnackBar(
+                  content: Text(
+                      'Error!! Check your Details, make sure they are accurate'),
+                  duration: const Duration(seconds: 2),
+                );
+
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               } else {
                 print(response);
                 print("success");
