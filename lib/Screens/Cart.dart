@@ -99,10 +99,12 @@ Widget cartList({ordersPage = false}) {
 
 Widget cartCard(index, context, {orders}) {
   return Padding(
-    padding: EdgeInsets.symmetric(vertical: dynamicHeight(context, 0.01)),
+    padding: EdgeInsets.symmetric(
+      vertical: dynamicHeight(context, 0.01),
+    ),
     child: Container(
       padding: EdgeInsets.all(
-        dynamicHeight(context, .02),
+        dynamicHeight(context, .014),
       ),
       decoration: BoxDecoration(
         color: myWhite,
@@ -122,7 +124,7 @@ Widget cartCard(index, context, {orders}) {
           children: [
             CachedNetworkImage(
               imageUrl: cartItems[index]["imageUrl"],
-              height: dynamicHeight(context, .12),
+              height: dynamicHeight(context, .13),
               width: dynamicWidth(context, .24),
               fit: BoxFit.cover,
             ),
@@ -132,10 +134,12 @@ Widget cartCard(index, context, {orders}) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    cartItems[index]["title"],
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
+                  Flexible(
+                    child: Text(
+                      cartItems[index]["title"],
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
                   ),
                   RichText(
                     text: TextSpan(
