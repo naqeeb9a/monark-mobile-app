@@ -194,6 +194,13 @@ Widget cardList(context, {function}) {
   );
 }
 
+discountPrice(before, after) {
+  var a = before - after;
+  var b = a / before;
+  var c = b * 100;
+  return c;
+}
+
 Widget basicCards(context, imageUrl, text, availableForSale,
     {sizeOption = "",
     description = "No Description",
@@ -253,16 +260,29 @@ Widget basicCards(context, imageUrl, text, availableForSale,
                   children: [
                     internalWidgetCard(context, imageUrl, variantProduct, text),
                     Positioned(
-                      right: 10,
-                      top: 20,
+                      right: dynamicWidth(context, .02),
+                      top: dynamicHeight(context, .02),
                       child: Container(
-                        padding: EdgeInsets.all(3),
+                        padding: EdgeInsets.all(
+                          dynamicWidth(context, .01),
+                        ),
                         decoration: BoxDecoration(
                             color: titleRed,
                             borderRadius: BorderRadius.circular(5)),
                         child: Text(
-                          " - 5%",
-                          style: TextStyle(color: myWhite),
+                          "-" +
+                              discountPrice(
+                                double.parse(variantProduct[0]["node"]
+                                        ["compareAtPrice"])
+                                    .toInt(),
+                                double.parse(variantProduct[0]["node"]["price"])
+                                    .toInt(),
+                              ).toInt().toString() +
+                              "%",
+                          style: TextStyle(
+                            color: myWhite,
+                            fontSize: dynamicWidth(context, .034),
+                          ),
                         ),
                       ),
                     ),
