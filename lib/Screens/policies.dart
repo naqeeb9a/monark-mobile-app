@@ -106,28 +106,22 @@ class _PoliciesPageState extends State<PoliciesPage> {
                                     ),
                                   ],
                                 ),
-                                bulletText(
-                                  context,
-                                  "We will gladly accept any unworn, unwashed merchandise with original tags that has been purchased from our online store. The article has to be sent back within 15 days of purchase for a refund or an exchange.",
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: dynamicHeight(context, .01),
+                                  ),
+                                  child: bulletText(
+                                    context,
+                                    "We will gladly accept any unworn, unwashed merchandise with original tags that has been purchased from our online store. The article has to be sent back within 15 days of purchase for a refund or an exchange.",
+                                  ),
                                 ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: dynamicHeight(context, .04),
-                              horizontal: dynamicWidth(context, .04),
-                            ),
-                            child: Row(
-                              children: [
-                                Flexible(
-                                  child: AutoSizeText(
-                                    "Returns & Exchanges Policy For An Online Purchase",
-                                    style: TextStyle(
-                                      fontSize: dynamicWidth(context, .05),
-                                      color: myBlack,
-                                    ),
-                                    textAlign: TextAlign.justify,
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: dynamicHeight(context, .01),
+                                  ),
+                                  child: bulletText(
+                                    context,
+                                    "We will gladly accept any unworn, unwashed merchandise with original tags that has been purchased from our online store. The article has to be sent back within 15 days of purchase for a refund or an exchange.",
                                   ),
                                 ),
                               ],
