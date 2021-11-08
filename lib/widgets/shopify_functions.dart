@@ -29,6 +29,7 @@ getShopifyCategory() async {
   final QueryResult result = await client.query(options);
 
   if (result.hasException) {
+    getShopifyCategory();
     print(result.hasException);
     return "Server Error";
   } else {
@@ -86,6 +87,7 @@ getShopifyProducts() async {
   final QueryResult result = await client.query(options);
 
   if (result.hasException) {
+    getShopifyProducts();
     print(result.hasException);
     return "Server Error";
   } else {
@@ -145,6 +147,7 @@ getShopifyCollection(handle) async {
   final QueryResult result = await client.query(options);
 
   if (result.hasException) {
+    getShopifyCollection(handle);
     print(result.hasException);
     return "Server Error";
   } else {

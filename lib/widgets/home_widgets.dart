@@ -224,10 +224,10 @@ Widget basicCards(context, imageUrl, text, availableForSale,
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Colors.black38,
+                  color: myBlack.withOpacity(.4),
                 ),
-                height: dynamicHeight(context, 1),
-                width: dynamicWidth(context, 1),
+                height: dynamicHeight(context, .86),
+                width: dynamicWidth(context, 0.46),
                 child: Image.asset(
                   "assets/soldOut.png",
                 ),
@@ -270,7 +270,7 @@ Widget basicCards(context, imageUrl, text, availableForSale,
                             color: titleRed,
                             borderRadius: BorderRadius.circular(5)),
                         child: Text(
-                          "-" +
+                          " - " +
                               discountPrice(
                                 double.parse(variantProduct[0]["node"]
                                         ["compareAtPrice"])
@@ -281,7 +281,7 @@ Widget basicCards(context, imageUrl, text, availableForSale,
                               "%",
                           style: TextStyle(
                             color: myWhite,
-                            fontSize: dynamicWidth(context, .034),
+                            fontSize: dynamicWidth(context, .028),
                           ),
                         ),
                       ),
