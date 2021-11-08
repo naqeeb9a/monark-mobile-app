@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:monark_app/Screens/Search.dart';
 import 'package:monark_app/Screens/Welcome.dart';
-import 'package:monark_app/config.dart';
+import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/drawer_items.dart';
 import 'package:monark_app/widgets/form_fields.dart';

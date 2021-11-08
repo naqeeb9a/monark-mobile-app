@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:monark_app/config.dart';
+import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 
 class ConfirmationPage extends StatelessWidget {

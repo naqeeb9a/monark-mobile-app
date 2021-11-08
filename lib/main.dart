@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:monark_app/Screens/Home.dart';
-import 'package:monark_app/config.dart';
+import 'package:monark_app/utils/config.dart';
 
 void main() {
   runApp(MyApp());

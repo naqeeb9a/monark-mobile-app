@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
-import '../config.dart';
+import '../utils/config.dart';
 
 Widget inputTextField(context, label, myController,
     {function, function2, password = false}) {

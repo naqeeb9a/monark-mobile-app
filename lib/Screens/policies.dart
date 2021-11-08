@@ -4,7 +4,7 @@ import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
-import '../config.dart';
+import '../utils/config.dart';
 
 class PoliciesPage extends StatefulWidget {
   const PoliciesPage({Key? key}) : super(key: key);

@@ -4,7 +4,7 @@ import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 
-import '../config.dart';
+import '../utils/config.dart';
 
 class Payment extends StatelessWidget {
   const Payment({Key? key}) : super(key: key);

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:graphql/client.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
-import '../config.dart';
+import '../utils/config.dart';
 import 'Cart.dart';
 
 // ignore: must_be_immutable
