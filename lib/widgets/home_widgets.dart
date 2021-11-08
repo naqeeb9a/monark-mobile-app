@@ -230,6 +230,7 @@ Widget basicCards(context, imageUrl, text, availableForSale,
                 width: dynamicWidth(context, 0.46),
                 child: Image.asset(
                   "assets/soldOut.png",
+                  scale: 2.6,
                 ),
               )
             ],
