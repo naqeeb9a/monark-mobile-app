@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:graphql/client.dart';
 import 'package:monark_app/Screens/AddAddress.dart';
 import 'package:monark_app/utils/config.dart';
@@ -196,14 +197,16 @@ class _AddressPageState extends State<AddressPage> {
                           ),
                           child: Row(
                             children: [
-                              Radio(
-                                  value: index,
-                                  groupValue: int.parse(group.toString()),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      group = value as int;
+                              Obx(() {
+                                return Radio(
+                                    value: index,
+                                    groupValue: int.parse(group.toString()),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        group.value = value as int;
+                                      });
                                     });
-                                  }),
+                              }),
                               Container(
                                 width: dynamicWidth(context, 0.75),
                                 decoration: BoxDecoration(

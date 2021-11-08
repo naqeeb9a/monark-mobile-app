@@ -12,7 +12,7 @@ const noColor = Colors.transparent;
 
 var cartItems = [].obs;
 var addressList = [].obs;
-int group = 0;
+var group = 0.obs;
 bool obscureText = true;
 
 var sizeColor = myBlack;

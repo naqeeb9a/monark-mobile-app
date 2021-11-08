@@ -66,7 +66,7 @@ class CheckOut extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                addressList[group]["node"]["address1"],
+                                addressList[group.value]["node"]["address1"],
                                 style: TextStyle(
                                     fontSize: 22, fontWeight: FontWeight.w400),
                               ),
@@ -74,16 +74,17 @@ class CheckOut extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                addressList[group]["node"]["city"],
+                                addressList[group.value]["node"]["city"],
                                 style: TextStyle(fontSize: 20),
                               ),
                               SizedBox(
                                 height: 10,
                               ),
                               Text(
-                                addressList[group]["node"]["firstName"] +
+                                addressList[group.value]["node"]["firstName"] +
                                     " " +
-                                    addressList[group]["node"]["lastName"],
+                                    addressList[group.value]["node"]
+                                        ["lastName"],
                               )
                             ],
                           ),
