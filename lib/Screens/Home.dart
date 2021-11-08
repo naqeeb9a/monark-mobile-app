@@ -122,15 +122,13 @@ class _HomeState extends State<Home> {
                       future: getUserData(widget.accessToken),
                       builder: (context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
-                          if (snapshot.data == "Server Error") {
-                            return Center(child: Text("Network Error"));
-                          } else {
-                            return Drawer(
-                              child: drawerItems(context,
-                                  customerInfo: snapshot.data,
-                                  accessToken: globalAccessToken),
-                            );
-                          }
+                          return Drawer(
+                            child: (snapshot.data == "Server Error")
+                                ? Center(child: Text("Network Error"))
+                                : drawerItems(context,
+                                    customerInfo: snapshot.data,
+                                    accessToken: globalAccessToken),
+                          );
                         } else {
                           return Drawer(
                             child: JumpingDotsProgressIndicator(
