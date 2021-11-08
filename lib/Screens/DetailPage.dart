@@ -118,13 +118,14 @@ class _DetailPageState extends State<DetailPage> {
                     SizedBox(
                       height: dynamicHeight(context, 0.02),
                     ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: dynamicWidth(context, .04),
-                          ),
-                          child: Text(
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: dynamicWidth(context, .04),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
                             "Rs. " +
                                 double.parse(widget.variantProduct[priceIndex]
                                         ["node"]["compareAtPrice"])
@@ -137,12 +138,7 @@ class _DetailPageState extends State<DetailPage> {
                               fontSize: dynamicWidth(context, .044),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: dynamicWidth(context, .04),
-                          ),
-                          child: Text(
+                          Text(
                             "Rs. " +
                                 double.parse(widget.variantProduct[priceIndex]
                                         ["node"]["price"])
@@ -153,8 +149,32 @@ class _DetailPageState extends State<DetailPage> {
                               fontSize: dynamicWidth(context, .044),
                             ),
                           ),
-                        ),
-                      ],
+                          Container(
+                            padding: EdgeInsets.all(
+                              dynamicWidth(context, .01),
+                            ),
+                            decoration: BoxDecoration(
+                                color: titleRed,
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Text(
+                              " - " +
+                                  discountPrice(
+                                    double.parse(widget.variantProduct[0]
+                                            ["node"]["compareAtPrice"])
+                                        .toInt(),
+                                    double.parse(widget.variantProduct[0]
+                                            ["node"]["price"])
+                                        .toInt(),
+                                  ).toInt().toString() +
+                                  "%",
+                              style: TextStyle(
+                                color: myWhite,
+                                fontSize: dynamicWidth(context, .028),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
