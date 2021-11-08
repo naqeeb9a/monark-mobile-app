@@ -60,7 +60,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
                   ],
                   indicator: DotIndicator(
                     color: myRed,
-                    distanceFromCenter: dynamicHeight(context, .024),
+                    distanceFromCenter: dynamicHeight(context, .02),
                     radius: 4,
                     paintingStyle: PaintingStyle.fill,
                   ),
@@ -140,11 +140,8 @@ Follow these simple steps to return or exchange your item purchased from the onl
 If you wish to return or exchange any portion of your online order, please complete the Exchange Form and include it with your return shipment.
 
 Don't have a Return Form?"""),
-
-Text("Please click here to download one."),
-
-
-Text(r"""
+                                Text("Please click here to download one."),
+                                Text(r"""
 If you wish to return or exchange any product of your order, please complete this form and include it with your return shipment.
 
 1. Repack Merchandise
@@ -206,4 +203,20 @@ Accessories cannot be exchanged after purchase from the outlet due to hygienic r
       ),
     );
   }
+}
+
+Widget bulletText(context, text, bold) {
+  return Expanded(
+    child: Column(
+      children: [
+        Text(
+          "\• " + text,
+          style: TextStyle(
+            fontSize: dynamicWidth(context, .044),
+            fontWeight: bold == true ? FontWeight.bold : FontWeight.normal,
+          ),
+        ),
+      ],
+    ),
+  );
 }
