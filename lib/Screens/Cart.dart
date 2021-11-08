@@ -66,6 +66,13 @@ class Cart extends StatelessWidget {
               );
 
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            } else if (globalAccessToken == "") {
+              var snackBar = SnackBar(
+                content: Text('Please Sign In to Continue'),
+                duration: const Duration(milliseconds: 1000),
+              );
+
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             } else {
               Navigator.push(
                 context,
