@@ -20,6 +20,7 @@ class _AddAddressState extends State<AddAddress> {
   final _formKey = GlobalKey<FormState>();
 
   saveAddress() async {
+    print(globalAccessToken);
     print(localAddressList);
     var addressQuery = r'''
     mutation customerAddressCreate($customerAccessToken: String!, $address: MailingAddressInput!) {
@@ -45,9 +46,9 @@ class _AddAddressState extends State<AddAddress> {
         "lastName": localAddressList[1].toString(),
         "address1": localAddressList[2].toString(),
         "address2": localAddressList[3].toString(),
-        "country": localAddressList[4].toString(),
+        "city": localAddressList[4].toString(),
         "province": localAddressList[5].toString(),
-        "city": localAddressList[6].toString(),
+        "country": localAddressList[6].toString(),
         "zip": localAddressList[7].toString(),
         "phone": localAddressList[8].toString()
       }
@@ -169,19 +170,21 @@ class _AddAddressState extends State<AddAddress> {
           bottomButton1(
             context,
             "Add Address",
-            () {
+            () async {
               if (!_formKey.currentState!.validate()) {
                 return;
               }
               _formKey.currentState!.save();
-              addressList.add(localAddressList);
-              var response = saveAddress();
+              var response = await saveAddress();
               if (response == "Server Error") {
                 print(response);
               } else {
+                print(response);
                 print("success");
+                Navigator.pop(context, () {
+                  setState(() {});
+                });
               }
-              Navigator.pop(context);
             },
           )
         ],
