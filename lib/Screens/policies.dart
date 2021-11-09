@@ -207,6 +207,9 @@ We are committed to ensuring that your information is secure. In order to preven
                                     ),
                                   ],
                                 ),
+                                SizedBox(
+                                  height: dynamicHeight(context, .02),
+                                ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
                                     vertical: dynamicHeight(context, .01),
@@ -254,10 +257,15 @@ We are committed to ensuring that your information is secure. In order to preven
                                 ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
-                                    vertical: dynamicHeight(context, .01),
+                                    vertical: dynamicHeight(context, .02),
                                   ),
                                   child: Text(
-                                      "The coupon code could be used to order the required article in exchange. Please Note the coupon code can only be redeemed at the website."),
+                                    "The coupon code could be used to order the required article in exchange. Please Note the coupon code can only be redeemed at the website.",
+                                    style: TextStyle(
+                                      fontSize: dynamicWidth(context, .046),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
@@ -301,7 +309,7 @@ We are committed to ensuring that your information is secure. In order to preven
                                   ),
                                   child: bulletText(
                                     context,
-                                    "Incase the article has been further discounted from the time of purchase. The exchange will be made at mark down pricing.",
+                                    "In case the article has been further discounted from the time of purchase. The exchange will be made at mark down pricing.",
                                   ),
                                 ),
                                 Padding(
@@ -319,45 +327,84 @@ We are committed to ensuring that your information is secure. In order to preven
                                     vertical: dynamicHeight(context, .01),
                                   ),
                                   child: Text(
-                                      "For further assistance about exchanges and returns, please contact us at customercare@monark.com.pk."),
+                                    "For further assistance about exchanges and returns, please contact us at customercare@monark.com.pk.",
+                                    style: TextStyle(
+                                      fontSize: dynamicWidth(context, .046),
+                                    ),
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: dynamicHeight(context, .02),
+                                  ),
+                                  child: Text(
+                                    "Follow these simple steps to return or exchange your item purchased from the online store:",
+                                    style: TextStyle(
+                                      fontSize: dynamicWidth(context, .042),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    textAlign: TextAlign.justify,
+                                  ),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
                                     vertical: dynamicHeight(context, .01),
                                   ),
                                   child: Text(
-                                    "Follow these simple steps to return or exchange your item purchased from the online store:",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                    "Complete Return Form\n\n"
+                                    "If you wish to return or exchange any portion of your online order, please complete the Exchange Form and include it with your return shipment.\n\n"
+                                    "Don't have a Return Form?\n",
+                                    textAlign: TextAlign.justify,
                                   ),
                                 ),
-                                Text("Complete Return Form"),
-                                Text(
-                                    "If you wish to return or exchange any portion of your online order, please complete the Exchange Form and include it with your return shipment."),
-                                Text("Don't have a Return Form?"),
-                                InkWell(
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: dynamicHeight(context, .02),
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      //for downloading the form
+                                    },
+                                    child: Text(
+                                      "Please click here to download one.",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      textAlign: TextAlign.justify,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: dynamicHeight(context, .02),
+                                  ),
                                   child: Text(
-                                    "Please click here to download one.",
+                                    "If you wish to return or exchange any product of your order, please complete this form and include it with your return shipment.\n\n"
+                                    "1. Repack Merchandise\n\n"
+                                    "    Please make sure that the item(s) you wish to return, along with the Return Form are included with your return shipment.\n\n"
+                                    "2. Ship to\n\n"
+                                    "    Customer needs to return the merchandise via traceable delivery i.e. courier or registered post on his own expense to the following address:\n\n"
+                                    "Consumer Returns Department\n\n"
+                                    "81 Babar block, Garden town Lahore.\n\n"
+                                    "Pakistan\n\n"
+                                    "Telephone Support : 042 32500451  ( 10:00 AM to 7:00 PM  Monday - Saturday )",
+                                    textAlign: TextAlign.justify,
                                   ),
-                                  onTap: () {
-                                    //for downloading the form
-                                  },
                                 ),
-                                Text(
-                                    "If you wish to return or exchange any product of your order, please complete this form and include it with your return shipment."),
-                                Text("1. Repack Merchandise"),
-                                Text(
-                                    "Please make sure that the item(s) you wish to return, along with the Return Form are included with your return shipment."),
-                                Text("2. Ship to"),
-                                Text(
-                                    "Customer needs to return the merchandise via traceable delivery i.e. courier or registered post on his own expense to the following address:"),
-                                Text("Consumer Returns Department"),
-                                Text("81 Babar block, Garden town Lahore."),
-                                Text("Pakistan"),
-                                Text(
-                                    "Telephone Support : 042 32500451  ( 10:00 AM to 7:00 PM  Monday - Saturday )"),
-                                Text(
-                                    "Returns & Exchanges Policy for a Store Purchased Item"),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: dynamicHeight(context, .02),
+                                  ),
+                                  child: Text(
+                                    "Returns & Exchanges Policy for a Store Purchased Item",
+                                    style: TextStyle(
+                                      fontSize: dynamicWidth(context, .044),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    textAlign: TextAlign.justify,
+                                  ),
+                                ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
                                     vertical: dynamicHeight(context, .01),
@@ -426,7 +473,7 @@ Widget bulletText(context, text, {bold}) {
     child: Text(
       "\• " + text,
       style: TextStyle(
-        fontSize: dynamicWidth(context, .044),
+        fontSize: dynamicWidth(context, .042),
         fontWeight: bold == true ? FontWeight.bold : FontWeight.normal,
       ),
       maxLines: 5,
