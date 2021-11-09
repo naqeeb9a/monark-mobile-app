@@ -146,11 +146,15 @@ Widget getOrderCards() {
       future: getUserOrders(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          return (snapshot.data == "Server Error")
-              ? Center(
-                  child: Text("Server Error"),
-                )
-              : orderCards(snapshot.data);
+          if (snapshot.data == "Server Error") {
+            return Center(
+              child: Text("Server Error"),
+            );
+          } else if (snapshot.data == "Token Expired") {
+            return Text("Token Expired");
+          } else {
+            return orderCards(snapshot.data);
+          }
         } else {
           return SizedBox(
             height: MediaQuery.of(context).size.height * 0.28,

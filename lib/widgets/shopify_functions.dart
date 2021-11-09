@@ -219,7 +219,11 @@ getUserOrders() async {
     print(result.hasException);
     return "Server Error";
   } else {
-    return result.data!["customer"]["orders"]["edges"];
+    if (result.data!["customer"] == null) {
+      return "Token Expired";
+    } else {
+      return result.data!["customer"]["orders"]["edges"];
+    }
   }
 }
 
@@ -287,12 +291,13 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
         "zip": ""
       },
       "lineItems": [
-        for(var i=0;i<cartItems.length;i++){
+        for (var i = 0; i < cartItems.length; i++)
           {
-            "variantId": cartItems[i]["variantId"],
-            "quantity": cartItems[i]["quantity"],
+            {
+              "variantId": cartItems[i]["variantId"],
+              "quantity": cartItems[i]["quantity"],
+            }
           }
-        }
       ]
     }
   };
