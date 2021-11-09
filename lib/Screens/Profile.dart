@@ -8,6 +8,7 @@ import 'package:monark_app/widgets/media_query.dart';
 // ignore: must_be_immutable
 class Profile extends StatelessWidget {
   var customerInfo;
+
   Profile({Key? key, this.customerInfo}) : super(key: key);
 
   @override

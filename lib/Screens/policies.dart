@@ -132,7 +132,8 @@ class _PoliciesPageState extends State<PoliciesPage> {
                                     context,
                                     "Delivery Charges will not be refunded.",
                                   ),
-                                ),Padding(
+                                ),
+                                Padding(
                                   padding: EdgeInsets.symmetric(
                                     vertical: dynamicHeight(context, .01),
                                   ),
@@ -159,12 +160,15 @@ class _PoliciesPageState extends State<PoliciesPage> {
 }
 
 Widget bulletText(context, text, {bold}) {
-  return Text(
-    "\• " + text,
-    style: TextStyle(
-      fontSize: dynamicWidth(context, .044),
-      fontWeight: bold == true ? FontWeight.bold : FontWeight.normal,
+  return Container(
+    width: dynamicWidth(context, 1),
+    child: Text(
+      "\• " + text,
+      style: TextStyle(
+        fontSize: dynamicWidth(context, .044),
+        fontWeight: bold == true ? FontWeight.bold : FontWeight.normal,
+      ),
+      maxLines: 5,
     ),
-    maxLines: 5,
   );
 }

@@ -207,10 +207,12 @@ Widget profilePicture(context, customerInfo) {
   return Column(
     children: [
       CircleAvatar(
-        minRadius: dynamicWidth(context, .16),
-        backgroundColor: titleRed,
-        backgroundImage: NetworkImage(
-          "https://www.pngarts.com/files/11/Avatar-Transparent-Background-PNG.png?width=800",
+        radius: dynamicWidth(context, .16),
+        backgroundColor: myRed,
+        child: ClipOval(
+          child: Image.asset(
+            "assets/profile.png",
+          ),
         ),
       ),
       SizedBox(
