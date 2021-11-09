@@ -88,16 +88,16 @@ class Cart extends StatelessWidget {
   }
 }
 
-Widget cartList({ordersPage = false}) {
+Widget cartList() {
   return ListView.builder(
     itemCount: cartItems.length,
     itemBuilder: (context, index) {
-      return cartCard(index, context, orders: ordersPage);
+      return cartCard(index, context,);
     },
   );
 }
 
-Widget cartCard(index, context, {orders}) {
+Widget cartCard(index, context,) {
   return Padding(
     padding: EdgeInsets.symmetric(
       vertical: dynamicHeight(context, 0.01),
@@ -188,15 +188,6 @@ Widget cartCard(index, context, {orders}) {
                 ],
               ),
             ),
-            (orders == true)
-                ? Container()
-                : Align(
-                    alignment: Alignment.topRight,
-                    child: InkWell(
-                        onTap: () {
-                          cartItems.remove(cartItems[index]);
-                        },
-                        child: Icon(Icons.close)))
           ],
         ),
       ),

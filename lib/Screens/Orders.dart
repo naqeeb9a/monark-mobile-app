@@ -1,10 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:graphql/client.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
+import 'package:monark_app/widgets/shopify_functions.dart';
 import '../utils/config.dart';
-import 'Cart.dart';
 
 // ignore: must_be_immutable
 class Orders extends StatefulWidget {
@@ -15,54 +15,6 @@ class Orders extends StatefulWidget {
 }
 
 class _OrdersState extends State<Orders> {
-  getUserOrders() async {
-    var createUserAccessToken = '''
-{
-    customer (customerAccessToken: "$globalAccessToken")
-    {
-         orders(first:5){
-             edges{
-                 node{
-                     lineItems{
-                         edges{
-                             node{
-                                 title
-                             }
-                         }
-                     }
-                 }
-             }
-         }
-    }
-}
- ''';
-    final HttpLink httpLink = HttpLink(
-        "https://monark-clothings.myshopify.com/api/2021-10/graphql.json",
-        defaultHeaders: {
-          "X-Shopify-Storefront-Access-Token":
-              "fce9486a511f6a4f45939c2c6829cdaa"
-        });
-    GraphQLClient client = GraphQLClient(link: httpLink, cache: GraphQLCache());
-    final QueryOptions options = QueryOptions(
-      document: gql(createUserAccessToken),
-    );
-    final QueryResult result = await client.query(options);
-
-    if (result.hasException) {
-      print(result.hasException);
-      return "Server Error";
-    } else {
-      print(result.data!["customer"]["orders"]["edges"]);
-      return result.data!["customer"]["orders"]["edges"];
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getUserOrders();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,21 +33,7 @@ class _OrdersState extends State<Orders> {
             SizedBox(
               height: 20,
             ),
-            Obx(() {
-              return Flexible(
-                  child: (cartItems.length == 0)
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset("assets/emptyCart.png"),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Text("No Orders Yet !")
-                          ],
-                        )
-                      : cartList(ordersPage: true));
-            }),
+            getOrderCards(),
             SizedBox(
               height: MediaQuery.of(context).size.height / 9,
             )
@@ -104,4 +42,80 @@ class _OrdersState extends State<Orders> {
       ),
     );
   }
+}
+
+Widget orderCards(snapshot) {
+  return ListView.builder(
+      itemCount: (snapshot as List).length,
+      itemBuilder: (context, index) {
+        return Container(
+          color: Colors.amber,
+          child: Column(
+            children: [
+              Text("Order Number : " +
+                  snapshot[index]["node"]["orderNumber"].toString()),
+              Text("Email : " + snapshot[index]["node"]["email"].toString()),
+              Text("Status : " +
+                  snapshot[index]["node"]["fulfillmentStatus"].toString()),
+              Text("Cancelled : " +
+                  snapshot[index]["node"]["cancelReason"].toString()),
+              orderActualCard(
+                  context, snapshot[index]["node"]["lineItems"]["edges"])
+            ],
+          ),
+        );
+      });
+}
+
+Widget orderActualCard(context, snaphot) {
+  return ListView.builder(
+      itemCount: (snaphot as List).length,
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return Container(
+          child: Row(
+            children: [
+              (snaphot[index]["node"]["variant"] == null)
+                  ? SizedBox()
+                  : CachedNetworkImage(
+                      imageUrl: snaphot[index]["node"]["variant"]["product"]
+                          ["images"]["edges"][0]["node"]["src"],
+                      height: 100,
+                      width: 100,
+                    ),
+              Column(
+                children: [
+                  Text(snaphot[index]["node"]["title"]),
+                  Text(snaphot[index]["node"]["quantity"].toString()),
+                ],
+              ),
+            ],
+          ),
+        );
+      });
+}
+
+Widget getOrderCards() {
+  return Expanded(
+    child: FutureBuilder(
+      future: getUserOrders(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return (snapshot.data == "Server Error")
+              ? Center(
+                  child: Text("Server Error"),
+                )
+              : orderCards(snapshot.data);
+        } else {
+          return SizedBox(
+            height: MediaQuery.of(context).size.height * 0.28,
+            child: Image.asset(
+              "assets/loader.gif",
+              scale: 6,
+            ),
+          );
+        }
+      },
+    ),
+  );
 }
