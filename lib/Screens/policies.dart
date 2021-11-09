@@ -169,6 +169,7 @@ Widget bulletText(context, text, {bold}) {
         fontWeight: bold == true ? FontWeight.bold : FontWeight.normal,
       ),
       maxLines: 5,
+      textAlign: TextAlign.justify,
     ),
   );
 }
