@@ -3,6 +3,7 @@ import 'package:monark_app/Screens/CheckOut.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
+import 'package:monark_app/widgets/media_query.dart';
 
 import '../utils/config.dart';
 
@@ -21,33 +22,48 @@ class Payment extends StatelessWidget {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                rowText("Payment", context),
-                Image.asset(
-                  "assets/delivery.png",
-                  height: MediaQuery.of(context).size.height / 3.5,
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                totalRow("Subtotal", r"Rs " + subtotal.toString()),
-                totalRow("Discount", r"0%"),
-                totalRow("Shipping", r"Rs 0"),
-                Divider(
-                  thickness: 2,
-                ),
-                totalRow("Total", r"Rs " + subtotal.toString())
-              ],
+          Center(
+            child: Container(
+              width: dynamicWidth(context, .9),
+              child: Column(
+                children: [
+                  rowText("Payment", context),
+                  Image.asset(
+                    "assets/delivery.png",
+                    height: dynamicHeight(context, .3),
+                  ),
+                  SizedBox(
+                    height: dynamicHeight(context, .04),
+                  ),
+                  totalRow(
+                    context,
+                    "Subtotal",
+                    "Rs. " + subtotal.toString(),
+                  ),
+                  totalRow(context, "Discount", "0%"),
+                  totalRow(context, "Shipping", "Rs. 0"),
+                  Divider(
+                    thickness: 2,
+                  ),
+                  totalRow(
+                    context,
+                    "Total",
+                    "Rs. " + subtotal.toString(),
+                  )
+                ],
+              ),
             ),
           ),
           bottomButton2(
               context, "Cash On Delivery", Icons.delivery_dining_outlined),
           bottomButton1(context, "CheckOut", () {
+
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => CheckOut()));
+              context,
+              MaterialPageRoute(
+                builder: (context) => CheckOut(),
+              ),
+            );
           })
         ],
       ),
@@ -55,12 +71,17 @@ class Payment extends StatelessWidget {
   }
 }
 
-Widget totalRow(text, price) {
+Widget totalRow(context, text, price) {
   return Container(
-    margin: EdgeInsets.all(10),
+    margin: EdgeInsets.all(
+      dynamicWidth(context, .01),
+    ),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [Text(text), Text(price)],
+      children: [
+        Text(text),
+        Text(price),
+      ],
     ),
   );
 }

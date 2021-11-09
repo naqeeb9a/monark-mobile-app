@@ -28,7 +28,8 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  bool isloading = false;
+  bool isLoading = false;
+
   userSignUp() async {
     print(sEmail.text);
     print(sPassword.text);
@@ -83,11 +84,11 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    return (isloading == true)
+    return (isLoading == true)
         ? Scaffold(
             body: Center(
               child: JumpingDotsProgressIndicator(
-                fontSize: 20,
+                fontSize: dynamicWidth(context, .08),
                 numberOfDots: 5,
               ),
             ),
@@ -97,7 +98,10 @@ class _SignUpState extends State<SignUp> {
             appBar: bar2(context),
             body: SafeArea(
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+                margin: EdgeInsets.symmetric(
+                  horizontal: dynamicWidth(context, .04),
+                  vertical: dynamicHeight(context, .026),
+                ),
                 child: SingleChildScrollView(
                   child: Form(
                     key: _formKey,
@@ -214,13 +218,13 @@ class _SignUpState extends State<SignUp> {
                               return;
                             }
                             setState(() {
-                              isloading = true;
+                              isLoading = true;
                             });
                             var response = await userSignUp();
                             print(response);
                             if (response == "Server Error") {
                               setState(() {
-                                isloading = false;
+                                isLoading = false;
                               });
                               CoolAlert.show(
                                   context: context,
@@ -229,7 +233,7 @@ class _SignUpState extends State<SignUp> {
                                       "Creating Customer Limit exceeded. Please try again later.");
                             } else if (response == null) {
                               setState(() {
-                                isloading = false;
+                                isLoading = false;
                               });
                               CoolAlert.show(
                                   context: context,
@@ -242,7 +246,7 @@ class _SignUpState extends State<SignUp> {
                               lName.clear();
                               cPassword.clear();
                               setState(() {
-                                isloading = false;
+                                isLoading = false;
                               });
                               Navigator.pop(context);
                             } else {

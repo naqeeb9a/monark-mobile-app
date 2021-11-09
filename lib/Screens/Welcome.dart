@@ -41,7 +41,10 @@ class _WelcomeState extends State<Welcome> {
                     ""),
                 AutoSizeText(
                   "Explore Us",
-                  style: TextStyle(fontSize: 20.0, color: myBlack),
+                  style: TextStyle(
+                    fontSize: dynamicWidth(context, .06),
+                    color: myBlack,
+                  ),
                 ),
                 Image.asset(
                   "assets/shopping.png",

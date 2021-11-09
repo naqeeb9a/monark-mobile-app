@@ -17,3 +17,5 @@ bool obscureText = true;
 
 var sizeColor = myBlack;
 var globalAccessToken = "";
+var checkOutEmail = "";
+var id = "";

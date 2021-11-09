@@ -157,7 +157,7 @@ class _AddressPageState extends State<AddressPage> {
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     }
                   },
-                )
+                ),
         ],
       ),
     );

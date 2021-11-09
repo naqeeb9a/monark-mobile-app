@@ -47,7 +47,7 @@ class SeeAll extends StatelessWidget {
 
 Widget detailGrid(function, context, check) {
   return Expanded(
-    child: (check == true)
+    child: check == true
         ? FutureBuilder(
             future: function,
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -140,6 +140,7 @@ Widget detailGrid(function, context, check) {
                   scale: 4,
                 );
               }
-            }),
+            },
+          ),
   );
 }

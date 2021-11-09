@@ -2,13 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/Confirmation.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
-import 'package:http/http.dart' as http;
+
 import 'Payment.dart';
 
 class CheckOut extends StatelessWidget {
@@ -93,13 +94,21 @@ class CheckOut extends StatelessWidget {
                 Divider(
                   thickness: 2,
                 ),
-                totalRow("Subtotal", r"Rs " + subtotal.toString()),
-                totalRow("Discount", r"0%"),
-                totalRow("Shipping", r"RS 0"),
+                totalRow(
+                  context,
+                  "Subtotal",
+                  r"Rs " + subtotal.toString(),
+                ),
+                totalRow(context, "Discount", r"0%"),
+                totalRow(context, "Shipping", r"RS 0"),
                 Divider(
                   thickness: 2,
                 ),
-                totalRow("Total", r"Rs " + subtotal.toString()),
+                totalRow(
+                  context,
+                  "Total",
+                  r"Rs " + subtotal.toString(),
+                ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 9,
                 )

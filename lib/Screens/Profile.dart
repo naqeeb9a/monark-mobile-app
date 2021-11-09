@@ -27,16 +27,27 @@ class Profile extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      profilePicture(context, customerInfo),
-                      profileText(context, "Email", customerInfo["email"]),
+                      profilePicture(
+                        context,
+                        customerInfo,
+                      ),
                       profileText(
-                          context,
-                          "Phone Number",
-                          customerInfo["phone"] == null
-                              ? "Not Provided"
-                              : customerInfo["phone"].toString()),
-                      profileText(context, "Address",
-                          customerInfo["defaultAddress"]["address1"]),
+                        context,
+                        "Email",
+                        customerInfo["email"],
+                      ),
+                      profileText(
+                        context,
+                        "Phone Number",
+                        customerInfo["phone"] == null
+                            ? "Not Provided"
+                            : customerInfo["phone"].toString(),
+                      ),
+                      profileText(
+                        context,
+                        "Address",
+                        customerInfo["defaultAddress"]["address1"],
+                      ),
                     ],
                   ),
                 )

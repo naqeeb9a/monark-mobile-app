@@ -222,3 +222,93 @@ getUserOrders() async {
     return result.data!["customer"]["orders"]["edges"];
   }
 }
+
+createDraftOrders(checkOutAddress, variantId, quantity) async {
+  var createUserAccessToken = r'''
+mutation draftOrderCreate($input: DraftOrderInput!) {
+  draftOrderCreate(input: $input) {
+    userErrors {
+      field
+      message
+    }
+    draftOrder {
+     id
+     name
+     status
+     subtotalPrice
+     totalPrice
+     customer{
+         displayName
+         id
+         ordersCount
+         defaultAddress{
+             address1
+             city
+         }
+     }
+     billingAddress{
+         address1
+         city
+     }
+     order{    
+        billingAddressMatchesShippingAddress
+        confirmed
+        closed
+        fullyPaid
+        id
+     }
+    }
+  }
+}
+ ''';
+  var orderVariables = {
+    "input": {
+      "customerId": "$id",
+      "note": "Test draft order",
+      "email": "$checkOutEmail",
+      "tags": ["Ordered via mobile application ANDROID"],
+      "shippingLine": {
+        "title": "Cash on Delivery",
+        "source": "Lahore_post",
+        "price": "0"
+      },
+      "shippingAddress": {
+        "address1": addressList[group.value]["node"]["address1"].toString(),
+        "city": addressList[group.value]["node"]["city"].toString(),
+        "province": addressList[group.value]["node"]["province"].toString(),
+        "country": addressList[group.value]["node"]["province"].toString(),
+        "zip": ""
+      },
+      "billingAddress": {
+        "address1": addressList[group.value]["node"]["address1"].toString(),
+        "city": addressList[group.value]["node"]["city"].toString(),
+        "province": addressList[group.value]["node"]["province"].toString(),
+        "country": addressList[group.value]["node"]["province"].toString(),
+        "zip": ""
+      },
+      "lineItems": [
+        for(var i=0;i<cartItems.length;i++){
+          {
+            "variantId": cartItems[i]["variantId"],
+            "quantity": cartItems[i]["quantity"],
+          }
+        }
+      ]
+    }
+  };
+  final HttpLink httpLink = HttpLink(
+    "https://32a2c56e6eeee31171cc4cb4349c2329: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@monark-clothings.myshopify.com/admin/api/2021-10/graphql.json",
+  );
+  GraphQLClient client = GraphQLClient(link: httpLink, cache: GraphQLCache());
+  final QueryOptions options = QueryOptions(
+      document: gql(createUserAccessToken), variables: orderVariables);
+  final QueryResult result = await client.query(options);
+
+  if (result.hasException) {
+    print(result.data);
+    print(result.hasException);
+    return "Server Error";
+  } else {
+    return result.data!["customer"]["orders"]["edges"];
+  }
+}

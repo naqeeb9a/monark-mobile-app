@@ -38,18 +38,19 @@ class Cart extends StatelessWidget {
                   ),
                   Obx(() {
                     return Flexible(
-                        child: (cartItems.length == 0)
-                            ? Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset("assets/emptyCart.png"),
-                                  SizedBox(
-                                    height: dynamicHeight(context, .02),
-                                  ),
-                                  Text("No Items in Cart")
-                                ],
-                              )
-                            : cartList());
+                      child: (cartItems.length == 0)
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset("assets/emptyCart.png"),
+                                SizedBox(
+                                  height: dynamicHeight(context, .02),
+                                ),
+                                Text("No Items in Cart")
+                              ],
+                            )
+                          : cartList(),
+                    );
                   }),
                   SizedBox(
                     height: dynamicHeight(context, .1),
@@ -114,6 +115,9 @@ Widget cartCard(
       ),
       decoration: BoxDecoration(
         color: myWhite,
+        borderRadius: BorderRadius.circular(
+          dynamicWidth(context, .03),
+        ),
         boxShadow: [
           BoxShadow(
             color: myBlack.withOpacity(.2),
@@ -128,11 +132,16 @@ Widget cartCard(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CachedNetworkImage(
-              imageUrl: cartItems[index]["imageUrl"],
-              height: dynamicHeight(context, .13),
-              width: dynamicWidth(context, .24),
-              fit: BoxFit.cover,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(
+                dynamicWidth(context, .03),
+              ),
+              child: CachedNetworkImage(
+                imageUrl: cartItems[index]["imageUrl"],
+                height: dynamicHeight(context, .13),
+                width: dynamicWidth(context, .24),
+                fit: BoxFit.cover,
+              ),
             ),
             Container(
               width: dynamicWidth(context, .4),
@@ -158,7 +167,8 @@ Widget cartCard(
                           ),
                         ),
                         TextSpan(
-                          text: cartItems[index]["price"].toString() +
+                          text: "Rs. " +
+                              cartItems[index]["price"].toString() +
                               " x " +
                               cartItems[index]["quantity"].toString(),
                           style: TextStyle(
@@ -174,14 +184,14 @@ Widget cartCard(
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "Total : Rs.",
+                          text: "Total : ",
                           style: TextStyle(
                             fontSize: dynamicWidth(context, .038),
                             color: myBlack,
                           ),
                         ),
                         TextSpan(
-                          text: cartItems[index]["total"].toString(),
+                          text: "Rs. " + cartItems[index]["total"].toString(),
                           style: TextStyle(
                             fontSize: dynamicWidth(context, .042),
                             color: myRed,

@@ -35,10 +35,14 @@ Widget inputTextField(context, label, myController,
         fontSize: dynamicWidth(context, .04),
       ),
       focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: myBlack),
+        borderSide: BorderSide(
+          color: myRed,
+        ),
       ),
       enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: myBlack),
+        borderSide: BorderSide(
+          color: myBlack,
+        ),
       ),
     ),
   );
@@ -104,7 +108,8 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
   );
 }
 
-Widget addressInput(context, text, hintText, type, {localAddressList}) {
+Widget addressInput(context, text, hintText, type,
+    {localAddressList, function}) {
   return Padding(
     padding: EdgeInsets.symmetric(
       vertical: dynamicHeight(context, .01),
@@ -113,6 +118,8 @@ Widget addressInput(context, text, hintText, type, {localAddressList}) {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       textInputAction: TextInputAction.next,
       keyboardType: type,
+      cursorWidth: 2.0,
+      cursorHeight: dynamicHeight(context, .032),
       decoration: InputDecoration(
         label: Text(
           text,
@@ -120,18 +127,18 @@ Widget addressInput(context, text, hintText, type, {localAddressList}) {
             color: Colors.grey,
           ),
         ),
+        contentPadding: EdgeInsets.symmetric(
+          vertical: dynamicHeight(context, .02),
+          horizontal: dynamicWidth(context, .03),
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
-            dynamicWidth(context, .02),
+            dynamicWidth(context, .026),
           ),
         ),
         hintText: hintText,
       ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return "Please complete this field";
-        }
-      },
+      validator: function == "" ? () {} : function,
       onSaved: (value) {
         localAddressList.add(value);
       },

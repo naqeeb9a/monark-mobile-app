@@ -80,89 +80,99 @@ class _AddAddressState extends State<AddAddress> {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            child: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    SizedBox(
-                      height: dynamicHeight(context, .02),
-                    ),
-                    rowText("Create Address", context),
-                    SizedBox(
-                      height: dynamicHeight(context, .014),
-                    ),
-                    addressInput(
-                      context,
-                      "First name",
-                      "Enter Your Name",
-                      TextInputType.name,
-                      localAddressList: localAddressList,
-                    ),
-                    addressInput(
-                      context,
-                      "Last name",
-                      "Enter Your Name",
-                      TextInputType.name,
-                      localAddressList: localAddressList,
-                    ),
-                    addressInput(
-                      context,
-                      "Address 1",
-                      "Add Your Address",
-                      TextInputType.streetAddress,
-                      localAddressList: localAddressList,
-                    ),
-                    addressInput(
-                      context,
-                      "Address 2",
-                      "Add Your Address",
-                      TextInputType.streetAddress,
-                      localAddressList: localAddressList,
-                    ),
-                    addressInput(
-                      context,
-                      "City",
-                      "Enter your city name",
-                      TextInputType.text,
-                      localAddressList: localAddressList,
-                    ),
-                    addressInput(
-                      context,
-                      "Province",
-                      "Enter the Province Name",
-                      TextInputType.text,
-                      localAddressList: localAddressList,
-                    ),
-                    addressInput(
-                      context,
-                      "Country",
-                      "Enter the Province Name",
-                      TextInputType.text,
-                      localAddressList: localAddressList,
-                    ),
-                    addressInput(
-                      context,
-                      "Postal Code",
-                      "Enter your Postal Code",
-                      TextInputType.phone,
-                      localAddressList: localAddressList,
-                    ),
-                    addressInput(
-                      context,
-                      "Phone Number",
-                      "Enter your Phone Number",
-                      TextInputType.phone,
-                      localAddressList: localAddressList,
-                    ),
-                    SizedBox(
-                      height: dynamicHeight(context, .1),
-                    )
-                  ],
+          Center(
+            child: Container(
+              height: dynamicHeight(context, 1),
+              width: dynamicWidth(context, .9),
+              child: SingleChildScrollView(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      SizedBox(
+                        height: dynamicHeight(context, .03),
+                      ),
+                      rowText("Create Address", context),
+                      SizedBox(
+                        height: dynamicHeight(context, .014),
+                      ),
+                      addressInput(context, "First name", "Enter Your Name",
+                          TextInputType.name,
+                          localAddressList: localAddressList,
+                          function: (value) {
+                        if (value!.isEmpty) {
+                          return "Please complete this field";
+                        }
+                      }),
+                      addressInput(context, "Last name", "Enter Your Name",
+                          TextInputType.name,
+                          localAddressList: localAddressList,
+                          function: (value) {
+                        if (value!.isEmpty) {
+                          return "Please complete this field";
+                        }
+                      }),
+                      addressInput(context, "Address 1", "Add Your Address",
+                          TextInputType.streetAddress,
+                          localAddressList: localAddressList,
+                          function: (value) {
+                        if (value!.isEmpty) {
+                          return "Please complete this field";
+                        }
+                      }),
+                      addressInput(
+                        context,
+                        "Address 2",
+                        "Add Your Address",
+                        TextInputType.streetAddress,
+                        localAddressList: localAddressList,
+                      ),
+                      addressInput(context, "City", "Enter your city name",
+                          TextInputType.text,
+                          localAddressList: localAddressList,
+                          function: (value) {
+                        if (value!.isEmpty) {
+                          return "Please complete this field";
+                        }
+                      }),
+                      addressInput(context, "Province",
+                          "Enter the Province Name", TextInputType.text,
+                          localAddressList: localAddressList,
+                          function: (value) {
+                        if (value!.isEmpty) {
+                          return "Please complete this field";
+                        }
+                      }),
+                      addressInput(context, "Country",
+                          "Enter the Province Name", TextInputType.text,
+                          localAddressList: localAddressList,
+                          function: (value) {
+                        if (value!.isEmpty) {
+                          return "Please complete this field";
+                        }
+                      }),
+                      addressInput(context, "Postal Code",
+                          "Enter your Postal Code", TextInputType.phone,
+                          localAddressList: localAddressList,
+                          function: (value) {
+                        if (value!.isEmpty) {
+                          return "Please complete this field";
+                        }
+                      }),
+                      addressInput(context, "Phone Number",
+                          "Enter your Phone Number", TextInputType.phone,
+                          localAddressList: localAddressList,
+                          function: (value) {
+                        if (value!.isEmpty) {
+                          return "Please complete this field";
+                        }
+                      }),
+                      SizedBox(
+                        height: dynamicHeight(context, .1),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

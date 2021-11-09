@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
     }
   }
 
-  var customerinfo;
+  var customerInfo;
 
   getUserData(accessToken) async {
     globalAccessToken = accessToken;
@@ -103,7 +103,7 @@ class _HomeState extends State<Home> {
             body: Center(
               child: JumpingDotsProgressIndicator(
                 numberOfDots: 5,
-                fontSize: dynamicWidth(context, .07),
+                fontSize: dynamicWidth(context, .08),
               ),
             ),
           )
@@ -123,7 +123,9 @@ class _HomeState extends State<Home> {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return Drawer(
                             child: (snapshot.data == "Server Error")
-                                ? Center(child: Text("Network Error"))
+                                ? Center(
+                                    child: Text("Network Error"),
+                                  )
                                 : drawerItems(context,
                                     customerInfo: snapshot.data,
                                     accessToken: globalAccessToken),
@@ -132,7 +134,7 @@ class _HomeState extends State<Home> {
                           return Drawer(
                             child: JumpingDotsProgressIndicator(
                               numberOfDots: 5,
-                              fontSize: dynamicWidth(context, .07),
+                              fontSize: dynamicWidth(context, .08),
                             ),
                           );
                         }
