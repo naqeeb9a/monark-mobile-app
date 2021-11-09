@@ -14,15 +14,15 @@ class DetailPage extends StatefulWidget {
   final dynamic description;
   final bool availableForSale;
 
-  const DetailPage(
-      {Key? key,
-      required this.image,
-      this.description,
-      this.array,
-      required this.variantProduct,
-      required this.text,
-      required this.availableForSale})
-      : super(key: key);
+  const DetailPage({
+    Key? key,
+    required this.image,
+    this.description,
+    this.array,
+    required this.variantProduct,
+    required this.text,
+    required this.availableForSale,
+  }) : super(key: key);
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -55,6 +55,7 @@ class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
+
     sizeList();
     variantIndex();
     selectedSize = sizeArray[0];
