@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
+import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
 import '../utils/config.dart';
 
@@ -49,18 +50,35 @@ Widget orderCards(snapshot) {
       itemCount: (snapshot as List).length,
       itemBuilder: (context, index) {
         return Container(
-          color: Colors.amber,
+          padding: EdgeInsets.all(dynamicWidth(context, 0.05)),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15), color: myGrey),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Order Number : " +
-                  snapshot[index]["node"]["orderNumber"].toString()),
-              Text("Email : " + snapshot[index]["node"]["email"].toString()),
+              Align(
+                alignment: Alignment.center,
+                child: Text("Order Number : " +
+                    snapshot[index]["node"]["orderNumber"].toString()),
+              ),
+              SizedBox(
+                height: dynamicHeight(context, 0.02),
+              ),
+              orderActualCard(
+                  context, snapshot[index]["node"]["lineItems"]["edges"]),
+              SizedBox(
+                height: dynamicHeight(context, 0.02),
+              ),
+              SizedBox(
+                height: dynamicHeight(context, 0.01),
+              ),
               Text("Status : " +
                   snapshot[index]["node"]["fulfillmentStatus"].toString()),
+              SizedBox(
+                height: dynamicHeight(context, 0.01),
+              ),
               Text("Cancelled : " +
                   snapshot[index]["node"]["cancelReason"].toString()),
-              orderActualCard(
-                  context, snapshot[index]["node"]["lineItems"]["edges"])
             ],
           ),
         );
@@ -72,25 +90,52 @@ Widget orderActualCard(context, snaphot) {
       itemCount: (snaphot as List).length,
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        return Container(
-          child: Row(
-            children: [
-              (snaphot[index]["node"]["variant"] == null)
-                  ? SizedBox()
-                  : CachedNetworkImage(
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            (snaphot[index]["node"]["variant"] == null)
+                ? Image.asset(
+                    "assets/Monark.png",
+                    height: dynamicHeight(context, 0.15),
+                    width: dynamicWidth(context, 0.2),
+                  )
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: CachedNetworkImage(
                       imageUrl: snaphot[index]["node"]["variant"]["product"]
                           ["images"]["edges"][0]["node"]["src"],
-                      height: 100,
-                      width: 100,
+                      fit: BoxFit.cover,
+                      height: dynamicHeight(context, 0.15),
+                      width: dynamicWidth(context, 0.2),
                     ),
-              Column(
+                  ),
+            SizedBox(
+              height: dynamicHeight(context, 0.15),
+              width: dynamicWidth(context, 0.4),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(snaphot[index]["node"]["title"]),
-                  Text(snaphot[index]["node"]["quantity"].toString()),
+                  Text(
+                    snaphot[index]["node"]["title"],
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  ),
+                  Text("Quantity : " +
+                      snaphot[index]["node"]["quantity"].toString()),
+                  (snaphot[index]["node"]["variant"] == null)
+                      ? Text("")
+                      : Text("Price : " +
+                          double.parse(snaphot[index]["node"]["variant"]
+                                      ["product"]["variants"]["edges"][0]
+                                  ["node"]["price"])
+                              .toInt()
+                              .toString()),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         );
       });
 }

@@ -98,7 +98,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    // getShopifyProducts();
     return (_loading == true)
         ? Scaffold(
             body: Center(
@@ -112,14 +111,14 @@ class _HomeState extends State<Home> {
             backgroundColor: myGrey,
             appBar: bar(context, false),
             drawer: SafeArea(
-              child: (widget.accessToken == "")
+              child: (globalAccessToken == "")
                   ? Drawer(
                       child: drawerItems(
                         context,
                       ),
                     )
                   : FutureBuilder(
-                      future: getUserData(widget.accessToken),
+                      future: getUserData(globalAccessToken),
                       builder: (context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return Drawer(

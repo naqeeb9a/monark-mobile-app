@@ -92,12 +92,18 @@ Widget cartList() {
   return ListView.builder(
     itemCount: cartItems.length,
     itemBuilder: (context, index) {
-      return cartCard(index, context,);
+      return cartCard(
+        index,
+        context,
+      );
     },
   );
 }
 
-Widget cartCard(index, context,) {
+Widget cartCard(
+  index,
+  context,
+) {
   return Padding(
     padding: EdgeInsets.symmetric(
       vertical: dynamicHeight(context, 0.01),
@@ -119,7 +125,7 @@ Widget cartCard(index, context,) {
       ),
       child: IntrinsicHeight(
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CachedNetworkImage(
@@ -168,7 +174,7 @@ Widget cartCard(index, context,) {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "Total : ",
+                          text: "Total : Rs.",
                           style: TextStyle(
                             fontSize: dynamicWidth(context, .038),
                             color: myBlack,
@@ -186,6 +192,15 @@ Widget cartCard(index, context,) {
                     ),
                   ),
                 ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: InkWell(
+                onTap: () {
+                  cartItems.remove(cartItems[index]);
+                },
+                child: Icon(Icons.close),
               ),
             ),
           ],

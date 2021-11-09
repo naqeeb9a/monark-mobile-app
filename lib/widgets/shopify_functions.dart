@@ -163,7 +163,8 @@ getUserOrders() async {
 {
     customer (customerAccessToken: "$globalAccessToken")
     {
-         orders(first:5){
+        id
+        orders(first:5){
              edges{
                  node{
                      orderNumber 
@@ -177,6 +178,13 @@ getUserOrders() async {
                                  quantity
                                  variant {
                                      product{
+                                         variants(first:1){
+                                        edges{
+                                        node{
+                                            price     
+                                          }
+                                        }
+                                        }
                                          images(first:1){
                                             edges{
                                                 node{
@@ -184,14 +192,14 @@ getUserOrders() async {
                                                 }
                                             }
                                     }
-                                  }
-                                }
-                            }
-                        }
+                                     }
+                                 }
+                             }
+                         }
                      }
                  }
              }
-         }
+         }     
     }
 }
  ''';
@@ -207,6 +215,7 @@ getUserOrders() async {
   final QueryResult result = await client.query(options);
 
   if (result.hasException) {
+    print(result.data);
     print(result.hasException);
     return "Server Error";
   } else {
