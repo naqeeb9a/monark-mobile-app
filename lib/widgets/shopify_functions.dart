@@ -57,6 +57,7 @@ getShopifyProducts() async {
                     sku
                     compareAtPrice
                     requiresShipping
+                    availableForSale
                 }
             }
         }
@@ -116,6 +117,7 @@ getShopifyCollection(handle) async {
                     sku
                     compareAtPrice
                     requiresShipping
+                    availableForSale
                 }
             }
         }

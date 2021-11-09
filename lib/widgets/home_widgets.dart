@@ -286,7 +286,8 @@ Widget basicCards(context, imageUrl, text, availableForSale,
                       ),
                     ),
                   ],
-                ));
+                ),
+        );
 }
 
 Widget internalWidgetCard(context, imageUrl, variantProduct, text) {

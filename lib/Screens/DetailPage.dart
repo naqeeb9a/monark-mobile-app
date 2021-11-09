@@ -31,13 +31,33 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   bool _expanded = true;
   String selectedSize = "";
-  int priceIndex = 0, skuIndex = 0;
+  int productIndex = 0;
   var quantity = 1.obs;
+  List sizeArray = [];
+
+  sizeList() {
+    for (int i = 0; i < widget.array.length; i++) {
+      if (widget.variantProduct[i]["node"]["availableForSale"] == true) {
+        sizeArray.add(widget.array[i]);
+      }
+    }
+  }
+
+  variantIndex() {
+    for (int j = 0; j < widget.array.length; j++) {
+      if (widget.variantProduct[j]["node"]["availableForSale"] == true) {
+        productIndex = j;
+        break;
+      }
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    selectedSize = widget.array[0];
+    sizeList();
+    variantIndex();
+    selectedSize = sizeArray[0];
   }
 
   @override
@@ -107,7 +127,7 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                       child: Text(
                         "SKU : " +
-                            widget.variantProduct[skuIndex]["node"]["sku"]
+                            widget.variantProduct[productIndex]["node"]["sku"]
                                 .toString(),
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
@@ -118,17 +138,19 @@ class _DetailPageState extends State<DetailPage> {
                     SizedBox(
                       height: dynamicHeight(context, 0.02),
                     ),
-                    (widget.variantProduct[priceIndex]["node"]
+                    (widget.variantProduct[productIndex]["node"]
                                 ["compareAtPrice"] ==
-                            widget.variantProduct[priceIndex]["node"]["price"])
+                            widget.variantProduct[productIndex]["node"]
+                                ["price"])
                         ? Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: dynamicWidth(context, .04),
                             ),
                             child: Text(
                               "Rs. " +
-                                  double.parse(widget.variantProduct[priceIndex]
-                                          ["node"]["price"])
+                                  double.parse(
+                                          widget.variantProduct[productIndex]
+                                              ["node"]["price"])
                                       .toInt()
                                       .toString(),
                               style: TextStyle(
@@ -149,7 +171,7 @@ class _DetailPageState extends State<DetailPage> {
                                     Text(
                                       "Rs. " +
                                           double.parse(widget.variantProduct[
-                                                      priceIndex]["node"]
+                                                      productIndex]["node"]
                                                   ["compareAtPrice"])
                                               .toInt()
                                               .toString(),
@@ -166,7 +188,8 @@ class _DetailPageState extends State<DetailPage> {
                                     Text(
                                       "Rs. " +
                                           double.parse(widget.variantProduct[
-                                                  priceIndex]["node"]["price"])
+                                                      productIndex]["node"]
+                                                  ["price"])
                                               .toInt()
                                               .toString(),
                                       style: TextStyle(
@@ -268,7 +291,8 @@ class _DetailPageState extends State<DetailPage> {
                     (widget.array.toString().contains("Default") ||
                             widget.array == "")
                         ? Container()
-                        : sizeOptions(context, widget.array),
+                        : sizeOptions(
+                            context, sizeArray, widget.variantProduct),
                     (widget.array.toString().contains("Default") ||
                             widget.array == "")
                         ? Container()
@@ -411,13 +435,13 @@ class _DetailPageState extends State<DetailPage> {
             bottomButton(
               context,
               widget.image[0]["node"]["src"],
-              double.parse(widget.variantProduct[priceIndex]["node"]["price"])
+              double.parse(widget.variantProduct[productIndex]["node"]["price"])
                   .toInt()
                   .toString(),
               widget.text,
               quantity,
-              widget.variantProduct[skuIndex]["node"]["sku"],
-              widget.variantProduct[skuIndex]["node"]["id"],
+              widget.variantProduct[productIndex]["node"]["sku"],
+              widget.variantProduct[productIndex]["node"]["id"],
             )
           ],
         ),
@@ -425,7 +449,7 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
-  Widget sizeOptions(context, array, {function}) {
+  Widget sizeOptions(context, array, variantProduct, {function}) {
     return Container(
       height: dynamicHeight(context, .06),
       child: Row(
@@ -442,8 +466,7 @@ class _DetailPageState extends State<DetailPage> {
                 onTap: () {
                   setState(() {
                     selectedSize = array[index];
-                    priceIndex = index;
-                    skuIndex = index;
+                    productIndex = index;
                   });
                 },
                 child: Ink(

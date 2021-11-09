@@ -81,6 +81,7 @@ getSearchResults(query) async {
                     sku
                     compareAtPrice
                     requiresShipping
+                    availableForSale
                 }
             }
         }

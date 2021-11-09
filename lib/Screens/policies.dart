@@ -159,17 +159,12 @@ class _PoliciesPageState extends State<PoliciesPage> {
 }
 
 Widget bulletText(context, text, {bold}) {
-  return Expanded(
-    child: Column(
-      children: [
-        Text(
-          "\• " + text,
-          style: TextStyle(
-            fontSize: dynamicWidth(context, .044),
-            fontWeight: bold == true ? FontWeight.bold : FontWeight.normal,
-          ),
-        ),
-      ],
+  return Text(
+    "\• " + text,
+    style: TextStyle(
+      fontSize: dynamicWidth(context, .044),
+      fontWeight: bold == true ? FontWeight.bold : FontWeight.normal,
     ),
+    maxLines: 5,
   );
 }
