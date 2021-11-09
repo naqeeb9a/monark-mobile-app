@@ -89,8 +89,8 @@ class _AddressPageState extends State<AddressPage> {
                       : addressListBuilder(context),
                   SizedBox(
                     height: widget.check == true
-                        ? dynamicHeight(context, .3)
-                        : dynamicHeight(context, .16),
+                        ? dynamicHeight(context, .1)
+                        : dynamicHeight(context, .17),
                   )
                 ],
               ),
