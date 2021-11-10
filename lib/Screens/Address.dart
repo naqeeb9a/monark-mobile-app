@@ -172,7 +172,9 @@ class _AddressPageState extends State<AddressPage> {
           print(snapshot.data);
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.data == "Server Error") {
-              return Center(child: Text("Server Error"));
+              return Center(
+                child: Text("Server Error"),
+              );
             } else {
               return (snapshot.data == null)
                   ? Column(
@@ -189,7 +191,7 @@ class _AddressPageState extends State<AddressPage> {
                       ],
                     )
                   : ListView.builder(
-                      itemCount: (snapshot.data as List).length,
+                      itemCount: (snapshot.data as List).length ~/ 2.0,
                       itemBuilder: (context, index) {
                         addressList.add(snapshot.data[index]);
                         return Padding(

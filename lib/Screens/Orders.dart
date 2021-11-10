@@ -61,6 +61,7 @@ Widget orderCards(snapshot) {
           ),
           margin: EdgeInsets.symmetric(
             vertical: dynamicHeight(context, .02),
+            horizontal: dynamicWidth(context, .03),
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(
