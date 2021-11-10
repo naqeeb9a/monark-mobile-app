@@ -35,9 +35,6 @@ class _OrdersState extends State<Orders> {
               height: 20,
             ),
             getOrderCards(),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 9,
-            )
           ],
         ),
       ),
@@ -51,6 +48,7 @@ Widget orderCards(snapshot) {
       itemBuilder: (context, index) {
         return Container(
           padding: EdgeInsets.all(dynamicWidth(context, 0.05)),
+          margin: EdgeInsets.symmetric(vertical: 20),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15), color: myGrey),
           child: Column(
@@ -87,55 +85,59 @@ Widget orderCards(snapshot) {
 
 Widget orderActualCard(context, snaphot) {
   return ListView.builder(
+      physics: NeverScrollableScrollPhysics(),
       itemCount: (snaphot as List).length,
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            (snaphot[index]["node"]["variant"] == null)
-                ? Image.asset(
-                    "assets/Monark.png",
-                    height: dynamicHeight(context, 0.15),
-                    width: dynamicWidth(context, 0.2),
-                  )
-                : ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: CachedNetworkImage(
-                      imageUrl: snaphot[index]["node"]["variant"]["product"]
-                          ["images"]["edges"][0]["node"]["src"],
-                      fit: BoxFit.cover,
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              (snaphot[index]["node"]["variant"] == null)
+                  ? Image.asset(
+                      "assets/Monark.png",
                       height: dynamicHeight(context, 0.15),
                       width: dynamicWidth(context, 0.2),
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: CachedNetworkImage(
+                        imageUrl: snaphot[index]["node"]["variant"]["product"]
+                            ["images"]["edges"][0]["node"]["src"],
+                        fit: BoxFit.cover,
+                        height: dynamicHeight(context, 0.15),
+                        width: dynamicWidth(context, 0.2),
+                      ),
                     ),
-                  ),
-            SizedBox(
-              height: dynamicHeight(context, 0.15),
-              width: dynamicWidth(context, 0.4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    snaphot[index]["node"]["title"],
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                  ),
-                  Text("Quantity : " +
-                      snaphot[index]["node"]["quantity"].toString()),
-                  (snaphot[index]["node"]["variant"] == null)
-                      ? Text("")
-                      : Text("Price : " +
-                          double.parse(snaphot[index]["node"]["variant"]
-                                      ["product"]["variants"]["edges"][0]
-                                  ["node"]["price"])
-                              .toInt()
-                              .toString()),
-                ],
+              SizedBox(
+                height: dynamicHeight(context, 0.15),
+                width: dynamicWidth(context, 0.4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      snaphot[index]["node"]["title"],
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                    Text("Quantity : " +
+                        snaphot[index]["node"]["quantity"].toString()),
+                    (snaphot[index]["node"]["variant"] == null)
+                        ? Text("")
+                        : Text("Price : " +
+                            double.parse(snaphot[index]["node"]["variant"]
+                                        ["product"]["variants"]["edges"][0]
+                                    ["node"]["price"])
+                                .toInt()
+                                .toString()),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       });
 }

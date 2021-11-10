@@ -89,22 +89,16 @@ class Cart extends StatelessWidget {
   }
 }
 
-Widget cartList() {
+Widget cartList({check}) {
   return ListView.builder(
     itemCount: cartItems.length,
     itemBuilder: (context, index) {
-      return cartCard(
-        index,
-        context,
-      );
+      return cartCard(index, context, check: check);
     },
   );
 }
 
-Widget cartCard(
-  index,
-  context,
-) {
+Widget cartCard(index, context, {check}) {
   return Padding(
     padding: EdgeInsets.symmetric(
       vertical: dynamicHeight(context, 0.01),
@@ -144,7 +138,9 @@ Widget cartCard(
               ),
             ),
             Container(
-              width: dynamicWidth(context, .4),
+              width: (check == true)
+                  ? dynamicWidth(context, 0.5)
+                  : dynamicWidth(context, .4),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -204,15 +200,17 @@ Widget cartCard(
                 ],
               ),
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: InkWell(
-                onTap: () {
-                  cartItems.remove(cartItems[index]);
-                },
-                child: Icon(Icons.close),
-              ),
-            ),
+            (check == true)
+                ? Container()
+                : Align(
+                    alignment: Alignment.topRight,
+                    child: InkWell(
+                      onTap: () {
+                        cartItems.remove(cartItems[index]);
+                      },
+                      child: Icon(Icons.close),
+                    ),
+                  ),
           ],
         ),
       ),

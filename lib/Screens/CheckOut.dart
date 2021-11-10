@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
+import 'package:graphql/client.dart';
 import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/Confirmation.dart';
 import 'package:monark_app/utils/config.dart';
@@ -13,7 +11,8 @@ import 'package:monark_app/widgets/home_widgets.dart';
 import 'Payment.dart';
 
 class CheckOut extends StatelessWidget {
-  const CheckOut({Key? key}) : super(key: key);
+  final String orderId;
+  const CheckOut({Key? key, required this.orderId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,7 @@ class CheckOut extends StatelessWidget {
                             Text("No Items in Cart")
                           ],
                         )
-                      : cartList();
+                      : cartList(check: true);
                 })),
                 Divider(
                   thickness: 2,
@@ -116,16 +115,16 @@ class CheckOut extends StatelessWidget {
             ),
           ),
           bottomButton1(context, "Buy", () async {
-            var response = await orderItems();
-            if (response == 201) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ConfirmationPage()));
-            } else {
+            var response = await orderItems(orderId);
+            if (response == null) {
               var snackBar = SnackBar(
                 content: Text("Try again Order not placed"),
                 duration: const Duration(milliseconds: 1000),
               );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            } else {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ConfirmationPage()));
             }
           })
         ],
@@ -134,41 +133,51 @@ class CheckOut extends StatelessWidget {
   }
 }
 
-orderItems() async {
-  for (var i = 0; i < cartItems.length; i++) {
-    var iddddd = base64Decode(cartItems[i]["variantId"]);
-    var a = utf8.decode(iddddd);
-    var aStr = a.replaceAll(new RegExp(r'[^0-9]'), '');
-    var aInt = int.parse(aStr);
-    var response = await http.post(
-        Uri.parse(
-            "https://32a2c56e6eeee31171cc4cb4349c2329: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@monark-clothings.myshopify.com/admin/api/2021-10/orders.json"),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          "order": {
-            "financial_status": "pending",
-            "processing_method": "manual",
-            "shipping_lines": [
-              {
-                "price": "0",
-                "title": "Cash on Delivery",
-                "source": "Lahore_post"
-              }
-            ],
-            "tags": "ordered via mobile application",
-            "line_items": [
-              {
-                "sku": cartItems[i]["sku"],
-                "title": cartItems[i]["title"],
-                "price": cartItems[i]["price"],
-                "varient_id": aInt,
-                "quantity": cartItems[i]["quantity"]
-              }
-            ]
-          }
-        }));
-    print(response.statusCode);
-    print(response.body);
-    return response.statusCode;
+orderItems(orderId) async {
+  var createUserAccessToken = r'''
+mutation draftOrderComplete($id: ID!) {
+  draftOrderComplete(id: $id) {
+    userErrors {
+      field
+      message
+    }
+    draftOrder {
+     id
+     name
+     status
+     subtotalPrice
+     totalPrice
+     customer{
+         displayName
+         id
+         ordersCount
+         defaultAddress{
+             address1
+             city
+         }
+     }
+     billingAddress{
+         address1
+         city
+     }
+    }
+  }
+}
+ ''';
+  var orderVariables = {"id": "$orderId", "paymentPending": true};
+  final HttpLink httpLink = HttpLink(
+    "https://32a2c56e6eeee31171cc4cb4349c2329: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@monark-clothings.myshopify.com/admin/api/2021-10/graphql.json",
+  );
+  GraphQLClient client = GraphQLClient(link: httpLink, cache: GraphQLCache());
+  final QueryOptions options = QueryOptions(
+      document: gql(createUserAccessToken), variables: orderVariables);
+  final QueryResult result = await client.query(options);
+
+  if (result.hasException) {
+    print(result.hasException);
+    return "Server Error";
+  } else {
+    print(result.data!["draftOrderComplete"]["draftOrder"]["id"]);
+    return result.data!["draftOrderComplete"]["draftOrder"]["id"];
   }
 }

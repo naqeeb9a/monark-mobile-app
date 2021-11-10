@@ -52,6 +52,7 @@ class _HomeState extends State<Home> {
       setState(() {
         widget.accessToken = saveUser.getString("loginInfo");
         globalAccessToken = widget.accessToken;
+        // print(globalAccessToken);
         _loading = false;
       });
     }
@@ -92,6 +93,8 @@ class _HomeState extends State<Home> {
       print(result.hasException);
       return "Server Error";
     } else {
+      id = result.data!["customer"]["id"];
+      checkOutEmail = result.data!["customer"]["email"];
       return result.data!["customer"];
     }
   }

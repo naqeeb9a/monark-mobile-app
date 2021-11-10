@@ -4,6 +4,7 @@ import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
+import 'package:monark_app/widgets/shopify_functions.dart';
 
 import '../utils/config.dart';
 
@@ -12,7 +13,6 @@ class Payment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(cartItems);
     var subtotal = 0;
     for (var u in cartItems) {
       subtotal += int.parse(u["total"].toString());
@@ -56,14 +56,22 @@ class Payment extends StatelessWidget {
           ),
           bottomButton2(
               context, "Cash On Delivery", Icons.delivery_dining_outlined),
-          bottomButton1(context, "CheckOut", () {
-
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CheckOut(),
-              ),
-            );
+          bottomButton1(context, "CheckOut", () async {
+            var response = await createDraftOrders();
+            if (response == null || response == "Server Error") {
+              print("Error");
+              print(response);
+            } else {
+              print(response);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CheckOut(
+                    orderId: response,
+                  ),
+                ),
+              );
+            }
           })
         ],
       ),

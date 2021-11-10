@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:graphql/client.dart';
 import 'package:monark_app/utils/config.dart';
 
@@ -227,7 +229,15 @@ getUserOrders() async {
   }
 }
 
-createDraftOrders(checkOutAddress, variantId, quantity) async {
+createDraftOrders() async {
+  var localOrderList = [];
+  for (var i = 0; i < cartItems.length; i++) {
+    localOrderList.add({
+      "variantId":
+          utf8.decode(base64Decode(cartItems[i]["variantId"])).toString(),
+      "quantity": (cartItems[i]["quantity"])
+    });
+  }
   var createUserAccessToken = r'''
 mutation draftOrderCreate($input: DraftOrderInput!) {
   draftOrderCreate(input: $input) {
@@ -254,51 +264,32 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
          address1
          city
      }
-     order{    
-        billingAddressMatchesShippingAddress
-        confirmed
-        closed
-        fullyPaid
-        id
-     }
     }
   }
 }
  ''';
   var orderVariables = {
     "input": {
-      "customerId": "$id",
+      "customerId": utf8.decode(base64Decode(id)).toString(),
       "note": "Test draft order",
       "email": "$checkOutEmail",
       "tags": ["Ordered via mobile application ANDROID"],
-      "shippingLine": {
-        "title": "Cash on Delivery",
-        "source": "Lahore_post",
-        "price": "0"
-      },
+      "shippingLine": {"title": "Cash on Delivery", "price": 0},
       "shippingAddress": {
         "address1": addressList[group.value]["node"]["address1"].toString(),
         "city": addressList[group.value]["node"]["city"].toString(),
         "province": addressList[group.value]["node"]["province"].toString(),
-        "country": addressList[group.value]["node"]["province"].toString(),
-        "zip": ""
+        "country": addressList[group.value]["node"]["country"].toString(),
+        "zip": addressList[group.value]["node"]["zip"].toString()
       },
       "billingAddress": {
         "address1": addressList[group.value]["node"]["address1"].toString(),
         "city": addressList[group.value]["node"]["city"].toString(),
         "province": addressList[group.value]["node"]["province"].toString(),
-        "country": addressList[group.value]["node"]["province"].toString(),
-        "zip": ""
+        "country": addressList[group.value]["node"]["country"].toString(),
+        "zip": addressList[group.value]["node"]["zip"].toString()
       },
-      "lineItems": [
-        for (var i = 0; i < cartItems.length; i++)
-          {
-            {
-              "variantId": cartItems[i]["variantId"],
-              "quantity": cartItems[i]["quantity"],
-            }
-          }
-      ]
+      "lineItems": localOrderList
     }
   };
   final HttpLink httpLink = HttpLink(
@@ -310,10 +301,10 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
   final QueryResult result = await client.query(options);
 
   if (result.hasException) {
-    print(result.data);
     print(result.hasException);
     return "Server Error";
   } else {
-    return result.data!["customer"]["orders"]["edges"];
+    print(result.data!["draftOrderCreate"]["draftOrder"]["id"]);
+    return result.data!["draftOrderCreate"]["draftOrder"]["id"];
   }
 }

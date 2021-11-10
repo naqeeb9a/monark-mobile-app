@@ -37,6 +37,7 @@ class _AddressPageState extends State<AddressPage> {
                      country
                      firstName
                      lastName
+                     zip
                  }
              } 
          }
