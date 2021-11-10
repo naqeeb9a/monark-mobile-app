@@ -90,7 +90,7 @@ Widget orderActualCard(context, snaphot) {
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
+          padding: const EdgeInsets.symmetric(vertical: 20),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

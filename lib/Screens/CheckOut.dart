@@ -135,31 +135,13 @@ class CheckOut extends StatelessWidget {
 
 orderItems(orderId) async {
   var createUserAccessToken = r'''
-mutation draftOrderComplete($id: ID!) {
-  draftOrderComplete(id: $id) {
-    userErrors {
-      field
-      message
-    }
+mutation draftOrderComplete($id: ID!, $paymentPending: Boolean) {
+  draftOrderComplete(id: $id, paymentPending: $paymentPending) {
     draftOrder {
-     id
-     name
-     status
-     subtotalPrice
-     totalPrice
-     customer{
-         displayName
-         id
-         ordersCount
-         defaultAddress{
-             address1
-             city
-         }
-     }
-     billingAddress{
-         address1
-         city
-     }
+      id
+      order {
+        id
+      }
     }
   }
 }

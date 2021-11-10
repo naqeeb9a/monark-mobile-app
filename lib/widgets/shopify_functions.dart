@@ -274,6 +274,8 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
       "note": "Test draft order",
       "email": "$checkOutEmail",
       "tags": ["Ordered via mobile application ANDROID"],
+      "financial_status": "pending",
+      "processing_method": "manual",
       "shippingLine": {"title": "Cash on Delivery", "price": 0},
       "shippingAddress": {
         "address1": addressList[group.value]["node"]["address1"].toString(),
