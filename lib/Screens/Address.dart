@@ -192,84 +192,77 @@ class _AddressPageState extends State<AddressPage> {
                       itemCount: (snapshot.data as List).length,
                       itemBuilder: (context, index) {
                         addressList.add(snapshot.data[index]);
-                        if (addressList.contains(
-                            snapshot.data[index]["node"]["address1"])) {
-                          return SizedBox();
-                        } else {
-                          return Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: dynamicHeight(context, 0.01),
-                            ),
-                            child: Row(
-                              children: [
-                                Obx(() {
-                                  return Radio(
-                                      value: index,
-                                      groupValue: int.parse(group.toString()),
-                                      onChanged: (value) {
-                                        setState(() {
-                                          group.value = value as int;
-                                        });
+                        return Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: dynamicHeight(context, 0.01),
+                          ),
+                          child: Row(
+                            children: [
+                              Obx(() {
+                                return Radio(
+                                    value: index,
+                                    groupValue: int.parse(group.toString()),
+                                    onChanged: (value) {
+                                      setState(() {
+                                        group.value = value as int;
                                       });
-                                }),
-                                Container(
-                                  width: dynamicWidth(context, 0.75),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(width: 1),
-                                    borderRadius: BorderRadius.circular(
-                                      dynamicWidth(context, 0.04),
-                                    ),
-                                  ),
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: dynamicWidth(context, 0.04),
-                                    vertical: dynamicHeight(context, .01),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        snapshot.data[index]["node"]
-                                            ["address1"],
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          fontSize: dynamicWidth(context, 0.06),
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        maxLines: 2,
-                                      ),
-                                      SizedBox(
-                                        height: dynamicHeight(context, .01),
-                                      ),
-                                      Text(
-                                        snapshot.data[index]["node"]
-                                                ["firstName"] +
-                                            " " +
-                                            snapshot.data[index]["node"]
-                                                ["lastName"],
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          fontSize: dynamicWidth(context, 0.05),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: dynamicHeight(context, .01),
-                                      ),
-                                      Text(
-                                        snapshot.data[index]["node"]["city"],
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: myBlack,
-                                          fontSize: dynamicWidth(context, 0.04),
-                                        ),
-                                      )
-                                    ],
+                                    });
+                              }),
+                              Container(
+                                width: dynamicWidth(context, 0.75),
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 1),
+                                  borderRadius: BorderRadius.circular(
+                                    dynamicWidth(context, 0.04),
                                   ),
                                 ),
-                              ],
-                            ),
-                          );
-                        }
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: dynamicWidth(context, 0.04),
+                                  vertical: dynamicHeight(context, .01),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      snapshot.data[index]["node"]["address1"],
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontSize: dynamicWidth(context, 0.06),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      maxLines: 2,
+                                    ),
+                                    SizedBox(
+                                      height: dynamicHeight(context, .01),
+                                    ),
+                                    Text(
+                                      snapshot.data[index]["node"]
+                                              ["firstName"] +
+                                          " " +
+                                          snapshot.data[index]["node"]
+                                              ["lastName"],
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontSize: dynamicWidth(context, 0.05),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: dynamicHeight(context, .01),
+                                    ),
+                                    Text(
+                                      snapshot.data[index]["node"]["city"],
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: myBlack,
+                                        fontSize: dynamicWidth(context, 0.04),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                     );
             }
