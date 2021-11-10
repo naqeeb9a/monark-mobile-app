@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
+import 'package:monark_app/widgets/media_query.dart';
 
 class ConfirmationPage extends StatelessWidget {
   const ConfirmationPage({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class ConfirmationPage extends StatelessWidget {
         return false;
       },
       child: Scaffold(
-        backgroundColor: myWhite,
+        backgroundColor: myGrey,
         body: SafeArea(
           child: Container(
             height: MediaQuery.of(context).size.height,
@@ -25,23 +26,25 @@ class ConfirmationPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     CircleAvatar(
-                      radius: MediaQuery.of(context).size.width / 4,
+                      radius: dynamicWidth(context, .26),
                       backgroundColor: myWhite,
                       child: Image.asset(
                         "assets/thumb.png",
-                        width: MediaQuery.of(context).size.width / 2.3,
+                        width: dynamicWidth(context, .4),
                       ),
                     ),
                     SizedBox(
-                      height: 40,
+                      height: dynamicHeight(context, .04),
                     ),
-                    Text("Confirmation",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                        )),
+                    Text(
+                      "Confirmation",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: dynamicWidth(context, .08),
+                      ),
+                    ),
                     SizedBox(
-                      height: 20,
+                      height: dynamicHeight(context, .02),
                     ),
                     Text(
                       "Your Order has been placed\n\nSuccessfully",

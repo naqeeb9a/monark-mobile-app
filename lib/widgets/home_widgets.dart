@@ -141,42 +141,26 @@ Widget cardList(context, {function}) {
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                if (snapshot.data[index]["node"]["availableForSale"] == true) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: dynamicWidth(context, 0.018),
-                    ),
-                    child: basicCards(
-                      context,
-                      snapshot.data[index]["node"]["images"]["edges"],
-                      snapshot.data[index]["node"]["title"],
-                      snapshot.data[index]["node"]["availableForSale"],
-                      variantProduct: snapshot.data[index]["node"]["variants"]
-                          ["edges"],
-                      sizeOption: snapshot.data[index]["node"]["options"][0]
-                          ["values"],
-                      description: snapshot.data[index]["node"]["description"],
-                    ),
-                  );
-                } else {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: dynamicWidth(context, 0.018),
-                    ),
-                    child: basicCards(
-                        context,
-                        snapshot.data[index]["node"]["images"]["edges"],
-                        snapshot.data[index]["node"]["title"],
-                        snapshot.data[index]["node"]["availableForSale"],
-                        variantProduct: snapshot.data[index]["node"]["variants"]
-                            ["edges"],
-                        sizeOption: snapshot.data[index]["node"]["options"][0]
-                            ["values"],
-                        description: snapshot.data[index]["node"]
-                            ["description"],
-                        check: true),
-                  );
-                }
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: dynamicWidth(context, 0.018),
+                  ),
+                  child: basicCards(
+                    context,
+                    snapshot.data[index]["node"]["images"]["edges"],
+                    snapshot.data[index]["node"]["title"],
+                    snapshot.data[index]["node"]["availableForSale"],
+                    variantProduct: snapshot.data[index]["node"]["variants"]
+                        ["edges"],
+                    sizeOption: snapshot.data[index]["node"]["options"][0]
+                        ["values"],
+                    description: snapshot.data[index]["node"]["description"],
+                    check:
+                        snapshot.data[index]["node"]["availableForSale"] == true
+                            ? false
+                            : true,
+                  ),
+                );
               },
             ),
           );
@@ -220,7 +204,8 @@ Widget basicCards(context, imageUrl, text, availableForSale,
           child: Stack(
             alignment: Alignment.center,
             children: [
-              internalWidgetCard(context, imageUrl, variantProduct, text),
+              internalWidgetCard(
+                  context, imageUrl, variantProduct, text, sizeOption),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -254,10 +239,12 @@ Widget basicCards(context, imageUrl, text, availableForSale,
           },
           child: (variantProduct[0]["node"]["compareAtPrice"] ==
                   variantProduct[0]["node"]["price"])
-              ? internalWidgetCard(context, imageUrl, variantProduct, text)
+              ? internalWidgetCard(
+                  context, imageUrl, variantProduct, text, sizeOption)
               : Stack(
                   children: [
-                    internalWidgetCard(context, imageUrl, variantProduct, text),
+                    internalWidgetCard(
+                        context, imageUrl, variantProduct, text, sizeOption),
                     Positioned(
                       right: dynamicWidth(context, .02),
                       top: dynamicHeight(context, .02),
@@ -290,7 +277,7 @@ Widget basicCards(context, imageUrl, text, availableForSale,
         );
 }
 
-Widget internalWidgetCard(context, imageUrl, variantProduct, text) {
+Widget internalWidgetCard(context, imageUrl, variantProduct, text, sizeOption) {
   return Container(
     width: dynamicWidth(context, 0.41),
     child: Column(
@@ -340,6 +327,42 @@ Widget internalWidgetCard(context, imageUrl, variantProduct, text) {
               fontSize: dynamicWidth(context, .034),
             ),
           ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              "Size :",
+              style: TextStyle(
+                color: myRed,
+                fontSize: dynamicWidth(context, .03),
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Flexible(
+              child: Container(
+                height: dynamicHeight(context, .016),
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: sizeOption.length,
+                  itemBuilder: (context, i) {
+                    if (variantProduct[i]["node"]["availableForSale"] == true) {
+                      return Text(
+                        sizeOption[i].toString() == "Default Title"
+                            ? " - "
+                            : " " + sizeOption[i] + " ",
+                        style: TextStyle(
+                          color: myRed,
+                          fontSize: dynamicWidth(context, .03),
+                        ),
+                      );
+                    }
+                    return SizedBox();
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     ),
