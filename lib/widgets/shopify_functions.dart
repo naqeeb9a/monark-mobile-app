@@ -166,7 +166,7 @@ getUserOrders() async {
     customer (customerAccessToken: "$globalAccessToken")
     {
         id
-        orders(first:5){
+        orders(first:10){
              edges{
                  node{
                      orderNumber 
