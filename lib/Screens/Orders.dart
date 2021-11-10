@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
@@ -26,6 +25,7 @@ class _OrdersState extends State<Orders> {
       body: Center(
         child: Container(
           width: dynamicWidth(context, .9),
+          height: dynamicHeight(context, 1),
           child: Column(
             children: [
               SizedBox(
@@ -35,11 +35,9 @@ class _OrdersState extends State<Orders> {
               SizedBox(
                 height: dynamicHeight(context, .01),
               ),
-              Obx(() {
-                return Text(
-                  "Total Orders : " + orderQuantity.toString(),
-                );
-              }),
+              Text(
+                "Total Orders : " + orderQuantity.toString(),
+              ),
               SizedBox(
                 height: dynamicHeight(context, .01),
               ),
