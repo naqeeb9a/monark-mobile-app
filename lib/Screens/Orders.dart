@@ -5,7 +5,10 @@ import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
+
 import '../utils/config.dart';
+
+dynamic orderQuantity;
 
 // ignore: must_be_immutable
 class Orders extends StatefulWidget {
@@ -20,22 +23,29 @@ class _OrdersState extends State<Orders> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: bar2(context),
-      body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 25),
-        child: Column(
-          children: [
-            rowText("Orders", context),
-            SizedBox(
-              height: 20,
-            ),
-            Obx(() {
-              return Text("Total Orders : " + cartItems.length.toString());
-            }),
-            SizedBox(
-              height: 20,
-            ),
-            getOrderCards(),
-          ],
+      body: Center(
+        child: Container(
+          width: dynamicWidth(context, .9),
+          child: Column(
+            children: [
+              SizedBox(
+                height: dynamicHeight(context, .02),
+              ),
+              rowText("Orders", context),
+              SizedBox(
+                height: dynamicHeight(context, .01),
+              ),
+              Obx(() {
+                return Text(
+                  "Total Orders : " + orderQuantity.toString(),
+                );
+              }),
+              SizedBox(
+                height: dynamicHeight(context, .01),
+              ),
+              getOrderCards(),
+            ],
+          ),
         ),
       ),
     );
@@ -46,11 +56,28 @@ Widget orderCards(snapshot) {
   return ListView.builder(
       itemCount: (snapshot as List).length,
       itemBuilder: (context, index) {
+        orderQuantity = snapshot.length;
         return Container(
-          padding: EdgeInsets.all(dynamicWidth(context, 0.05)),
-          margin: EdgeInsets.symmetric(vertical: 20),
+          padding: EdgeInsets.all(
+            dynamicWidth(context, 0.03),
+          ),
+          margin: EdgeInsets.symmetric(
+            vertical: dynamicHeight(context, .02),
+          ),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15), color: myGrey),
+            borderRadius: BorderRadius.circular(
+              dynamicWidth(context, .04),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: myBlack.withOpacity(0.3),
+                spreadRadius: 2,
+                blurRadius: 6,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+            color: myWhite,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -63,20 +90,23 @@ Widget orderCards(snapshot) {
                 height: dynamicHeight(context, 0.02),
               ),
               orderActualCard(
-                  context, snapshot[index]["node"]["lineItems"]["edges"]),
-              SizedBox(
-                height: dynamicHeight(context, 0.02),
+                context,
+                snapshot[index]["node"]["lineItems"]["edges"],
               ),
               SizedBox(
                 height: dynamicHeight(context, 0.01),
               ),
-              Text("Status : " +
-                  snapshot[index]["node"]["fulfillmentStatus"].toString()),
+              Text(
+                "Status : " +
+                    snapshot[index]["node"]["fulfillmentStatus"].toString(),
+              ),
               SizedBox(
                 height: dynamicHeight(context, 0.01),
               ),
-              Text("Cancelled : " +
-                  snapshot[index]["node"]["cancelReason"].toString()),
+              Text(
+                "Cancelled : " +
+                    snapshot[index]["node"]["cancelReason"].toString(),
+              ),
             ],
           ),
         );
@@ -90,7 +120,9 @@ Widget orderActualCard(context, snaphot) {
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
+          padding: EdgeInsets.symmetric(
+            vertical: dynamicHeight(context, .02),
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
