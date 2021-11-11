@@ -320,19 +320,6 @@ Widget internalWidgetCard(context, imageUrl, variantProduct, text, sizeOption) {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            "Rs. " +
-                double.parse(variantProduct[0]["node"]["price"])
-                    .toInt()
-                    .toString(),
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: dynamicWidth(context, .034),
-            ),
-          ),
-        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -369,6 +356,19 @@ Widget internalWidgetCard(context, imageUrl, variantProduct, text, sizeOption) {
             ),
           ],
         ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Rs. " +
+                double.parse(variantProduct[0]["node"]["price"])
+                    .toInt()
+                    .toString(),
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: dynamicWidth(context, .034),
+            ),
+          ),
+        ),
       ],
     ),
   );
@@ -387,8 +387,10 @@ Widget floatingButton(context) {
     children: [
       SpeedDialChild(
         onTap: () {
+          print("object");
           launch(
-              "whatsapp://send?phone=+923036663017&text=https://monark.com.pk/ I'm interested in this product and I have a few questions. Can you help?");
+              "whatsapp://send?phone=+923036663017&text=https://monark.com.pk/ I'm "
+              "interested in this product and I have a few questions. Can you help?");
         },
         elevation: 2.0,
         child: CircleAvatar(
@@ -586,7 +588,7 @@ Widget sliderContainer(context, String image) {
       ),
       child: CachedNetworkImage(
         imageUrl: image,
-        fit: BoxFit.cover,
+        fit: BoxFit.fitHeight,
         placeholder: (context, string) {
           return Image.asset(
             "assets/loader.gif",
