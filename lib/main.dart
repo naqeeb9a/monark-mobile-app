@@ -8,6 +8,7 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: myRed,
+      systemNavigationBarColor: myRed,
     ),
   );
 }
