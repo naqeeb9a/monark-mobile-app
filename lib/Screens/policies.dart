@@ -44,7 +44,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
               ),
             ),
             SizedBox(
-              height: dynamicHeight(context, .06),
+              height: dynamicHeight(context, .08),
               child: AppBar(
                 backgroundColor: noColor,
                 elevation: 0.0,

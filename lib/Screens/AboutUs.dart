@@ -125,7 +125,11 @@ class AboutUs extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          launch("mailto:customercare@monark.com.pk");
+                          launch(
+                            "mailto:customercare@monark.com.pk",
+                            forceSafariVC: false,
+                            forceWebView: false,
+                          );
                         },
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -207,7 +211,10 @@ class AboutUs extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 launch(
-                                    "https://www.instagram.com/monarkpakistan/");
+                                  "https://www.instagram.com/monarkpakistan/",
+                                  forceSafariVC: false,
+                                  forceWebView: false,
+                                );
                               },
                               child: FaIcon(
                                 FontAwesomeIcons.instagram,
@@ -218,7 +225,10 @@ class AboutUs extends StatelessWidget {
                             InkWell(
                               onTap: () {
                                 launch(
-                                    "https://www.youtube.com/channel/UCo-RW5EuPY0iGOWWYJEkuFw");
+                                  "https://www.youtube.com/channel/UCo-RW5EuPY0iGOWWYJEkuFw",
+                                  forceSafariVC: false,
+                                  forceWebView: false,
+                                );
                               },
                               child: FaIcon(
                                 FontAwesomeIcons.youtube,

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:monark_app/Screens/Search.dart';
@@ -90,7 +89,6 @@ class _HomeState extends State<Home> {
     final QueryResult result = await client.query(options);
 
     if (result.hasException) {
-      print(result.hasException);
       return "Server Error";
     } else {
       id = result.data!["customer"]["id"];
@@ -127,7 +125,11 @@ class _HomeState extends State<Home> {
                           return Drawer(
                             child: (snapshot.data == "Server Error")
                                 ? Center(
-                                    child: Text("Network Error"),
+                                    child: SizedBox(
+                                      height: dynamicHeight(context, .25),
+                                      child: Image.asset(
+                                          "assets/network_error.png"),
+                                    ),
                                   )
                                 : drawerItems(context,
                                     customerInfo: snapshot.data,
@@ -173,17 +175,17 @@ class _HomeState extends State<Home> {
                         SizedBox(
                           height: dynamicHeight(context, .02),
                         ),
-                        homeSlider(
-                          context,
-                          dynamicHeight(context, .22),
-                          sliderImage.length,
-                          .9,
-                          sliderImage,
-                          true,
-                        ),
-                        SizedBox(
-                          height: dynamicHeight(context, .02),
-                        ),
+                        // homeSlider(
+                        //   context,
+                        //   dynamicHeight(context, .22),
+                        //   sliderImage.length,
+                        //   .9,
+                        //   sliderImage,
+                        //   true,
+                        // ),
+                        // SizedBox(
+                        //   height: dynamicHeight(context, .02),
+                        // ),
                         rowText(
                           "Categories",
                           context,
