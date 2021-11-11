@@ -135,7 +135,7 @@ Widget cardList(context, {function}) {
           );
         } else {
           return SizedBox(
-            height: dynamicHeight(context, .35),
+            height: dynamicHeight(context, .4),
             child: ListView.builder(
               itemCount: (snapshot.data as List).length,
               shrinkWrap: true,
