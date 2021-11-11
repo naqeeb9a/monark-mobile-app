@@ -7,9 +7,6 @@ import 'package:monark_app/widgets/shopify_functions.dart';
 
 import '../utils/config.dart';
 
-dynamic orderQuantity;
-
-// ignore: must_be_immutable
 class Orders extends StatefulWidget {
   Orders({Key? key}) : super(key: key);
 
@@ -18,6 +15,7 @@ class Orders extends StatefulWidget {
 }
 
 class _OrdersState extends State<Orders> {
+  var orderQuantity = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,13 +33,13 @@ class _OrdersState extends State<Orders> {
               SizedBox(
                 height: dynamicHeight(context, .01),
               ),
-              Text(
-                "Total Orders : " + orderQuantity.toString(),
-              ),
+              // Text(
+              //   "Total Orders : " + orderQuantity.toString(),
+              // ),
               SizedBox(
                 height: dynamicHeight(context, .01),
               ),
-              getOrderCards(),
+              getOrderCards(orderQuantity),
             ],
           ),
         ),
@@ -50,7 +48,7 @@ class _OrdersState extends State<Orders> {
   }
 }
 
-Widget orderCards(snapshot) {
+Widget orderCards(snapshot, orderQuantity) {
   return ListView.builder(
       itemCount: (snapshot as List).length,
       itemBuilder: (context, index) {
@@ -173,7 +171,7 @@ Widget orderActualCard(context, snaphot) {
       });
 }
 
-Widget getOrderCards() {
+Widget getOrderCards(orderQuantity) {
   return Expanded(
     child: FutureBuilder(
       future: getUserOrders(),
@@ -186,7 +184,7 @@ Widget getOrderCards() {
           } else if (snapshot.data == "Token Expired") {
             return Text("Token Expired");
           } else {
-            return orderCards(snapshot.data);
+            return orderCards(snapshot.data, orderQuantity);
           }
         } else {
           return SizedBox(

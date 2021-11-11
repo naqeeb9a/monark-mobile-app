@@ -41,15 +41,23 @@ class Payment extends StatelessWidget {
                     "Rs. " + subtotal.toString(),
                   ),
                   totalRow(context, "Discount", "0%"),
-                  totalRow(context, "Shipping", "Rs. 0"),
+                  (subtotal < 2000)
+                      ? totalRow(context, "Shipping", "Rs. 200")
+                      : totalRow(context, "Shipping", "Rs. 0"),
                   Divider(
                     thickness: 2,
                   ),
-                  totalRow(
-                    context,
-                    "Total",
-                    "Rs. " + subtotal.toString(),
-                  )
+                  (subtotal < 2000)
+                      ? totalRow(
+                          context,
+                          "Total",
+                          "Rs. " + (subtotal + 200).toString(),
+                        )
+                      : totalRow(
+                          context,
+                          "Total",
+                          "Rs. " + subtotal.toString(),
+                        )
                 ],
               ),
             ),
@@ -57,8 +65,14 @@ class Payment extends StatelessWidget {
           bottomButton2(
               context, "Cash On Delivery", Icons.delivery_dining_outlined),
           bottomButton1(context, "CheckOut", () async {
-            var response = await createDraftOrders();
+            var response = await createDraftOrders(subtotal);
             if (response == null || response == "Server Error") {
+              var snackBar = SnackBar(
+                content: Text('Server Error check your internet'),
+                duration: const Duration(milliseconds: 1000),
+              );
+
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             } else {
               Navigator.push(
                 context,

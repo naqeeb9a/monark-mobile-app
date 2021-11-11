@@ -224,7 +224,7 @@ getUserOrders() async {
   }
 }
 
-createDraftOrders() async {
+createDraftOrders(subtotal) async {
   var localOrderList = [];
   for (var i = 0; i < cartItems.length; i++) {
     localOrderList.add({
@@ -269,7 +269,10 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
       "note": "Test draft order",
       "email": "$checkOutEmail",
       "tags": ["Ordered via mobile application ANDROID"],
-      "shippingLine": {"title": "Cash on Delivery", "price": 0},
+      "shippingLine": {
+        "title": "Cash on Delivery",
+        "price": (subtotal < 2000) ? 200 : 0
+      },
       "shippingAddress": {
         "address1": addressList[group.value]["node"]["address1"].toString(),
         "city": addressList[group.value]["node"]["city"].toString(),
@@ -298,6 +301,8 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
   if (result.hasException) {
     return "Server Error";
   } else {
+    print(result.data!["draftOrderCreate"]["draftOrder"]["id"]);
+    print(result.data!["draftOrderCreate"]["draftOrder"]["totalPrice"]);
     return result.data!["draftOrderCreate"]["draftOrder"]["id"];
   }
 }

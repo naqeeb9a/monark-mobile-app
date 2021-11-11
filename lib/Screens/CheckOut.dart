@@ -115,15 +115,23 @@ class CheckOut extends StatelessWidget {
                     "Rs " + subtotal.toString(),
                   ),
                   totalRow(context, "Discount", "0%"),
-                  totalRow(context, "Shipping", "RS 0"),
+                  (subtotal < 2000)
+                      ? totalRow(context, "Shipping", "Rs. 200")
+                      : totalRow(context, "Shipping", "Rs. 0"),
                   Divider(
                     thickness: 2,
                   ),
-                  totalRow(
-                    context,
-                    "Total",
-                    r"Rs " + subtotal.toString(),
-                  ),
+                  (subtotal < 2000)
+                      ? totalRow(
+                          context,
+                          "Total",
+                          "Rs. " + (subtotal + 200).toString(),
+                        )
+                      : totalRow(
+                          context,
+                          "Total",
+                          "Rs. " + subtotal.toString(),
+                        ),
                   SizedBox(
                     height: dynamicHeight(context, .1),
                   )
