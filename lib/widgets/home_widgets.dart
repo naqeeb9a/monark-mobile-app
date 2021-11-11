@@ -208,7 +208,9 @@ Widget basicCards(context, imageUrl, text, availableForSale,
                   context, imageUrl, variantProduct, text, sizeOption),
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(
+                    dynamicWidth(context, .03),
+                  ),
                   color: myBlack.withOpacity(.4),
                 ),
                 height: dynamicHeight(context, .86),
@@ -253,8 +255,11 @@ Widget basicCards(context, imageUrl, text, availableForSale,
                           dynamicWidth(context, .01),
                         ),
                         decoration: BoxDecoration(
-                            color: titleRed,
-                            borderRadius: BorderRadius.circular(5)),
+                          color: titleRed,
+                          borderRadius: BorderRadius.circular(
+                            dynamicWidth(context, .02),
+                          ),
+                        ),
                         child: Text(
                           " - " +
                               discountPrice(
@@ -289,12 +294,12 @@ Widget internalWidgetCard(context, imageUrl, variantProduct, text, sizeOption) {
             dynamicWidth(context, .03),
           ),
           child: Container(
-            height: dynamicHeight(context, .26),
+            height: dynamicHeight(context, .3),
             width: dynamicWidth(context, .5),
             color: myWhite,
             child: CachedNetworkImage(
               imageUrl: imageUrl[0]["node"]["src"],
-              fit: BoxFit.cover,
+              fit: BoxFit.fitHeight,
               placeholder: (context, string) {
                 return Image.asset(
                   "assets/loader.gif",
