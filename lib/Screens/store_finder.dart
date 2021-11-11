@@ -328,7 +328,11 @@ Widget storeCard(
               )
             : InkWell(
                 onTap: () {
-                  launch("mailto:$email");
+                  launch(
+                    "mailto:$email",
+                    forceSafariVC: false,
+                    forceWebView: false,
+                  );
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(

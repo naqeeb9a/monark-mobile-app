@@ -5,10 +5,13 @@ import 'package:monark_app/utils/config.dart';
 
 void main() {
   runApp(MyApp());
+
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: myRed,
+      statusBarBrightness: Brightness.light,
       systemNavigationBarColor: myRed,
+      systemNavigationBarIconBrightness: Brightness.light,
     ),
   );
 }
@@ -46,4 +49,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
- 
