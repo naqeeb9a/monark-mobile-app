@@ -116,7 +116,6 @@ getSearchResults(query) async {
 
   if (result.hasException) {
     getSearchResults(query);
-    print(result.hasException);
     return "Server Error";
   } else {
     return result.data!["products"]["edges"];

@@ -59,10 +59,7 @@ class Payment extends StatelessWidget {
           bottomButton1(context, "CheckOut", () async {
             var response = await createDraftOrders();
             if (response == null || response == "Server Error") {
-              print("Error");
-              print(response);
             } else {
-              print(response);
               Navigator.push(
                 context,
                 MaterialPageRoute(

@@ -89,7 +89,6 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
                 hintText: "Search Your Product"),
             onSubmitted: (value) {
               controller.text = value;
-              print(controller.text);
               setStateFunction();
             },
           ),

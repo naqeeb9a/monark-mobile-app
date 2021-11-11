@@ -31,10 +31,6 @@ class _SignUpState extends State<SignUp> {
   bool isLoading = false;
 
   userSignUp() async {
-    print(sEmail.text);
-    print(sPassword.text);
-    print(fName.text);
-    print(lName.text);
     const createUserAccessToken = r'''
               mutation customerCreate($input: CustomerCreateInput!) {
   customerCreate(input: $input) {
@@ -70,11 +66,9 @@ class _SignUpState extends State<SignUp> {
     final QueryResult result = await client.query(options);
 
     if (result.hasException) {
-      print(result.data);
       return "Server Error";
     } else {
       if (result.data!["customerCreate"]["customer"] != null) {
-        print(result.data!["customerCreate"]["customer"]["id"]);
         return result.data!["customerCreate"]["customer"]["id"];
       } else {
         return result.data!["customerCreate"]["customer"];
@@ -221,7 +215,6 @@ class _SignUpState extends State<SignUp> {
                               isLoading = true;
                             });
                             var response = await userSignUp();
-                            print(response);
                             if (response == "Server Error") {
                               setState(() {
                                 isLoading = false;

@@ -33,7 +33,6 @@ getShopifyCategory() async {
 
   if (result.hasException) {
     getShopifyCategory();
-    print(result.hasException);
     return "Server Error";
   } else {
     return result.data!["collections"]["edges"];
@@ -92,7 +91,6 @@ getShopifyProducts() async {
 
   if (result.hasException) {
     getShopifyProducts();
-    print(result.hasException);
     return "Server Error";
   } else {
     return result.data!["products"]["edges"];
@@ -153,7 +151,6 @@ getShopifyCollection(handle) async {
 
   if (result.hasException) {
     getShopifyCollection(handle);
-    print(result.hasException);
     return "Server Error";
   } else {
     return result.data!["collectionByHandle"]["products"]["edges"];
@@ -217,8 +214,6 @@ getUserOrders() async {
   final QueryResult result = await client.query(options);
 
   if (result.hasException) {
-    print(result.data);
-    print(result.hasException);
     return "Server Error";
   } else {
     if (result.data!["customer"] == null) {
@@ -301,10 +296,8 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
   final QueryResult result = await client.query(options);
 
   if (result.hasException) {
-    print(result.hasException);
     return "Server Error";
   } else {
-    print(result.data!["draftOrderCreate"]["draftOrder"]["id"]);
     return result.data!["draftOrderCreate"]["draftOrder"]["id"];
   }
 }

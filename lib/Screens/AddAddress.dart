@@ -20,8 +20,6 @@ class _AddAddressState extends State<AddAddress> {
   final _formKey = GlobalKey<FormState>();
 
   saveAddress() async {
-    print(globalAccessToken);
-    print(localAddressList);
     var addressQuery = r'''
     mutation customerAddressCreate($customerAccessToken: String!, $address: MailingAddressInput!) {
   customerAddressCreate(
@@ -187,7 +185,6 @@ class _AddAddressState extends State<AddAddress> {
               _formKey.currentState!.save();
               var response = await saveAddress();
               if (response == "Server Error") {
-                print(response);
               } else if (response["customerAddressCreate"]["customerAddress"] ==
                   null) {
                 var snackBar = SnackBar(
@@ -198,8 +195,6 @@ class _AddAddressState extends State<AddAddress> {
 
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               } else {
-                print(response);
-                print("success");
                 Navigator.pop(context, () {
                   setState(() {});
                 });

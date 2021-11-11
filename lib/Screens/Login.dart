@@ -181,7 +181,7 @@ class _LoginState extends State<Login> {
                               } else if (accessToken != null) {
                                 SharedPreferences saveUser =
                                     await SharedPreferences.getInstance();
-                                print(accessToken);
+
                                 saveUser.setString(
                                     "loginInfo", accessToken.toString());
                                 Navigator.of(context).pushAndRemoveUntil(

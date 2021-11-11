@@ -57,7 +57,6 @@ class _AddressPageState extends State<AddressPage> {
     final QueryResult result = await client.query(options);
 
     if (result.hasException) {
-      print(result.hasException);
       return "Server Error";
     } else {
       return result.data!["customer"]["addresses"]["edges"];
@@ -169,7 +168,6 @@ class _AddressPageState extends State<AddressPage> {
       child: FutureBuilder(
         future: getUserAddresses(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          print(snapshot.data);
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.data == "Server Error") {
               return Center(

@@ -177,10 +177,8 @@ mutation draftOrderComplete($id: ID!, $paymentPending: Boolean) {
   final QueryResult result = await client.query(options);
 
   if (result.hasException) {
-    print(result.hasException);
     return "Server Error";
   } else {
-    print(result.data!["draftOrderComplete"]["draftOrder"]["id"]);
     return result.data!["draftOrderComplete"]["draftOrder"]["id"];
   }
 }

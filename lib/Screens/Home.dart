@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
       setState(() {
         widget.accessToken = saveUser.getString("loginInfo");
         globalAccessToken = widget.accessToken;
-        // print(globalAccessToken);
+
         _loading = false;
       });
     }

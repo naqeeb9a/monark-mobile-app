@@ -17,7 +17,7 @@ import '../utils/config.dart';
 Widget drawerItems(context, {customerInfo = false, accessToken = ""}) {
   logoutUser(accessToken) async {
     SharedPreferences saveUser = await SharedPreferences.getInstance();
-    print(accessToken);
+
     var deleteUserAccessToken = r'''
 mutation customerAccessTokenDelete($customerAccessToken: String!) {
   customerAccessTokenDelete(customerAccessToken: $customerAccessToken) {
@@ -44,10 +44,8 @@ mutation customerAccessTokenDelete($customerAccessToken: String!) {
         document: gql(deleteUserAccessToken), variables: variables);
     final QueryResult result = await client.query(options);
     if (result.hasException) {
-      print(result.hasException);
       return "Server Error";
     } else {
-      print(result.data);
       await saveUser.clear();
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (BuildContext context) => Welcome()),
