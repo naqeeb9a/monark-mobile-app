@@ -171,7 +171,10 @@ class _AddressPageState extends State<AddressPage> {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.data == "Server Error") {
               return Center(
-                child: Text("Server Error"),
+                child: SizedBox(
+                  height: dynamicHeight(context, .25),
+                  child: Image.asset("assets/network_error.png"),
+                ),
               );
             } else {
               return (snapshot.data == null)

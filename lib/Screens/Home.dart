@@ -90,7 +90,6 @@ class _HomeState extends State<Home> {
     final QueryResult result = await client.query(options);
 
     if (result.hasException) {
-      print(result.hasException);
       return "Server Error";
     } else {
       id = result.data!["customer"]["id"];
@@ -127,7 +126,11 @@ class _HomeState extends State<Home> {
                           return Drawer(
                             child: (snapshot.data == "Server Error")
                                 ? Center(
-                                    child: Text("Network Error"),
+                                    child: SizedBox(
+                                      height: dynamicHeight(context, .25),
+                                      child: Image.asset(
+                                          "assets/network_error.png"),
+                                    ),
                                   )
                                 : drawerItems(context,
                                     customerInfo: snapshot.data,

@@ -63,10 +63,8 @@ class _AddAddressState extends State<AddAddress> {
     final QueryResult result = await client.query(options);
 
     if (result.hasException) {
-      print(result.hasException);
       return "Server Error";
     } else {
-      print(result.data!);
       return result.data;
     }
   }

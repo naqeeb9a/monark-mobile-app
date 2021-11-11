@@ -89,7 +89,12 @@ Widget detailGrid(function, context, check) {
               if (snapshot.connectionState == ConnectionState.done &&
                   snapshot.data != null) {
                 if (snapshot.data == "Server Error") {
-                  return Text("Network Error");
+                  return Center(
+                    child: SizedBox(
+                      height: dynamicHeight(context, .25),
+                      child: Image.asset("assets/network_error.png"),
+                    ),
+                  );
                 } else if ((snapshot.data as List).length != 0) {
                   return GridView.builder(
                       itemCount: (snapshot.data as List).length,
