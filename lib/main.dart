@@ -2,17 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:monark_app/Screens/Home.dart';
 import 'package:monark_app/utils/config.dart';
+import 'dart:io' show Platform;
 
 void main() {
-  runApp(MyApp());
+  if (Platform.isAndroid) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: myRed,
+        statusBarBrightness: Brightness.light,
+        systemNavigationBarColor: myRed,
+        systemNavigationBarIconBrightness: Brightness.light,
+      ),
+    );
+  } else if (Platform.isIOS) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.dark,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
+  }
 
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: myRed,
-      statusBarBrightness: Brightness.light,
-      systemNavigationBarColor: myRed,
-      systemNavigationBarIconBrightness: Brightness.light,
-    ),
+  runApp(
+    MyApp(),
   );
 }
 
@@ -39,9 +51,6 @@ class MyApp extends StatelessWidget {
       title: 'Monark',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          systemOverlayStyle: SystemUiOverlayStyle.light,
-        ),
         fontFamily: 'Basic-Commercial-LT-Com-Roman',
         primarySwatch: primaryColor,
       ),
