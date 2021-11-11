@@ -176,17 +176,17 @@ class _HomeState extends State<Home> {
                         SizedBox(
                           height: dynamicHeight(context, .02),
                         ),
-                        homeSlider(
-                          context,
-                          dynamicHeight(context, .22),
-                          sliderImage.length,
-                          .9,
-                          sliderImage,
-                          true,
-                        ),
-                        SizedBox(
-                          height: dynamicHeight(context, .02),
-                        ),
+                        // homeSlider(
+                        //   context,
+                        //   dynamicHeight(context, .22),
+                        //   sliderImage.length,
+                        //   .9,
+                        //   sliderImage,
+                        //   true,
+                        // ),
+                        // SizedBox(
+                        //   height: dynamicHeight(context, .02),
+                        // ),
                         rowText(
                           "Categories",
                           context,
