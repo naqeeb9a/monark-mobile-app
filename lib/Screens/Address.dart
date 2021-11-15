@@ -192,9 +192,10 @@ class _AddressPageState extends State<AddressPage> {
                       ],
                     )
                   : ListView.builder(
-                      itemCount: (snapshot.data as List).length ~/ 2.0,
+                      itemCount: (snapshot.data as List).length,
                       itemBuilder: (context, index) {
                         addressList.add(snapshot.data[index]);
+                        print(addressList);
                         return Padding(
                           padding: EdgeInsets.symmetric(
                             vertical: dynamicHeight(context, 0.01),
