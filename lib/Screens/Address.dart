@@ -28,7 +28,7 @@ class _AddressPageState extends State<AddressPage> {
 {
     customer (customerAccessToken: "$globalAccessToken")
     {
-         addresses(first:5){
+         addresses(first:10){
              edges{
                  node{
                      address1

@@ -5,6 +5,7 @@ import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/form_fields.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 import '../utils/config.dart';
 
@@ -16,6 +17,7 @@ class AddAddress extends StatefulWidget {
 }
 
 class _AddAddressState extends State<AddAddress> {
+  bool isloading = false;
   var localAddressList = [];
   final _formKey = GlobalKey<FormState>();
 
@@ -73,134 +75,148 @@ class _AddAddressState extends State<AddAddress> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: bar2(context),
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Center(
-            child: Container(
-              height: dynamicHeight(context, 1),
-              width: dynamicWidth(context, .9),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      SizedBox(
-                        height: dynamicHeight(context, .03),
+      body: (isloading == true)
+          ? Center(
+              child: JumpingDotsProgressIndicator(
+                numberOfDots: 5,
+                fontSize: 20,
+              ),
+            )
+          : Stack(
+              alignment: Alignment.center,
+              children: [
+                Center(
+                  child: Container(
+                    height: dynamicHeight(context, 1),
+                    width: dynamicWidth(context, .9),
+                    child: SingleChildScrollView(
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            SizedBox(
+                              height: dynamicHeight(context, .03),
+                            ),
+                            rowText("Create Address", context),
+                            SizedBox(
+                              height: dynamicHeight(context, .014),
+                            ),
+                            addressInput(context, "First name",
+                                "Enter Your Name", TextInputType.name,
+                                localAddressList: localAddressList,
+                                function: (value) {
+                              if (value!.isEmpty) {
+                                return "Please complete this field";
+                              }
+                            }),
+                            addressInput(context, "Last name",
+                                "Enter Your Name", TextInputType.name,
+                                localAddressList: localAddressList,
+                                function: (value) {
+                              if (value!.isEmpty) {
+                                return "Please complete this field";
+                              }
+                            }),
+                            addressInput(context, "Address 1",
+                                "Add Your Address", TextInputType.streetAddress,
+                                localAddressList: localAddressList,
+                                function: (value) {
+                              if (value!.isEmpty) {
+                                return "Please complete this field";
+                              }
+                            }),
+                            addressInput(
+                              context,
+                              "Address 2",
+                              "Add Your Address",
+                              TextInputType.streetAddress,
+                              localAddressList: localAddressList,
+                            ),
+                            addressInput(context, "City",
+                                "Enter your city name", TextInputType.text,
+                                localAddressList: localAddressList,
+                                function: (value) {
+                              if (value!.isEmpty) {
+                                return "Please complete this field";
+                              }
+                            }),
+                            addressInput(context, "Province",
+                                "Enter the Province Name", TextInputType.text,
+                                localAddressList: localAddressList,
+                                function: (value) {
+                              if (value!.isEmpty) {
+                                return "Please complete this field";
+                              }
+                            }),
+                            addressInput(context, "Country",
+                                "Enter the Province Name", TextInputType.text,
+                                localAddressList: localAddressList,
+                                function: (value) {
+                              if (value!.isEmpty) {
+                                return "Please complete this field";
+                              }
+                            }),
+                            addressInput(context, "Postal Code",
+                                "Enter your Postal Code", TextInputType.phone,
+                                localAddressList: localAddressList,
+                                function: (value) {
+                              if (value!.isEmpty) {
+                                return "Please complete this field";
+                              }
+                            }),
+                            addressInput(context, "Phone Number",
+                                "Enter your Phone Number", TextInputType.phone,
+                                localAddressList: localAddressList,
+                                function: (value) {
+                              if (value!.isEmpty) {
+                                return "Please complete this field";
+                              }
+                            }),
+                            SizedBox(
+                              height: dynamicHeight(context, .1),
+                            )
+                          ],
+                        ),
                       ),
-                      rowText("Create Address", context),
-                      SizedBox(
-                        height: dynamicHeight(context, .014),
-                      ),
-                      addressInput(context, "First name", "Enter Your Name",
-                          TextInputType.name,
-                          localAddressList: localAddressList,
-                          function: (value) {
-                        if (value!.isEmpty) {
-                          return "Please complete this field";
-                        }
-                      }),
-                      addressInput(context, "Last name", "Enter Your Name",
-                          TextInputType.name,
-                          localAddressList: localAddressList,
-                          function: (value) {
-                        if (value!.isEmpty) {
-                          return "Please complete this field";
-                        }
-                      }),
-                      addressInput(context, "Address 1", "Add Your Address",
-                          TextInputType.streetAddress,
-                          localAddressList: localAddressList,
-                          function: (value) {
-                        if (value!.isEmpty) {
-                          return "Please complete this field";
-                        }
-                      }),
-                      addressInput(
-                        context,
-                        "Address 2",
-                        "Add Your Address",
-                        TextInputType.streetAddress,
-                        localAddressList: localAddressList,
-                      ),
-                      addressInput(context, "City", "Enter your city name",
-                          TextInputType.text,
-                          localAddressList: localAddressList,
-                          function: (value) {
-                        if (value!.isEmpty) {
-                          return "Please complete this field";
-                        }
-                      }),
-                      addressInput(context, "Province",
-                          "Enter the Province Name", TextInputType.text,
-                          localAddressList: localAddressList,
-                          function: (value) {
-                        if (value!.isEmpty) {
-                          return "Please complete this field";
-                        }
-                      }),
-                      addressInput(context, "Country",
-                          "Enter the Province Name", TextInputType.text,
-                          localAddressList: localAddressList,
-                          function: (value) {
-                        if (value!.isEmpty) {
-                          return "Please complete this field";
-                        }
-                      }),
-                      addressInput(context, "Postal Code",
-                          "Enter your Postal Code", TextInputType.phone,
-                          localAddressList: localAddressList,
-                          function: (value) {
-                        if (value!.isEmpty) {
-                          return "Please complete this field";
-                        }
-                      }),
-                      addressInput(context, "Phone Number",
-                          "Enter your Phone Number", TextInputType.phone,
-                          localAddressList: localAddressList,
-                          function: (value) {
-                        if (value!.isEmpty) {
-                          return "Please complete this field";
-                        }
-                      }),
-                      SizedBox(
-                        height: dynamicHeight(context, .1),
-                      )
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ),
-          bottomButton1(
-            context,
-            "Add Address",
-            () async {
-              if (!_formKey.currentState!.validate()) {
-                return;
-              }
-              _formKey.currentState!.save();
-              var response = await saveAddress();
-              if (response == "Server Error") {
-              } else if (response["customerAddressCreate"]["customerAddress"] ==
-                  null) {
-                var snackBar = SnackBar(
-                  content: Text(
-                      'Error!! Check your Details, make sure they are accurate'),
-                  duration: const Duration(seconds: 2),
-                );
+                bottomButton1(
+                  context,
+                  "Add Address",
+                  () async {
+                    if (!_formKey.currentState!.validate()) {
+                      return;
+                    }
+                    _formKey.currentState!.save();
+                    setState(() {
+                      isloading = true;
+                    });
+                    var response = await saveAddress();
+                    if (response == "Server Error") {
+                    } else if (response["customerAddressCreate"]
+                            ["customerAddress"] ==
+                        null) {
+                      setState(() {
+                        isloading = false;
+                      });
+                      var snackBar = SnackBar(
+                        content: Text(
+                            'Error!! Check your Details, make sure they are accurate'),
+                        duration: const Duration(seconds: 2),
+                      );
 
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              } else {
-                Navigator.pop(context, () {
-                  setState(() {});
-                });
-              }
-            },
-          )
-        ],
-      ),
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else {
+                      Navigator.pop(context, () {
+                        setState(() {});
+                      });
+                    }
+                  },
+                )
+              ],
+            ),
     );
   }
 }
