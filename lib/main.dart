@@ -53,6 +53,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Basic-Commercial-LT-Com-Roman',
         primarySwatch: primaryColor,
+        brightness: Brightness.light,
       ),
       home: Home(),
     );
