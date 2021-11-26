@@ -48,100 +48,98 @@ class SeeAll extends StatelessWidget {
 }
 
 Widget detailGrid(function, context, check) {
-  return Expanded(
-    child: check == true
-        ? FutureBuilder(
-            future: function,
-            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done &&
-                  snapshot.data != null) {
-                if (snapshot.data == "Server Error") {
-                  return Text("Network Error");
-                } else if ((snapshot.data as List).length != 0) {
-                  return GridView.builder(
+  return check == true
+      ? FutureBuilder(
+          future: function,
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done &&
+                snapshot.data != null) {
+              if (snapshot.data == "Server Error") {
+                return Text("Network Error");
+              } else if ((snapshot.data as List).length != 0) {
+                return GridView.builder(
+                    itemCount: (snapshot.data as List).length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      mainAxisSpacing: dynamicWidth(context, .03),
+                      crossAxisSpacing: dynamicHeight(context, .014),
+                      crossAxisCount: 2,
+                      childAspectRatio: 2 / 1.5,
+                    ),
+                    itemBuilder: (context, index) {
+                      return categoryCards(
+                          context,
+                          snapshot.data[index]["node"]["title"],
+                          snapshot.data[index]["node"]["handle"],
+                          snapshot.data[index]["node"]["image"]["src"],
+                          check: true);
+                    });
+              } else {
+                return Center(child: Text("No products Found"));
+              }
+            } else {
+              return Image.asset(
+                "assets/loader.gif",
+                scale: 6,
+              );
+            }
+          },
+        )
+      : FutureBuilder(
+          future: function,
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.done &&
+                snapshot.data != null) {
+              if (snapshot.data == "Server Error") {
+                return Center(
+                  child: SizedBox(
+                    height: dynamicHeight(context, .25),
+                    child: Image.asset("assets/network_error.png"),
+                  ),
+                );
+              } else if ((snapshot.data as List).length != 0) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: GridView.builder(
                       itemCount: (snapshot.data as List).length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        mainAxisSpacing: dynamicWidth(context, .03),
-                        crossAxisSpacing: dynamicHeight(context, .014),
+                        crossAxisSpacing: dynamicWidth(context, .01),
+                        mainAxisSpacing: dynamicHeight(context, .05),
                         crossAxisCount: 2,
-                        childAspectRatio: 2 / 1.5,
+                        childAspectRatio: 5 / 9,
                       ),
                       itemBuilder: (context, index) {
-                        return categoryCards(
+                        return Center(
+                          child: basicCards(
                             context,
+                            snapshot.data[index]["node"]["images"]["edges"],
                             snapshot.data[index]["node"]["title"],
-                            snapshot.data[index]["node"]["handle"],
-                            snapshot.data[index]["node"]["image"]["src"],
-                            check: true);
-                      });
-                } else {
-                  return Center(child: Text("No products Found"));
-                }
+                            snapshot.data[index]["node"]["availableForSale"],
+                            variantProduct: snapshot.data[index]["node"]
+                                ["variants"]["edges"],
+                            sizeOption: snapshot.data[index]["node"]
+                                ["options"][0]["values"],
+                            description: snapshot.data[index]["node"]
+                                ["description"],
+                            check: snapshot.data[index]["node"]
+                                        ["availableForSale"] ==
+                                    true
+                                ? false
+                                : true,
+                          ),
+                        );
+                      }),
+                );
               } else {
-                return Image.asset(
-                  "assets/loader.gif",
-                  scale: 6,
+                return Center(
+                  child: Text("No Products Found"),
                 );
               }
-            },
-          )
-        : FutureBuilder(
-            future: function,
-            builder: (context, AsyncSnapshot snapshot) {
-              if (snapshot.connectionState == ConnectionState.done &&
-                  snapshot.data != null) {
-                if (snapshot.data == "Server Error") {
-                  return Center(
-                    child: SizedBox(
-                      height: dynamicHeight(context, .25),
-                      child: Image.asset("assets/network_error.png"),
-                    ),
-                  );
-                } else if ((snapshot.data as List).length != 0) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: GridView.builder(
-                        itemCount: (snapshot.data as List).length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisSpacing: dynamicWidth(context, .01),
-                          mainAxisSpacing: dynamicHeight(context, .05),
-                          crossAxisCount: 2,
-                          childAspectRatio: 5 / 9,
-                        ),
-                        itemBuilder: (context, index) {
-                          return Center(
-                            child: basicCards(
-                              context,
-                              snapshot.data[index]["node"]["images"]["edges"],
-                              snapshot.data[index]["node"]["title"],
-                              snapshot.data[index]["node"]["availableForSale"],
-                              variantProduct: snapshot.data[index]["node"]
-                                  ["variants"]["edges"],
-                              sizeOption: snapshot.data[index]["node"]
-                                  ["options"][0]["values"],
-                              description: snapshot.data[index]["node"]
-                                  ["description"],
-                              check: snapshot.data[index]["node"]
-                                          ["availableForSale"] ==
-                                      true
-                                  ? false
-                                  : true,
-                            ),
-                          );
-                        }),
-                  );
-                } else {
-                  return Center(
-                    child: Text("No Products Found"),
-                  );
-                }
-              } else {
-                return Image.asset(
-                  "assets/loader.gif",
-                  scale: 4,
-                );
-              }
-            },
-          ),
-  );
+            } else {
+              return Image.asset(
+                "assets/loader.gif",
+                scale: 4,
+              );
+            }
+          },
+        );
 }

@@ -61,7 +61,6 @@ class _DetailPageState extends State<DetailPage> {
     selectedSize = sizeArray[0];
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -313,6 +312,19 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                 ),
               ),
+              Positioned(
+                top: dynamicHeight(context, .45),
+                right: dynamicWidth(context, .08),
+                child: CircleAvatar(
+                  radius: dynamicWidth(context, 0.05),
+                  backgroundColor: Colors.white,
+                  child: Icon(
+                    Icons.favorite,
+                    size: dynamicWidth(context, 0.06),
+                    color: myRed,
+                  ),
+                ),
+              )
             ],
           ),
         ),

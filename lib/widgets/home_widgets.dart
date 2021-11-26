@@ -257,7 +257,7 @@ Widget internalWidgetCard(context, imageUrl, variantProduct, text) {
                 dynamicWidth(context, .08),
               ),
               child: Container(
-                height: dynamicHeight(context, .35),
+                height: dynamicHeight(context, .34),
                 width: dynamicWidth(context, .47),
                 color: myWhite,
                 child: CachedNetworkImage(
@@ -273,18 +273,18 @@ Widget internalWidgetCard(context, imageUrl, variantProduct, text) {
               ),
             ),
             Positioned(
-              bottom: 15,
-              right: 15,
+              bottom: dynamicHeight(context, .02),
+              right: dynamicWidth(context, .04),
               child: CircleAvatar(
                 radius: dynamicWidth(context, 0.04),
-                backgroundColor: Colors.white,
+                backgroundColor: myWhite,
                 child: Icon(
                   Icons.favorite,
                   size: dynamicWidth(context, 0.05),
                   color: myRed,
                 ),
               ),
-            )
+            ),
           ],
         ),
         Align(
