@@ -394,19 +394,20 @@ Widget rowText(text, context, {function = "", check = false}) {
       Text(
         text,
         style: TextStyle(
-          fontSize: dynamicWidth(context, .1),
-          fontWeight: FontWeight.w600,
+          fontSize: dynamicWidth(context, .09),
+          fontWeight: FontWeight.w800,
         ),
       ),
       check == true
           ? InkWell(
               onTap: function == "" ? () {} : function,
               child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: dynamicHeight(context, .01),
-                    horizontal: dynamicWidth(context, .02),
-                  ),
-                  child: Image.asset("assets/icons/filterIcon.png")),
+                padding: EdgeInsets.symmetric(
+                  vertical: dynamicHeight(context, .01),
+                  horizontal: dynamicWidth(context, .02),
+                ),
+                child: Image.asset("assets/icons/filterIcon.png"),
+              ),
             )
           : Container()
     ],

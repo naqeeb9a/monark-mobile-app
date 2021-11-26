@@ -20,6 +20,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var _loading = false;
+  var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   List sliderImage = [
     'https://images.unsplash.com/photo-1577538928305-3807c3993047?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c2FsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
@@ -67,12 +68,17 @@ class _HomeState extends State<Home> {
             ),
           )
         : Scaffold(
+            key: _scaffoldKey,
             appBar: bar(
               context,
               menuIcon: true,
               bgColor: myWhite,
               title: true,
+              function: () {
+                _scaffoldKey.currentState!.openEndDrawer();
+              },
             ),
+            endDrawer: drawer(context),
             backgroundColor: myWhite,
             body: SafeArea(
               child: Center(
@@ -102,7 +108,7 @@ class _HomeState extends State<Home> {
                           child: rowText(
                             "Best Sellers",
                             context,
-                            check: true,
+                            check: false,
                           ),
                         ),
                         SizedBox(

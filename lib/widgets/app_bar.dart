@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../utils/config.dart';
-import 'home_widgets.dart';
 import 'media_query.dart';
 
 PreferredSizeWidget bar(context,
-    {menuIcon = false, leadingIcon = false, bgColor, title = false}) {
+    {menuIcon = false,
+    leadingIcon = false,
+    bgColor,
+    title = false,
+    function = ""}) {
   return PreferredSize(
     preferredSize: Size.fromHeight(
       dynamicHeight(context, .06),
@@ -42,9 +45,7 @@ PreferredSizeWidget bar(context,
       actions: [
         menuIcon == true
             ? IconButton(
-                onPressed: () {
-                  drawer(context);
-                },
+                onPressed: function == "" ? () {} : function,
                 icon: Image.asset(
                   "assets/icons/menuIcon.png",
                   color: darkTheme == false ? myBlack : myWhite,
