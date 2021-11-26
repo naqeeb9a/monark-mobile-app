@@ -511,7 +511,7 @@ Widget homeSlider(
     itemCount: length,
     itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
         detail == true
-            ? sliderContainer(context, image[itemIndex])
+            ? sliderContainer(context, image[itemIndex], detail)
             : InkWell(
                 onTap: () {
                   imageAlert(
@@ -523,6 +523,7 @@ Widget homeSlider(
                 child: sliderContainer(
                   context,
                   image[itemIndex]["node"]["src"].toString(),
+                  detail,
                 ),
               ),
     options: CarouselOptions(
@@ -539,7 +540,7 @@ Widget homeSlider(
   );
 }
 
-Widget sliderContainer(context, String image) {
+Widget sliderContainer(context, String image, bool detail) {
   return Container(
     width: dynamicWidth(context, 1),
     decoration: BoxDecoration(
@@ -549,11 +550,13 @@ Widget sliderContainer(context, String image) {
     ),
     child: ClipRRect(
       borderRadius: BorderRadius.circular(
-        dynamicWidth(context, .08),
+        detail == false
+            ? dynamicWidth(context, 0.0)
+            : dynamicWidth(context, .08),
       ),
       child: CachedNetworkImage(
         imageUrl: image,
-        fit: BoxFit.fitHeight,
+        fit: BoxFit.fill,
         placeholder: (context, string) {
           return Image.asset(
             "assets/loader.gif",

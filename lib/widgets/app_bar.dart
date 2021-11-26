@@ -39,6 +39,7 @@ PreferredSizeWidget bar(context,
               icon: Image.asset(
                 "assets/icons/backIcon.png",
                 color: darkTheme == false ? myBlack : myWhite,
+                scale: .8,
               ),
             )
           : Container(),
