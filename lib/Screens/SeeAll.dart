@@ -20,7 +20,7 @@ class SeeAll extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: myGrey,
-      appBar: bar(context, false),
+      appBar: bar(context,),
       body: Center(
         child: Container(
           width: dynamicWidth(context, .94),

@@ -20,7 +20,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: bar2(context),
+        appBar: bar(context),
         body: Column(
           children: [
             Padding(

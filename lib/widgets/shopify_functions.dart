@@ -306,3 +306,41 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
     return result.data!["draftOrderCreate"]["draftOrder"]["id"];
   }
 }
+
+getUserData(accessToken) async {
+  globalAccessToken = accessToken;
+  var createUserAccessToken = '''
+{
+    customer (customerAccessToken: "$accessToken")
+    {
+         id
+         email
+         defaultAddress{
+             address1
+         }
+         phone
+         firstName
+         lastName
+    }
+}
+ ''';
+  final HttpLink httpLink = HttpLink(
+      "https://monark-clothings.myshopify.com/api/2021-10/graphql.json",
+      defaultHeaders: {
+        "X-Shopify-Storefront-Access-Token":
+        "fce9486a511f6a4f45939c2c6829cdaa"
+      });
+  GraphQLClient client = GraphQLClient(link: httpLink, cache: GraphQLCache());
+  final QueryOptions options = QueryOptions(
+    document: gql(createUserAccessToken),
+  );
+  final QueryResult result = await client.query(options);
+
+  if (result.hasException) {
+    return "Server Error";
+  } else {
+    id = result.data!["customer"]["id"];
+    checkOutEmail = result.data!["customer"]["email"];
+    return result.data!["customer"];
+  }
+}

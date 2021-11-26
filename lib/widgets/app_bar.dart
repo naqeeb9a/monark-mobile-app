@@ -1,113 +1,56 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:monark_app/Screens/Cart.dart';
 
 import '../utils/config.dart';
+import 'home_widgets.dart';
 import 'media_query.dart';
 
-PreferredSizeWidget bar(context, check) {
+PreferredSizeWidget bar(context,
+    {menuIcon = false, leadingIcon = false, bgColor, title = false}) {
   return PreferredSize(
     preferredSize: Size.fromHeight(
       dynamicHeight(context, .06),
     ),
     child: AppBar(
-      title: Image.asset(
-        "assets/monark landscape.jpg",
-        width: dynamicWidth(context, .4),
-      ),
-      centerTitle: true,
-      iconTheme: IconThemeData(
-        color: myBlack,
-      ),
-      backgroundColor: myWhite,
-      elevation: 0,
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: Icon(
-            check == true ? Icons.search_outlined : null,
-          ),
-        ),
-        IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Cart(),
+      centerTitle: false,
+      titleSpacing: 0.0,
+      title: title == true
+          ? Transform(
+              transform: Matrix4.translationValues(
+                  -dynamicWidth(context, .1), 0.0, 0.0),
+              child: Text(
+                "Hi, UserName",
+                style: TextStyle(
+                  color: myBlack,
+                  fontSize: dynamicWidth(context, .05),
+                ),
               ),
-            );
-          },
-          icon: Obx(
-            () {
-              return Badge(
-                badgeContent: Text(
-                  cartItems.length.toString(),
-                  style: TextStyle(
-                    color: myWhite,
-                  ),
-                ),
-                child: Icon(
-                  Icons.shopping_bag_outlined,
-                ),
-              );
-            },
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-PreferredSizeWidget bar2(context,
-    {cartCheck = false, icon = Icons.clear_all, color = myBlack}) {
-  return PreferredSize(
-    preferredSize: Size.fromHeight(
-      dynamicHeight(context, .06),
-    ),
-    child: AppBar(
-      iconTheme: IconThemeData(
-        color: color,
-      ),
-      title: Image.asset(
-        "assets/monark landscape.jpg",
-        width: dynamicWidth(context, .4),
-      ),
-      centerTitle: true,
-      backgroundColor: myWhite,
-      elevation: 0,
+            )
+          : Container(),
+      backgroundColor: bgColor,
+      elevation: 0.0,
+      leading: leadingIcon == true
+          ? IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Image.asset(
+                "assets/icons/backIcon.png",
+                color: darkTheme == false ? myBlack : myWhite,
+              ),
+            )
+          : Container(),
       actions: [
-        cartCheck == true
+        menuIcon == true
             ? IconButton(
                 onPressed: () {
-                  if (icon == Icons.shopping_bag_outlined) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Cart(),
-                      ),
-                    );
-                  } else {
-                    cartItems.clear();
-                  }
+                  drawer(context);
                 },
-                icon: icon == Icons.shopping_bag_outlined
-                    ? Obx(
-                        () {
-                          return Badge(
-                            badgeContent: Text(
-                              cartItems.length.toString(),
-                              style: TextStyle(color: myWhite),
-                            ),
-                            child: Icon(
-                              Icons.shopping_bag_outlined,
-                            ),
-                          );
-                        },
-                      )
-                    : Icon(icon),
+                icon: Image.asset(
+                  "assets/icons/menuIcon.png",
+                  color: darkTheme == false ? myBlack : myWhite,
+                ),
               )
-            : Container()
+            : Container(),
       ],
     ),
   );

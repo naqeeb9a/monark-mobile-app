@@ -5,43 +5,52 @@ import '../utils/config.dart';
 
 Widget inputTextField(context, label, myController,
     {function, function2, password = false}) {
-  return TextFormField(
-    autovalidateMode: AutovalidateMode.onUserInteraction,
-    validator: (function == "") ? () {} : function,
-    controller: myController,
-    textInputAction: TextInputAction.next,
-    keyboardType: TextInputType.emailAddress,
-    obscureText: password == true ? obscureText : false,
-    cursorColor: myBlack,
-    cursorWidth: 2.0,
-    cursorHeight: dynamicHeight(context, .034),
-    decoration: InputDecoration(
-      suffixIcon: password == false
-          ? null
-          : InkWell(
-              onTap: function2 == "" ? () {} : function2,
-              child: Icon(
-                Icons.remove_red_eye_rounded,
-                color: myRed,
+  return Container(
+    decoration: BoxDecoration(
+      color: myWhite,
+      borderRadius: BorderRadius.circular(
+        dynamicWidth(context, .4),
+      ),
+    ),
+    child: TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (function == "") ? () {} : function,
+      controller: myController,
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.emailAddress,
+      obscureText: password == true ? obscureText : false,
+      cursorColor: myBlack,
+      cursorWidth: 2.0,
+      cursorHeight: dynamicHeight(context, .034),
+      decoration: InputDecoration(
+        suffixIcon: password == false
+            ? null
+            : InkWell(
+                onTap: function2 == "" ? () {} : function2,
+                child: Icon(
+                  Icons.remove_red_eye_rounded,
+                  color: myRed,
+                ),
               ),
-            ),
-      contentPadding: EdgeInsets.symmetric(
-        vertical: dynamicHeight(context, .02),
-        horizontal: dynamicWidth(context, .03),
-      ),
-      labelText: label,
-      labelStyle: TextStyle(
-        color: myBlack,
-        fontSize: dynamicWidth(context, .04),
-      ),
-      focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(
-          color: myRed,
+        contentPadding: EdgeInsets.symmetric(
+          vertical: dynamicHeight(context, .02),
+          horizontal: dynamicWidth(context, .03),
         ),
-      ),
-      enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(
-          color: myBlack,
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .4),
+          ),
+          borderSide: BorderSide(
+            color: myRed,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .4),
+          ),
+          borderSide: BorderSide(
+            color: myBlack,
+          ),
         ),
       ),
     ),

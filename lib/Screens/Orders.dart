@@ -19,7 +19,7 @@ class _OrdersState extends State<Orders> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: bar2(context),
+      appBar: bar(context),
       body: Center(
         child: Container(
           width: dynamicWidth(context, .9),

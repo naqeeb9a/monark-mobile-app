@@ -1,9 +1,8 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:email_validator/email_validator.dart';
-
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
-import 'package:monark_app/Screens/SignUp.dart';
+import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
@@ -13,7 +12,8 @@ import 'package:monark_app/widgets/rich_text.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Home.dart';
+import 'SignUp.dart';
+import 'bottomNav.dart';
 
 final _formKey = GlobalKey<FormState>();
 final email = TextEditingController();
@@ -27,7 +27,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  bool isloading = false;
+  bool isLoading = false;
 
   loginUser() async {
     SharedPreferences saveUser = await SharedPreferences.getInstance();
@@ -82,7 +82,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return (isloading == true)
+    return (isLoading == true)
         ? Scaffold(
             body: Center(
               child: JumpingDotsProgressIndicator(
@@ -92,146 +92,227 @@ class _LoginState extends State<Login> {
             ),
           )
         : Scaffold(
-            backgroundColor: myGrey,
-            appBar: bar2(context),
             body: SafeArea(
-              child: Center(
-                child: Container(
-                  width: dynamicWidth(context, .92),
-                  height: dynamicHeight(context, .84),
-                  child: SingleChildScrollView(
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Login",
-                                style: TextStyle(
-                                  color: myBlack,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: dynamicWidth(context, .09),
-                                ),
-                              ),
-                            ],
+              child: SizedBox(
+                width: dynamicWidth(context, 1),
+                height: dynamicHeight(context, 1),
+                child: Stack(
+                  children: [
+                    Container(
+                      width: dynamicWidth(context, 1),
+                      height: dynamicHeight(context, .32),
+                      color: myRed,
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            bottom: dynamicHeight(context, .04),
                           ),
-                          SizedBox(
-                            height: dynamicHeight(context, .1),
+                          child: Text(
+                            "Welcome Back",
+                            style: TextStyle(
+                              color: myWhite,
+                              fontSize: dynamicWidth(context, .06),
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
-                          inputTextField(
-                            context,
-                            "Email",
-                            email,
-                            function: (value) {
-                              if (EmailValidator.validate(value)) {
-                              } else {
-                                return "Enter Valid Email";
-                              }
-                              return null;
-                            },
-                          ),
-                          SizedBox(
-                            height: dynamicHeight(context, .04),
-                          ),
-                          inputTextField(
-                            context,
-                            "Password",
-                            password,
-                            password: true,
-                            function: (value) {
-                              if (value!.isEmpty || value.length < 8) {
-                                return 'Password must have 8 characters';
-                              }
-                              return null;
-                            },
-                            function2: () {
-                              setState(() {
-                                obscureText = !obscureText;
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            height: dynamicHeight(context, .1),
-                          ),
-                          coloredButton(
-                            context,
-                            "Login",
-                            myRed,
-                            myWhite,
-                            true,
-                            function: () async {
-                              if (!_formKey.currentState!.validate()) {
-                                return;
-                              }
-                              setState(() {
-                                isloading = true;
-                              });
-                              var accessToken = await loginUser();
-                              if (accessToken == "Server Error") {
-                                Dialog(
-                                    child: Center(
-                                  child: SizedBox(
-                                    height: dynamicHeight(context, .25),
-                                    child:
-                                        Image.asset("assets/network_error.png"),
-                                  ),
-                                ));
-                                setState(() {
-                                  isloading = false;
-                                });
-                              } else if (accessToken != null) {
-                                SharedPreferences saveUser =
-                                    await SharedPreferences.getInstance();
-
-                                saveUser.setString(
-                                    "loginInfo", accessToken.toString());
-                                Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) => Home(
-                                              accessToken: saveUser
-                                                  .getString("loginInfo"),
-                                            )),
-                                    (Route<dynamic> route) => false);
-                                email.clear();
-                                password.clear();
-                              } else {
-                                setState(() {
-                                  isloading = false;
-                                });
-
-                                CoolAlert.show(
-                                  context: context,
-                                  type: CoolAlertType.error,
-                                  title: "",
-                                  text: "Username or Password not Matched!!",
-                                  backgroundColor: myRed,
-                                  confirmBtnColor: myRed,
-                                  animType: CoolAlertAnimType.scale,
-                                  flareAnimationName: "Dance",
-                                );
-                              }
-                            },
-                          ),
-                          SizedBox(
-                            height: dynamicHeight(context, .04),
-                          ),
-                          richTextWidget(
-                            context,
-                            "Don't have an account?  ",
-                            "Sign Up",
-                            dynamicWidth(context, .04),
-                            dynamicWidth(context, .05),
-                            SignUp(),
-                            myBlack,
-                            myRed,
-                            true,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                    Positioned(
+                      bottom: 0.0,
+                      child: Container(
+                        width: dynamicWidth(context, 1),
+                        height: dynamicHeight(context, .7),
+                        decoration: BoxDecoration(
+                          color: darkTheme == false ? myWhite : darkThemeBlack,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(
+                              dynamicHeight(context, .04),
+                            ),
+                            topRight: Radius.circular(
+                              dynamicHeight(context, .04),
+                            ),
+                          ),
+                        ),
+                        child: Form(
+                          key: _formKey,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: dynamicWidth(context, .05),
+                            ),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: dynamicHeight(context, .1),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Email",
+                                      style: TextStyle(
+                                        color: darkTheme == false
+                                            ? myBlack
+                                            : myWhite,
+                                        fontSize: dynamicWidth(context, .04),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: dynamicHeight(context, .01),
+                                ),
+                                inputTextField(
+                                  context,
+                                  "Email",
+                                  email,
+                                  function: (value) {
+                                    if (EmailValidator.validate(value)) {
+                                    } else {
+                                      return "Enter Valid Email";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                SizedBox(
+                                  height: dynamicHeight(context, .02),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Password",
+                                      style: TextStyle(
+                                        color: darkTheme == false
+                                            ? myBlack
+                                            : myWhite,
+                                        fontSize: dynamicWidth(context, .04),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: dynamicHeight(context, .01),
+                                ),
+                                inputTextField(
+                                  context,
+                                  "Password",
+                                  password,
+                                  password: true,
+                                  function: (value) {
+                                    if (value!.isEmpty || value.length < 8) {
+                                      return 'Password must have 8 characters';
+                                    }
+                                    return null;
+                                  },
+                                  function2: () {
+                                    setState(() {
+                                      obscureText = !obscureText;
+                                    });
+                                  },
+                                ),
+                                SizedBox(
+                                  height: dynamicHeight(context, .01),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "Forgot Password ?",
+                                      style: TextStyle(
+                                        color: darkTheme == false
+                                            ? myBlack
+                                            : myWhite,
+                                        fontSize: dynamicWidth(context, .04),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: dynamicHeight(context, .1),
+                                ),
+                                coloredButton(
+                                  context,
+                                  "Login",
+                                  function: () async {
+                                    if (!_formKey.currentState!.validate()) {
+                                      return;
+                                    }
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+                                    var accessToken = await loginUser();
+                                    if (accessToken == "Server Error") {
+                                      Dialog(
+                                          child: Center(
+                                        child: SizedBox(
+                                          height: dynamicHeight(context, .25),
+                                          child: Image.asset(
+                                              "assets/network_error.png"),
+                                        ),
+                                      ));
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                    } else if (accessToken != null) {
+                                      // SharedPreferences saveUser =
+                                      //     await SharedPreferences.getInstance();
+                                      //
+                                      // saveUser.setString(
+                                      //     "loginInfo", accessToken.toString());
+                                      pushAndRemoveUntil(
+                                        context,
+                                        BottomNav(),
+                                      );
+                                      email.clear();
+                                      password.clear();
+                                    } else {
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+
+                                      CoolAlert.show(
+                                        context: context,
+                                        type: CoolAlertType.error,
+                                        title: "",
+                                        text:
+                                            "Username or Password not Matched!!",
+                                        backgroundColor: myRed,
+                                        confirmBtnColor: myRed,
+                                        animType: CoolAlertAnimType.scale,
+                                        flareAnimationName: "Dance",
+                                      );
+                                    }
+                                  },
+                                ),
+                                SizedBox(
+                                  height: dynamicHeight(context, .04),
+                                ),
+                                richTextWidget(
+                                  context,
+                                  "Don't have an account?  ",
+                                  "Sign Up",
+                                  dynamicWidth(context, .04),
+                                  dynamicWidth(context, .05),
+                                  SignUp(),
+                                  darkTheme == false ? myBlack : myWhite,
+                                  darkTheme == false ? myBlack : myWhite,
+                                  true,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: dynamicWidth(context, 1),
+                      height: dynamicHeight(context, .06),
+                      child: bar(
+                        context,
+                        bgColor: noColor,
+                        leadingIcon: true,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

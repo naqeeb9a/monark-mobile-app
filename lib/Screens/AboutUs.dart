@@ -14,7 +14,7 @@ class AboutUs extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: myGrey,
-        appBar: bar2(
+        appBar: bar(
           context,
         ),
         body: SingleChildScrollView(

@@ -153,7 +153,7 @@ class _StoreFinderState extends State<StoreFinder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: bar2(context),
+      appBar: bar(context),
       body: Column(
         children: [
           Padding(

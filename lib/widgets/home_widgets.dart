@@ -6,9 +6,11 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/config.dart';
+import 'drawer_items.dart';
 import 'media_query.dart';
 
 ValueNotifier<bool> isDialOpen = ValueNotifier(false);
@@ -204,8 +206,7 @@ Widget basicCards(context, imageUrl, text, availableForSale,
           child: Stack(
             alignment: Alignment.center,
             children: [
-              internalWidgetCard(
-                  context, imageUrl, variantProduct, text, sizeOption),
+              internalWidgetCard(context, imageUrl, variantProduct, text),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(
@@ -241,12 +242,10 @@ Widget basicCards(context, imageUrl, text, availableForSale,
           },
           child: (variantProduct[0]["node"]["compareAtPrice"] ==
                   variantProduct[0]["node"]["price"])
-              ? internalWidgetCard(
-                  context, imageUrl, variantProduct, text, sizeOption)
+              ? internalWidgetCard(context, imageUrl, variantProduct, text)
               : Stack(
                   children: [
-                    internalWidgetCard(
-                        context, imageUrl, variantProduct, text, sizeOption),
+                    internalWidgetCard(context, imageUrl, variantProduct, text),
                     Positioned(
                       right: dynamicWidth(context, .02),
                       top: dynamicHeight(context, .02),
@@ -282,16 +281,16 @@ Widget basicCards(context, imageUrl, text, availableForSale,
         );
 }
 
-Widget internalWidgetCard(context, imageUrl, variantProduct, text, sizeOption) {
+Widget internalWidgetCard(context, imageUrl, variantProduct, text) {
   return Container(
-    width: dynamicWidth(context, 0.41),
+    width: dynamicWidth(context, 0.46),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(
-            dynamicWidth(context, .03),
+            dynamicWidth(context, .08),
           ),
           child: Container(
             height: dynamicHeight(context, .3),
@@ -320,51 +319,15 @@ Widget internalWidgetCard(context, imageUrl, variantProduct, text, sizeOption) {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              "Size :",
-              style: TextStyle(
-                color: myRed,
-                fontSize: dynamicWidth(context, .03),
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            Flexible(
-              child: Container(
-                height: dynamicHeight(context, .016),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: sizeOption.length,
-                  itemBuilder: (context, i) {
-                    if (variantProduct[i]["node"]["availableForSale"] == true) {
-                      return Text(
-                        sizeOption[i].toString() == "Default Title"
-                            ? " - "
-                            : " " + sizeOption[i] + " ",
-                        style: TextStyle(
-                          color: myRed,
-                          fontSize: dynamicWidth(context, .03),
-                        ),
-                      );
-                    }
-                    return SizedBox();
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            "Rs. " +
+            "Pkr. " +
                 double.parse(variantProduct[0]["node"]["price"])
                     .toInt()
                     .toString(),
             style: TextStyle(
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
               fontSize: dynamicWidth(context, .034),
             ),
           ),
@@ -424,41 +387,26 @@ Widget floatingButton(context) {
   );
 }
 
-Widget rowText(text, context,
-    {function, text2 = "", bool check = false, bool categoryCheck = false}) {
+Widget rowText(text, context, {function = "", check = false}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Text(
         text,
         style: TextStyle(
-          fontSize: dynamicWidth(context, .066),
+          fontSize: dynamicWidth(context, .1),
           fontWeight: FontWeight.w600,
         ),
       ),
       check == true
           ? InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SeeAll(
-                      check: categoryCheck,
-                      text: text,
-                      function: function,
-                    ),
-                  ),
-                );
-              },
+              onTap: function == "" ? () {} : function,
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: dynamicHeight(context, .01),
-                  horizontal: dynamicWidth(context, .02),
-                ),
-                child: Text(
-                  text2,
-                ),
-              ),
+                  padding: EdgeInsets.symmetric(
+                    vertical: dynamicHeight(context, .01),
+                    horizontal: dynamicWidth(context, .02),
+                  ),
+                  child: Image.asset("assets/icons/filterIcon.png")),
             )
           : Container()
     ],
@@ -585,12 +533,12 @@ Widget sliderContainer(context, String image) {
     width: dynamicWidth(context, 1),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(
-        dynamicWidth(context, .02),
+        dynamicWidth(context, .08),
       ),
     ),
     child: ClipRRect(
       borderRadius: BorderRadius.circular(
-        dynamicWidth(context, .03),
+        dynamicWidth(context, .08),
       ),
       child: CachedNetworkImage(
         imageUrl: image,
@@ -603,5 +551,41 @@ Widget sliderContainer(context, String image) {
         },
       ),
     ),
+  );
+}
+
+Widget drawer(context) {
+  return SafeArea(
+    child: (globalAccessToken == "")
+        ? Drawer(
+            child: drawerItems(
+              context,
+            ),
+          )
+        : FutureBuilder(
+            future: getUserData(globalAccessToken),
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return Drawer(
+                  child: (snapshot.data == "Server Error")
+                      ? Center(
+                          child: SizedBox(
+                            height: dynamicHeight(context, .25),
+                            child: Image.asset("assets/network_error.png"),
+                          ),
+                        )
+                      : drawerItems(context,
+                          customerInfo: snapshot.data,
+                          accessToken: globalAccessToken),
+                );
+              } else {
+                return Drawer(
+                  child: JumpingDotsProgressIndicator(
+                    numberOfDots: 5,
+                    fontSize: dynamicWidth(context, .08),
+                  ),
+                );
+              }
+            }),
   );
 }

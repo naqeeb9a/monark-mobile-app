@@ -65,7 +65,7 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: myGrey,
-      appBar: bar2(context, cartCheck: true, icon: Icons.shopping_bag_outlined),
+      appBar: bar(context, menuIcon: true),
       body: Container(
         height: dynamicHeight(context, 1),
         width: dynamicWidth(context, 1),

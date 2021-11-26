@@ -5,46 +5,29 @@ import 'package:monark_app/widgets/media_query.dart';
 
 import '../utils/config.dart';
 
-Widget coloredButton(context, text, color, textColor, push,
-    {page, function = ""}) {
-  return InkWell(
-    onTap: function == ""
-        ? () {
-            push == false
-                ? Navigator.pop(context)
-                : Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => page,
-                    ),
-                  );
-          }
-        : function,
-    child: Container(
-      width: dynamicWidth(context, .8),
-      height: dynamicHeight(context, .06),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(
-          dynamicWidth(context, .024),
+Widget coloredButton(context, text, {function = ""}) {
+  return Material(
+    borderRadius: BorderRadius.circular(
+      dynamicWidth(context, .4),
+    ),
+    child: InkWell(
+      onTap: function == "" ? () {} : function,
+      child: Container(
+        width: dynamicWidth(context, .8),
+        height: dynamicHeight(context, .056),
+        decoration: BoxDecoration(
+          color: myRed,
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .4),
+          ),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: color == noColor
-                ? color.withOpacity(0.0)
-                : color.withOpacity(0.4),
-            spreadRadius: 3,
-            blurRadius: 6,
-            offset: Offset(0, 3),
-          )
-        ],
-      ),
-      child: Center(
-        child: AutoSizeText(
-          text,
-          style: TextStyle(
-            color: textColor,
-            fontSize: dynamicWidth(context, .056),
+        child: Center(
+          child: AutoSizeText(
+            text,
+            style: TextStyle(
+              color: myWhite,
+              fontSize: dynamicWidth(context, .056),
+            ),
           ),
         ),
       ),

@@ -18,7 +18,7 @@ class Payment extends StatelessWidget {
       subtotal += int.parse(u["total"].toString());
     }
     return Scaffold(
-      appBar: bar2(context),
+      appBar: bar(context),
       body: Stack(
         alignment: Alignment.center,
         children: [

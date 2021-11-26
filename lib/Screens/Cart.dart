@@ -14,7 +14,7 @@ class Cart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: bar2(context, cartCheck: true),
+      appBar: bar(context, menuIcon: true),
       body: Stack(
         alignment: Alignment.center,
         children: [

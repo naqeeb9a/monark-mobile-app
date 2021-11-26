@@ -68,16 +68,26 @@ class _AddressPageState extends State<AddressPage> {
     return await getUserAddresses().then((value) {
       for (int i = 0; i < value.length; i++) {
         setState(() {
-          addressListCheck.add(value[i]["node"]);
+          tempList.add(value[i]["node"]);
         });
       }
-
-      // for(final i in tempList){
-      //   if(!addressListCheck.contains(i["address1"])){
-      //     addressListCheck.add(i);
-      //   }
-      // }
-      // print(addressListCheck);
+      addressListCheck.add(tempList[0]);
+      for (final i in tempList) {
+        for (int j = 0; j < addressListCheck.length; j++) {
+          if (!addressListCheck[j]["address1"]
+              .toString()
+              .contains(i["address1"].toString())) {
+            print(addressListCheck[j]["address1"]
+                .toString()
+                .contains(i["address1"].toString()));
+            addressListCheck.add(i);
+          }
+        }
+        // if(!addressListCheck.contains(i["address1"])){
+        //   addressListCheck.add(i);
+        // }
+      }
+      print(addressListCheck);
 
       // setState(() {
       //   addressListCheck = [
@@ -153,7 +163,7 @@ class _AddressPageState extends State<AddressPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: bar2(context),
+      appBar: bar(context),
       body: Stack(
         alignment: Alignment.center,
         children: [

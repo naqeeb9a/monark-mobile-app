@@ -74,7 +74,7 @@ class _AddAddressState extends State<AddAddress> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: bar2(context),
+      appBar: bar(context),
       body: (isloading == true)
           ? Center(
               child: JumpingDotsProgressIndicator(
