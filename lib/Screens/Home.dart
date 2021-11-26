@@ -8,6 +8,8 @@ import 'package:monark_app/widgets/shopify_functions.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'SeeAll.dart';
+
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
   var accessToken;
@@ -84,45 +86,41 @@ class _HomeState extends State<Home> {
               child: Center(
                 child: Container(
                   width: dynamicWidth(context, 1),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: dynamicHeight(context, .01),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: dynamicHeight(context, .01),
+                      ),
+                      homeSlider(
+                        context,
+                        dynamicHeight(context, .34),
+                        sliderImage.length,
+                        .84,
+                        sliderImage,
+                        true,
+                      ),
+                      SizedBox(
+                        height: dynamicHeight(context, .03),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: dynamicWidth(context, .05),
                         ),
-                        homeSlider(
+                        child: rowText(
+                          "Best Sellers",
                           context,
-                          dynamicHeight(context, .34),
-                          sliderImage.length,
-                          .84,
-                          sliderImage,
-                          true,
+                          check: false,
                         ),
-                        SizedBox(
-                          height: dynamicHeight(context, .03),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: dynamicWidth(context, .05),
-                          ),
-                          child: rowText(
-                            "Best Sellers",
-                            context,
-                            check: false,
-                          ),
-                        ),
-                        SizedBox(
-                          height: dynamicHeight(context, .02),
-                        ),
-                        cardList(
-                          context,
-                          function: getShopifyCollection("suits"),
-                        ),
-                        SizedBox(
-                          height: dynamicHeight(context, .02),
-                        ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(
+                        height: dynamicHeight(context, .02),
+                      ),
+                      detailGrid(
+                          getShopifyProductsBestSelling(), context, false),
+                      SizedBox(
+                        height: dynamicHeight(context, .02),
+                      ),
+                    ],
                   ),
                 ),
               ),

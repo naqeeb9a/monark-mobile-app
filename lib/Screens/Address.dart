@@ -152,7 +152,6 @@ class _AddressPageState extends State<AddressPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     print("address \n\n\n\n\n");
@@ -262,7 +261,7 @@ class _AddressPageState extends State<AddressPage> {
 
   Widget addressListBuilder(context) {
     return Expanded(
-      child: (addressListCheck == null)
+      child: (addressListCheck.isEmpty)
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

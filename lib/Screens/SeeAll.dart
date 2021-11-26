@@ -20,7 +20,9 @@ class SeeAll extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: myGrey,
-      appBar: bar(context,),
+      appBar: bar(
+        context,
+      ),
       body: Center(
         child: Container(
           width: dynamicWidth(context, .94),
@@ -96,35 +98,38 @@ Widget detailGrid(function, context, check) {
                     ),
                   );
                 } else if ((snapshot.data as List).length != 0) {
-                  return GridView.builder(
-                      itemCount: (snapshot.data as List).length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        mainAxisSpacing: dynamicWidth(context, .02),
-                        crossAxisSpacing: dynamicHeight(context, .016),
-                        crossAxisCount: 2,
-                        childAspectRatio: 5 / 9,
-                      ),
-                      itemBuilder: (context, index) {
-                        return Center(
-                          child: basicCards(
-                            context,
-                            snapshot.data[index]["node"]["images"]["edges"],
-                            snapshot.data[index]["node"]["title"],
-                            snapshot.data[index]["node"]["availableForSale"],
-                            variantProduct: snapshot.data[index]["node"]
-                                ["variants"]["edges"],
-                            sizeOption: snapshot.data[index]["node"]["options"]
-                                [0]["values"],
-                            description: snapshot.data[index]["node"]
-                                ["description"],
-                            check: snapshot.data[index]["node"]
-                                        ["availableForSale"] ==
-                                    true
-                                ? false
-                                : true,
-                          ),
-                        );
-                      });
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: GridView.builder(
+                        itemCount: (snapshot.data as List).length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisSpacing: dynamicWidth(context, .01),
+                          mainAxisSpacing: dynamicHeight(context, .05),
+                          crossAxisCount: 2,
+                          childAspectRatio: 5 / 9,
+                        ),
+                        itemBuilder: (context, index) {
+                          return Center(
+                            child: basicCards(
+                              context,
+                              snapshot.data[index]["node"]["images"]["edges"],
+                              snapshot.data[index]["node"]["title"],
+                              snapshot.data[index]["node"]["availableForSale"],
+                              variantProduct: snapshot.data[index]["node"]
+                                  ["variants"]["edges"],
+                              sizeOption: snapshot.data[index]["node"]
+                                  ["options"][0]["values"],
+                              description: snapshot.data[index]["node"]
+                                  ["description"],
+                              check: snapshot.data[index]["node"]
+                                          ["availableForSale"] ==
+                                      true
+                                  ? false
+                                  : true,
+                            ),
+                          );
+                        }),
+                  );
                 } else {
                   return Center(
                     child: Text("No Products Found"),

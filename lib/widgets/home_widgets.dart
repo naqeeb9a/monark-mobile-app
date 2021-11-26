@@ -240,73 +240,52 @@ Widget basicCards(context, imageUrl, text, availableForSale,
               ),
             );
           },
-          child: (variantProduct[0]["node"]["compareAtPrice"] ==
-                  variantProduct[0]["node"]["price"])
-              ? internalWidgetCard(context, imageUrl, variantProduct, text)
-              : Stack(
-                  children: [
-                    internalWidgetCard(context, imageUrl, variantProduct, text),
-                    Positioned(
-                      right: dynamicWidth(context, .02),
-                      top: dynamicHeight(context, .02),
-                      child: Container(
-                        padding: EdgeInsets.all(
-                          dynamicWidth(context, .01),
-                        ),
-                        decoration: BoxDecoration(
-                          color: titleRed,
-                          borderRadius: BorderRadius.circular(
-                            dynamicWidth(context, .02),
-                          ),
-                        ),
-                        child: Text(
-                          " - " +
-                              discountPrice(
-                                double.parse(variantProduct[0]["node"]
-                                        ["compareAtPrice"])
-                                    .toInt(),
-                                double.parse(variantProduct[0]["node"]["price"])
-                                    .toInt(),
-                              ).toInt().toString() +
-                              "%",
-                          style: TextStyle(
-                            color: myWhite,
-                            fontSize: dynamicWidth(context, .028),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-        );
+          child: internalWidgetCard(context, imageUrl, variantProduct, text));
 }
 
 Widget internalWidgetCard(context, imageUrl, variantProduct, text) {
   return Container(
-    width: dynamicWidth(context, 0.46),
+    width: dynamicWidth(context, 0.47),
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(
-            dynamicWidth(context, .08),
-          ),
-          child: Container(
-            height: dynamicHeight(context, .3),
-            width: dynamicWidth(context, .5),
-            color: myWhite,
-            child: CachedNetworkImage(
-              imageUrl: imageUrl[0]["node"]["src"],
-              fit: BoxFit.fitHeight,
-              placeholder: (context, string) {
-                return Image.asset(
-                  "assets/loader.gif",
-                  scale: 6,
-                );
-              },
+        Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(
+                dynamicWidth(context, .08),
+              ),
+              child: Container(
+                height: dynamicHeight(context, .35),
+                width: dynamicWidth(context, .47),
+                color: myWhite,
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl[0]["node"]["src"],
+                  fit: BoxFit.cover,
+                  placeholder: (context, string) {
+                    return Image.asset(
+                      "assets/loader.gif",
+                      scale: 6,
+                    );
+                  },
+                ),
+              ),
             ),
-          ),
+            Positioned(
+              bottom: 15,
+              right: 15,
+              child: CircleAvatar(
+                radius: dynamicWidth(context, 0.04),
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.favorite,
+                  size: dynamicWidth(context, 0.05),
+                  color: myRed,
+                ),
+              ),
+            )
+          ],
         ),
         Align(
           alignment: Alignment.centerLeft,
@@ -319,18 +298,49 @@ Widget internalWidgetCard(context, imageUrl, variantProduct, text) {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            "Pkr. " +
-                double.parse(variantProduct[0]["node"]["price"])
-                    .toInt()
-                    .toString(),
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: dynamicWidth(context, .034),
-            ),
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            (variantProduct[0]["node"]["compareAtPrice"] ==
+                    variantProduct[0]["node"]["price"])
+                ? Text(
+                    "Pkr. " +
+                        double.parse(variantProduct[0]["node"]["price"])
+                            .toInt()
+                            .toString(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: dynamicWidth(context, .034),
+                    ),
+                  )
+                : Text(
+                    "Pkr. " +
+                        double.parse(
+                                variantProduct[0]["node"]["compareAtPrice"])
+                            .toInt()
+                            .toString(),
+                    style: TextStyle(
+                      decoration: TextDecoration.lineThrough,
+                      fontSize: dynamicWidth(context, .034),
+                    ),
+                  ),
+            (variantProduct[0]["node"]["compareAtPrice"] ==
+                    variantProduct[0]["node"]["price"])
+                ? Container()
+                : Text(
+                    "Pkr. " +
+                        double.parse(variantProduct[0]["node"]["price"])
+                            .toInt()
+                            .toString(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: dynamicWidth(context, .034),
+                        color: myRed),
+                  )
+          ],
+        ),
+        SizedBox(
+          height: dynamicHeight(context, 0.01),
         ),
       ],
     ),
