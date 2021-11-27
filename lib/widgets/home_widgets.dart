@@ -191,6 +191,7 @@ Widget basicCards(context, imageUrl, text, availableForSale,
     {sizeOption = "",
     description = "No Description",
     variantProduct = "",
+    categoriesCheck = false,
     check = false}) {
   return (check == true)
       ? InkWell(
@@ -206,7 +207,8 @@ Widget basicCards(context, imageUrl, text, availableForSale,
           child: Stack(
             alignment: Alignment.center,
             children: [
-              internalWidgetCard(context, imageUrl, variantProduct, text),
+              internalWidgetCard(
+                  context, imageUrl, variantProduct, text, categoriesCheck),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(
@@ -240,10 +242,12 @@ Widget basicCards(context, imageUrl, text, availableForSale,
               ),
             );
           },
-          child: internalWidgetCard(context, imageUrl, variantProduct, text));
+          child: internalWidgetCard(
+              context, imageUrl, variantProduct, text, categoriesCheck));
 }
 
-Widget internalWidgetCard(context, imageUrl, variantProduct, text) {
+Widget internalWidgetCard(
+    context, imageUrl, variantProduct, text, categoriesCheck) {
   return Container(
     width: dynamicWidth(context, 0.47),
     child: Column(
@@ -261,7 +265,9 @@ Widget internalWidgetCard(context, imageUrl, variantProduct, text) {
                 width: dynamicWidth(context, .47),
                 color: myWhite,
                 child: CachedNetworkImage(
-                  imageUrl: imageUrl[0]["node"]["src"],
+                  imageUrl: categoriesCheck == true
+                      ? imageUrl
+                      : imageUrl[0]["node"]["src"],
                   fit: BoxFit.cover,
                   placeholder: (context, string) {
                     return Image.asset(
@@ -272,73 +278,89 @@ Widget internalWidgetCard(context, imageUrl, variantProduct, text) {
                 ),
               ),
             ),
-            Positioned(
-              bottom: 15,
-              right: 15,
-              child: CircleAvatar(
-                radius: dynamicWidth(context, 0.04),
-                backgroundColor: Colors.white,
-                child: Icon(
-                  Icons.favorite,
-                  size: dynamicWidth(context, 0.05),
-                  color: myRed,
+            (categoriesCheck == true)
+                ? Container()
+                : Positioned(
+                    bottom: 15,
+                    right: 15,
+                    child: CircleAvatar(
+                      radius: dynamicWidth(context, 0.04),
+                      backgroundColor: Colors.white,
+                      child: Icon(
+                        Icons.favorite,
+                        size: dynamicWidth(context, 0.05),
+                        color: myRed,
+                      ),
+                    ),
+                  )
+          ],
+        ),
+        categoriesCheck == true
+            ? Align(
+                alignment: Alignment.center,
+                child: Text(
+                  text,
+                  style: TextStyle(
+                      fontSize: dynamicWidth(context, .04),
+                      fontWeight: FontWeight.bold),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              )
+            : Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  text,
+                  style: TextStyle(
+                    fontSize: dynamicWidth(context, .03),
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
-            )
-          ],
-        ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            text,
-            style: TextStyle(
-              fontSize: dynamicWidth(context, .03),
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            (variantProduct[0]["node"]["compareAtPrice"] ==
-                    variantProduct[0]["node"]["price"])
-                ? Text(
-                    "Pkr. " +
-                        double.parse(variantProduct[0]["node"]["price"])
-                            .toInt()
-                            .toString(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: dynamicWidth(context, .034),
-                    ),
-                  )
-                : Text(
-                    "Pkr. " +
-                        double.parse(
-                                variantProduct[0]["node"]["compareAtPrice"])
-                            .toInt()
-                            .toString(),
-                    style: TextStyle(
-                      decoration: TextDecoration.lineThrough,
-                      fontSize: dynamicWidth(context, .034),
-                    ),
-                  ),
-            (variantProduct[0]["node"]["compareAtPrice"] ==
-                    variantProduct[0]["node"]["price"])
-                ? Container()
-                : Text(
-                    "Pkr. " +
-                        double.parse(variantProduct[0]["node"]["price"])
-                            .toInt()
-                            .toString(),
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: dynamicWidth(context, .034),
-                        color: myRed),
-                  )
-          ],
-        ),
+        categoriesCheck == true
+            ? Container()
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  (variantProduct[0]["node"]["compareAtPrice"] ==
+                          variantProduct[0]["node"]["price"])
+                      ? Text(
+                          "Pkr. " +
+                              double.parse(variantProduct[0]["node"]["price"])
+                                  .toInt()
+                                  .toString(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: dynamicWidth(context, .034),
+                          ),
+                        )
+                      : Text(
+                          "Pkr. " +
+                              double.parse(variantProduct[0]["node"]
+                                      ["compareAtPrice"])
+                                  .toInt()
+                                  .toString(),
+                          style: TextStyle(
+                            decoration: TextDecoration.lineThrough,
+                            fontSize: dynamicWidth(context, .034),
+                          ),
+                        ),
+                  (variantProduct[0]["node"]["compareAtPrice"] ==
+                          variantProduct[0]["node"]["price"])
+                      ? Container()
+                      : Text(
+                          "Pkr. " +
+                              double.parse(variantProduct[0]["node"]["price"])
+                                  .toInt()
+                                  .toString(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: dynamicWidth(context, .034),
+                              color: myRed),
+                        )
+                ],
+              ),
         SizedBox(
           height: dynamicHeight(context, 0.01),
         ),

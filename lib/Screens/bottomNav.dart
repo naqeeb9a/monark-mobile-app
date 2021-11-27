@@ -2,6 +2,7 @@ import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/Screens/Cart.dart';
+import 'package:monark_app/Screens/Categories.dart';
 import 'package:monark_app/Screens/Home.dart';
 import 'package:monark_app/Screens/Profile.dart';
 import 'package:monark_app/Screens/Search.dart';
@@ -126,7 +127,7 @@ class _BottomNavState extends State<BottomNav> {
       case 1:
         return SearchPage();
       case 2:
-        return SearchPage();
+        return CategoriesPage();
       case 3:
         return const Cart();
       case 4:
