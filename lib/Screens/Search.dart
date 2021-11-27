@@ -21,39 +21,37 @@ class _SearchPageState extends State<SearchPage> {
       backgroundColor: myGrey,
       body: SafeArea(
         child: Center(
-          child: Container(
-            width: dynamicWidth(context, 0.94),
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: dynamicHeight(context, .02),
-                  ),
-                  child: Hero(
-                    tag: "SearchBar",
-                    child: Material(
-                      color: noColor,
-                      child: searchbar(
-                        context,
-                        controller: searchText,
-                        setStateFunction: () {
-                          setState(
-                            () {},
-                          );
-                        },
-                      ),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: dynamicHeight(context, .02),
+                  horizontal: dynamicWidth(context, .02),
+                ),
+                child: Hero(
+                  tag: "SearchBar",
+                  child: Material(
+                    color: noColor,
+                    child: searchbar(
+                      context,
+                      controller: searchText,
+                      setStateFunction: () {
+                        setState(
+                          () {},
+                        );
+                      },
                     ),
                   ),
                 ),
-                searchText.text == ""
-                    ? Container()
-                    : detailGrid(
-                        getSearchResults(searchText.text),
-                        context,
-                        false,
-                      ),
-              ],
-            ),
+              ),
+              searchText.text == ""
+                  ? Container()
+                  : detailGrid(
+                      getSearchResults(searchText.text),
+                      context,
+                      false,
+                    ),
+            ],
           ),
         ),
       ),

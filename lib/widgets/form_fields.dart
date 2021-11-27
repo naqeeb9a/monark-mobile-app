@@ -72,17 +72,6 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
         ]),
     child: Row(
       children: [
-        (enabled == true)
-            ? InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Icon(Icons.arrow_back),
-                ),
-              )
-            : Container(),
         Expanded(
           child: TextField(
             controller: controller,
