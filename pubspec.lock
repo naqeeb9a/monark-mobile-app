@@ -541,6 +541,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.26.0"
+<<<<<<< Updated upstream
   shared_preferences:
     dependency: "direct main"
     description:
@@ -583,6 +584,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
+=======
+>>>>>>> Stashed changes
   sky_engine:
     dependency: transitive
     description: flutter
