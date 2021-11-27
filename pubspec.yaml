@@ -39,6 +39,14 @@ dependencies:
   progress_indicators: ^1.0.0
   flutter_speed_dial: ^4.4.0+2
   graphql: ^5.0.0
+  font_awesome_flutter: ^9.2.0
+  url_launcher: ^6.0.15
+  custom_navigation_bar: ^0.8.2
+  shared_preferences: ^2.0.9
+  cool_alert: ^1.1.0
+  email_validator: ^2.0.1
+  tab_indicator_styler: ^2.0.0
+  carousel_slider: ^4.0.0
 
 dev_dependencies:
   flutter_launcher_icons: "^0.9.2"
