@@ -119,7 +119,8 @@ class _HomeState extends State<Home> {
                         SizedBox(
                           height: dynamicHeight(context, .7),
                           child: detailGrid(
-                              getShopifyProductsBestSelling(), context, false),
+                              getShopifyProductsBestSelling(), context, false,
+                              expandedCheck: false),
                         ),
                         SizedBox(
                           height: dynamicHeight(context, .02),
