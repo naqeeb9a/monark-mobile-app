@@ -36,9 +36,7 @@ class _SearchPageState extends State<SearchPage> {
                       context,
                       controller: searchText,
                       setStateFunction: () {
-                        setState(
-                          () {},
-                        );
+                        setState(() {});
                       },
                     ),
                   ),
