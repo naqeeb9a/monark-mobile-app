@@ -20,27 +20,23 @@ class SeeAll extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: myGrey,
-      appBar: bar(
-        context,
-      ),
+      appBar: bar(context,
+          menuIcon: true, bgColor: Colors.transparent, leadingIcon: true),
       body: Center(
-        child: Container(
-          width: dynamicWidth(context, .94),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
                   vertical: dynamicHeight(context, .03),
-                ),
-                child: rowText(text, context),
-              ),
-              detailGrid(function, context, check),
-              SizedBox(
-                height: dynamicHeight(context, .02),
-              )
-            ],
-          ),
+                  horizontal: dynamicWidth(context, 0.02)),
+              child: rowText(text, context, check: true),
+            ),
+            detailGrid(function, context, check),
+            SizedBox(
+              height: dynamicHeight(context, .02),
+            )
+          ],
         ),
       ),
     );

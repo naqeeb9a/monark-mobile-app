@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -14,115 +13,6 @@ import 'drawer_items.dart';
 import 'media_query.dart';
 
 ValueNotifier<bool> isDialOpen = ValueNotifier(false);
-
-Widget categoryList(context) {
-  return Container(
-    height: dynamicHeight(context, .12),
-    child: FutureBuilder(
-      future: getShopifyCategory(),
-      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.data != null) {
-          if (snapshot.data == "Server Error") {
-            return SizedBox(
-              height: dynamicHeight(context, .2),
-              child: Image.asset("assets/network_error.png"),
-            );
-          } else {
-            return ListView.builder(
-              itemCount: (snapshot.data as List).length,
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: dynamicWidth(context, .02),
-                  ),
-                  child: categoryCards(
-                    context,
-                    snapshot.data[index]["node"]["title"],
-                    snapshot.data[index]["node"]["handle"],
-                    snapshot.data[index]["node"]["image"]["src"],
-                  ),
-                );
-              },
-            );
-          }
-        } else {
-          return Image.asset(
-            "assets/loader.gif",
-            scale: 6,
-          );
-        }
-      },
-    ),
-  );
-}
-
-Widget categoryCards(context, cardText, handle, image, {check = false}) {
-  return InkWell(
-    onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SeeAll(
-            text: cardText,
-            function: getShopifyCollection(handle),
-            check: false,
-          ),
-        ),
-      );
-    },
-    child: Stack(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(
-            dynamicWidth(context, .03),
-          ),
-          child: Container(
-            width: check == true
-                ? dynamicWidth(context, 1)
-                : dynamicWidth(context, .3),
-            height: (check == true) ? null : dynamicHeight(context, .12),
-            child: CachedNetworkImage(
-              imageUrl: image,
-              fit: BoxFit.cover,
-              placeholder: (context, string) {
-                return Image.asset(
-                  "assets/loader.gif",
-                  scale: 8,
-                );
-              },
-            ),
-          ),
-        ),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(
-            dynamicWidth(context, .03),
-          ),
-          child: Container(
-            color: myBlack.withOpacity(.4),
-            padding: EdgeInsets.all(
-              dynamicWidth(context, .02),
-            ),
-            width: check == true ? null : dynamicWidth(context, .3),
-            height: (check == true) ? null : dynamicHeight(context, .12),
-            alignment: Alignment.center,
-            child: AutoSizeText(
-              cardText,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: myWhite,
-                fontSize: dynamicWidth(context, .046),
-              ),
-            ),
-          ),
-        )
-      ],
-    ),
-  );
-}
 
 Widget cardList(context, {function}) {
   return FutureBuilder(
@@ -227,21 +117,31 @@ Widget basicCards(context, imageUrl, text, availableForSale,
           ),
         )
       : InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DetailPage(
-                  image: imageUrl,
-                  variantProduct: variantProduct,
-                  text: text,
-                  array: sizeOption,
-                  description: description,
-                  availableForSale: availableForSale,
-                ),
-              ),
-            );
-          },
+          onTap: (categoriesCheck == true)
+              ? () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SeeAll(
+                        text: text,
+                        function: getShopifyCollection(availableForSale),
+                        check: false,
+                      ),
+                    ),
+                  );
+                }
+              : () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DetailPage(
+                              image: imageUrl,
+                              variantProduct: variantProduct,
+                              text: text,
+                              array: sizeOption,
+                              description: description,
+                              availableForSale: availableForSale)));
+                },
           child: internalWidgetCard(
               context, imageUrl, variantProduct, text, categoriesCheck));
 }
