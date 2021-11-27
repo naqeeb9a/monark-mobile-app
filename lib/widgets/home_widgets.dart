@@ -5,7 +5,6 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/config.dart';
@@ -496,37 +495,12 @@ Widget sliderContainer(context, String image, bool detail) {
 }
 
 Widget drawer(context) {
-  return SafeArea(
-    child: (globalAccessToken == "")
-        ? Drawer(
-            child: drawerItems(
-              context,
-            ),
-          )
-        : FutureBuilder(
-            future: getUserData(globalAccessToken),
-            builder: (context, AsyncSnapshot snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return Drawer(
-                  child: (snapshot.data == "Server Error")
-                      ? Center(
-                          child: SizedBox(
-                            height: dynamicHeight(context, .25),
-                            child: Image.asset("assets/network_error.png"),
-                          ),
-                        )
-                      : drawerItems(context,
-                          customerInfo: snapshot.data,
-                          accessToken: globalAccessToken),
-                );
-              } else {
-                return Drawer(
-                  child: JumpingDotsProgressIndicator(
-                    numberOfDots: 5,
-                    fontSize: dynamicWidth(context, .08),
-                  ),
-                );
-              }
-            }),
+  return SizedBox(
+    width: dynamicWidth(context, .54),
+    child: Drawer(
+      child: drawerItems(
+        context,
+      ),
+    ),
   );
 }
