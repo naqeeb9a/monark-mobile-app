@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:monark_app/Screens/bottomNav.dart';
 
 void main() {
   runApp(
-    MyApp(),
+    Phoenix(
+      child: MyApp(),
+    ),
   );
 }
 

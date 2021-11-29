@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:monark_app/Screens/AboutUs.dart';
 import 'package:monark_app/Screens/contactUs.dart';
 import 'package:monark_app/Screens/policies.dart';
@@ -37,7 +38,15 @@ Widget drawerItems(context) {
     {
       "text": "Dark Mode",
       "function": () {
+        print("object $darkTheme");
         darkTheme = !darkTheme;
+        var snackBar = SnackBar(
+          content: Text('Theme Changed'),
+          duration: const Duration(milliseconds: 1000),
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        Phoenix.rebirth(context);
       },
     },
   ];

@@ -27,7 +27,7 @@ PreferredSizeWidget bar(context,
                   ? Text(
                       "Hi, Guest",
                       style: TextStyle(
-                        color: myBlack,
+                        color: darkTheme == true ? myWhite : myBlack,
                         fontSize: dynamicWidth(context, .05),
                       ),
                     )

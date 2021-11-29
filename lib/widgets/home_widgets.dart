@@ -205,8 +205,10 @@ Widget internalWidgetCard(
                 child: Text(
                   text,
                   style: TextStyle(
-                      fontSize: dynamicWidth(context, .04),
-                      fontWeight: FontWeight.bold),
+                    color: darkTheme == true ? myWhite : myBlack,
+                    fontSize: dynamicWidth(context, .04),
+                    fontWeight: FontWeight.bold,
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -216,6 +218,7 @@ Widget internalWidgetCard(
                 child: Text(
                   text,
                   style: TextStyle(
+                    color: darkTheme == true ? myWhite : myBlack,
                     fontSize: dynamicWidth(context, .03),
                   ),
                   maxLines: 1,
@@ -235,6 +238,7 @@ Widget internalWidgetCard(
                                   .toInt()
                                   .toString(),
                           style: TextStyle(
+                            color: darkTheme == true ? myWhite : myBlack,
                             fontWeight: FontWeight.w600,
                             fontSize: dynamicWidth(context, .034),
                           ),
@@ -246,6 +250,7 @@ Widget internalWidgetCard(
                                   .toInt()
                                   .toString(),
                           style: TextStyle(
+                            color: darkTheme == true ? myWhite : myBlack,
                             decoration: TextDecoration.lineThrough,
                             fontSize: dynamicWidth(context, .034),
                           ),
@@ -259,9 +264,10 @@ Widget internalWidgetCard(
                                   .toInt()
                                   .toString(),
                           style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: dynamicWidth(context, .034),
-                              color: myRed),
+                            fontWeight: FontWeight.w600,
+                            fontSize: dynamicWidth(context, .034),
+                            color: darkTheme == true ? myWhite : myRed,
+                          ),
                         )
                 ],
               ),
@@ -330,6 +336,7 @@ Widget rowText(text, context, {function = "", check = false}) {
       Text(
         text,
         style: TextStyle(
+          color: darkTheme == true ? myWhite : myBlack,
           fontSize: dynamicWidth(context, .092),
           fontWeight: FontWeight.w900,
         ),

@@ -12,10 +12,7 @@ import 'SeeAll.dart';
 
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
-  
-
-  Home({Key? key})
-      : super(key: key);
+  Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -72,14 +69,14 @@ class _HomeState extends State<Home> {
             appBar: bar(
               context,
               menuIcon: true,
-              bgColor: myWhite,
+              bgColor: darkTheme == true ? darkThemeBlack : myWhite,
               title: true,
               function: () {
                 _scaffoldKey.currentState!.openEndDrawer();
               },
             ),
             endDrawer: drawer(context),
-            backgroundColor: myWhite,
+            backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
             body: SafeArea(
               child: Center(
                 child: Container(

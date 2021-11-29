@@ -48,6 +48,8 @@ dependencies:
   tab_indicator_styler: ^2.0.0
   carousel_slider: ^4.0.0
   flutter_slidable: ^1.1.0
+  restart_app: ^1.1.0
+  flutter_phoenix: ^1.0.0
 
 dev_dependencies:
   flutter_launcher_icons: "^0.9.2"
