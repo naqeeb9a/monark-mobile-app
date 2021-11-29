@@ -1,16 +1,63 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql/client.dart';
+import 'package:monark_app/Screens/Login.dart';
+import 'package:monark_app/Screens/Welcome.dart';
+import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/drawer_items.dart';
 import 'package:monark_app/widgets/media_query.dart';
+import 'package:monark_app/widgets/shopify_functions.dart';
+import 'package:progress_indicators/progress_indicators.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class Profile extends StatelessWidget {
-  var customerInfo;
-
-  Profile({Key? key, required this.customerInfo}) : super(key: key);
+  Profile({
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    logoutUser(accessToken) async {
+      SharedPreferences saveUser = await SharedPreferences.getInstance();
+
+      var deleteUserAccessToken = r'''
+mutation customerAccessTokenDelete($customerAccessToken: String!) {
+  customerAccessTokenDelete(customerAccessToken: $customerAccessToken) {
+    deletedAccessToken
+    deletedCustomerAccessTokenId
+    userErrors {
+      field
+      message
+    }
+  }
+}
+
+
+ ''';
+      var variables = {"customerAccessToken": accessToken.toString()};
+      final HttpLink httpLink = HttpLink(
+          "https://monark-clothings.myshopify.com/api/2021-10/graphql.json",
+          defaultHeaders: {
+            "X-Shopify-Storefront-Access-Token":
+                "fce9486a511f6a4f45939c2c6829cdaa"
+          });
+      GraphQLClient client =
+          GraphQLClient(link: httpLink, cache: GraphQLCache());
+      final QueryOptions options = QueryOptions(
+          document: gql(deleteUserAccessToken), variables: variables);
+      final QueryResult result = await client.query(options);
+      if (result.hasException) {
+        return "Server Error";
+      } else {
+        await saveUser.clear();
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (BuildContext context) => Welcome()),
+            (Route<dynamic> route) => false);
+      }
+    }
+
     return Scaffold(
       appBar: bar(context, bgColor: Colors.transparent, menuIcon: true),
       body: SafeArea(
@@ -18,47 +65,102 @@ class Profile extends StatelessWidget {
           child: Container(
             width: dynamicWidth(context, .9),
             height: dynamicHeight(context, .8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                profilePicture(
-                  context,
-                ),
-                (customerInfo == "guest")
-                    ? profileText(context, "Sign in")
-                    : profileText(
+            child: globalAccessToken == "guest"
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      profilePicture(
                         context,
-                        customerInfo["firstName"] +
-                            " " +
-                            customerInfo["lastName"]),
-                profileText(context, "My Wishlist"),
-                profileText(context, "My Bag"),
-                profileText(context, "Order History"),
-                profileText(context, "Track Order"),
-                SizedBox(
-                  height: dynamicHeight(context, 0.03),
-                ),
-                coloredButton(context, "logout"),
-                SizedBox(
-                  height: dynamicHeight(context, 0.03),
-                ),
-                // profileText(
-                //   context,
-                //   "Email",
-                //   'customerInfo["email"]',
-                // ),
-                // profileText(context, "Phone Number", ""
-                //     // customerInfo["phone"] == null
-                //     //     ? "Not Provided"
-                //     //     : customerInfo["phone"].toString(),
-                //     ),
-                // profileText(
-                //   context,
-                //   "Address",
-                //   'customerInfo["defaultAddress"]["address1"]',
-                // ),
-              ],
-            ),
+                      ),
+                      profileText(context, "Sign in"),
+                      profileText(context, "My Wishlist"),
+                      profileText(context, "My Bag"),
+                      profileText(context, "Order History"),
+                      profileText(context, "Track Order"),
+                      SizedBox(
+                        height: dynamicHeight(context, 0.03),
+                      ),
+                      coloredButton(context,
+                          (globalAccessToken == "guest") ? "Sign In" : "logout",
+                          function: () {
+                        if (globalAccessToken == "guest") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Login(),
+                            ),
+                          );
+                        } else {
+                          CoolAlert.show(
+                            context: context,
+                            type: CoolAlertType.loading,
+                            backgroundColor: noColor,
+                          );
+                          logoutUser(globalAccessToken);
+                        }
+                      }),
+                      SizedBox(
+                        height: dynamicHeight(context, 0.03),
+                      ),
+                    ],
+                  )
+                : FutureBuilder(
+                    future: getUserData(globalAccessToken),
+                    builder: (context, AsyncSnapshot snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            profilePicture(
+                              context,
+                            ),
+                            profileText(
+                                context,
+                                snapshot.data["firstName"] +
+                                    " " +
+                                    snapshot.data["lastName"]),
+                            profileText(context, "My Wishlist"),
+                            profileText(context, "My Bag"),
+                            profileText(context, "Order History"),
+                            profileText(context, "Track Order"),
+                            SizedBox(
+                              height: dynamicHeight(context, 0.03),
+                            ),
+                            coloredButton(
+                                context,
+                                (globalAccessToken == "guest")
+                                    ? "Sign In"
+                                    : "logout", function: () {
+                              if (globalAccessToken == "guest") {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Login(),
+                                  ),
+                                );
+                              } else {
+                                CoolAlert.show(
+                                  context: context,
+                                  type: CoolAlertType.loading,
+                                  backgroundColor: noColor,
+                                );
+                                logoutUser(globalAccessToken);
+                              }
+                            }),
+                            SizedBox(
+                              height: dynamicHeight(context, 0.03),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return Center(
+                          child: JumpingDotsProgressIndicator(
+                            numberOfDots: 5,
+                            fontSize: dynamicWidth(context, .08),
+                          ),
+                        );
+                      }
+                    }),
           ),
         ),
       ),

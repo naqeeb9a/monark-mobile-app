@@ -8,8 +8,6 @@ import 'package:monark_app/Screens/Profile.dart';
 import 'package:monark_app/Screens/Search.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/media_query.dart';
-import 'package:monark_app/widgets/shopify_functions.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({Key? key}) : super(key: key);
@@ -20,13 +18,6 @@ class BottomNav extends StatefulWidget {
 
 class _BottomNavState extends State<BottomNav> {
   int currentPage = 0;
-  var accessToken;
-  var customerInfo;
-  @override
-  void initState() {
-    super.initState();
-    getToken();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +25,7 @@ class _BottomNavState extends State<BottomNav> {
       backgroundColor: myWhite,
       body: Container(
         child: Center(
-          child: _getPage(currentPage, accessToken),
+          child: _getPage(currentPage),
         ),
       ),
       bottomNavigationBar: CustomNavigationBar(
@@ -120,22 +111,10 @@ class _BottomNavState extends State<BottomNav> {
     );
   }
 
-  getToken() async {
-    SharedPreferences saveUser = await SharedPreferences.getInstance();
-    accessToken = saveUser.getString("loginInfo").toString();
-
-    if (accessToken == "guest") {
-      customerInfo = "guest";
-    } else {
-      customerInfo = await getUserData(accessToken);
-    }
-    return saveUser.getString("loginInfo").toString();
-  }
-
-  _getPage(int page, accessToken) {
+  _getPage(int page) {
     switch (page) {
       case 0:
-        return Home(accessToken: accessToken);
+        return Home();
       case 1:
         return SearchPage();
       case 2:
@@ -143,9 +122,7 @@ class _BottomNavState extends State<BottomNav> {
       case 3:
         return const Cart();
       case 4:
-        return Profile(
-          customerInfo: customerInfo,
-        );
+        return Profile();
       default:
         return Column(
           mainAxisSize: MainAxisSize.min,

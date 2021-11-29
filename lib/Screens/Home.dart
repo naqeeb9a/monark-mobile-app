@@ -10,12 +10,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'SeeAll.dart';
 
-
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
-  dynamic accessToken;
+  
 
-  Home({Key? key, this.accessToken = ""}) : super(key: key);
+  Home({Key? key})
+      : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -49,8 +49,7 @@ class _HomeState extends State<Home> {
           (Route<dynamic> route) => false);
     } else {
       setState(() {
-        widget.accessToken = saveUser.getString("loginInfo");
-        globalAccessToken = widget.accessToken;
+        globalAccessToken = saveUser.getString("loginInfo")!;
 
         _loading = false;
       });
