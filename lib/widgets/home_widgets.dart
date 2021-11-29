@@ -107,7 +107,7 @@ Widget basicCards(context, imageUrl, text, availableForSale,
                   color: myBlack.withOpacity(.4),
                 ),
                 height: dynamicHeight(context, .86),
-                width: dynamicWidth(context, 0.46),
+                width: dynamicWidth(context, 0.47),
                 child: Image.asset(
                   "assets/soldOut.png",
                   scale: 2.6,
