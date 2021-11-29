@@ -150,10 +150,8 @@ Widget internalWidgetCard(
     context, imageUrl, variantProduct, text, categoriesCheck,
     {outOfStock = false}) {
   return Container(
-    margin: (outOfStock == true) ? EdgeInsets.all(5) : EdgeInsets.all(0),
-    width: (outOfStock == true)
-        ? dynamicWidth(context, 0.45)
-        : dynamicWidth(context, 0.47),
+    margin: EdgeInsets.all(0),
+    width: dynamicWidth(context, 0.47),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
