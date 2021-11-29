@@ -96,7 +96,7 @@ class _CartState extends State<Cart> {
                       );
 
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } else if (globalAccessToken == "") {
+                    } else if (globalAccessToken == "guest") {
                       var snackBar = SnackBar(
                         content: Text('Please Sign In to Continue'),
                         duration: const Duration(milliseconds: 1000),
