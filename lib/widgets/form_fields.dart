@@ -21,7 +21,7 @@ Widget inputTextField(context, label, myController,
       obscureText: password == true ? obscureText : false,
       cursorColor: myBlack,
       cursorWidth: 2.0,
-      cursorHeight: dynamicHeight(context, .034),
+      cursorHeight: dynamicHeight(context, .03),
       decoration: InputDecoration(
         suffixIcon: password == false
             ? null
@@ -33,8 +33,8 @@ Widget inputTextField(context, label, myController,
                 ),
               ),
         contentPadding: EdgeInsets.symmetric(
-          vertical: dynamicHeight(context, .02),
-          horizontal: dynamicWidth(context, .03),
+          vertical: dynamicHeight(context, .012),
+          horizontal: dynamicWidth(context, .05),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
