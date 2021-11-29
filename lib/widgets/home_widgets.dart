@@ -1,17 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../utils/config.dart';
 import 'drawer_items.dart';
 import 'media_query.dart';
-
-ValueNotifier<bool> isDialOpen = ValueNotifier(false);
 
 Widget cardList(context, {function}) {
   return FutureBuilder(
@@ -279,56 +274,6 @@ Widget internalWidgetCard(
         ),
       ],
     ),
-  );
-}
-
-Widget floatingButton(context) {
-  return SpeedDial(
-    animatedIcon: AnimatedIcons.menu_close,
-    openCloseDial: isDialOpen,
-    backgroundColor: myRed,
-    overlayColor: myGrey,
-    overlayOpacity: 0.5,
-    spacing: dynamicHeight(context, .01),
-    spaceBetweenChildren: dynamicHeight(context, .01),
-    closeManually: true,
-    children: [
-      SpeedDialChild(
-        onTap: () {
-          print("object");
-          launch(
-            "whatsapp://send?phone=+923036663017&text=Hi",
-            forceSafariVC: false,
-            forceWebView: false,
-          );
-        },
-        elevation: 2.0,
-        child: CircleAvatar(
-          backgroundColor: myWhite,
-          radius: dynamicWidth(context, .1),
-          backgroundImage: AssetImage(
-            "assets/whatsapp.png",
-          ),
-        ),
-      ),
-      SpeedDialChild(
-        onTap: () {
-          launch(
-            "http://m.me/monark.com.pk?ref=mobile_app",
-            forceSafariVC: false,
-            forceWebView: false,
-          );
-        },
-        elevation: 2.0,
-        child: CircleAvatar(
-          backgroundColor: myWhite,
-          radius: dynamicWidth(context, .1),
-          backgroundImage: AssetImage(
-            "assets/messenger.png",
-          ),
-        ),
-      ),
-    ],
   );
 }
 
