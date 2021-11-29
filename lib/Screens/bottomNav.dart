@@ -112,7 +112,7 @@ class _BottomNavState extends State<BottomNav> {
     );
   }
 
-  getToken() async {
+  Future<String> getToken() async {
     SharedPreferences saveUser = await SharedPreferences.getInstance();
     saveUser.setString("loginInfo", "");
     return saveUser.getString("loginInfo").toString();
@@ -131,7 +131,9 @@ class _BottomNavState extends State<BottomNav> {
       case 3:
         return const Cart();
       case 4:
-        return Profile();
+        return Profile(
+          accessToken: getToken(),
+        );
       default:
         return Column(
           mainAxisSize: MainAxisSize.min,

@@ -92,7 +92,7 @@ Widget drawerItems(context) {
   );
 }
 
-Widget profilePicture(context, customerInfo) {
+Widget profilePicture(context) {
   return Column(
     children: [
       CircleAvatar(
@@ -107,23 +107,6 @@ Widget profilePicture(context, customerInfo) {
       SizedBox(
         height: dynamicHeight(context, .03),
       ),
-      (customerInfo == false || customerInfo == null)
-          ? Text(
-              "Sign In",
-              style: TextStyle(
-                fontSize: dynamicWidth(context, .07),
-                color: myBlack,
-                fontWeight: FontWeight.bold,
-              ),
-            )
-          : Text(
-              customerInfo["firstName"] + " " + customerInfo["lastName"],
-              style: TextStyle(
-                fontSize: dynamicWidth(context, .07),
-                color: myBlack,
-                fontWeight: FontWeight.bold,
-              ),
-            )
     ],
   );
 }

@@ -10,9 +10,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'SeeAll.dart';
 
+
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
-  var accessToken;
+  dynamic accessToken;
 
   Home({Key? key, this.accessToken = ""}) : super(key: key);
 
@@ -55,8 +56,6 @@ class _HomeState extends State<Home> {
       });
     }
   }
-
-  var customerInfo;
 
   @override
   Widget build(BuildContext context) {
