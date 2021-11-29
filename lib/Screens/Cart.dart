@@ -114,38 +114,40 @@ class _CartState extends State<Cart> {
                     }
                   },
                 ),
-          cartItems.length == 0
-              ? Container()
-              : Positioned(
-                  left: 0.0,
-                  right: 0.0,
-                  bottom: dynamicHeight(context, .1),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: dynamicWidth(context, .05),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Total Amount",
-                          style: TextStyle(
-                            color: myBlack,
-                            fontSize: dynamicWidth(context, .05),
+          Obx(() {
+            return cartItems.length == 0
+                ? Container()
+                : Positioned(
+                    left: 0.0,
+                    right: 0.0,
+                    bottom: dynamicHeight(context, .1),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: dynamicWidth(context, .05),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Total Amount",
+                            style: TextStyle(
+                              color: myBlack,
+                              fontSize: dynamicWidth(context, .05),
+                            ),
                           ),
-                        ),
-                        Text(
-                          "PKR. $total",
-                          style: TextStyle(
-                            color: myBlack,
-                            fontWeight: FontWeight.bold,
-                            fontSize: dynamicWidth(context, .044),
+                          Text(
+                            "PKR. $total",
+                            style: TextStyle(
+                              color: myBlack,
+                              fontWeight: FontWeight.bold,
+                              fontSize: dynamicWidth(context, .044),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ),
+                  );
+          })
         ],
       ),
     );
