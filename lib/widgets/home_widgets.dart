@@ -87,7 +87,7 @@ Widget basicCards(context, imageUrl, text, availableForSale,
           onTap: () {
             var snackBar = SnackBar(
               backgroundColor: myRed,
-              content: Text("Product's Out of Stock"),
+              content: Text("Product Out of Stock"),
               duration: const Duration(milliseconds: 1000),
             );
 
