@@ -37,16 +37,16 @@ Widget coloredButton(context, text, {function = ""}) {
 
 Widget bottomButton1(context, text, page) {
   return Positioned(
-    bottom: 20,
+    bottom: dynamicHeight(context, .02),
     child: InkWell(
       onTap: page,
       child: Container(
-        height: dynamicHeight(context, .06),
+        height: dynamicHeight(context, .056),
         width: dynamicWidth(context, .8),
         decoration: BoxDecoration(
           color: myRed,
           borderRadius: BorderRadius.circular(
-            dynamicWidth(context, .02),
+            dynamicWidth(context, .08),
           ),
         ),
         child: Center(

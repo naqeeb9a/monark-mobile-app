@@ -293,6 +293,7 @@ class _DetailPageState extends State<DetailPage> {
                           quantity,
                           widget.variantProduct[productIndex]["node"]["sku"],
                           widget.variantProduct[productIndex]["node"]["id"],
+                          selectedSize.toString(),
                         ),
                       ),
                     ],
@@ -392,7 +393,7 @@ class _DetailPageState extends State<DetailPage> {
   }
 }
 
-Widget bottomButton(context, image, price, text, cartQuantity, sku, variantId) {
+Widget bottomButton(context, image, price, text, cartQuantity, sku, variantId, size) {
   return MaterialButton(
     color: myRed,
     height: dynamicHeight(context, .06),
@@ -414,6 +415,7 @@ Widget bottomButton(context, image, price, text, cartQuantity, sku, variantId) {
               int.parse(cartQuantity.value.toString()),
           "sku": sku,
           "variantId": variantId,
+          "size": size,
         });
       } else {
         if (text.toString() == cartItems[0]["title"]) {

@@ -330,8 +330,8 @@ Widget rowText(text, context, {function = "", check = false}) {
       Text(
         text,
         style: TextStyle(
-          fontSize: dynamicWidth(context, .09),
-          fontWeight: FontWeight.w800,
+          fontSize: dynamicWidth(context, .092),
+          fontWeight: FontWeight.w900,
         ),
       ),
       check == true

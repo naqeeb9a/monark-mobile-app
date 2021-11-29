@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/utils/config.dart';
+import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/form_fields.dart';
+import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
 class SearchPage extends StatefulWidget {
@@ -14,19 +16,31 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   TextEditingController searchText = TextEditingController();
+  var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: myGrey,
+      key: _scaffoldKey,
+      backgroundColor: myWhite,
+      appBar: bar(
+        context,
+        menuIcon: true,
+        bgColor: myWhite,
+        function: () {
+          _scaffoldKey.currentState!.openEndDrawer();
+        },
+      ),
+      endDrawer: drawer(context),
       body: SafeArea(
-        child: Center(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: dynamicHeight(context, .02),
-                  horizontal: dynamicWidth(context, .02),
+                padding: EdgeInsets.only(
+                  bottom: dynamicWidth(context, .02),
+                  left: dynamicWidth(context, .02),
+                  right: dynamicWidth(context, .02),
                 ),
                 child: Hero(
                   tag: "SearchBar",
@@ -43,7 +57,16 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ),
               searchText.text == ""
-                  ? Container()
+                  ? Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: dynamicHeight(context, .2),
+                      ),
+                      child: Image.asset(
+                        "assets/icons/searchIcon.png",
+                        color: myBlack,
+                        height: dynamicHeight(context, .3),
+                      ),
+                    )
                   : detailGrid(
                       getSearchResults(searchText.text),
                       context,

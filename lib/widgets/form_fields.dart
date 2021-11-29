@@ -59,17 +59,15 @@ Widget inputTextField(context, label, myController,
 
 Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
   return Container(
-    margin: EdgeInsets.symmetric(horizontal: 5),
+    margin: EdgeInsets.symmetric(
+      horizontal: dynamicWidth(context, .014),
+    ),
     decoration: BoxDecoration(
         color: myWhite,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-              color: myGrey,
-              spreadRadius: 2,
-              blurRadius: 3,
-              offset: Offset(2, 2))
-        ]),
+        borderRadius: BorderRadius.circular(
+          dynamicWidth(context, .08),
+        ),
+        border: Border.all(color: myBlack.withOpacity(.3), width: 1.4)),
     child: Row(
       children: [
         Expanded(
@@ -78,13 +76,14 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
             enabled: enabled,
             autofocus: enabled,
             decoration: InputDecoration(
-                border: InputBorder.none,
-                focusedBorder: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                errorBorder: InputBorder.none,
-                disabledBorder: InputBorder.none,
-                contentPadding: EdgeInsets.only(left: 20),
-                hintText: "Search Your Product"),
+              border: InputBorder.none,
+              errorBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              contentPadding: EdgeInsets.only(
+                left: dynamicWidth(context, .05),
+              ),
+              hintText: "Search Your Product",
+            ),
             onSubmitted: (value) {
               controller.text = value;
               setStateFunction();
@@ -96,7 +95,9 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
             setStateFunction();
           },
           child: Padding(
-            padding: const EdgeInsets.only(right: 10),
+            padding: EdgeInsets.only(
+              right: dynamicWidth(context, .02),
+            ),
             child: Icon(Icons.search_sharp),
           ),
         ),
