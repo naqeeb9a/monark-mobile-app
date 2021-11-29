@@ -242,13 +242,14 @@ class _LoginState extends State<Login> {
                                     var accessToken = await loginUser();
                                     if (accessToken == "Server Error") {
                                       Dialog(
-                                          child: Center(
-                                        child: SizedBox(
-                                          height: dynamicHeight(context, .25),
-                                          child: Image.asset(
-                                              "assets/network_error.png"),
+                                        child: Center(
+                                          child: SizedBox(
+                                            height: dynamicHeight(context, .25),
+                                            child: Image.asset(
+                                                "assets/network_error.png"),
+                                          ),
                                         ),
-                                      ));
+                                      );
                                       setState(() {
                                         isLoading = false;
                                       });
