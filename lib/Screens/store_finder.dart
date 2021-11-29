@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/widgets/app_bar.dart';
+import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -14,6 +15,8 @@ class StoreFinder extends StatefulWidget {
 }
 
 class _StoreFinderState extends State<StoreFinder> {
+  var _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   List locationData = [
     {
       'name': "Amanah Mall Lahore",
@@ -153,28 +156,28 @@ class _StoreFinderState extends State<StoreFinder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: bar(context),
+      key: _scaffoldKey,
+      backgroundColor: myWhite,
+      appBar: bar(
+        context,
+        menuIcon: true,
+        bgColor: noColor,
+        leadingIcon: true,
+        function: () {
+          _scaffoldKey.currentState!.openEndDrawer();
+        },
+      ),
+      endDrawer: drawer(context),
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(
-              top: dynamicHeight(context, .04),
-              bottom: dynamicHeight(context, .04),
+            padding: EdgeInsets.symmetric(
+              horizontal: dynamicWidth(context, .05),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Store Locator",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: dynamicWidth(context, .07),
-                    color: myBlack,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-              ],
-            ),
+            child: rowText("Store Locator", context),
+          ),
+          SizedBox(
+            height: dynamicHeight(context, .04),
           ),
           SizedBox(
             width: dynamicWidth(context, 1),
@@ -205,214 +208,246 @@ class _StoreFinderState extends State<StoreFinder> {
 
 Widget storeCard(
     context, name, address, state, city, phone, email, url, workTime, holiday) {
-  return Container(
-    width: dynamicWidth(context, .9),
-    decoration: BoxDecoration(
-      color: myWhite,
-      borderRadius: BorderRadius.circular(
-        dynamicWidth(context, .04),
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: myBlack.withOpacity(0.2),
-          spreadRadius: 4,
-          blurRadius: 8,
-          offset: Offset(0, 3), // changes position of shadow
-        ),
-      ],
+  return Padding(
+    padding: EdgeInsets.symmetric(
+      horizontal: dynamicWidth(context, .05),
+      vertical: dynamicHeight(context, .01),
     ),
-    padding: EdgeInsets.all(
-      dynamicWidth(context, .04),
-    ),
-    margin: EdgeInsets.all(
-      dynamicWidth(context, .04),
-    ),
-    child: Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(
-            bottom: dynamicHeight(context, .02),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                name,
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: dynamicWidth(context, .06),
-                  color: myRed,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: dynamicHeight(context, .01),
-          ),
-          child: SizedBox(
-            width: dynamicWidth(context, 1),
-            child: AutoSizeText(
-              "Address : $address",
-              style: TextStyle(
-                fontSize: dynamicWidth(context, .04),
-                color: myBlack,
-              ),
-              maxLines: 2,
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: dynamicHeight(context, .01),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              AutoSizeText(
-                "State : $state",
-                style: TextStyle(
-                  fontSize: dynamicWidth(context, .04),
-                  color: myBlack,
-                ),
-                maxLines: 1,
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: dynamicHeight(context, .01),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              AutoSizeText(
-                city,
-                style: TextStyle(
-                  fontSize: dynamicWidth(context, .04),
-                  color: myBlack,
-                ),
-                maxLines: 1,
-              ),
-            ],
-          ),
-        ),
-        InkWell(
-          onTap: () {
-            launch("tel:$phone");
-          },
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: dynamicHeight(context, .01),
+    child: Container(
+      width: dynamicWidth(context, 1),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: dynamicHeight(context, .02),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                AutoSizeText(
-                  "Phone : $phone",
+                Text(
+                  name,
                   style: TextStyle(
-                    fontSize: dynamicWidth(context, .04),
+                    fontWeight: FontWeight.w600,
+                    fontSize: dynamicWidth(context, .064),
                     color: myBlack,
                   ),
-                  maxLines: 1,
                 ),
               ],
             ),
           ),
-        ),
-        email == ""
-            ? SizedBox(
-                height: 0,
-              )
-            : InkWell(
-                onTap: () {
-                  launch(
-                    "mailto:$email",
-                    forceSafariVC: false,
-                    forceWebView: false,
-                  );
-                },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: dynamicHeight(context, .01),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: dynamicHeight(context, .006),
+            ),
+            child: Row(
+              children: [
+                Text(
+                  "Address: ",
+                  style: TextStyle(
+                    color: myBlack,
+                    fontWeight: FontWeight.bold,
+                    fontSize: dynamicWidth(context, .04),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      AutoSizeText(
-                        "E-mail : $email",
-                        style: TextStyle(
-                          fontSize: dynamicWidth(context, .04),
-                          color: myBlack,
-                        ),
-                        maxLines: 1,
+                  maxLines: 1,
+                ),
+                SizedBox(
+                  width: dynamicWidth(context, .7),
+                  child: AutoSizeText(
+                    address,
+                    style: TextStyle(
+                      color: myBlack,
+                      fontSize: dynamicWidth(context, .04),
+                    ),
+                    maxLines: 2,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: dynamicHeight(context, .006),
+            ),
+            child: Row(
+              children: [
+                Text(
+                  "State: ",
+                  style: TextStyle(
+                    color: myBlack,
+                    fontWeight: FontWeight.bold,
+                    fontSize: dynamicWidth(context, .04),
+                  ),
+                  maxLines: 1,
+                ),
+                SizedBox(
+                  width: dynamicWidth(context, .7),
+                  child: AutoSizeText(
+                    state,
+                    style: TextStyle(
+                      color: myBlack,
+                      fontSize: dynamicWidth(context, .04),
+                    ),
+                    maxLines: 1,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: dynamicHeight(context, .006),
+            ),
+            child: Row(
+              children: [
+                Text(
+                  "City: ",
+                  style: TextStyle(
+                    color: myBlack,
+                    fontWeight: FontWeight.bold,
+                    fontSize: dynamicWidth(context, .04),
+                  ),
+                  maxLines: 1,
+                ),
+                SizedBox(
+                  width: dynamicWidth(context, .7),
+                  child: AutoSizeText(
+                    city,
+                    style: TextStyle(
+                      color: myBlack,
+                      fontSize: dynamicWidth(context, .04),
+                    ),
+                    maxLines: 1,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              launch("tel:$phone");
+            },
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: dynamicHeight(context, .006),
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    "Phone: ",
+                    style: TextStyle(
+                      color: myBlack,
+                      fontWeight: FontWeight.bold,
+                      fontSize: dynamicWidth(context, .04),
+                    ),
+                    maxLines: 1,
+                  ),
+                  SizedBox(
+                    width: dynamicWidth(context, .7),
+                    child: AutoSizeText(
+                      phone,
+                      style: TextStyle(
+                        color: myBlack,
+                        fontSize: dynamicWidth(context, .04),
                       ),
-                    ],
+                      maxLines: 2,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          email == ""
+              ? SizedBox(
+                  height: 0,
+                )
+              : InkWell(
+                  onTap: () {
+                    launch(
+                      "mailto:$email",
+                      forceSafariVC: false,
+                      forceWebView: false,
+                    );
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: dynamicHeight(context, .006),
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Email: ",
+                          style: TextStyle(
+                            color: myBlack,
+                            fontWeight: FontWeight.bold,
+                            fontSize: dynamicWidth(context, .04),
+                          ),
+                          maxLines: 1,
+                        ),
+                        SizedBox(
+                          width: dynamicWidth(context, .7),
+                          child: AutoSizeText(
+                            email,
+                            style: TextStyle(
+                              color: myBlack,
+                              fontSize: dynamicWidth(context, .04),
+                            ),
+                            maxLines: 2,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-        InkWell(
-          onTap: () {
-            launch(url);
-          },
-          child: Padding(
+          Padding(
             padding: EdgeInsets.symmetric(
-              vertical: dynamicHeight(context, .01),
+              vertical: dynamicHeight(context, .006),
+            ),
+            child: Row(
+              children: [
+                Text(
+                  "Time: ",
+                  style: TextStyle(
+                    color: myBlack,
+                    fontWeight: FontWeight.bold,
+                    fontSize: dynamicWidth(context, .04),
+                  ),
+                  maxLines: 1,
+                ),
+                SizedBox(
+                  width: dynamicWidth(context, .7),
+                  child: AutoSizeText(
+                    workTime,
+                    style: TextStyle(
+                      color: myBlack,
+                      fontSize: dynamicWidth(context, .04),
+                    ),
+                    maxLines: 1,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: dynamicHeight(context, .006),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 AutoSizeText(
-                  "URL : $url",
+                  holiday,
                   style: TextStyle(
+                    color: myRed,
                     fontSize: dynamicWidth(context, .04),
-                    color: myBlack,
+                    fontWeight: FontWeight.bold,
                   ),
                   maxLines: 1,
                 ),
               ],
             ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: dynamicHeight(context, .01),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              AutoSizeText(
-                "Work Time Today : $workTime",
-                style: TextStyle(
-                  fontSize: dynamicWidth(context, .04),
-                  color: myBlack,
-                ),
-                maxLines: 1,
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: dynamicHeight(context, .01),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              AutoSizeText(
-                holiday,
-                style: TextStyle(
-                  fontSize: dynamicWidth(context, .04),
-                  color: myBlack,
-                ),
-                maxLines: 1,
-              ),
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }

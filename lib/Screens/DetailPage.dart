@@ -114,11 +114,14 @@ class _DetailPageState extends State<DetailPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            widget.text,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: dynamicWidth(context, .04),
+                          Container(
+                            width: dynamicWidth(context, .7),
+                            child: Text(
+                              widget.text,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: dynamicWidth(context, .04),
+                              ),
                             ),
                           ),
                           Text(
