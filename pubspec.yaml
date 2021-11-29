@@ -48,7 +48,6 @@ dependencies:
   tab_indicator_styler: ^2.0.0
   carousel_slider: ^4.0.0
   flutter_slidable: ^1.1.0
-  restart_app: ^1.1.0
   flutter_phoenix: ^1.0.0
 
 dev_dependencies:
@@ -94,9 +93,9 @@ flutter:
     - family: Aeonik
       fonts:
         - asset: assets/fonts/Aeonik-font-download/Aeonik-Regular.otf
-#        - asset: assets/fonts/Aeonik-font-download/Aeonik-Medium.otf
-#        - asset: assets/fonts/Aeonik-font-download/Aeonik-Bold.otf
-#          weight: 600
+    #        - asset: assets/fonts/Aeonik-font-download/Aeonik-Medium.otf
+    #        - asset: assets/fonts/Aeonik-font-download/Aeonik-Bold.otf
+    #          weight: 600
 
     #   - family: Trajan Pro
     #     fonts:
