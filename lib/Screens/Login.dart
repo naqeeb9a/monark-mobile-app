@@ -253,11 +253,11 @@ class _LoginState extends State<Login> {
                                         isLoading = false;
                                       });
                                     } else if (accessToken != null) {
-                                      // SharedPreferences saveUser =
-                                      //     await SharedPreferences.getInstance();
-                                      //
-                                      // saveUser.setString(
-                                      //     "loginInfo", accessToken.toString());
+                                      SharedPreferences saveUser =
+                                          await SharedPreferences.getInstance();
+
+                                      saveUser.setString(
+                                          "loginInfo", accessToken.toString());
                                       pushAndRemoveUntil(
                                         context,
                                         BottomNav(),

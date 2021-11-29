@@ -107,6 +107,23 @@ Widget profilePicture(context) {
       SizedBox(
         height: dynamicHeight(context, .03),
       ),
+      // (customerInfo == false || customerInfo == null)
+      //     ? Text(
+      //         "Sign In",
+      //         style: TextStyle(
+      //           fontSize: dynamicWidth(context, .07),
+      //           color: myBlack,
+      //           fontWeight: FontWeight.bold,
+      //         ),
+      //       )
+      //     : Text(
+      // ,
+      //         style: TextStyle(
+      //           fontSize: dynamicWidth(context, .07),
+      //           color: myBlack,
+      //           fontWeight: FontWeight.bold,
+      //         ),
+      //       )
     ],
   );
 }

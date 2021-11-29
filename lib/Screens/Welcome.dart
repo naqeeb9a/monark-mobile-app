@@ -4,6 +4,7 @@ import 'package:monark_app/Screens/bottomNav.dart';
 import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/media_query.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/config.dart';
 import 'Login.dart';
@@ -51,7 +52,10 @@ class _WelcomeState extends State<Welcome> {
                 coloredButton(
                   context,
                   "Sign In as Guest",
-                  function: () {
+                  function: () async {
+                    SharedPreferences saveUser =
+                        await SharedPreferences.getInstance();
+                    saveUser.setString("loginInfo", "guest");
                     pushAndRemoveUntil(
                       context,
                       BottomNav(),

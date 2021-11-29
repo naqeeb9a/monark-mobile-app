@@ -8,6 +8,7 @@ import 'package:monark_app/Screens/Profile.dart';
 import 'package:monark_app/Screens/Search.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/media_query.dart';
+import 'package:monark_app/widgets/shopify_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomNav extends StatefulWidget {
@@ -19,6 +20,13 @@ class BottomNav extends StatefulWidget {
 
 class _BottomNavState extends State<BottomNav> {
   int currentPage = 0;
+  var accessToken;
+  var customerInfo;
+  @override
+  void initState() {
+    super.initState();
+    getToken();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +34,7 @@ class _BottomNavState extends State<BottomNav> {
       backgroundColor: myWhite,
       body: Container(
         child: Center(
-          child: _getPage(currentPage),
+          child: _getPage(currentPage, accessToken),
         ),
       ),
       bottomNavigationBar: CustomNavigationBar(
@@ -112,18 +120,22 @@ class _BottomNavState extends State<BottomNav> {
     );
   }
 
-  Future<String> getToken() async {
+  getToken() async {
     SharedPreferences saveUser = await SharedPreferences.getInstance();
-    saveUser.setString("loginInfo", "");
+    accessToken = saveUser.getString("loginInfo").toString();
+
+    if (accessToken == "guest") {
+      customerInfo = "guest";
+    } else {
+      customerInfo = await getUserData(accessToken);
+    }
     return saveUser.getString("loginInfo").toString();
   }
 
-  _getPage(int page) {
+  _getPage(int page, accessToken) {
     switch (page) {
       case 0:
-        return Home(
-          accessToken: getToken(),
-        );
+        return Home(accessToken: accessToken);
       case 1:
         return SearchPage();
       case 2:
@@ -132,7 +144,7 @@ class _BottomNavState extends State<BottomNav> {
         return const Cart();
       case 4:
         return Profile(
-          accessToken: getToken(),
+          customerInfo: customerInfo,
         );
       default:
         return Column(

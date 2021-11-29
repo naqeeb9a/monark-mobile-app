@@ -4,10 +4,11 @@ import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/drawer_items.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
+// ignore: must_be_immutable
 class Profile extends StatelessWidget {
-  final Future<String> accessToken;
+  var customerInfo;
 
-  Profile({Key? key, required this.accessToken}) : super(key: key);
+  Profile({Key? key, required this.customerInfo}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +24,13 @@ class Profile extends StatelessWidget {
                 profilePicture(
                   context,
                 ),
-                profileText(context, "Sara Tahir"),
+                (customerInfo == "guest")
+                    ? profileText(context, "Sign in")
+                    : profileText(
+                        context,
+                        customerInfo["firstName"] +
+                            " " +
+                            customerInfo["lastName"]),
                 profileText(context, "My Wishlist"),
                 profileText(context, "My Bag"),
                 profileText(context, "Order History"),
