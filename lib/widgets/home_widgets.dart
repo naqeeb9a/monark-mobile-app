@@ -101,8 +101,13 @@ Widget basicCards(context, imageUrl, text, availableForSale,
                   outOfStock: true),
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    dynamicWidth(context, .03),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(
+                      dynamicWidth(context, .08),
+                    ),
+                    topRight: Radius.circular(
+                      dynamicWidth(context, .08),
+                    ),
                   ),
                   color: myBlack.withOpacity(.4),
                 ),
