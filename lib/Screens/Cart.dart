@@ -30,7 +30,6 @@ class _CartState extends State<Cart> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     totalAmountCalculate();
   }
