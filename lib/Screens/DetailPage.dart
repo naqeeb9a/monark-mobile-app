@@ -32,6 +32,7 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   String selectedSize = "";
   int productIndex = 0;
+  int currentPos = 0;
   var quantity = 1.obs;
   List sizeArray = [];
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -84,19 +85,25 @@ class _DetailPageState extends State<DetailPage> {
                       height: dynamicHeight(context, .58),
                       color: myBlack.withOpacity(.2),
                       child: homeSlider(
-                        context,
-                        dynamicHeight(context, .58),
-                        widget.image.length,
-                        1.0,
-                        widget.image,
-                        false,
-                      ),
+                          context,
+                          dynamicHeight(context, .58),
+                          widget.image.length,
+                          1.0,
+                          widget.image,
+                          false, function: (value) {
+                        setState(() {
+                          currentPos = value;
+                        });
+                      }),
                     ),
                     Positioned(
                       bottom: dynamicHeight(context, 0.08),
                       child: DotsIndicator(
+                        decorator: DotsDecorator(
+                            size: const Size.square(7),
+                            activeSize: const Size.square(10)),
                         dotsCount: widget.image.length,
-                        // position: currentIndexPage
+                        position: currentPos.toDouble(),
                       ),
                     )
                   ],

@@ -61,6 +61,10 @@ class _CategoriesPageState extends State<CategoriesPage> {
                               child: ChoiceChip(
                                 label: Text(
                                   snapshot.data[index]["node"]["title"],
+                                  style: TextStyle(
+                                      color: isSelected[index] == true
+                                          ? myWhite
+                                          : myBlack),
                                 ),
                                 selected: isSelected[index],
                                 selectedColor: myRed,
@@ -69,9 +73,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                   color: myBlack.withOpacity(.3),
                                   width: .1,
                                 ),
-                                labelStyle: TextStyle(
-
-                                ),
+                                labelStyle: TextStyle(),
                                 onSelected: (value) {
                                   if (isSelected[index] == true) {
                                     setState(() {

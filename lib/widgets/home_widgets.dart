@@ -390,14 +390,8 @@ dynamic imageAlert(context, image, assetImage) {
   );
 }
 
-Widget homeSlider(
-  context,
-  height,
-  length,
-  viewFraction,
-  image,
-  bool detail,
-) {
+Widget homeSlider(context, height, length, viewFraction, image, bool detail,
+    {function = ""}) {
   return CarouselSlider.builder(
     itemCount: length,
     itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
@@ -420,6 +414,11 @@ Widget homeSlider(
     options: CarouselOptions(
       enableInfiniteScroll: detail,
       height: height,
+      onPageChanged: (function != "")
+          ? (index, value) {
+              function(index);
+            }
+          : null,
       enlargeCenterPage: true,
       viewportFraction: viewFraction,
       autoPlay: detail,
