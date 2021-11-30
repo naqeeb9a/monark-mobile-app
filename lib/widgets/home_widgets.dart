@@ -99,10 +99,10 @@ Widget basicCards(context, imageUrl, text, availableForSale,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(
-                      dynamicWidth(context, .08),
+                      dynamicWidth(context, .06),
                     ),
                     topRight: Radius.circular(
-                      dynamicWidth(context, .08),
+                      dynamicWidth(context, .06),
                     ),
                   ),
                   color: myBlack.withOpacity(.4),
@@ -133,18 +133,27 @@ Widget basicCards(context, imageUrl, text, availableForSale,
                 }
               : () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DetailPage(
-                              image: imageUrl,
-                              variantProduct: variantProduct,
-                              text: text,
-                              array: sizeOption,
-                              description: description,
-                              availableForSale: availableForSale)));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailPage(
+                        image: imageUrl,
+                        variantProduct: variantProduct,
+                        text: text,
+                        array: sizeOption,
+                        description: description,
+                        availableForSale: availableForSale,
+                      ),
+                    ),
+                  );
                 },
           child: internalWidgetCard(
-              context, imageUrl, variantProduct, text, categoriesCheck));
+            context,
+            imageUrl,
+            variantProduct,
+            text,
+            categoriesCheck,
+          ),
+        );
 }
 
 Widget internalWidgetCard(
@@ -161,7 +170,7 @@ Widget internalWidgetCard(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(
-                dynamicWidth(context, .08),
+                dynamicWidth(context, .06),
               ),
               child: Container(
                 height: dynamicHeight(context, .34),
@@ -184,8 +193,8 @@ Widget internalWidgetCard(
             (categoriesCheck == true)
                 ? Container()
                 : Positioned(
-                    bottom: 15,
-                    right: 15,
+                    bottom: dynamicHeight(context, 0.02),
+                    right: dynamicWidth(context, 0.04),
                     child: CircleAvatar(
                       radius: dynamicWidth(context, 0.04),
                       backgroundColor: Colors.white,
