@@ -174,7 +174,7 @@ class _LoginState extends State<Login> {
                                   },
                                 ),
                                 SizedBox(
-                                  height: dynamicHeight(context, .02),
+                                  height: dynamicHeight(context, .014),
                                 ),
                                 Row(
                                   children: [
@@ -227,7 +227,7 @@ class _LoginState extends State<Login> {
                                   ],
                                 ),
                                 SizedBox(
-                                  height: dynamicHeight(context, .1),
+                                  height: dynamicHeight(context, .08),
                                 ),
                                 coloredButton(
                                   context,

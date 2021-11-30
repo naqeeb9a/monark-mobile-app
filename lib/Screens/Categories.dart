@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/form_fields.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
@@ -20,6 +21,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: myWhite,
       appBar: bar(context, menuIcon: true, bgColor: Colors.transparent),
       body: SafeArea(
         child: Column(
@@ -61,6 +63,15 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                   snapshot.data[index]["node"]["title"],
                                 ),
                                 selected: isSelected[index],
+                                selectedColor: myRed,
+                                backgroundColor: myWhite,
+                                side: BorderSide(
+                                  color: myBlack.withOpacity(.3),
+                                  width: .1,
+                                ),
+                                labelStyle: TextStyle(
+
+                                ),
                                 onSelected: (value) {
                                   if (isSelected[index] == true) {
                                     setState(() {

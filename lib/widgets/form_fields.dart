@@ -6,6 +6,7 @@ import '../utils/config.dart';
 Widget inputTextField(context, label, myController,
     {function, function2, password = false}) {
   return Container(
+    height: dynamicHeight(context, .054),
     decoration: BoxDecoration(
       color: myWhite,
       borderRadius: BorderRadius.circular(
@@ -33,7 +34,7 @@ Widget inputTextField(context, label, myController,
                 ),
               ),
         contentPadding: EdgeInsets.symmetric(
-          vertical: dynamicHeight(context, .012),
+          vertical: dynamicHeight(context, .008),
           horizontal: dynamicWidth(context, .05),
         ),
         focusedBorder: OutlineInputBorder(
@@ -59,15 +60,20 @@ Widget inputTextField(context, label, myController,
 
 Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
   return Container(
+    height: dynamicHeight(context, .054),
     margin: EdgeInsets.symmetric(
       horizontal: dynamicWidth(context, .014),
     ),
     decoration: BoxDecoration(
-        color: myWhite,
-        borderRadius: BorderRadius.circular(
-          dynamicWidth(context, .08),
-        ),
-        border: Border.all(color: myBlack.withOpacity(.3), width: 1.4)),
+      color: myWhite,
+      borderRadius: BorderRadius.circular(
+        dynamicWidth(context, .08),
+      ),
+      border: Border.all(
+        color: myBlack.withOpacity(.3),
+        width: 1.4,
+      ),
+    ),
     child: Row(
       children: [
         Expanded(
@@ -79,10 +85,11 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
               border: InputBorder.none,
               errorBorder: InputBorder.none,
               disabledBorder: InputBorder.none,
-              contentPadding: EdgeInsets.only(
-                left: dynamicWidth(context, .05),
-              ),
               hintText: "Search Your Product",
+              contentPadding: EdgeInsets.symmetric(
+                vertical: dynamicHeight(context, .0),
+                horizontal: dynamicWidth(context, .05),
+              ),
             ),
             onSubmitted: (value) {
               controller.text = value;

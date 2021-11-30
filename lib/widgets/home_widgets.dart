@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
+
 import '../utils/config.dart';
 import 'drawer_items.dart';
 import 'media_query.dart';
@@ -415,7 +416,7 @@ Widget homeSlider(
       autoPlay: detail,
       autoPlayInterval: Duration(seconds: 6),
       autoPlayAnimationDuration: Duration(seconds: 2),
-      aspectRatio: 16 / 9,
+      aspectRatio: 2.0,
       autoPlayCurve: Curves.fastLinearToSlowEaseIn,
     ),
   );
@@ -450,7 +451,7 @@ Widget sliderContainer(context, String image, bool detail) {
 }
 
 Widget drawer(context) {
-  return SizedBox(
+  return Container(
     width: dynamicWidth(context, .54),
     child: Drawer(
       child: drawerItems(

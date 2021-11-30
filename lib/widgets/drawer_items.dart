@@ -51,52 +51,56 @@ Widget drawerItems(context) {
     },
   ];
   return SafeArea(
-    child: Column(
-      children: [
-        Row(
-          children: [
-            InkWell(
-              onTap: () {
-                pop(context);
-              },
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: dynamicHeight(context, .02),
-                  horizontal: dynamicWidth(context, .03),
-                ),
-                child: Image.asset(
-                  "assets/icons/crossIcon.png",
-                  color: myRed,
-                  height: dynamicHeight(context, .03),
+    child: ColoredBox(
+      color: darkTheme == true ? darkThemeBlack : myWhite,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              InkWell(
+                onTap: () {
+                  pop(context);
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: dynamicHeight(context, .02),
+                    horizontal: dynamicWidth(context, .03),
+                  ),
+                  child: Image.asset(
+                    "assets/icons/crossIcon.png",
+                    color: darkTheme == true ? myWhite : myRed,
+                    height: dynamicHeight(context, .03),
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        Flexible(
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: dynamicHeight(context, .12),
-              left: dynamicWidth(context, .06),
-            ),
-            child: ListView.builder(
-              itemCount: drawerItemList.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  onTap: drawerItemList[index]["function"],
-                  title: Text(
-                    drawerItemList[index]["text"].toString(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: dynamicWidth(context, .044),
+            ],
+          ),
+          Flexible(
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: dynamicHeight(context, .12),
+                left: dynamicWidth(context, .06),
+              ),
+              child: ListView.builder(
+                itemCount: drawerItemList.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    onTap: drawerItemList[index]["function"],
+                    title: Text(
+                      drawerItemList[index]["text"].toString(),
+                      style: TextStyle(
+                        color: darkTheme == true ? myWhite : myBlack,
+                        fontWeight: FontWeight.bold,
+                        fontSize: dynamicWidth(context, .044),
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }

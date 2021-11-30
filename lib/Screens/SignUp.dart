@@ -140,7 +140,7 @@ class _SignUpState extends State<SignUp> {
                               child: Column(
                                 children: [
                                   SizedBox(
-                                    height: dynamicHeight(context, .08),
+                                    height: dynamicHeight(context, .04),
                                   ),
                                   Row(
                                     children: [
@@ -170,7 +170,7 @@ class _SignUpState extends State<SignUp> {
                                     },
                                   ),
                                   SizedBox(
-                                    height: dynamicHeight(context, .02),
+                                    height: dynamicHeight(context, .014),
                                   ),
                                   Row(
                                     children: [
@@ -200,7 +200,7 @@ class _SignUpState extends State<SignUp> {
                                     },
                                   ),
                                   SizedBox(
-                                    height: dynamicHeight(context, .02),
+                                    height: dynamicHeight(context, .014),
                                   ),
                                   Row(
                                     children: [
@@ -231,7 +231,7 @@ class _SignUpState extends State<SignUp> {
                                     },
                                   ),
                                   SizedBox(
-                                    height: dynamicHeight(context, .02),
+                                    height: dynamicHeight(context, .014),
                                   ),
                                   Row(
                                     children: [
@@ -267,7 +267,7 @@ class _SignUpState extends State<SignUp> {
                                     },
                                   ),
                                   SizedBox(
-                                    height: dynamicHeight(context, .02),
+                                    height: dynamicHeight(context, .014),
                                   ),
                                   Row(
                                     children: [
@@ -304,7 +304,7 @@ class _SignUpState extends State<SignUp> {
                                     },
                                   ),
                                   SizedBox(
-                                    height: dynamicHeight(context, .06),
+                                    height: dynamicHeight(context, .04),
                                   ),
                                   coloredButton(
                                     context,
@@ -354,7 +354,7 @@ class _SignUpState extends State<SignUp> {
                                     },
                                   ),
                                   SizedBox(
-                                    height: dynamicHeight(context, .04),
+                                    height: dynamicHeight(context, .02),
                                   ),
                                   richTextWidget(
                                     context,
@@ -368,7 +368,7 @@ class _SignUpState extends State<SignUp> {
                                     false,
                                   ),
                                   SizedBox(
-                                    height: dynamicHeight(context, .06),
+                                    height: dynamicHeight(context, .04),
                                   ),
                                 ],
                               ),

@@ -19,10 +19,10 @@ class _AboutUsState extends State<AboutUs> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: myWhite,
+      backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
       appBar: bar(
         context,
-        bgColor: myWhite,
+        bgColor: darkTheme == true ? darkThemeBlack : myWhite,
         menuIcon: true,
         leadingIcon: true,
         function: () {
@@ -33,7 +33,7 @@ class _AboutUsState extends State<AboutUs> {
       body: SafeArea(
         child: Center(
           child: SizedBox(
-            width: dynamicWidth(context, .9),
+            width: dynamicWidth(context, .92),
             child: Column(
               children: [
                 rowText("About Monark", context),
@@ -45,7 +45,7 @@ class _AboutUsState extends State<AboutUs> {
                   children: [
                     Expanded(
                       child: AutoSizeText(
-                        "MONARK - A smart casual fashion retail brand for men is an abstract of our rich "
+                        "Monark - A smart casual fashion retail brand for men is an abstract of our rich "
                         "fashion retailing experience for more than two decades. Our continuing journey of "
                         "creating success stories in men's wear business with years of expertise in fashion "
                         "retailing and foreseeing the demand of value added products in the targeted market "
@@ -57,8 +57,8 @@ class _AboutUsState extends State<AboutUs> {
                         "side of the spectrum, so tuck in that shirt, revamp your wardrobe and let’s begin this "
                         "journey with us.",
                         style: TextStyle(
-                          fontSize: dynamicWidth(context, .042),
-                          color: myBlack,
+                          fontSize: dynamicWidth(context, .036),
+                          color: darkTheme == true ? myWhite : myBlack,
                         ),
                         textAlign: TextAlign.justify,
                       ),
