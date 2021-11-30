@@ -85,7 +85,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                         i++) {
                                       isSelected[i] = false;
                                     }
-                                    print(isSelected);
                                     setState(() {
                                       isSelected[index] = value;
                                     });
