@@ -17,25 +17,38 @@ class CategoriesPage extends StatefulWidget {
 }
 
 class _CategoriesPageState extends State<CategoriesPage> {
+  var _scaffoldKey = new GlobalKey<ScaffoldState>();
   var isSelected = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: myWhite,
-      appBar: bar(context, menuIcon: true, bgColor: Colors.transparent),
+      key: _scaffoldKey,
+      backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
+      appBar: bar(
+        context,
+        menuIcon: true,
+        bgColor: noColor,
+        function: () {
+          _scaffoldKey.currentState!.openEndDrawer();
+        },
+      ),
+      endDrawer: drawer(context),
       body: SafeArea(
         child: Column(
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: dynamicWidth(context, 0.02),
-                  vertical: dynamicHeight(context, 0.01)),
+                horizontal: dynamicWidth(context, 0.02),
+                vertical: dynamicHeight(context, 0.01),
+              ),
               child: searchbar(context, enabled: false),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: dynamicWidth(context, 0.04),
-                  vertical: dynamicHeight(context, 0.01)),
+                horizontal: dynamicWidth(context, 0.04),
+                vertical: dynamicHeight(context, 0.01),
+              ),
               child: rowText("Categories", context, check: true),
             ),
             Padding(
@@ -62,15 +75,22 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                 label: Text(
                                   snapshot.data[index]["node"]["title"],
                                   style: TextStyle(
-                                      color: isSelected[index] == true
-                                          ? myWhite
-                                          : myBlack),
+                                    color: isSelected[index] == true
+                                        ? myWhite
+                                        : darkTheme == true
+                                            ? myWhite
+                                            : myBlack,
+                                  ),
                                 ),
                                 selected: isSelected[index],
                                 selectedColor: myRed,
-                                backgroundColor: myWhite,
+                                backgroundColor: darkTheme == true
+                                    ? darkThemeBlack
+                                    : myWhite,
                                 side: BorderSide(
-                                  color: myBlack.withOpacity(.3),
+                                  color: darkTheme == true
+                                      ? myWhite
+                                      : myBlack.withOpacity(.3),
                                   width: .1,
                                 ),
                                 labelStyle: TextStyle(),

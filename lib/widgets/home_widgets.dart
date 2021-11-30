@@ -292,7 +292,10 @@ Widget rowText(text, context, {function = "", check = false}) {
                   vertical: dynamicHeight(context, .01),
                   horizontal: dynamicWidth(context, .02),
                 ),
-                child: Image.asset("assets/icons/filterIcon.png"),
+                child: Image.asset(
+                  "assets/icons/filterIcon.png",
+                  color: darkTheme == true ? myWhite : myRed,
+                ),
               ),
             )
           : Container()
