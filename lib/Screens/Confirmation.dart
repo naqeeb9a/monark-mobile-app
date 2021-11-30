@@ -79,7 +79,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                           ),
                           heightBox(context, 0.01),
                           Text(
-                              "You'll receive a conformation email with your order number shortly."),
+                              "You'll receive a confirmation email with your order number shortly."),
                           heightBox(context, 0.05),
                           Text(
                             "Order Updates",
