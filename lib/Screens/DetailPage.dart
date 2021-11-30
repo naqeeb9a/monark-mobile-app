@@ -5,6 +5,7 @@ import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 
 class DetailPage extends StatefulWidget {
   final dynamic image;
@@ -75,18 +76,30 @@ class _DetailPageState extends State<DetailPage> {
             children: [
               Positioned(
                 top: 0.0,
-                child: Container(
-                  width: dynamicWidth(context, 1),
-                  height: dynamicHeight(context, .58),
-                  color: myBlack.withOpacity(.2),
-                  child: homeSlider(
-                    context,
-                    dynamicHeight(context, .58),
-                    widget.image.length,
-                    1.0,
-                    widget.image,
-                    false,
-                  ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      width: dynamicWidth(context, 1),
+                      height: dynamicHeight(context, .58),
+                      color: myBlack.withOpacity(.2),
+                      child: homeSlider(
+                        context,
+                        dynamicHeight(context, .58),
+                        widget.image.length,
+                        1.0,
+                        widget.image,
+                        false,
+                      ),
+                    ),
+                    Positioned(
+                      bottom: dynamicHeight(context, 0.08),
+                      child: DotsIndicator(
+                        dotsCount: widget.image.length,
+                        // position: currentIndexPage
+                      ),
+                    )
+                  ],
                 ),
               ),
               Positioned(
@@ -115,7 +128,7 @@ class _DetailPageState extends State<DetailPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            width: dynamicWidth(context, .7),
+                            width: dynamicWidth(context, .6),
                             child: Text(
                               widget.text,
                               style: TextStyle(
@@ -393,7 +406,8 @@ class _DetailPageState extends State<DetailPage> {
   }
 }
 
-Widget bottomButton(context, image, price, text, cartQuantity, sku, variantId, size) {
+Widget bottomButton(
+    context, image, price, text, cartQuantity, sku, variantId, size) {
   return MaterialButton(
     color: myRed,
     height: dynamicHeight(context, .06),
