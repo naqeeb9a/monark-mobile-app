@@ -35,6 +35,7 @@ class _DetailPageState extends State<DetailPage> {
   int currentPos = 0;
   var quantity = 1.obs;
   List sizeArray = [];
+  int saleDifference = 0;
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   sizeList() {
@@ -57,6 +58,12 @@ class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
+
+    saleDifference = double.parse(
+                widget.variantProduct[productIndex]["node"]["compareAtPrice"])
+            .toInt() -
+        double.parse(widget.variantProduct[productIndex]["node"]["price"])
+            .toInt();
 
     sizeList();
     variantIndex();
@@ -147,28 +154,46 @@ class _DetailPageState extends State<DetailPage> {
                               ),
                             ),
                           ),
-                          Text(
-                            (widget.variantProduct[productIndex]["node"]
-                                        ["compareAtPrice"] ==
-                                    widget.variantProduct[productIndex]["node"]
-                                        ["price"])
-                                ? "Pkr. " +
-                                    double.parse(
-                                            widget.variantProduct[productIndex]
-                                                ["node"]["price"])
-                                        .toInt()
-                                        .toString()
-                                : "Pkr. " +
-                                    double.parse(
-                                            widget.variantProduct[productIndex]
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                (widget.variantProduct[productIndex]["node"]
+                                            ["compareAtPrice"] ==
+                                        widget.variantProduct[productIndex]
+                                            ["node"]["price"])
+                                    ? "Pkr. " +
+                                        double.parse(widget.variantProduct[
+                                                productIndex]["node"]["price"])
+                                            .toInt()
+                                            .toString()
+                                    : "Pkr. " +
+                                        double.parse(widget
+                                                    .variantProduct[productIndex]
                                                 ["node"]["compareAtPrice"])
-                                        .toInt()
-                                        .toString(),
-                            style: TextStyle(
-                              color: myRed,
-                              fontWeight: FontWeight.bold,
-                              fontSize: dynamicWidth(context, .04),
-                            ),
+                                            .toInt()
+                                            .toString(),
+                                style: TextStyle(
+                                  color: myRed,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: dynamicWidth(context, .04),
+                                ),
+                              ),
+                              Text(
+                                (widget.variantProduct[productIndex]["node"]
+                                            ["compareAtPrice"] ==
+                                        widget.variantProduct[productIndex]
+                                            ["node"]["price"])
+                                    ? ""
+                                    : "You Save  " +
+                                        saleDifference.toString() +
+                                        " Pkr",
+                                style: TextStyle(
+                                  color: myBlack.withOpacity(.4),
+                                  fontSize: dynamicWidth(context, .03),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -204,8 +229,7 @@ class _DetailPageState extends State<DetailPage> {
                                       child: Text(
                                         "Size Guide",
                                         style: TextStyle(
-                                          fontSize: dynamicWidth(context, .046),
-                                          fontWeight: FontWeight.w200,
+                                          fontSize: dynamicWidth(context, .042),
                                         ),
                                       ),
                                     ),
@@ -295,7 +319,7 @@ class _DetailPageState extends State<DetailPage> {
                                       color: myRed,
                                     ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
