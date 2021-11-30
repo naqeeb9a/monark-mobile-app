@@ -425,22 +425,15 @@ Widget homeSlider(context, height, length, viewFraction, image, bool detail,
 }
 
 Widget sliderContainer(context, String image, bool detail) {
-  return Container(
-    width: dynamicWidth(context, 1),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(
-        dynamicWidth(context, .08),
-      ),
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(
+      detail == false ? dynamicWidth(context, 0.0) : dynamicWidth(context, .08),
     ),
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(
-        detail == false
-            ? dynamicWidth(context, 0.0)
-            : dynamicWidth(context, .08),
-      ),
+    child: InteractiveViewer(
       child: CachedNetworkImage(
         imageUrl: image,
-        fit: BoxFit.fitHeight,
+        fit: BoxFit.cover,
+        width: dynamicWidth(context, 1),
         placeholder: (context, string) {
           return Image.asset(
             "assets/loader.gif",
