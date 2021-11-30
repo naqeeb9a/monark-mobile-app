@@ -286,7 +286,7 @@ Widget rowText(text, context, {function = "", check = false}) {
         style: TextStyle(
           color: darkTheme == true ? myWhite : myBlack,
           fontSize: dynamicWidth(context, .092),
-          fontWeight: FontWeight.w900,
+          fontWeight: FontWeight.w800,
         ),
       ),
       check == true

@@ -92,7 +92,48 @@ flutter:
   fonts:
     - family: Aeonik
       fonts:
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Air.otf
+          weight: 100
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Thin.otf
+          weight: 200
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Thin.otf
+          weight: 300
         - asset: assets/fonts/Aeonik-font-download/Aeonik-Regular.otf
+          weight: 400
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Medium.otf
+          weight: 500
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Bold.otf
+          weight: 600
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Black.otf
+          weight: 700
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Black.otf
+          weight: 800
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Black.otf
+          weight: 900
+
+
+    - family: Open Sans
+      fonts:
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Air.otf
+          weight: 100
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Thin.otf
+          weight: 200
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Thin.otf
+          weight: 300
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Regular.otf
+          weight: 400
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Medium.otf
+          weight: 500
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Bold.otf
+          weight: 600
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Black.otf
+          weight: 700
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Black.otf
+          weight: 800
+        - asset: assets/fonts/Aeonik-font-download/Aeonik-Black.otf
+          weight: 900
+    #      fonts:
+    #        - asset: assets/fonts/Aeonik-font-download/Aeonik-Regular.otf
     #        - asset: assets/fonts/Aeonik-font-download/Aeonik-Medium.otf
     #        - asset: assets/fonts/Aeonik-font-download/Aeonik-Bold.otf
     #          weight: 600
