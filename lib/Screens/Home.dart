@@ -100,7 +100,7 @@ class _HomeState extends State<Home> {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: dynamicWidth(context, .05),
+                            horizontal: dynamicWidth(context, .04),
                           ),
                           child: rowText(
                             "Best Sellers",

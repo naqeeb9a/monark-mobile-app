@@ -26,7 +26,7 @@ class CategoriesPage extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: dynamicWidth(context, 0.02),
+                  horizontal: dynamicWidth(context, 0.04),
                   vertical: dynamicHeight(context, 0.01)),
               child: rowText("Categories", context, check: true),
             ),

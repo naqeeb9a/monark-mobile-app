@@ -64,16 +64,18 @@ Widget detailGridExtension(function, context, check) {
           );
         } else if ((snapshot.data as List).length != 0) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
+            padding: EdgeInsets.symmetric(
+              horizontal: dynamicWidth(context, .04),
+            ),
             child: GridView.builder(
                 itemCount: (snapshot.data as List).length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisSpacing: dynamicWidth(context, .01),
+                  crossAxisSpacing: dynamicWidth(context, .04),
                   mainAxisSpacing: check == true
                       ? dynamicHeight(context, .01)
                       : dynamicHeight(context, .05),
                   crossAxisCount: 2,
-                  childAspectRatio: 5 / 9,
+                  childAspectRatio: 5 / 10,
                 ),
                 itemBuilder: (context, index) {
                   return Center(

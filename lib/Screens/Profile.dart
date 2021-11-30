@@ -7,34 +7,39 @@ import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/drawer_items.dart';
+import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   Profile({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     logoutUser(accessToken) async {
       SharedPreferences saveUser = await SharedPreferences.getInstance();
 
       var deleteUserAccessToken = r'''
-mutation customerAccessTokenDelete($customerAccessToken: String!) {
-  customerAccessTokenDelete(customerAccessToken: $customerAccessToken) {
-    deletedAccessToken
-    deletedCustomerAccessTokenId
-    userErrors {
-      field
-      message
-    }
-  }
-}
-
-
+              mutation customerAccessTokenDelete($customerAccessToken: String!) {
+                customerAccessTokenDelete(customerAccessToken: $customerAccessToken) {
+                  deletedAccessToken
+                  deletedCustomerAccessTokenId
+                  userErrors {
+                    field
+                    message
+                  }
+                }
+              }
  ''';
       var variables = {"customerAccessToken": accessToken.toString()};
       final HttpLink httpLink = HttpLink(
@@ -58,8 +63,18 @@ mutation customerAccessTokenDelete($customerAccessToken: String!) {
       }
     }
 
+    var _scaffoldKey = new GlobalKey<ScaffoldState>();
     return Scaffold(
-      appBar: bar(context, bgColor: Colors.transparent, menuIcon: true),
+      key: _scaffoldKey,
+      appBar: bar(
+        context,
+        bgColor: Colors.transparent,
+        menuIcon: true,
+        function: () {
+          _scaffoldKey.currentState!.openEndDrawer();
+        },
+      ),
+      endDrawer: drawer(context),
       body: SafeArea(
         child: Center(
           child: Container(
