@@ -119,16 +119,21 @@ class _ContactPageState extends State<ContactPage> {
                             ),
                             child: Row(
                               children: [
-                                Text(
-                                  "Address: ",
-                                  style: TextStyle(
-                                    color: myBlack,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: dynamicWidth(context, .04),
+                                Container(
+                                  height: dynamicHeight(context, .06),
+                                  child: Text(
+                                    "Address: ",
+                                    style: TextStyle(
+                                      color: myBlack,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: dynamicWidth(context, .04),
+                                    ),
+                                    maxLines: 1,
                                   ),
-                                  maxLines: 1,
                                 ),
-                                Flexible(
+                                Container(
+                                  width: dynamicWidth(context, .7),
+                                  height: dynamicHeight(context, .06),
                                   child: Text(
                                     "81 Babar block, Garden Town Lahore,Pakistan.",
                                     style: TextStyle(
@@ -141,6 +146,45 @@ class _ContactPageState extends State<ContactPage> {
                               ],
                             ),
                           ),
+                          // Padding(
+                          //   padding: EdgeInsets.symmetric(
+                          //     vertical: dynamicHeight(context, .01),
+                          //   ),
+                          //   child: Row(
+                          //     children: [
+                          //       ColoredBox(
+                          //         color: myBlack,
+                          //         child: Column(
+                          //           mainAxisAlignment: MainAxisAlignment.start,
+                          //           children: [
+                          //             Expanded(
+                          //               child: Text(
+                          //                 "Address: ",
+                          //                 style: TextStyle(
+                          //                   color: myBlack,
+                          //                   fontWeight: FontWeight.bold,
+                          //                   fontSize:
+                          //                       dynamicWidth(context, .04),
+                          //                 ),
+                          //                 maxLines: 1,
+                          //               ),
+                          //             ),
+                          //           ],
+                          //         ),
+                          //       ),
+                          //       Flexible(
+                          //         child: Text(
+                          //           "81 Babar block, Garden Town Lahore,Pakistan.",
+                          //           style: TextStyle(
+                          //             color: myBlack,
+                          //             fontSize: dynamicWidth(context, .04),
+                          //           ),
+                          //           maxLines: 2,
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                           Padding(
                             padding: EdgeInsets.symmetric(
                               vertical: dynamicHeight(context, .06),

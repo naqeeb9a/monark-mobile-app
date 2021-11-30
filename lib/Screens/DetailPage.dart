@@ -1,3 +1,4 @@
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -5,7 +6,6 @@ import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 
 class DetailPage extends StatefulWidget {
   final dynamic image;
@@ -100,8 +100,11 @@ class _DetailPageState extends State<DetailPage> {
                       bottom: dynamicHeight(context, 0.08),
                       child: DotsIndicator(
                         decorator: DotsDecorator(
-                            size: const Size.square(7),
-                            activeSize: const Size.square(10)),
+                          color: myWhite,
+                          activeColor: myWhite,
+                          size: const Size.square(5),
+                          activeSize: const Size.square(10),
+                        ),
                         dotsCount: widget.image.length,
                         position: currentPos.toDouble(),
                       ),
