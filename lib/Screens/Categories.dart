@@ -53,12 +53,37 @@ class _CategoriesPageState extends State<CategoriesPage> {
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
                             isSelected.add(false);
-                            return TabBar(tabs: [
-                              Tab(
-                                child:
-                                    Text(snapshot.data[index]["node"]["title"]),
-                              )
-                            ]);
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: dynamicWidth(context, 0.01)),
+                              child: ChoiceChip(
+                                label: Text(
+                                  snapshot.data[index]["node"]["title"],
+                                ),
+                                selected: isSelected[index],
+                                onSelected: (value) {
+                                  if (isSelected[index] == true) {
+                                    setState(() {
+                                      isSelected[index] = false;
+                                    });
+                                  } else if (isSelected.contains(true)) {
+                                    for (var i = 0;
+                                        i < isSelected.length;
+                                        i++) {
+                                      isSelected[i] = false;
+                                    }
+                                    print(isSelected);
+                                    setState(() {
+                                      isSelected[index] = value;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      isSelected[index] = value;
+                                    });
+                                  }
+                                },
+                              ),
+                            );
                           },
                         ),
                       );
