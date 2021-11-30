@@ -446,7 +446,7 @@ Widget sliderContainer(context, String image, bool detail) {
       ),
       child: CachedNetworkImage(
         imageUrl: image,
-        fit: BoxFit.fill,
+        fit: BoxFit.cover,
         placeholder: (context, string) {
           return Image.asset(
             "assets/loader.gif",

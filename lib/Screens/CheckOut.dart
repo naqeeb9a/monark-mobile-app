@@ -58,54 +58,55 @@ class CheckOut extends StatelessWidget {
                   Divider(
                     thickness: 2,
                   ),
-                  (addressList.length == 0)
-                      ? Container(
-                          padding: EdgeInsets.all(
-                            dynamicWidth(context, .02),
-                          ),
-                          child: Text(
-                            "No Address Added Yet!",
-                            style: TextStyle(color: myRed),
-                          ),
-                        )
-                      : Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: EdgeInsets.all(
-                              dynamicWidth(context, .02),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  addressList[group.value]["node"]["address1"],
-                                  style: TextStyle(
-                                      fontSize: dynamicWidth(context, .04),
-                                      fontWeight: FontWeight.w400),
-                                ),
-                                SizedBox(
-                                  height: dynamicHeight(context, .01),
-                                ),
-                                Text(
-                                  addressList[group.value]["node"]["city"],
-                                  style: TextStyle(
-                                    fontSize: dynamicWidth(context, .04),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: dynamicHeight(context, .01),
-                                ),
-                                Text(
-                                  addressList[group.value]["node"]
-                                          ["firstName"] +
-                                      " " +
-                                      addressList[group.value]["node"]
-                                          ["lastName"],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                  // (addressList.length == 0)
+                  //     ?
+                  Container(
+                    padding: EdgeInsets.all(
+                      dynamicWidth(context, .02),
+                    ),
+                    child: Text(
+                      "No Address Added Yet!",
+                      style: TextStyle(color: myRed),
+                    ),
+                  ),
+                  // : Align(
+                  //     alignment: Alignment.topLeft,
+                  //     child: Padding(
+                  //       padding: EdgeInsets.all(
+                  //         dynamicWidth(context, .02),
+                  //       ),
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         children: [
+                  //           Text(
+                  //             addressList[group.value]["node"]["address1"],
+                  //             style: TextStyle(
+                  //                 fontSize: dynamicWidth(context, .04),
+                  //                 fontWeight: FontWeight.w400),
+                  //           ),
+                  //           SizedBox(
+                  //             height: dynamicHeight(context, .01),
+                  //           ),
+                  //           Text(
+                  //             addressList[group.value]["node"]["city"],
+                  //             style: TextStyle(
+                  //               fontSize: dynamicWidth(context, .04),
+                  //             ),
+                  //           ),
+                  //           SizedBox(
+                  //             height: dynamicHeight(context, .01),
+                  //           ),
+                  //           Text(
+                  //             addressList[group.value]["node"]
+                  //                     ["firstName"] +
+                  //                 " " +
+                  //                 addressList[group.value]["node"]
+                  //                     ["lastName"],
+                  //           )
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
                   Divider(
                     thickness: 2,
                   ),
@@ -140,21 +141,21 @@ class CheckOut extends StatelessWidget {
             ),
           ),
           bottomButton1(context, "Buy", () async {
-            var response = await orderItems(orderId);
-            if (response == null) {
-              var snackBar = SnackBar(
-                content: Text("Try again Order not placed"),
-                duration: const Duration(milliseconds: 1000),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ConfirmationPage(),
-                ),
-              );
-            }
+            // var response = await orderItems(orderId);
+            // if (response == null) {
+            //   var snackBar = SnackBar(
+            //     content: Text("Try again Order not placed"),
+            //     duration: const Duration(milliseconds: 1000),
+            //   );
+            //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            // } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ConfirmationPage(),
+              ),
+            );
+            // }
           })
         ],
       ),

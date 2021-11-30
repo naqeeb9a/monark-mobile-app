@@ -4,7 +4,6 @@ import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
-import 'package:monark_app/widgets/shopify_functions.dart';
 
 import '../utils/config.dart';
 
@@ -65,24 +64,24 @@ class Payment extends StatelessWidget {
           bottomButton2(
               context, "Cash On Delivery", Icons.delivery_dining_outlined),
           bottomButton1(context, "CheckOut", () async {
-            var response = await createDraftOrders(subtotal);
-            if (response == null || response == "Server Error") {
-              var snackBar = SnackBar(
-                content: Text('Server Error check your internet'),
-                duration: const Duration(milliseconds: 1000),
-              );
+            // var response = await createDraftOrders(subtotal);
+            // if (response == null || response == "Server Error") {
+            //   var snackBar = SnackBar(
+            //     content: Text('Server Error check your internet'),
+            //     duration: const Duration(milliseconds: 1000),
+            //   );
 
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CheckOut(
-                    orderId: response,
-                  ),
+            //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            // } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CheckOut(
+                  orderId: "response",
                 ),
-              );
-            }
+              ),
+            );
+            // }
           })
         ],
       ),
