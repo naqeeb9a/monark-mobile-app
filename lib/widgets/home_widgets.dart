@@ -391,20 +391,14 @@ dynamic imageAlert(context, image, assetImage) {
 }
 
 Widget homeSlider(context, height, length, viewFraction, image, bool detail,
-    {function = ""}) {
+    {function = "", page = ""}) {
   return CarouselSlider.builder(
     itemCount: length,
     itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
         detail == true
             ? sliderContainer(context, image[itemIndex], detail)
             : InkWell(
-                onTap: () {
-                  imageAlert(
-                    context,
-                    image[itemIndex]["node"]["src"].toString(),
-                    detail,
-                  );
-                },
+                onTap: page == "" ? () {} : page,
                 child: sliderContainer(
                   context,
                   image[itemIndex]["node"]["src"].toString(),
@@ -446,7 +440,7 @@ Widget sliderContainer(context, String image, bool detail) {
       ),
       child: CachedNetworkImage(
         imageUrl: image,
-        fit: BoxFit.cover,
+        fit: BoxFit.fitHeight,
         placeholder: (context, string) {
           return Image.asset(
             "assets/loader.gif",

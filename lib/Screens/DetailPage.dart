@@ -2,6 +2,8 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:monark_app/Screens/SeeFullImage.dart';
+import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
@@ -92,16 +94,26 @@ class _DetailPageState extends State<DetailPage> {
                       height: dynamicHeight(context, .58),
                       color: myBlack.withOpacity(.2),
                       child: homeSlider(
-                          context,
-                          dynamicHeight(context, .58),
-                          widget.image.length,
-                          1.0,
-                          widget.image,
-                          false, function: (value) {
-                        setState(() {
-                          currentPos = value;
-                        });
-                      }),
+                        context,
+                        dynamicHeight(context, .58),
+                        widget.image.length,
+                        1.0,
+                        widget.image,
+                        false,
+                        function: (value) {
+                          setState(() {
+                            currentPos = value;
+                          });
+                        },
+                        page: () {
+                          push(
+                            context,
+                            SeeFullImage(
+                              image: widget.image,
+                            ),
+                          );
+                        },
+                      ),
                     ),
                     Positioned(
                       bottom: dynamicHeight(context, 0.08),
@@ -115,7 +127,7 @@ class _DetailPageState extends State<DetailPage> {
                         dotsCount: widget.image.length,
                         position: currentPos.toDouble(),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
