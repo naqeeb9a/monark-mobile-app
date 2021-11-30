@@ -8,9 +8,15 @@ import 'package:progress_indicators/progress_indicators.dart';
 
 import 'SeeAll.dart';
 
-class CategoriesPage extends StatelessWidget {
+class CategoriesPage extends StatefulWidget {
   const CategoriesPage({Key? key}) : super(key: key);
 
+  @override
+  State<CategoriesPage> createState() => _CategoriesPageState();
+}
+
+class _CategoriesPageState extends State<CategoriesPage> {
+  var isSelected = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,21 +52,13 @@ class CategoriesPage extends StatelessWidget {
                           itemCount: snapshot.data.length,
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: dynamicWidth(context, 0.02)),
-                              padding:
-                                  EdgeInsets.all(dynamicWidth(context, 0.02)),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 1, color: Colors.grey[300]!),
-                                  borderRadius: BorderRadius.circular(25)),
-                              child: Center(
-                                child: Text(
-                                  snapshot.data[index]["node"]["title"],
-                                ),
-                              ),
-                            );
+                            isSelected.add(false);
+                            return TabBar(tabs: [
+                              Tab(
+                                child:
+                                    Text(snapshot.data[index]["node"]["title"]),
+                              )
+                            ]);
                           },
                         ),
                       );
