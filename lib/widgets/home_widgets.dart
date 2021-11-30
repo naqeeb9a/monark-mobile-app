@@ -95,24 +95,9 @@ Widget basicCards(context, imageUrl, text, availableForSale,
               internalWidgetCard(
                   context, imageUrl, variantProduct, text, categoriesCheck,
                   outOfStock: true),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(
-                      dynamicWidth(context, .06),
-                    ),
-                    topRight: Radius.circular(
-                      dynamicWidth(context, .06),
-                    ),
-                  ),
-                  color: myBlack.withOpacity(.4),
-                ),
-                height: dynamicHeight(context, .86),
-                width: dynamicWidth(context, 0.47),
-                child: Image.asset(
-                  "assets/soldOut.png",
-                  scale: 2.6,
-                ),
+              Image.asset(
+                "assets/soldOut.png",
+                scale: 2.6,
               )
             ],
           ),
