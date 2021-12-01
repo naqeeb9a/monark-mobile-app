@@ -224,7 +224,8 @@ Widget internalWidgetCard(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   (variantProduct[0]["node"]["compareAtPrice"] ==
-                          variantProduct[0]["node"]["price"])
+                              variantProduct[0]["node"]["price"] ||
+                          variantProduct[0]["node"]["compareAtPrice"] == null)
                       ? Text(
                           "Pkr. " +
                               double.parse(variantProduct[0]["node"]["price"])
@@ -249,7 +250,8 @@ Widget internalWidgetCard(
                           ),
                         ),
                   (variantProduct[0]["node"]["compareAtPrice"] ==
-                          variantProduct[0]["node"]["price"])
+                              variantProduct[0]["node"]["price"] ||
+                          variantProduct[0]["node"]["compareAtPrice"] == null)
                       ? Container()
                       : Text(
                           "Pkr. " +
