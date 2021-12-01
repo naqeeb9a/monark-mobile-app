@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:monark_app/Screens/Welcome.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
-import 'package:progress_indicators/progress_indicators.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'SeeAll.dart';
 
@@ -19,7 +16,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  var _loading = false;
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   List sliderImage = [
@@ -30,102 +26,69 @@ class _HomeState extends State<Home> {
   ];
 
   @override
-  void initState() {
-    super.initState();
-    checkLoginStatus();
-    setState(() {
-      _loading = true;
-    });
-  }
-
-  checkLoginStatus() async {
-    SharedPreferences saveUser = await SharedPreferences.getInstance();
-    if (saveUser.getString("loginInfo") == null) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (BuildContext context) => Welcome()),
-          (Route<dynamic> route) => false);
-    } else {
-      setState(() {
-        globalAccessToken = saveUser.getString("loginInfo")!;
-
-        _loading = false;
-      });
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return (_loading == true)
-        ? Scaffold(
-            body: Center(
-              child: JumpingDotsProgressIndicator(
-                numberOfDots: 5,
-                fontSize: dynamicWidth(context, .08),
-              ),
-            ),
-          )
-        : Scaffold(
-            key: _scaffoldKey,
-            appBar: bar(
-              context,
-              menuIcon: true,
-              bgColor: darkTheme == true ? darkThemeBlack : myWhite,
-              title: true,
-              function: () {
-                _scaffoldKey.currentState!.openEndDrawer();
-              },
-            ),
-            endDrawer: drawer(context),
-            backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
-            body: SafeArea(
-              child: Center(
-                child: Container(
-                  width: dynamicWidth(context, 1),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: dynamicHeight(context, .01),
-                        ),
-                        homeSlider(
-                          context,
-                          dynamicHeight(context, .34),
-                          sliderImage.length,
-                          .84,
-                          sliderImage,
-                          true,
-                        ),
-                        SizedBox(
-                          height: dynamicHeight(context, .03),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: dynamicWidth(context, .04),
-                          ),
-                          child: rowText(
-                            "Best Sellers",
-                            context,
-                            check: false,
-                          ),
-                        ),
-                        SizedBox(
-                          height: dynamicHeight(context, .02),
-                        ),
-                        SizedBox(
-                          height: dynamicHeight(context, .7),
-                          child: detailGrid(
-                              getShopifyProductsBestSelling(), context, false,
-                              expandedCheck: false),
-                        ),
-                        SizedBox(
-                          height: dynamicHeight(context, .02),
-                        ),
-                      ],
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: bar(
+        context,
+        menuIcon: true,
+        bgColor: darkTheme == true ? darkThemeBlack : myWhite,
+        title: true,
+        function: () {
+          _scaffoldKey.currentState!.openEndDrawer();
+        },
+      ),
+      endDrawer: drawer(context),
+      backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
+      body: SafeArea(
+        child: Center(
+          child: Container(
+            width: dynamicWidth(context, 1),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: dynamicHeight(context, .01),
+                  ),
+                  homeSlider(
+                    context,
+                    dynamicHeight(context, .34),
+                    sliderImage.length,
+                    .84,
+                    sliderImage,
+                    true,
+                  ),
+                  SizedBox(
+                    height: dynamicHeight(context, .03),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: dynamicWidth(context, .04),
+                    ),
+                    child: rowText(
+                      "Best Sellers",
+                      context,
+                      check: false,
                     ),
                   ),
-                ),
+                  SizedBox(
+                    height: dynamicHeight(context, .02),
+                  ),
+                  SizedBox(
+                    height: dynamicHeight(context, .7),
+                    child: detailGrid(
+                        getShopifyProductsBestSelling(), context, false,
+                        expandedCheck: false),
+                  ),
+                  SizedBox(
+                    height: dynamicHeight(context, .02),
+                  ),
+                ],
               ),
             ),
-          );
+          ),
+        ),
+      ),
+    );
   }
 }

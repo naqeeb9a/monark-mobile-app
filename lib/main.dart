@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:monark_app/Screens/Welcome.dart';
+
+import 'Screens/bottomNav.dart';
 
 void main() {
   runApp(
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: primaryColor,
         brightness: Brightness.light,
       ),
-      home: Welcome(),
+      home: BottomNav(),
     );
   }
 }
