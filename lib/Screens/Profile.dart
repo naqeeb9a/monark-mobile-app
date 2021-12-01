@@ -66,6 +66,7 @@ class _ProfileState extends State<Profile> {
     var _scaffoldKey = new GlobalKey<ScaffoldState>();
     return Scaffold(
       key: _scaffoldKey,
+      backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
       appBar: bar(
         context,
         bgColor: Colors.transparent,
@@ -78,7 +79,7 @@ class _ProfileState extends State<Profile> {
       body: SafeArea(
         child: Center(
           child: Container(
-            width: dynamicWidth(context, .9),
+            width: dynamicWidth(context, .8),
             height: dynamicHeight(context, .8),
             child: globalAccessToken == "guest"
                 ? Column(
@@ -170,6 +171,7 @@ class _ProfileState extends State<Profile> {
                       } else {
                         return Center(
                           child: JumpingDotsProgressIndicator(
+                            color: darkTheme == true ? myWhite : myBlack,
                             numberOfDots: 5,
                             fontSize: dynamicWidth(context, .08),
                           ),
@@ -187,39 +189,19 @@ Widget profileText(context, text1) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(text1),
+      Text(
+        text1,
+        style: TextStyle(
+          fontSize: dynamicWidth(context, .04),
+          color: darkTheme == true ? myWhite : myBlack,
+        ),
+      ),
       SizedBox(
         height: dynamicHeight(context, 0.01),
       ),
-      Divider()
+      Divider(
+        color: darkTheme == true ? myWhite : myBlack,
+      ),
     ],
   );
 }
-// Widget profileText(context, text1, text2) {
-//   return Align(
-//     alignment: Alignment.centerLeft,
-//     child: Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text(
-//           text1,
-//           style: TextStyle(
-//             fontSize: dynamicWidth(context, .046),
-//             color: myBlack,
-//             fontWeight: FontWeight.bold,
-//           ),
-//         ),
-//         SizedBox(
-//           height: dynamicHeight(context, .012),
-//         ),
-//         Text(
-//           text2,
-//           style: TextStyle(
-//             fontSize: dynamicWidth(context, .04),
-//             color: myBlack,
-//           ),
-//         ),
-//       ],
-//     ),
-//   );
-// }
