@@ -158,7 +158,7 @@ Widget internalWidgetCard(
                 dynamicWidth(context, .06),
               ),
               child: Container(
-                height: dynamicHeight(context, .34),
+                height: dynamicHeight(context, .32),
                 width: dynamicWidth(context, .47),
                 color: myWhite,
                 child: CachedNetworkImage(

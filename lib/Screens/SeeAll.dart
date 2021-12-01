@@ -89,10 +89,10 @@ Widget detailGridExtension(function, context, check) {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisSpacing: dynamicWidth(context, .04),
                   mainAxisSpacing: check == true
-                      ? dynamicHeight(context, .01)
-                      : dynamicHeight(context, .05),
+                      ? dynamicHeight(context, .001)
+                      : dynamicHeight(context, .02),
                   crossAxisCount: 2,
-                  childAspectRatio: 5 / 10,
+                  childAspectRatio: 5 / 9,
                 ),
                 itemBuilder: (context, index) {
                   return Center(

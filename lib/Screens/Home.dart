@@ -19,10 +19,10 @@ class _HomeState extends State<Home> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   List sliderImage = [
-    'https://images.unsplash.com/photo-1577538928305-3807c3993047?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8c2FsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
-    'https://images.unsplash.com/photo-1607082350899-7e105aa886ae?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c2FsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80',
-    'https://media.istockphoto.com/photos/neon-flash-sale-banner-discount-product-advertising-marketing-banner-picture-id1204428300?k=20&m=1204428300&s=612x612&w=0&h=gmBsK52vSWsOR5qj_lXr9R43RAhP5k1WIn8igeua4BA=',
-    'https://www.sanasafinaz.com/media/catalog/category/Sale-inner-Banner_1.jpg',
+    'https://www.crushpixel.com/big-static20/preview4/modern-black-friday-sale-splash-3971985.jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7igM_cOrelNFSjvci4DzT8HMo6xHbNnSjkTg8gkgD5_psi5hE0NVncBEAFLGn15uCaRk&usqp=CAU',
+    'https://img.paisawapas.com/ovz3vew9pw/2021/07/20170241/04.jpg',
+    'https://www.shopickr.com/wp-content/uploads/2016/06/landmark-shops-india-online-lifestyle-fashion-sale.jpg',
   ];
 
   @override
@@ -52,14 +52,14 @@ class _HomeState extends State<Home> {
                   ),
                   homeSlider(
                     context,
-                    dynamicHeight(context, .34),
+                    dynamicHeight(context, .33),
                     sliderImage.length,
                     .84,
                     sliderImage,
                     true,
                   ),
                   SizedBox(
-                    height: dynamicHeight(context, .03),
+                    height: dynamicHeight(context, .02),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
