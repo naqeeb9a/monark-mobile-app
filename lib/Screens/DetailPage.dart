@@ -61,11 +61,13 @@ class _DetailPageState extends State<DetailPage> {
   void initState() {
     super.initState();
 
-    saleDifference = double.parse(
-                widget.variantProduct[productIndex]["node"]["compareAtPrice"])
-            .toInt() -
-        double.parse(widget.variantProduct[productIndex]["node"]["price"])
-            .toInt();
+    if (widget.variantProduct[productIndex]["node"]["compareAtPrice"] != null) {
+      saleDifference = double.parse(
+                  widget.variantProduct[productIndex]["node"]["compareAtPrice"])
+              .toInt() -
+          double.parse(widget.variantProduct[productIndex]["node"]["price"])
+              .toInt();
+    }
 
     sizeList();
     variantIndex();
@@ -171,12 +173,14 @@ class _DetailPageState extends State<DetailPage> {
                             children: [
                               Text(
                                 (widget.variantProduct[productIndex]["node"]
-                                            ["compareAtPrice"] ==
+                                                ["compareAtPrice"] ==
+                                            widget.variantProduct[productIndex]
+                                                ["node"]["price"] ||
                                         widget.variantProduct[productIndex]
-                                            ["node"]["price"])
+                                                ["node"]["compareAtPrice"] ==
+                                            null)
                                     ? "Pkr. " +
-                                        double.parse(widget.variantProduct[
-                                                productIndex]["node"]["price"])
+                                        double.parse(widget.variantProduct[productIndex]["node"]["price"])
                                             .toInt()
                                             .toString()
                                     : "Pkr. " +
@@ -193,9 +197,12 @@ class _DetailPageState extends State<DetailPage> {
                               ),
                               Text(
                                 (widget.variantProduct[productIndex]["node"]
-                                            ["compareAtPrice"] ==
+                                                ["compareAtPrice"] ==
+                                            widget.variantProduct[productIndex]
+                                                ["node"]["price"] ||
                                         widget.variantProduct[productIndex]
-                                            ["node"]["price"])
+                                                ["node"]["compareAtPrice"] ==
+                                            null)
                                     ? ""
                                     : "You Save  " +
                                         saleDifference.toString() +
