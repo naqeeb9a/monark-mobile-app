@@ -8,10 +8,9 @@ import 'package:monark_app/Screens/Profile.dart';
 import 'package:monark_app/Screens/Search.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/media_query.dart';
+import 'package:monark_app/widgets/shopify_functions.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'Welcome.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({Key? key}) : super(key: key);
@@ -23,30 +22,22 @@ class BottomNav extends StatefulWidget {
 class _BottomNavState extends State<BottomNav> {
   int currentPage = 0;
 
-  bool _loading = false;
+  bool _loading = true;
 
   @override
   void initState() {
     super.initState();
-    checkLoginStatus();
     setState(() {
       _loading = true;
     });
-  }
-
-  checkLoginStatus() async {
-    SharedPreferences saveUser = await SharedPreferences.getInstance();
-    if (saveUser.getString("loginInfo") == null) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (BuildContext context) => Welcome()),
-          (Route<dynamic> route) => false);
-    } else {
+    checkLoginStatus(context, () async {
+      SharedPreferences saveUser = await SharedPreferences.getInstance();
       setState(() {
         globalAccessToken = saveUser.getString("loginInfo")!;
 
         _loading = false;
       });
-    }
+    });
   }
 
   @override

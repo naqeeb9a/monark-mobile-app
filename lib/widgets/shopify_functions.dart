@@ -1,7 +1,22 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
+import 'package:monark_app/Screens/Welcome.dart';
 import 'package:monark_app/utils/config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+checkLoginStatus(context, Function function) async {
+  SharedPreferences saveUser = await SharedPreferences.getInstance();
+  if (saveUser.getString("loginInfo") == null) {
+    print("clear");
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (BuildContext context) => Welcome()),
+        (Route<dynamic> route) => false);
+  } else {
+    function();
+  }
+}
 
 getShopifyCategory() async {
   var shopifyCategory = '''
