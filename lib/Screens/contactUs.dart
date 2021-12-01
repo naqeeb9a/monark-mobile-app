@@ -71,8 +71,8 @@ class _ContactPageState extends State<ContactPage> {
                                     style: TextStyle(
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: dynamicWidth(context, .036),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: dynamicWidth(context, .032),
                                     ),
                                     maxLines: 1,
                                   ),
@@ -109,8 +109,8 @@ class _ContactPageState extends State<ContactPage> {
                                     style: TextStyle(
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: dynamicWidth(context, .036),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: dynamicWidth(context, .032),
                                     ),
                                     maxLines: 1,
                                   ),
@@ -145,8 +145,8 @@ class _ContactPageState extends State<ContactPage> {
                                     style: TextStyle(
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: dynamicWidth(context, .036),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: dynamicWidth(context, .032),
                                     ),
                                     maxLines: 2,
                                   ),
