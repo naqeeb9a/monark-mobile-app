@@ -24,6 +24,7 @@ class _BottomNavState extends State<BottomNav> {
   int currentPage = 0;
 
   bool _loading = false;
+
   @override
   void initState() {
     super.initState();
@@ -64,9 +65,12 @@ class _BottomNavState extends State<BottomNav> {
               backgroundColor: myRed,
               items: [
                 BottomNavigationBarItem(
-                  icon: Image.asset(
-                    "assets/icons/homeIcon.png",
-                    width: dynamicWidth(context, .06),
+                  icon: ImageIcon(
+                    AssetImage(
+                      "assets/icons/homeIcon.png",
+                    ),
+                    color: myWhite,
+                    size: dynamicWidth(context, .06),
                   ),
                   // ignore: deprecated_member_use
                   title: Text(

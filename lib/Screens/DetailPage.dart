@@ -78,7 +78,7 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: myWhite,
+      backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
       endDrawer: drawer(context),
       body: SafeArea(
         child: Container(
@@ -118,7 +118,7 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                     ),
                     Positioned(
-                      bottom: dynamicHeight(context, 0.08),
+                      bottom: dynamicHeight(context, 0.09),
                       child: DotsIndicator(
                         decorator: DotsDecorator(
                           color: myWhite,
@@ -137,9 +137,9 @@ class _DetailPageState extends State<DetailPage> {
                 bottom: 0.0,
                 child: Container(
                   width: dynamicWidth(context, 1),
-                  height: dynamicHeight(context, .44),
+                  height: dynamicHeight(context, .4),
                   decoration: BoxDecoration(
-                    color: myWhite,
+                    color: darkTheme == false ? myWhite : darkThemeBlack,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(
                         dynamicWidth(context, .08),
@@ -150,7 +150,7 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                   ),
                   padding: EdgeInsets.symmetric(
-                    vertical: dynamicHeight(context, .03),
+                    vertical: dynamicHeight(context, .02),
                     horizontal: dynamicWidth(context, .05),
                   ),
                   child: Column(
@@ -160,59 +160,74 @@ class _DetailPageState extends State<DetailPage> {
                         children: [
                           Container(
                             width: dynamicWidth(context, .6),
-                            child: Text(
-                              widget.text,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: dynamicWidth(context, .04),
-                              ),
+                            height: dynamicHeight(context, .05),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.text,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: dynamicWidth(context, .04),
+                                    color:
+                                        darkTheme == true ? myWhite : myBlack,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                (widget.variantProduct[productIndex]["node"]
-                                                ["compareAtPrice"] ==
-                                            widget.variantProduct[productIndex]
-                                                ["node"]["price"] ||
-                                        widget.variantProduct[productIndex]
-                                                ["node"]["compareAtPrice"] ==
-                                            null)
-                                    ? "Pkr. " +
-                                        double.parse(widget.variantProduct[productIndex]["node"]["price"])
-                                            .toInt()
-                                            .toString()
-                                    : "Pkr. " +
-                                        double.parse(widget
-                                                    .variantProduct[productIndex]
-                                                ["node"]["compareAtPrice"])
-                                            .toInt()
-                                            .toString(),
-                                style: TextStyle(
-                                  color: myRed,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: dynamicWidth(context, .04),
+                          Container(
+                            height: dynamicHeight(context, .05),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  (widget.variantProduct[productIndex]["node"]
+                                                  ["compareAtPrice"] ==
+                                              widget.variantProduct[productIndex]
+                                                  ["node"]["price"] ||
+                                          widget.variantProduct[productIndex]
+                                                  ["node"]["compareAtPrice"] ==
+                                              null)
+                                      ? "Pkr. " +
+                                          double.parse(widget.variantProduct[productIndex]["node"]["price"])
+                                              .toInt()
+                                              .toString()
+                                      : "Pkr. " +
+                                          double.parse(widget
+                                                      .variantProduct[productIndex]
+                                                  ["node"]["compareAtPrice"])
+                                              .toInt()
+                                              .toString(),
+                                  style: TextStyle(
+                                    color: darkTheme == true ? myWhite : myRed,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: dynamicWidth(context, .04),
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                (widget.variantProduct[productIndex]["node"]
-                                                ["compareAtPrice"] ==
-                                            widget.variantProduct[productIndex]
-                                                ["node"]["price"] ||
-                                        widget.variantProduct[productIndex]
-                                                ["node"]["compareAtPrice"] ==
-                                            null)
-                                    ? ""
-                                    : "You Save  " +
-                                        saleDifference.toString() +
-                                        " Pkr",
-                                style: TextStyle(
-                                  color: myBlack.withOpacity(.4),
-                                  fontSize: dynamicWidth(context, .03),
+                                Text(
+                                  (widget.variantProduct[productIndex]["node"]
+                                                  ["compareAtPrice"] ==
+                                              widget.variantProduct[
+                                                      productIndex]["node"]
+                                                  ["price"] ||
+                                          widget.variantProduct[productIndex]
+                                                  ["node"]["compareAtPrice"] ==
+                                              null)
+                                      ? ""
+                                      : "You Save  " +
+                                          saleDifference.toString() +
+                                          " Pkr",
+                                  style: TextStyle(
+                                    color: darkTheme == true
+                                        ? myWhite
+                                        : myBlack.withOpacity(.4),
+                                    fontSize: dynamicWidth(context, .03),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -221,7 +236,7 @@ class _DetailPageState extends State<DetailPage> {
                           ? Container()
                           : Padding(
                               padding: EdgeInsets.symmetric(
-                                vertical: dynamicHeight(context, .01),
+                                vertical: dynamicHeight(context, .006),
                               ),
                               child: Row(
                                 mainAxisAlignment:
@@ -230,6 +245,8 @@ class _DetailPageState extends State<DetailPage> {
                                   Text(
                                     "Size",
                                     style: TextStyle(
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
                                       fontSize: dynamicWidth(context, .05),
                                     ),
                                   ),
@@ -248,6 +265,9 @@ class _DetailPageState extends State<DetailPage> {
                                       child: Text(
                                         "Size Guide",
                                         style: TextStyle(
+                                          color: darkTheme == true
+                                              ? myWhite
+                                              : myBlack,
                                           fontSize: dynamicWidth(context, .042),
                                         ),
                                       ),
@@ -266,7 +286,7 @@ class _DetailPageState extends State<DetailPage> {
                             ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                          vertical: dynamicHeight(context, .01),
+                          vertical: dynamicHeight(context, .008),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -274,23 +294,27 @@ class _DetailPageState extends State<DetailPage> {
                             Text(
                               "Qty",
                               style: TextStyle(
+                                color: darkTheme == true ? myWhite : myBlack,
                                 fontSize: dynamicWidth(context, .05),
                               ),
                             ),
                           ],
                         ),
                       ),
+                      heightBox(context, .008),
                       Row(
                         children: [
                           Container(
                             width: dynamicWidth(context, .3),
                             decoration: BoxDecoration(
-                              color: myWhite,
+                              color: noColor,
                               borderRadius: BorderRadius.circular(
                                 dynamicWidth(context, .02),
                               ),
                               border: Border.all(
-                                color: myBlack.withOpacity(.3),
+                                color: darkTheme == true
+                                    ? myWhite
+                                    : myBlack.withOpacity(.3),
                                 width: 1.2,
                               ),
                             ),
@@ -310,7 +334,8 @@ class _DetailPageState extends State<DetailPage> {
                                       child: Icon(
                                         Icons.remove,
                                         size: dynamicWidth(context, .054),
-                                        color: myRed,
+                                        color:
+                                            darkTheme == true ? myWhite : myRed,
                                       ),
                                     ),
                                   ),
@@ -319,6 +344,8 @@ class _DetailPageState extends State<DetailPage> {
                                   return Text(
                                     quantity.toString(),
                                     style: TextStyle(
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
                                       fontSize: dynamicWidth(context, .054),
                                     ),
                                   );
@@ -335,7 +362,8 @@ class _DetailPageState extends State<DetailPage> {
                                     child: Icon(
                                       Icons.add,
                                       size: dynamicWidth(context, .054),
-                                      color: myRed,
+                                      color:
+                                          darkTheme == true ? myWhite : myRed,
                                     ),
                                   ),
                                 ),
@@ -346,7 +374,7 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                          top: dynamicHeight(context, .04),
+                          top: dynamicHeight(context, .03),
                         ),
                         child: bottomButton(
                           context,
@@ -359,7 +387,7 @@ class _DetailPageState extends State<DetailPage> {
                           quantity,
                           widget.variantProduct[productIndex]["node"]["sku"],
                           widget.variantProduct[productIndex]["node"]["id"],
-                          selectedSize.toString(),
+                          selectedSize,
                         ),
                       ),
                     ],
@@ -376,6 +404,7 @@ class _DetailPageState extends State<DetailPage> {
                     menuIcon: true,
                     bgColor: noColor,
                     leadingIcon: true,
+                    iconColor: myBlack,
                     function: () {
                       _scaffoldKey.currentState!.openEndDrawer();
                     },
@@ -383,7 +412,7 @@ class _DetailPageState extends State<DetailPage> {
                 ),
               ),
               Positioned(
-                top: dynamicHeight(context, .45),
+                top: dynamicHeight(context, .43),
                 right: dynamicWidth(context, .08),
                 child: CircleAvatar(
                   radius: dynamicWidth(context, 0.05),
@@ -427,14 +456,24 @@ class _DetailPageState extends State<DetailPage> {
                     width: dynamicWidth(context, .1),
                     height: dynamicWidth(context, .1),
                     decoration: BoxDecoration(
-                      color: selectedSize == array[index] ? myRed : myWhite,
+                      color: darkTheme == true
+                          ? selectedSize == array[index]
+                              ? myWhite
+                              : noColor
+                          : selectedSize == array[index]
+                              ? myRed
+                              : noColor,
                       borderRadius: BorderRadius.circular(
                         dynamicWidth(context, .012),
                       ),
                       border: Border.all(
-                        color: selectedSize == array[index]
-                            ? myRed
-                            : myBlack.withOpacity(.3),
+                        color: darkTheme == true
+                            ? selectedSize == array[index]
+                                ? myWhite
+                                : myWhite.withOpacity(.5)
+                            : selectedSize == array[index]
+                                ? myRed
+                                : myBlack.withOpacity(.3),
                         width: 1.4,
                       ),
                     ),
@@ -443,8 +482,13 @@ class _DetailPageState extends State<DetailPage> {
                         array[index].toString(),
                         style: TextStyle(
                           fontSize: dynamicWidth(context, .044),
-                          color:
-                              selectedSize == array[index] ? myWhite : myBlack,
+                          color: darkTheme == true
+                              ? selectedSize == array[index]
+                                  ? myBlack
+                                  : myWhite
+                              : selectedSize == array[index]
+                                  ? myWhite
+                                  : myBlack,
                         ),
                       ),
                     ),
@@ -463,8 +507,8 @@ Widget bottomButton(
     context, image, price, text, cartQuantity, sku, variantId, size) {
   return MaterialButton(
     color: myRed,
-    height: dynamicHeight(context, .06),
-    minWidth: MediaQuery.of(context).size.width,
+    height: dynamicHeight(context, .05),
+    minWidth: dynamicWidth(context, .88),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(
         dynamicWidth(context, .08),
@@ -485,7 +529,8 @@ Widget bottomButton(
           "size": size,
         });
       } else {
-        if (text.toString() == cartItems[0]["title"]) {
+        if (text.toString() == cartItems[0]["title"].toString() &&
+            size.toString() == cartItems[0]["size"].toString()) {
           cartItems[0]["quantity"] =
               int.parse(cartItems[0]["quantity"].toString()) +
                   int.parse(cartQuantity.toString());
@@ -502,6 +547,7 @@ Widget bottomButton(
                 int.parse(cartQuantity.value.toString()),
             "sku": sku,
             "variantId": variantId,
+            "size": size,
           });
         }
       }

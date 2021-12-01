@@ -4,7 +4,7 @@ import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
-class SeeAll extends StatelessWidget {
+class SeeAll extends StatefulWidget {
   final bool check;
   final String text;
   final dynamic function;
@@ -17,22 +17,39 @@ class SeeAll extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<SeeAll> createState() => _SeeAllState();
+}
+
+class _SeeAllState extends State<SeeAll> {
+  var _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: myGrey,
-      appBar: bar(context,
-          menuIcon: true, bgColor: Colors.transparent, leadingIcon: true),
+      key: _scaffoldKey,
+      appBar: bar(
+        context,
+        menuIcon: true,
+        leadingIcon: true,
+        bgColor: darkTheme == true ? darkThemeBlack : myWhite,
+        function: () {
+          _scaffoldKey.currentState!.openEndDrawer();
+        },
+      ),
+      endDrawer: drawer(context),
+      backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                  vertical: dynamicHeight(context, .03),
-                  horizontal: dynamicWidth(context, 0.02)),
-              child: rowText(text, context, check: true),
+                horizontal: dynamicWidth(context, 0.04),
+              ),
+              child: rowText(widget.text, context, check: true),
             ),
-            detailGrid(function, context, check),
+            heightBox(context, .06),
+            detailGrid(widget.function, context, widget.check),
             SizedBox(
               height: dynamicHeight(context, .02),
             )

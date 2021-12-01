@@ -60,7 +60,7 @@ Widget inputTextField(context, label, myController,
 
 Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
   return Container(
-    height: dynamicHeight(context, .054),
+    height: dynamicHeight(context, .052),
     margin: EdgeInsets.symmetric(
       horizontal: dynamicWidth(context, .014),
     ),
@@ -86,9 +86,9 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
               errorBorder: InputBorder.none,
               disabledBorder: InputBorder.none,
               hintText: "Search Your Product",
-              contentPadding: EdgeInsets.symmetric(
-                vertical: dynamicHeight(context, .0),
-                horizontal: dynamicWidth(context, .05),
+              contentPadding: EdgeInsets.only(
+                bottom: dynamicHeight(context, .012),
+                left: dynamicWidth(context, .05),
               ),
             ),
             onSubmitted: (value) {
@@ -119,34 +119,37 @@ Widget addressInput(context, text, hintText, type,
     padding: EdgeInsets.symmetric(
       vertical: dynamicHeight(context, .01),
     ),
-    child: TextFormField(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      textInputAction: TextInputAction.next,
-      keyboardType: type,
-      cursorWidth: 2.0,
-      cursorHeight: dynamicHeight(context, .032),
-      decoration: InputDecoration(
-        label: Text(
-          text,
-          style: TextStyle(
-            color: Colors.grey,
+    child: SizedBox(
+      height: dynamicHeight(context, .052),
+      child: TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        textInputAction: TextInputAction.next,
+        keyboardType: type,
+        cursorWidth: 2.0,
+        cursorHeight: dynamicHeight(context, .032),
+        decoration: InputDecoration(
+          label: Text(
+            text,
+            style: TextStyle(
+              color: Colors.grey,
+            ),
           ),
-        ),
-        contentPadding: EdgeInsets.symmetric(
-          vertical: dynamicHeight(context, .02),
-          horizontal: dynamicWidth(context, .03),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            dynamicWidth(context, .026),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: dynamicHeight(context, .01),
+            horizontal: dynamicWidth(context, .03),
           ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+              dynamicWidth(context, .08),
+            ),
+          ),
+          hintText: hintText,
         ),
-        hintText: hintText,
+        validator: function == "" ? () {} : function,
+        onSaved: (value) {
+          localAddressList.add(value);
+        },
       ),
-      validator: function == "" ? () {} : function,
-      onSaved: (value) {
-        localAddressList.add(value);
-      },
     ),
   );
 }

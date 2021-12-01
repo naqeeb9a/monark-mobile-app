@@ -77,76 +77,10 @@ class _AddressPageState extends State<AddressPage> {
           if (!addressListCheck[j]["address1"]
               .toString()
               .contains(i["address1"].toString())) {
-            print(addressListCheck[j]["address1"]
-                .toString()
-                .contains(i["address1"].toString()));
             addressListCheck.add(i);
           }
         }
-        // if(!addressListCheck.contains(i["address1"])){
-        //   addressListCheck.add(i);
-        // }
       }
-      print(addressListCheck);
-
-      // setState(() {
-      //   addressListCheck = [
-      //     ...{...tempList}
-      //   ];
-      // });
-
-      // final jsonList = tempList.map((item) => jsonEncode(item)).toList();
-      //
-      // print(jsonList);
-      //
-      // final uniqueJsonList = jsonList.toSet().toList();
-      // print(uniqueJsonList);
-      //
-      // setState(() {
-      //   addressListCheck =
-      //       uniqueJsonList.map((item) => jsonDecode(item)).toList();
-      // });
-      //
-      // final jsonList = tempList.map((item) => jsonEncode(item)).toList();
-      //
-      // // using toSet - toList strategy
-      // final uniqueJsonList = jsonList.toSet().toList();
-      //
-      // // convert each item back to the original form using JSON decoding
-      // final result = uniqueJsonList.map((item) => jsonDecode(item)).toList();
-      //
-      // print(result);
-      // setState(() {
-      //   addressListCheck = tempList.toSet().toList();
-      // });
-      // print(addressListCheck.toSet().toList());
-      // print(value);
-      // setState(() {
-      //   addressListCheck = value.toSet().toList();
-      //   // addressListCheck.add(value);
-      // });
-      // for (int i = 0; i < value.length; i++) {
-      //   addressListCheck.add(value[i]);
-      // }
-      // setState(() {
-      //   addressListCheck = LinkedHashSet.from(addressListCheck).toList();
-      //   // addressListCheck = addressListCheck.toSet().toList();
-      // });
-
-      //   for (int i = 0; i < value.length; i++) {
-      //     for(int j = 0; j < value.length; j++){
-      //       if (addressListCheck[i]["node"]["__typename"].toString() == addressListCheck[j]["node"]["__typename"].toString() &&
-      //           addressListCheck[i]["node"]["address1"].toString() == addressListCheck[j]["node"]["address1"].toString() &&
-      //           value[i]["node"]["address2"].toString() == addressListCheck[j]["node"]["address2"].toString() &&
-      //           value[i]["node"]["city"].toString() == addressListCheck[j]["node"]["city"].toString() &&
-      //           value[i]["node"]["country"].toString() == addressListCheck[j]["node"]["country"].toString() &&
-      //           value[i]["node"]["firstName"].toString() == addressListCheck[j]["node"]["firstName"].toString() &&
-      //           value[i]["node"]["lastName"].toString() == addressListCheck[j]["node"]["lastName"].toString() &&
-      //           value[i]["node"]["zip"].toString() == addressListCheck[j]["node"]["zip"].toString()) {
-      //         addressListCheck.removeAt(i);
-      //       }
-      //     }
-      //   }
     });
   }
 
@@ -162,7 +96,13 @@ class _AddressPageState extends State<AddressPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: bar(context),
+      backgroundColor: myWhite,
+      appBar: bar(
+        context,
+        leadingIcon: true,
+        menuIcon: true,
+        bgColor: noColor
+      ),
       body: Stack(
         alignment: Alignment.center,
         children: [

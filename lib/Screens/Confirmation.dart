@@ -13,6 +13,7 @@ class ConfirmationPage extends StatefulWidget {
 class _ConfirmationPageState extends State<ConfirmationPage> {
   bool emailCheck = false;
   bool textCheck = false;
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -23,8 +24,8 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
         backgroundColor: myGrey,
         body: SafeArea(
           child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
+            height: dynamicHeight(context, 1),
+            width: dynamicWidth(context, 1),
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -40,27 +41,42 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           RichText(
-                              textAlign: TextAlign.center,
-                              text: TextSpan(children: [
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              children: [
                                 TextSpan(
-                                    text: "Thank you\n",
-                                    style: TextStyle(
-                                        fontSize: dynamicWidth(context, 0.06),
-                                        fontWeight: FontWeight.bold)),
+                                  text: "Thank you\n",
+                                  style: TextStyle(
+                                      fontSize: dynamicWidth(context, 0.06),
+                                      fontWeight: FontWeight.bold,
+                                      color: myWhite),
+                                ),
                                 TextSpan(
-                                    text: "for your purchase from Monark",
-                                    style: TextStyle(color: Colors.white60))
-                              ])),
+                                  text: "for your purchase from Monark",
+                                  style: TextStyle(
+                                    color: myWhite,
+                                    fontSize: dynamicWidth(context, 0.04),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                           Container(
                             decoration: BoxDecoration(
-                                color: myWhite,
-                                borderRadius: BorderRadius.circular(
-                                    dynamicWidth(context, 0.1))),
-                            padding:
-                                EdgeInsets.all(dynamicWidth(context, 0.03)),
+                              color: myWhite,
+                              borderRadius: BorderRadius.circular(
+                                dynamicWidth(context, 0.1),
+                              ),
+                            ),
+                            padding: EdgeInsets.all(
+                              dynamicWidth(context, 0.03),
+                            ),
                             child: Text(
                               "Order #MNK55387",
-                              style: TextStyle(color: myRed),
+                              style: TextStyle(
+                                color: myRed,
+                                fontSize: dynamicWidth(context, 0.038),
+                              ),
                             ),
                           ),
                         ],
@@ -69,25 +85,41 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                     heightBox(context, 0.05),
                     Container(
                       padding: EdgeInsets.symmetric(
-                          horizontal: dynamicWidth(context, 0.04)),
+                        horizontal: dynamicWidth(context, 0.04),
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "Your order is confirmed",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: dynamicWidth(context, 0.04),
+                            ),
                           ),
                           heightBox(context, 0.01),
                           Text(
-                              "You'll receive a confirmation email with your order number shortly."),
+                            "You'll receive a confirmation email with your order number shortly.",
+                            style: TextStyle(
+                              fontSize: dynamicWidth(context, 0.036),
+                            ),
+                          ),
                           heightBox(context, 0.05),
                           Text(
                             "Order Updates",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: dynamicWidth(context, 0.04),
+                            ),
                           ),
                           heightBox(context, 0.01),
-                          Text("You'll get shipping and delivery updates"),
-                          heightBox(context, 0.007)
+                          Text(
+                            "You'll get shipping and delivery updates",
+                            style: TextStyle(
+                              fontSize: dynamicWidth(context, 0.036),
+                            ),
+                          ),
+                          heightBox(context, 0.007),
                         ],
                       ),
                     ),
@@ -101,7 +133,12 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                                 emailCheck = value!;
                               });
                             }),
-                        Text("via email")
+                        Text(
+                          "via email",
+                          style: TextStyle(
+                            fontSize: dynamicWidth(context, 0.036),
+                          ),
+                        ),
                       ],
                     ),
                     Row(
@@ -114,15 +151,24 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                                 textCheck = value1!;
                               });
                             }),
-                        Text("via text")
+                        Text(
+                          "via text",
+                          style: TextStyle(
+                            fontSize: dynamicWidth(context, 0.036),
+                          ),
+                        ),
                       ],
                     ),
                   ],
                 ),
-                bottomButton1(context, "Continue Shopping", () {
-                  cartItems.clear();
-                  Navigator.of(context).popUntil((route) => route.isFirst);
-                })
+                bottomButton1(
+                  context,
+                  "Continue Shopping",
+                  () {
+                    cartItems.clear();
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                  },
+                )
               ],
             ),
           ),

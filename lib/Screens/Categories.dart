@@ -121,17 +121,22 @@ class _CategoriesPageState extends State<CategoriesPage> {
                       );
                     } else {
                       return Center(
-                          child: JumpingDotsProgressIndicator(
-                        numberOfDots: 3,
-                        fontSize: dynamicWidth(context, 0.07),
-                      ));
+                        child: JumpingDotsProgressIndicator(
+                          numberOfDots: 3,
+                          fontSize: dynamicWidth(context, 0.07),
+                        ),
+                      );
                     }
                   }),
             ),
             SizedBox(
               height: dynamicHeight(context, 0.01),
             ),
-            detailGrid(getShopifyCategory(), context, true)
+            detailGrid(
+              getShopifyCategory(),
+              context,
+              true,
+            ),
           ],
         ),
       ),

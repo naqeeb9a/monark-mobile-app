@@ -297,6 +297,7 @@ Widget rowText(text, context, {function = "", check = false}) {
                 child: Image.asset(
                   "assets/icons/filterIcon.png",
                   color: darkTheme == true ? myWhite : myRed,
+                  width: dynamicWidth(context, .07),
                 ),
               ),
             )

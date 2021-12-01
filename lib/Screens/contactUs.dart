@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
@@ -20,10 +19,10 @@ class _ContactPageState extends State<ContactPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: myWhite,
+      backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
       appBar: bar(
         context,
-        bgColor: myWhite,
+        bgColor: noColor,
         menuIcon: true,
         leadingIcon: true,
         function: () {
@@ -56,9 +55,10 @@ class _ContactPageState extends State<ContactPage> {
                                 Text(
                                   "Phone: ",
                                   style: TextStyle(
-                                    color: myBlack,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: dynamicWidth(context, .04),
+                                    color:
+                                        darkTheme == true ? myWhite : myBlack,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: dynamicWidth(context, .036),
                                   ),
                                   maxLines: 1,
                                 ),
@@ -69,8 +69,10 @@ class _ContactPageState extends State<ContactPage> {
                                   child: Text(
                                     "042 3500451",
                                     style: TextStyle(
-                                      color: myBlack,
-                                      fontSize: dynamicWidth(context, .04),
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: dynamicWidth(context, .036),
                                     ),
                                     maxLines: 1,
                                   ),
@@ -95,17 +97,20 @@ class _ContactPageState extends State<ContactPage> {
                                   Text(
                                     "Email: ",
                                     style: TextStyle(
-                                      color: myBlack,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: dynamicWidth(context, .04),
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: dynamicWidth(context, .036),
                                     ),
                                     maxLines: 1,
                                   ),
                                   Text(
                                     "customercare@monark.com.pk",
                                     style: TextStyle(
-                                      color: myBlack,
-                                      fontSize: dynamicWidth(context, .04),
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: dynamicWidth(context, .036),
                                     ),
                                     maxLines: 1,
                                   ),
@@ -124,9 +129,10 @@ class _ContactPageState extends State<ContactPage> {
                                   child: Text(
                                     "Address: ",
                                     style: TextStyle(
-                                      color: myBlack,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: dynamicWidth(context, .04),
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: dynamicWidth(context, .036),
                                     ),
                                     maxLines: 1,
                                   ),
@@ -137,8 +143,10 @@ class _ContactPageState extends State<ContactPage> {
                                   child: Text(
                                     "81 Babar block, Garden Town Lahore,Pakistan.",
                                     style: TextStyle(
-                                      color: myBlack,
-                                      fontSize: dynamicWidth(context, .04),
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: dynamicWidth(context, .036),
                                     ),
                                     maxLines: 2,
                                   ),
@@ -146,45 +154,6 @@ class _ContactPageState extends State<ContactPage> {
                               ],
                             ),
                           ),
-                          // Padding(
-                          //   padding: EdgeInsets.symmetric(
-                          //     vertical: dynamicHeight(context, .01),
-                          //   ),
-                          //   child: Row(
-                          //     children: [
-                          //       ColoredBox(
-                          //         color: myBlack,
-                          //         child: Column(
-                          //           mainAxisAlignment: MainAxisAlignment.start,
-                          //           children: [
-                          //             Expanded(
-                          //               child: Text(
-                          //                 "Address: ",
-                          //                 style: TextStyle(
-                          //                   color: myBlack,
-                          //                   fontWeight: FontWeight.bold,
-                          //                   fontSize:
-                          //                       dynamicWidth(context, .04),
-                          //                 ),
-                          //                 maxLines: 1,
-                          //               ),
-                          //             ),
-                          //           ],
-                          //         ),
-                          //       ),
-                          //       Flexible(
-                          //         child: Text(
-                          //           "81 Babar block, Garden Town Lahore,Pakistan.",
-                          //           style: TextStyle(
-                          //             color: myBlack,
-                          //             fontSize: dynamicWidth(context, .04),
-                          //           ),
-                          //           maxLines: 2,
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                           Padding(
                             padding: EdgeInsets.symmetric(
                               vertical: dynamicHeight(context, .06),
@@ -195,29 +164,19 @@ class _ContactPageState extends State<ContactPage> {
                                 InkWell(
                                   onTap: () {
                                     launch(
-                                      "https://monark.com.pk/",
-                                      forceSafariVC: false,
-                                      forceWebView: false,
-                                    );
-                                  },
-                                  child: FaIcon(
-                                    FontAwesomeIcons.globe,
-                                    color: myRed,
-                                    size: dynamicWidth(context, .07),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    launch(
                                       "https://www.facebook.com/monark.com.pk",
                                       forceSafariVC: false,
                                       forceWebView: false,
                                     );
                                   },
-                                  child: FaIcon(
-                                    FontAwesomeIcons.facebook,
-                                    color: myRed,
-                                    size: dynamicWidth(context, .07),
+                                  child: CircleAvatar(
+                                    backgroundColor: Color(0xff4267B2),
+                                    radius: dynamicWidth(context, .04),
+                                    child: Image.asset(
+                                      "assets/icons/fbIcon.png",
+                                      width: dynamicWidth(context, .046),
+                                      color: myWhite,
+                                    ),
                                   ),
                                 ),
                                 InkWell(
@@ -228,24 +187,32 @@ class _ContactPageState extends State<ContactPage> {
                                       forceWebView: false,
                                     );
                                   },
-                                  child: FaIcon(
-                                    FontAwesomeIcons.instagram,
-                                    color: myRed,
-                                    size: dynamicWidth(context, .07),
+                                  child: CircleAvatar(
+                                    backgroundColor: myWhite,
+                                    radius: dynamicWidth(context, .04),
+                                    child: Image.asset(
+                                      "assets/icons/instaIcon.png",
+                                      width: dynamicWidth(context, .05),
+                                      color: myWhite,
+                                    ),
                                   ),
                                 ),
                                 InkWell(
                                   onTap: () {
                                     launch(
-                                      "https://www.youtube.com/channel/UCo-RW5EuPY0iGOWWYJEkuFw",
+                                      "https://monark.com.pk/",
                                       forceSafariVC: false,
                                       forceWebView: false,
                                     );
                                   },
-                                  child: FaIcon(
-                                    FontAwesomeIcons.youtube,
-                                    color: myRed,
-                                    size: dynamicWidth(context, .07),
+                                  child: CircleAvatar(
+                                    backgroundColor: myRed,
+                                    radius: dynamicWidth(context, .04),
+                                    child: Image.asset(
+                                      "assets/icons/webIcon.png",
+                                      width: dynamicWidth(context, .056),
+                                      color: myWhite,
+                                    ),
                                   ),
                                 ),
                               ],

@@ -31,6 +31,8 @@ class _CartState extends State<Cart> {
   @override
   void initState() {
     super.initState();
+
+    print(cartItems.length);
     totalAmountCalculate();
   }
 

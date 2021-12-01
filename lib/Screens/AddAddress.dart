@@ -20,6 +20,7 @@ class _AddAddressState extends State<AddAddress> {
   bool isloading = false;
   var localAddressList = [];
   final _formKey = GlobalKey<FormState>();
+  var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   saveAddress() async {
     var addressQuery = r'''
@@ -74,7 +75,18 @@ class _AddAddressState extends State<AddAddress> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: bar(context),
+      key: _scaffoldKey,
+      backgroundColor: myWhite,
+      appBar: bar(
+        context,
+        leadingIcon: true,
+        menuIcon: true,
+        bgColor: noColor,
+        function: () {
+          _scaffoldKey.currentState!.openEndDrawer();
+        },
+      ),
+      endDrawer: drawer(context),
       body: (isloading == true)
           ? Center(
               child: JumpingDotsProgressIndicator(

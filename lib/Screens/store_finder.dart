@@ -157,7 +157,7 @@ class _StoreFinderState extends State<StoreFinder> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: myWhite,
+      backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
       appBar: bar(
         context,
         menuIcon: true,
@@ -211,7 +211,7 @@ Widget storeCard(
   return Padding(
     padding: EdgeInsets.symmetric(
       horizontal: dynamicWidth(context, .05),
-      vertical: dynamicHeight(context, .01),
+      vertical: dynamicHeight(context, .024),
     ),
     child: Container(
       width: dynamicWidth(context, 1),
@@ -219,7 +219,7 @@ Widget storeCard(
         children: [
           Padding(
             padding: EdgeInsets.only(
-              bottom: dynamicHeight(context, .02),
+              bottom: dynamicHeight(context, .01),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -227,9 +227,9 @@ Widget storeCard(
                 Text(
                   name,
                   style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: dynamicWidth(context, .064),
-                    color: myBlack,
+                    fontWeight: FontWeight.w700,
+                    fontSize: dynamicWidth(context, .052),
+                    color: darkTheme == true ? myWhite : myBlack,
                   ),
                 ),
               ],
@@ -241,82 +241,29 @@ Widget storeCard(
             ),
             child: Row(
               children: [
-                Text(
-                  "Address: ",
-                  style: TextStyle(
-                    color: myBlack,
-                    fontWeight: FontWeight.bold,
-                    fontSize: dynamicWidth(context, .04),
-                  ),
-                  maxLines: 1,
-                ),
-                SizedBox(
-                  width: dynamicWidth(context, .7),
-                  child: AutoSizeText(
-                    address,
+                Container(
+                  height: dynamicHeight(context, .046),
+                  child: Text(
+                    "Address: ",
                     style: TextStyle(
-                      color: myBlack,
+                      color: darkTheme == true ? myWhite : myBlack,
+                      fontWeight: FontWeight.w500,
                       fontSize: dynamicWidth(context, .04),
+                    ),
+                    maxLines: 1,
+                  ),
+                ),
+                Container(
+                  width: dynamicWidth(context, .7),
+                  height: dynamicHeight(context, .046),
+                  child: Text(
+                    "81 Babar block, Garden Town Lahore,Pakistan.",
+                    style: TextStyle(
+                      color: darkTheme == true ? myWhite : myBlack,
+                      fontSize: dynamicWidth(context, .04),
+                      fontWeight: FontWeight.w300,
                     ),
                     maxLines: 2,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: dynamicHeight(context, .006),
-            ),
-            child: Row(
-              children: [
-                Text(
-                  "State: ",
-                  style: TextStyle(
-                    color: myBlack,
-                    fontWeight: FontWeight.bold,
-                    fontSize: dynamicWidth(context, .04),
-                  ),
-                  maxLines: 1,
-                ),
-                SizedBox(
-                  width: dynamicWidth(context, .7),
-                  child: AutoSizeText(
-                    state,
-                    style: TextStyle(
-                      color: myBlack,
-                      fontSize: dynamicWidth(context, .04),
-                    ),
-                    maxLines: 1,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: dynamicHeight(context, .006),
-            ),
-            child: Row(
-              children: [
-                Text(
-                  "City: ",
-                  style: TextStyle(
-                    color: myBlack,
-                    fontWeight: FontWeight.bold,
-                    fontSize: dynamicWidth(context, .04),
-                  ),
-                  maxLines: 1,
-                ),
-                SizedBox(
-                  width: dynamicWidth(context, .7),
-                  child: AutoSizeText(
-                    city,
-                    style: TextStyle(
-                      color: myBlack,
-                      fontSize: dynamicWidth(context, .04),
-                    ),
-                    maxLines: 1,
                   ),
                 ),
               ],
@@ -335,9 +282,9 @@ Widget storeCard(
                   Text(
                     "Phone: ",
                     style: TextStyle(
-                      color: myBlack,
-                      fontWeight: FontWeight.bold,
-                      fontSize: dynamicWidth(context, .04),
+                      color: darkTheme == true ? myWhite : myBlack,
+                      fontWeight: FontWeight.w500,
+                      fontSize: dynamicWidth(context, .032),
                     ),
                     maxLines: 1,
                   ),
@@ -346,8 +293,9 @@ Widget storeCard(
                     child: AutoSizeText(
                       phone,
                       style: TextStyle(
-                        color: myBlack,
-                        fontSize: dynamicWidth(context, .04),
+                        color: darkTheme == true ? myWhite : myBlack,
+                        fontSize: dynamicWidth(context, .032),
+                        fontWeight: FontWeight.w300,
                       ),
                       maxLines: 2,
                     ),
@@ -356,48 +304,6 @@ Widget storeCard(
               ),
             ),
           ),
-          email == ""
-              ? SizedBox(
-                  height: 0,
-                )
-              : InkWell(
-                  onTap: () {
-                    launch(
-                      "mailto:$email",
-                      forceSafariVC: false,
-                      forceWebView: false,
-                    );
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: dynamicHeight(context, .006),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Email: ",
-                          style: TextStyle(
-                            color: myBlack,
-                            fontWeight: FontWeight.bold,
-                            fontSize: dynamicWidth(context, .04),
-                          ),
-                          maxLines: 1,
-                        ),
-                        SizedBox(
-                          width: dynamicWidth(context, .7),
-                          child: AutoSizeText(
-                            email,
-                            style: TextStyle(
-                              color: myBlack,
-                              fontSize: dynamicWidth(context, .04),
-                            ),
-                            maxLines: 2,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
           Padding(
             padding: EdgeInsets.symmetric(
               vertical: dynamicHeight(context, .006),
@@ -407,9 +313,9 @@ Widget storeCard(
                 Text(
                   "Time: ",
                   style: TextStyle(
-                    color: myBlack,
-                    fontWeight: FontWeight.bold,
-                    fontSize: dynamicWidth(context, .04),
+                    color: darkTheme == true ? myWhite : myBlack,
+                    fontWeight: FontWeight.w500,
+                    fontSize: dynamicWidth(context, .032),
                   ),
                   maxLines: 1,
                 ),
@@ -418,8 +324,9 @@ Widget storeCard(
                   child: AutoSizeText(
                     workTime,
                     style: TextStyle(
-                      color: myBlack,
-                      fontSize: dynamicWidth(context, .04),
+                      color: darkTheme == true ? myWhite : myBlack,
+                      fontSize: dynamicWidth(context, .032),
+                      fontWeight: FontWeight.w300,
                     ),
                     maxLines: 1,
                   ),
@@ -437,9 +344,9 @@ Widget storeCard(
                 AutoSizeText(
                   holiday,
                   style: TextStyle(
-                    color: myRed,
-                    fontSize: dynamicWidth(context, .04),
-                    fontWeight: FontWeight.bold,
+                    color: darkTheme == true ? myWhite : myRed,
+                    fontSize: dynamicWidth(context, .032),
+                    fontWeight: FontWeight.w500,
                   ),
                   maxLines: 1,
                 ),

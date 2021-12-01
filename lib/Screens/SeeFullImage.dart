@@ -20,7 +20,7 @@ class _SeeFullImageState extends State<SeeFullImage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: myWhite,
+      backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
       body: SafeArea(
         child: SizedBox(
           width: dynamicWidth(context, 1),
@@ -47,6 +47,7 @@ class _SeeFullImageState extends State<SeeFullImage> {
                   context,
                   leadingIcon: true,
                   bgColor: noColor,
+                  iconColor: myBlack,
                 ),
               ),
               Padding(

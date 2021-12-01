@@ -7,8 +7,15 @@ import 'package:monark_app/widgets/media_query.dart';
 
 import '../utils/config.dart';
 
-class Payment extends StatelessWidget {
+class Payment extends StatefulWidget {
   const Payment({Key? key}) : super(key: key);
+
+  @override
+  State<Payment> createState() => _PaymentState();
+}
+
+class _PaymentState extends State<Payment> {
+  var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +24,24 @@ class Payment extends StatelessWidget {
       subtotal += int.parse(u["total"].toString());
     }
     return Scaffold(
-      appBar: bar(context),
+      key: _scaffoldKey,
+      backgroundColor: myWhite,
+      appBar: bar(
+        context,
+        leadingIcon: true,
+        menuIcon: true,
+        bgColor: noColor,
+        function: () {
+          _scaffoldKey.currentState!.openEndDrawer();
+        },
+      ),
+      endDrawer: drawer(context),
       body: Stack(
         alignment: Alignment.center,
         children: [
           Center(
             child: Container(
-              width: dynamicWidth(context, .9),
+              width: dynamicWidth(context, .92),
               child: Column(
                 children: [
                   rowText("Payment", context),

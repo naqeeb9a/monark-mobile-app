@@ -5,13 +5,16 @@ import 'package:progress_indicators/progress_indicators.dart';
 import '../utils/config.dart';
 import 'media_query.dart';
 
-PreferredSizeWidget bar(context,
-    {menuIcon = false,
-    leadingIcon = false,
-    bgColor,
-    title = false,
-    titleText = "",
-    function = ""}) {
+PreferredSizeWidget bar(
+  context, {
+  menuIcon = false,
+  leadingIcon = false,
+  bgColor,
+  title = false,
+  titleText = "",
+  function = "",
+  iconColor = "",
+}) {
   return PreferredSize(
     preferredSize: Size.fromHeight(
       dynamicHeight(context, .06),
@@ -40,7 +43,7 @@ PreferredSizeWidget bar(context,
                                 " " +
                                 snapshot.data["lastName"],
                             style: TextStyle(
-                              color: myBlack,
+                              color: darkTheme == true ? myWhite : myBlack,
                               fontSize: dynamicWidth(context, .05),
                             ),
                           );
@@ -53,6 +56,7 @@ PreferredSizeWidget bar(context,
                             child: JumpingDotsProgressIndicator(
                               numberOfDots: 5,
                               fontSize: dynamicWidth(context, .08),
+                              color: darkTheme == true ? myWhite : myBlack,
                             ),
                           );
                         }
@@ -68,7 +72,11 @@ PreferredSizeWidget bar(context,
               },
               icon: Image.asset(
                 "assets/icons/backIcon.png",
-                color: darkTheme == false ? myBlack : myWhite,
+                color: iconColor == ""
+                    ? darkTheme == false
+                        ? myBlack
+                        : myWhite
+                    : iconColor,
                 scale: .8,
               ),
             )
@@ -79,7 +87,11 @@ PreferredSizeWidget bar(context,
                 onPressed: function == "" ? () {} : function,
                 icon: Image.asset(
                   "assets/icons/menuIcon.png",
-                  color: darkTheme == false ? myBlack : myWhite,
+                  color: iconColor == ""
+                      ? darkTheme == false
+                          ? myBlack
+                          : myWhite
+                      : iconColor,
                 ),
               )
             : Container(),
