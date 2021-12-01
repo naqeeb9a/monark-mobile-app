@@ -65,12 +65,12 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
       horizontal: dynamicWidth(context, .014),
     ),
     decoration: BoxDecoration(
-      color: myWhite,
+      color: noColor,
       borderRadius: BorderRadius.circular(
         dynamicWidth(context, .08),
       ),
       border: Border.all(
-        color: myBlack.withOpacity(.3),
+        color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
         width: 1.4,
       ),
     ),
@@ -86,6 +86,9 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
               errorBorder: InputBorder.none,
               disabledBorder: InputBorder.none,
               hintText: "Search Your Product",
+              hintStyle: TextStyle(
+                color: darkTheme == true ? myWhite : myBlack,
+              ),
               contentPadding: EdgeInsets.only(
                 bottom: dynamicHeight(context, .012),
                 left: dynamicWidth(context, .05),
@@ -105,7 +108,10 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
             padding: EdgeInsets.only(
               right: dynamicWidth(context, .02),
             ),
-            child: Icon(Icons.search_sharp),
+            child: Icon(
+              Icons.search_sharp,
+              color: darkTheme == true ? myWhite : myBlack,
+            ),
           ),
         ),
       ],

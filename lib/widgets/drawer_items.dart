@@ -14,24 +14,28 @@ Widget drawerItems(context) {
     {
       "text": "About Monark",
       "function": () {
+        pop(context);
         push(context, AboutUs());
       },
     },
     {
       "text": "Policies",
       "function": () {
+        pop(context);
         push(context, PoliciesPage());
       },
     },
     {
       "text": "Store Locator",
       "function": () {
+        pop(context);
         push(context, StoreFinder());
       },
     },
     {
       "text": "Contact Us",
       "function": () {
+        pop(context);
         push(context, ContactPage());
       },
     },

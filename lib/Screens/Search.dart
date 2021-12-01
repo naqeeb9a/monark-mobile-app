@@ -22,11 +22,11 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: myWhite,
+      backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
       appBar: bar(
         context,
         menuIcon: true,
-        bgColor: myWhite,
+        bgColor: noColor,
         function: () {
           _scaffoldKey.currentState!.openEndDrawer();
         },
@@ -63,8 +63,8 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                       child: Image.asset(
                         "assets/icons/searchIcon.png",
-                        color: myBlack,
-                        height: dynamicHeight(context, .3),
+                        color: darkTheme == true ? myWhite : myBlack,
+                        scale: 20.0,
                       ),
                     ),
                   )

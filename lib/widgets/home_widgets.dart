@@ -182,7 +182,7 @@ Widget internalWidgetCard(
                     right: dynamicWidth(context, 0.04),
                     child: CircleAvatar(
                       radius: dynamicWidth(context, 0.04),
-                      backgroundColor: Colors.white,
+                      backgroundColor: myWhite,
                       child: Icon(
                         Icons.favorite,
                         size: dynamicWidth(context, 0.05),

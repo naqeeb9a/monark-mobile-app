@@ -2,8 +2,10 @@ import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:monark_app/Screens/Login.dart';
+import 'package:monark_app/Screens/Orders.dart';
 import 'package:monark_app/Screens/Welcome.dart';
 import 'package:monark_app/Screens/Wishlist.dart';
+import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
@@ -100,7 +102,6 @@ class _ProfileState extends State<Profile> {
                         },
                         child: profileText(context, "My Wishlist"),
                       ),
-                      profileText(context, "My Bag"),
                       profileText(context, "Order History"),
                       profileText(context, "Track Order"),
                       SizedBox(
@@ -156,8 +157,15 @@ class _ProfileState extends State<Profile> {
                               },
                               child: profileText(context, "My Wishlist"),
                             ),
-                            profileText(context, "My Bag"),
-                            profileText(context, "Order History"),
+                            GestureDetector(
+                              onTap: () {
+                                push(
+                                  context,
+                                  Orders(),
+                                );
+                              },
+                              child: profileText(context, "Order History"),
+                            ),
                             profileText(context, "Track Order"),
                             SizedBox(
                               height: dynamicHeight(context, 0.03),

@@ -86,6 +86,7 @@ class _BottomNavState extends State<BottomNav> {
                   icon: Image.asset(
                     "assets/icons/searchIcon.png",
                     width: dynamicWidth(context, .06),
+                    color: myWhite,
                   ),
                   // ignore: deprecated_member_use
                   title: Text(
@@ -100,6 +101,7 @@ class _BottomNavState extends State<BottomNav> {
                   icon: Image.asset(
                     "assets/icons/categoryIcon.png",
                     width: dynamicWidth(context, .06),
+                    color: myWhite,
                   ),
                   // ignore: deprecated_member_use
                   title: Text(
@@ -114,6 +116,7 @@ class _BottomNavState extends State<BottomNav> {
                   icon: Image.asset(
                     "assets/icons/cartIcon.png",
                     width: dynamicWidth(context, .06),
+                    color: myWhite,
                   ),
                   // ignore: deprecated_member_use
                   title: Text(
@@ -128,6 +131,7 @@ class _BottomNavState extends State<BottomNav> {
                   icon: Image.asset(
                     "assets/icons/profileIcon.png",
                     width: dynamicWidth(context, .06),
+                    color: myWhite,
                   ),
                   // ignore: deprecated_member_use
                   title: Text(
