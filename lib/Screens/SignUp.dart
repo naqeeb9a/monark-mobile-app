@@ -82,6 +82,7 @@ class _SignUpState extends State<SignUp> {
         ? Scaffold(
             body: Center(
               child: JumpingDotsProgressIndicator(
+                color: darkTheme == true ? myWhite : myBlack,
                 fontSize: dynamicWidth(context, .08),
                 numberOfDots: 5,
               ),

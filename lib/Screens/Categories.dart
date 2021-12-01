@@ -122,8 +122,9 @@ class _CategoriesPageState extends State<CategoriesPage> {
                     } else {
                       return Center(
                         child: JumpingDotsProgressIndicator(
-                          numberOfDots: 3,
+                          numberOfDots: 5,
                           fontSize: dynamicWidth(context, 0.07),
+                          color: darkTheme == true ? myWhite : myBlack,
                         ),
                       );
                     }

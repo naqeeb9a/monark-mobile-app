@@ -86,8 +86,10 @@ class _LoginState extends State<Login> {
         ? Scaffold(
             body: Center(
               child: JumpingDotsProgressIndicator(
+
                 fontSize: dynamicWidth(context, .08),
                 numberOfDots: 5,
+                color: darkTheme == true ? myWhite : myBlack,
               ),
             ),
           )

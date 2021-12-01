@@ -90,8 +90,9 @@ class _AddAddressState extends State<AddAddress> {
       body: (isloading == true)
           ? Center(
               child: JumpingDotsProgressIndicator(
+                color: darkTheme == true ? myWhite : myBlack,
                 numberOfDots: 5,
-                fontSize: 20,
+                fontSize: dynamicWidth(context, .08),
               ),
             )
           : Stack(
