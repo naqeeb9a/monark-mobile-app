@@ -260,8 +260,8 @@ Widget storeCard(
                     "81 Babar block, Garden Town Lahore,Pakistan.",
                     style: TextStyle(
                       color: darkTheme == true ? myWhite : myBlack,
-                      fontSize: dynamicWidth(context, .04),
-                      fontWeight: FontWeight.w300,
+                      fontSize: dynamicWidth(context, .036),
+                      fontWeight: FontWeight.w400,
                     ),
                     maxLines: 2,
                   ),
@@ -284,7 +284,7 @@ Widget storeCard(
                     style: TextStyle(
                       color: darkTheme == true ? myWhite : myBlack,
                       fontWeight: FontWeight.w500,
-                      fontSize: dynamicWidth(context, .032),
+                      fontSize: dynamicWidth(context, .04),
                     ),
                     maxLines: 1,
                   ),
@@ -294,8 +294,8 @@ Widget storeCard(
                       phone,
                       style: TextStyle(
                         color: darkTheme == true ? myWhite : myBlack,
-                        fontSize: dynamicWidth(context, .032),
-                        fontWeight: FontWeight.w300,
+                        fontSize: dynamicWidth(context, .036),
+                        fontWeight: FontWeight.w400,
                       ),
                       maxLines: 2,
                     ),
@@ -315,7 +315,7 @@ Widget storeCard(
                   style: TextStyle(
                     color: darkTheme == true ? myWhite : myBlack,
                     fontWeight: FontWeight.w500,
-                    fontSize: dynamicWidth(context, .032),
+                    fontSize: dynamicWidth(context, .04),
                   ),
                   maxLines: 1,
                 ),
@@ -325,8 +325,8 @@ Widget storeCard(
                     workTime,
                     style: TextStyle(
                       color: darkTheme == true ? myWhite : myBlack,
-                      fontSize: dynamicWidth(context, .032),
-                      fontWeight: FontWeight.w300,
+                      fontSize: dynamicWidth(context, .036),
+                      fontWeight: FontWeight.w400,
                     ),
                     maxLines: 1,
                   ),

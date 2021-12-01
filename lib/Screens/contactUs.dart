@@ -71,8 +71,8 @@ class _ContactPageState extends State<ContactPage> {
                                     style: TextStyle(
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: dynamicWidth(context, .036),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: dynamicWidth(context, .032),
                                     ),
                                     maxLines: 1,
                                   ),
@@ -109,8 +109,8 @@ class _ContactPageState extends State<ContactPage> {
                                     style: TextStyle(
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: dynamicWidth(context, .036),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: dynamicWidth(context, .032),
                                     ),
                                     maxLines: 1,
                                   ),
@@ -145,8 +145,8 @@ class _ContactPageState extends State<ContactPage> {
                                     style: TextStyle(
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: dynamicWidth(context, .036),
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: dynamicWidth(context, .032),
                                     ),
                                     maxLines: 2,
                                   ),
@@ -159,7 +159,7 @@ class _ContactPageState extends State<ContactPage> {
                               vertical: dynamicHeight(context, .06),
                             ),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 InkWell(
                                   onTap: () {
@@ -174,26 +174,28 @@ class _ContactPageState extends State<ContactPage> {
                                     radius: dynamicWidth(context, .04),
                                     child: Image.asset(
                                       "assets/icons/fbIcon.png",
-                                      width: dynamicWidth(context, .046),
+                                      width: dynamicWidth(context, .032),
                                       color: myWhite,
                                     ),
                                   ),
                                 ),
-                                InkWell(
-                                  onTap: () {
-                                    launch(
-                                      "https://www.instagram.com/monarkpakistan/",
-                                      forceSafariVC: false,
-                                      forceWebView: false,
-                                    );
-                                  },
-                                  child: CircleAvatar(
-                                    backgroundColor: myWhite,
-                                    radius: dynamicWidth(context, .04),
-                                    child: Image.asset(
-                                      "assets/icons/instaIcon.png",
-                                      width: dynamicWidth(context, .05),
-                                      color: myWhite,
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: dynamicWidth(context, .08),
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      launch(
+                                        "https://www.instagram.com/monarkpakistan/",
+                                        forceSafariVC: false,
+                                        forceWebView: false,
+                                      );
+                                    },
+                                    child: ClipOval(
+                                      child: Image.asset(
+                                        "assets/icons/instaIcon.png",
+                                        width: dynamicWidth(context, .086),
+                                      ),
                                     ),
                                   ),
                                 ),

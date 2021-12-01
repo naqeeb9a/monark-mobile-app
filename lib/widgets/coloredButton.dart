@@ -14,7 +14,7 @@ Widget coloredButton(context, text, {function = ""}) {
       onTap: function == "" ? () {} : function,
       child: Container(
         width: dynamicWidth(context, .8),
-        height: dynamicHeight(context, .054),
+        height: dynamicHeight(context, .05),
         decoration: BoxDecoration(
           color: myRed,
           borderRadius: BorderRadius.circular(
