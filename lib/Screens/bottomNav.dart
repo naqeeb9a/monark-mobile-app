@@ -55,6 +55,7 @@ class _BottomNavState extends State<BottomNav> {
         ? Scaffold(
             body: Center(
               child: JumpingDotsProgressIndicator(
+                color: darkTheme == true ? myWhite : myBlack,
                 numberOfDots: 5,
                 fontSize: dynamicWidth(context, .08),
               ),
