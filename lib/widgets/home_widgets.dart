@@ -266,9 +266,6 @@ Widget internalWidgetCard(
                         )
                 ],
               ),
-        SizedBox(
-          height: dynamicHeight(context, 0.01),
-        ),
       ],
     ),
   );
