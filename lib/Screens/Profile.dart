@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:monark_app/Screens/Login.dart';
 import 'package:monark_app/Screens/Welcome.dart';
+import 'package:monark_app/Screens/Wishlist.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
@@ -89,7 +90,16 @@ class _ProfileState extends State<Profile> {
                         context,
                       ),
                       profileText(context, "Sign in"),
-                      profileText(context, "My Wishlist"),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      WishlistPage(profileName: "Guest")));
+                        },
+                        child: profileText(context, "My Wishlist"),
+                      ),
                       profileText(context, "My Bag"),
                       profileText(context, "Order History"),
                       profileText(context, "Track Order"),
@@ -135,7 +145,17 @@ class _ProfileState extends State<Profile> {
                                 snapshot.data["firstName"] +
                                     " " +
                                     snapshot.data["lastName"]),
-                            profileText(context, "My Wishlist"),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => WishlistPage(
+                                            profileName:
+                                                snapshot.data["firstName"])));
+                              },
+                              child: profileText(context, "My Wishlist"),
+                            ),
                             profileText(context, "My Bag"),
                             profileText(context, "Order History"),
                             profileText(context, "Track Order"),
