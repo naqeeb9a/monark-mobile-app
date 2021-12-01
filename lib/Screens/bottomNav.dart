@@ -1,4 +1,4 @@
-import 'package:custom_navigation_bar/custom_navigation_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/Screens/Cart.dart';
@@ -21,117 +21,124 @@ class _BottomNavState extends State<BottomNav> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: myWhite,
-      body: Container(
-        child: Center(
-          child: _getPage(currentPage),
-        ),
-      ),
-      bottomNavigationBar: CustomNavigationBar(
-        iconSize: dynamicWidth(context, .07),
-        selectedColor: myWhite,
-        strokeColor: myWhite,
-        unSelectedColor: myGrey,
-        backgroundColor: myRed,
-        items: [
-          CustomNavigationBarItem(
-            icon: Image.asset(
-              "assets/icons/homeIcon.png",
-              width: dynamicWidth(context, .06),
-            ),
-            title: Text(
-              "Home",
-              style: TextStyle(
-                color: myWhite,
-                fontSize: dynamicWidth(context, .034),
+    return CupertinoTabScaffold(
+        tabBar: CupertinoTabBar(
+          backgroundColor: myRed,
+          items: [
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                "assets/icons/homeIcon.png",
+                width: dynamicWidth(context, .06),
+              ),
+              // ignore: deprecated_member_use
+              title: Text(
+                "Home",
+                style: TextStyle(
+                  color: myWhite,
+                  fontSize: dynamicWidth(context, .025),
+                ),
               ),
             ),
-          ),
-          CustomNavigationBarItem(
-            icon: Image.asset(
-              "assets/icons/searchIcon.png",
-              width: dynamicWidth(context, .06),
-            ),
-            title: Text(
-              "Search",
-              style: TextStyle(
-                color: myWhite,
-                fontSize: dynamicWidth(context, .034),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                "assets/icons/searchIcon.png",
+                width: dynamicWidth(context, .06),
+              ),
+              // ignore: deprecated_member_use
+              title: Text(
+                "Search",
+                style: TextStyle(
+                  color: myWhite,
+                  fontSize: dynamicWidth(context, .025),
+                ),
               ),
             ),
-          ),
-          CustomNavigationBarItem(
-            icon: Image.asset(
-              "assets/icons/categoryIcon.png",
-              width: dynamicWidth(context, .06),
-            ),
-            title: Text(
-              "Categories",
-              style: TextStyle(
-                color: myWhite,
-                fontSize: dynamicWidth(context, .034),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                "assets/icons/categoryIcon.png",
+                width: dynamicWidth(context, .06),
+              ),
+              // ignore: deprecated_member_use
+              title: Text(
+                "Categories",
+                style: TextStyle(
+                  color: myWhite,
+                  fontSize: dynamicWidth(context, .025),
+                ),
               ),
             ),
-          ),
-          CustomNavigationBarItem(
-            icon: Image.asset(
-              "assets/icons/cartIcon.png",
-              width: dynamicWidth(context, .06),
-            ),
-            title: Text(
-              "My Bag",
-              style: TextStyle(
-                color: myWhite,
-                fontSize: dynamicWidth(context, .034),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                "assets/icons/cartIcon.png",
+                width: dynamicWidth(context, .06),
+              ),
+              // ignore: deprecated_member_use
+              title: Text(
+                "My Bag",
+                style: TextStyle(
+                  color: myWhite,
+                  fontSize: dynamicWidth(context, .025),
+                ),
               ),
             ),
-          ),
-          CustomNavigationBarItem(
-            icon: Image.asset(
-              "assets/icons/profileIcon.png",
-              width: dynamicWidth(context, .06),
-            ),
-            title: Text(
-              "Profile",
-              style: TextStyle(
-                color: myWhite,
-                fontSize: dynamicWidth(context, .034),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                "assets/icons/profileIcon.png",
+                width: dynamicWidth(context, .06),
               ),
-            ),
-          ),
-        ],
-        currentIndex: currentPage,
-        onTap: (index) {
-          setState(() {
-            currentPage = index;
-          });
-        },
-      ),
-    );
-  }
-
-  _getPage(int page) {
-    switch (page) {
-      case 0:
-        return Home();
-      case 1:
-        return SearchPage();
-      case 2:
-        return CategoriesPage();
-      case 3:
-        return const Cart();
-      case 4:
-        return Profile();
-      default:
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: const <Widget>[
-            Text(
-              ('TabBar Index Error'),
+              // ignore: deprecated_member_use
+              title: Text(
+                "Profile",
+                style: TextStyle(
+                  color: myWhite,
+                  fontSize: dynamicWidth(context, .025),
+                ),
+              ),
             ),
           ],
-        );
-    }
+        ),
+        tabBuilder: (context, index) {
+          switch (index) {
+            case 0:
+              return CupertinoTabView(
+                builder: (context) {
+                  return CupertinoPageScaffold(child: Home());
+                },
+              );
+            case 1:
+              return CupertinoTabView(
+                builder: (context) {
+                  return CupertinoPageScaffold(child: SearchPage());
+                },
+              );
+            case 2:
+              return CupertinoTabView(
+                builder: (context) {
+                  return CupertinoPageScaffold(child: CategoriesPage());
+                },
+              );
+            case 3:
+              return CupertinoTabView(
+                builder: (context) {
+                  return CupertinoPageScaffold(child: Cart());
+                },
+              );
+            case 4:
+              return CupertinoTabView(
+                builder: (context) {
+                  return CupertinoPageScaffold(child: Profile());
+                },
+              );
+            default:
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: const <Widget>[
+                  Text(
+                    ('TabBar Index Error'),
+                  ),
+                ],
+              );
+          }
+        });
   }
 }
