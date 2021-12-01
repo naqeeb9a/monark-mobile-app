@@ -18,12 +18,12 @@ class Cart extends StatefulWidget {
 
 class _CartState extends State<Cart> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
-  int total = 0;
+  dynamic total = 0.obs;
 
   totalAmountCalculate() {
     for (int i = 0; i < cartItems.length; i++) {
       setState(() {
-        total = total + int.parse(cartItems[i]["total"].toString());
+        total = total + int.parse(cartItems[i]["total"].toString()).obs;
       });
     }
   }
@@ -31,6 +31,8 @@ class _CartState extends State<Cart> {
   @override
   void initState() {
     super.initState();
+
+    print("length\n\n\n");
 
     print(cartItems.length);
     totalAmountCalculate();
@@ -40,11 +42,11 @@ class _CartState extends State<Cart> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: myWhite,
+      backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
       appBar: bar(
         context,
         menuIcon: true,
-        bgColor: myWhite,
+        bgColor: noColor,
         function: () {
           _scaffoldKey.currentState!.openEndDrawer();
         },
@@ -72,7 +74,14 @@ class _CartState extends State<Cart> {
                                 SizedBox(
                                   height: dynamicHeight(context, .02),
                                 ),
-                                Text("No Items in Cart")
+                                Text(
+                                  "No Items in Cart",
+                                  style: TextStyle(
+                                    color:
+                                        darkTheme == true ? myWhite : myBlack,
+                                    fontSize: dynamicWidth(context, .05),
+                                  ),
+                                )
                               ],
                             )
                           : cartList(),
@@ -91,14 +100,7 @@ class _CartState extends State<Cart> {
                   context,
                   "Checkout",
                   () {
-                    if (cartItems.length == 0) {
-                      var snackBar = SnackBar(
-                        content: Text('Cart is empty'),
-                        duration: const Duration(milliseconds: 1000),
-                      );
-
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } else if (globalAccessToken == "guest") {
+                    if (globalAccessToken == "guest") {
                       var snackBar = SnackBar(
                         content: Text('Please Sign In to Continue'),
                         duration: const Duration(milliseconds: 1000),
@@ -132,14 +134,14 @@ class _CartState extends State<Cart> {
                           Text(
                             "Total Amount",
                             style: TextStyle(
-                              color: myBlack,
+                              color: darkTheme == true ? myWhite : myBlack,
                               fontSize: dynamicWidth(context, .05),
                             ),
                           ),
                           Text(
                             "PKR. $total",
                             style: TextStyle(
-                              color: myBlack,
+                              color: darkTheme == true ? myWhite : myBlack,
                               fontWeight: FontWeight.bold,
                               fontSize: dynamicWidth(context, .044),
                             ),
@@ -187,7 +189,7 @@ Widget cartCard(index, context, {check}) {
       vertical: dynamicHeight(context, 0.01),
     ),
     child: Container(
-      color: myWhite,
+      color: noColor,
       child: IntrinsicHeight(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,6 +221,7 @@ Widget cartCard(index, context, {check}) {
                     child: Text(
                       cartItems[index]["title"],
                       style: TextStyle(
+                        color: darkTheme == true ? myWhite : myBlack,
                         fontWeight: FontWeight.bold,
                       ),
                       overflow: TextOverflow.ellipsis,
@@ -229,7 +232,7 @@ Widget cartCard(index, context, {check}) {
                     "PKR. " + cartItems[index]["total"].toString(),
                     style: TextStyle(
                       fontSize: dynamicWidth(context, .04),
-                      color: myRed,
+                      color: darkTheme == true ? myWhite : myRed,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -241,14 +244,14 @@ Widget cartCard(index, context, {check}) {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: dynamicWidth(context, .04),
-                            color: myBlack,
+                            color: darkTheme == true ? myWhite : myBlack,
                           ),
                         ),
                         TextSpan(
                           text: cartItems[index]["quantity"].toString(),
                           style: TextStyle(
                             fontSize: dynamicWidth(context, .04),
-                            color: myBlack,
+                            color: darkTheme == true ? myWhite : myBlack,
                           ),
                         )
                       ],
@@ -258,7 +261,7 @@ Widget cartCard(index, context, {check}) {
                     "Size: " + cartItems[index]["size"].toString(),
                     style: TextStyle(
                       fontSize: dynamicWidth(context, .04),
-                      color: myBlack,
+                      color: darkTheme == true ? myWhite : myBlack,
                     ),
                   ),
                 ],

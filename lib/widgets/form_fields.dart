@@ -20,9 +20,13 @@ Widget inputTextField(context, label, myController,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.emailAddress,
       obscureText: password == true ? obscureText : false,
-      cursorColor: myBlack,
+      cursorColor: darkTheme == true ? myWhite : myBlack,
       cursorWidth: 2.0,
       cursorHeight: dynamicHeight(context, .03),
+      style: TextStyle(
+        color: darkTheme == true ? myWhite : myBlack,
+        fontSize: dynamicWidth(context, .04),
+      ),
       decoration: InputDecoration(
         suffixIcon: password == false
             ? null
@@ -42,7 +46,7 @@ Widget inputTextField(context, label, myController,
             dynamicWidth(context, .4),
           ),
           borderSide: BorderSide(
-            color: myRed,
+            color: darkTheme == true ? myWhite : myBlack,
           ),
         ),
         enabledBorder: OutlineInputBorder(
@@ -50,7 +54,7 @@ Widget inputTextField(context, label, myController,
             dynamicWidth(context, .4),
           ),
           borderSide: BorderSide(
-            color: myBlack,
+            color: darkTheme == true ? myWhite : myBlack,
           ),
         ),
       ),
@@ -81,6 +85,10 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
             controller: controller,
             enabled: enabled,
             autofocus: enabled,
+            style: TextStyle(
+              color: darkTheme == true ? myWhite : myBlack,
+              fontSize: dynamicWidth(context, .04),
+            ),
             decoration: InputDecoration(
               border: InputBorder.none,
               errorBorder: InputBorder.none,
@@ -90,7 +98,7 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
                 color: darkTheme == true ? myWhite : myBlack,
               ),
               contentPadding: EdgeInsets.only(
-                bottom: dynamicHeight(context, .012),
+                bottom: dynamicHeight(context, .014),
                 left: dynamicWidth(context, .05),
               ),
             ),
@@ -132,12 +140,16 @@ Widget addressInput(context, text, hintText, type,
         textInputAction: TextInputAction.next,
         keyboardType: type,
         cursorWidth: 2.0,
-        cursorHeight: dynamicHeight(context, .032),
+        cursorHeight: dynamicHeight(context, .03),
+        style: TextStyle(
+          color: darkTheme == true ? myWhite : myBlack,
+          fontSize: dynamicWidth(context, .04),
+        ),
         decoration: InputDecoration(
           label: Text(
             text,
             style: TextStyle(
-              color: Colors.grey,
+              color: darkTheme == true ? myWhite : myBlack,
             ),
           ),
           contentPadding: EdgeInsets.symmetric(

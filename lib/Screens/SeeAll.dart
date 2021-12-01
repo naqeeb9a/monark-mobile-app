@@ -125,7 +125,13 @@ Widget detailGridExtension(function, context, check) {
           );
         } else {
           return Center(
-            child: Text("No Products Found"),
+            child: Text(
+              "No Products Found",
+              style: TextStyle(
+                color: darkTheme == true ? myWhite : myBlack,
+                fontSize: dynamicWidth(context, .05),
+              ),
+            ),
           );
         }
       } else {
