@@ -77,7 +77,7 @@ PreferredSizeWidget bar(
                         ? myBlack
                         : myWhite
                     : iconColor,
-                scale: .8,
+                height: dynamicHeight(context, .03),
               ),
             )
           : Container(),
@@ -87,6 +87,7 @@ PreferredSizeWidget bar(
                 onPressed: function == "" ? () {} : function,
                 icon: Image.asset(
                   "assets/icons/menuIcon.png",
+                  height: dynamicHeight(context, .03),
                   color: iconColor == ""
                       ? darkTheme == false
                           ? myBlack

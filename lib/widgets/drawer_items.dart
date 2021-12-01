@@ -6,6 +6,7 @@ import 'package:monark_app/Screens/policies.dart';
 import 'package:monark_app/Screens/store_finder.dart';
 import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/widgets/media_query.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/config.dart';
 
@@ -40,10 +41,13 @@ Widget drawerItems(context) {
       },
     },
     {
-      "text": "Dark Mode",
-      "function": () {
-        print("object $darkTheme");
+      "text": darkTheme == true ? "Light Mode" : "Dark Mode",
+      "function": () async {
+        SharedPreferences pref = await SharedPreferences.getInstance();
         darkTheme = !darkTheme;
+
+        await pref.setBool("darkThemeCheck", darkTheme);
+
         var snackBar = SnackBar(
           content: Text('Theme Changed'),
           duration: const Duration(milliseconds: 1000),
