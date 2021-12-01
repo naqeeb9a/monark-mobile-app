@@ -33,31 +33,31 @@ class _SearchPageState extends State<SearchPage> {
       ),
       endDrawer: drawer(context),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  bottom: dynamicWidth(context, .02),
-                  left: dynamicWidth(context, .02),
-                  right: dynamicWidth(context, .02),
-                ),
-                child: Hero(
-                  tag: "SearchBar",
-                  child: Material(
-                    color: noColor,
-                    child: searchbar(
-                      context,
-                      controller: searchText,
-                      setStateFunction: () {
-                        setState(() {});
-                      },
-                    ),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                bottom: dynamicWidth(context, .02),
+                left: dynamicWidth(context, .02),
+                right: dynamicWidth(context, .02),
+              ),
+              child: Hero(
+                tag: "SearchBar",
+                child: Material(
+                  color: noColor,
+                  child: searchbar(
+                    context,
+                    controller: searchText,
+                    setStateFunction: () {
+                      setState(() {});
+                    },
                   ),
                 ),
               ),
-              searchText.text == ""
-                  ? Padding(
+            ),
+            searchText.text == ""
+                ? Expanded(
+                    child: Padding(
                       padding: EdgeInsets.symmetric(
                         vertical: dynamicHeight(context, .2),
                       ),
@@ -66,14 +66,14 @@ class _SearchPageState extends State<SearchPage> {
                         color: myBlack,
                         height: dynamicHeight(context, .3),
                       ),
-                    )
-                  : detailGrid(
-                      getSearchResults(searchText.text),
-                      context,
-                      false,
                     ),
-            ],
-          ),
+                  )
+                : detailGrid(
+                    getSearchResults(searchText.text),
+                    context,
+                    false,
+                  ),
+          ],
         ),
       ),
     );
