@@ -23,8 +23,6 @@ class _WishlistPageState extends State<WishlistPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(wishListItems.length);
-    print(wishListItems);
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
@@ -40,7 +38,7 @@ class _WishlistPageState extends State<WishlistPage> {
       endDrawer: drawer(context),
       body: Center(
         child: Container(
-          width: dynamicWidth(context, 0.9),
+          width: dynamicWidth(context, 1),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -80,12 +78,6 @@ class _WishlistPageState extends State<WishlistPage> {
               wishListGrid(
                 context,
               )
-              // detailGrid(
-              //   getWishList(),
-              //   context,
-              //   false,
-              //   expandedCheck: true,
-              // )
             ],
           ),
         ),
@@ -98,31 +90,37 @@ wishListGrid(
   context,
 ) {
   return Expanded(
-    child: GridView.builder(
-        itemCount: wishListItems.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisSpacing: dynamicWidth(context, .04),
-          mainAxisSpacing: dynamicHeight(context, .02),
-          crossAxisCount: 2,
-          childAspectRatio: 5 / 9,
-        ),
-        itemBuilder: (context, index) {
-          return Center(
-            child: basicCards(
-                context,
-                wishListItems[index]["node"]["images"]["edges"],
-                wishListItems[index]["node"]["title"],
-                wishListItems[index]["node"]["availableForSale"],
-                variantProduct: wishListItems[index]["node"]["variants"]
-                    ["edges"],
-                sizeOption: wishListItems[index]["node"]["options"][0]
-                    ["values"],
-                description: wishListItems[index]["node"]["description"],
-                check: wishListItems[index]["node"]["availableForSale"] == true
-                    ? false
-                    : true,
-                wishList: wishListItems[index]),
-          );
-        }),
+    child: Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: dynamicWidth(context, .04),
+      ),
+      child: GridView.builder(
+          itemCount: wishListItems.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisSpacing: dynamicWidth(context, .04),
+            mainAxisSpacing: dynamicHeight(context, .02),
+            crossAxisCount: 2,
+            childAspectRatio: 5 / 9,
+          ),
+          itemBuilder: (context, index) {
+            return Center(
+              child: basicCards(
+                  context,
+                  wishListItems[index]["node"]["images"]["edges"],
+                  wishListItems[index]["node"]["title"],
+                  wishListItems[index]["node"]["availableForSale"],
+                  variantProduct: wishListItems[index]["node"]["variants"]
+                      ["edges"],
+                  sizeOption: wishListItems[index]["node"]["options"][0]
+                      ["values"],
+                  description: wishListItems[index]["node"]["description"],
+                  check:
+                      wishListItems[index]["node"]["availableForSale"] == true
+                          ? false
+                          : true,
+                  wishList: wishListItems[index]),
+            );
+          }),
+    ),
   );
 }
