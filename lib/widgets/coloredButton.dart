@@ -10,7 +10,7 @@ Widget coloredButton(context, text, {function = ""}) {
     borderRadius: BorderRadius.circular(
       dynamicWidth(context, .4),
     ),
-    child: InkWell(
+    child: GestureDetector(
       onTap: function == "" ? () {} : function,
       child: Container(
         width: dynamicWidth(context, .8),

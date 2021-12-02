@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:monark_app/Screens/TrackOrder.dart';
+import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
@@ -14,11 +15,23 @@ class Orders extends StatefulWidget {
 
 class _OrdersState extends State<Orders> {
   var orderQuantity = 0;
+  var _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: bar(context,
-          bgColor: Colors.transparent, menuIcon: true, leadingIcon: true),
+      key: _scaffoldKey,
+      backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
+      appBar: bar(
+        context,
+        bgColor: Colors.transparent,
+        menuIcon: true,
+        leadingIcon: true,
+        function: () {
+          _scaffoldKey.currentState!.openEndDrawer();
+        },
+      ),
+      endDrawer: drawer(context),
       body: Center(
         child: Container(
           width: dynamicWidth(context, .9),
@@ -46,76 +59,107 @@ class _OrdersState extends State<Orders> {
 
 Widget orderCards(snapshot, orderQuantity) {
   return ListView.builder(
-      itemCount: (snapshot as List).length,
-      itemBuilder: (context, index) {
-        orderQuantity = snapshot.length;
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => TrackOrder(
-                          orderNumber:
-                              snapshot[index]["node"]["orderNumber"].toString(),
-                        )));
-          },
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text((index + 1).toString() +
-                      ". Order #MNK" +
-                      snapshot[index]["node"]["orderNumber"].toString()),
-                  (snapshot[index]["node"]["cancelReason"] == "CUSTOMER" ||
-                          snapshot[index]["node"]["cancelReason"] ==
-                              "DECLINED" ||
-                          snapshot[index]["node"]["cancelReason"] == "FRAUD" ||
-                          snapshot[index]["node"]["cancelReason"] ==
-                              "INVENTORY" ||
-                          snapshot[index]["node"]["cancelReason"] == "OTHER")
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              "Cancelled",
-                            ),
-                            Text(snapshot[index]["node"]["processedAt"]
-                                .toString()
-                                .substring(
-                                    0,
-                                    snapshot[index]["node"]["processedAt"]
-                                            .toString()
-                                            .length -
-                                        10))
-                          ],
-                        )
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              snapshot[index]["node"]["fulfillmentStatus"]
-                                  .toString(),
-                            ),
-                            Text(snapshot[index]["node"]["processedAt"]
-                                .toString()
-                                .substring(
-                                    0,
-                                    snapshot[index]["node"]["processedAt"]
-                                            .toString()
-                                            .length -
-                                        10))
-                          ],
-                        ),
-                ],
+    itemCount: (snapshot as List).length,
+    itemBuilder: (context, index) {
+      orderQuantity = snapshot.length;
+      return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TrackOrder(
+                orderNumber: snapshot[index]["node"]["orderNumber"].toString(),
               ),
-              heightBox(context, 0.01),
-              Divider(),
-              heightBox(context, 0.01),
-            ],
-          ),
-        );
-      });
+            ),
+          );
+        },
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  (index + 1).toString() +
+                      ". Order #MNK" +
+                      snapshot[index]["node"]["orderNumber"].toString(),
+                  style: TextStyle(
+                    color: darkTheme == true ? myWhite : myBlack,
+                    fontSize: dynamicWidth(context, .04),
+                  ),
+                ),
+                (snapshot[index]["node"]["cancelReason"] == "CUSTOMER" ||
+                        snapshot[index]["node"]["cancelReason"] == "DECLINED" ||
+                        snapshot[index]["node"]["cancelReason"] == "FRAUD" ||
+                        snapshot[index]["node"]["cancelReason"] ==
+                            "INVENTORY" ||
+                        snapshot[index]["node"]["cancelReason"] == "OTHER")
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Cancelled",
+                            style: TextStyle(
+                              color: darkTheme == true ? myWhite : myBlack,
+                              fontSize: dynamicWidth(context, .04),
+                            ),
+                          ),
+                          Text(
+                            snapshot[index]["node"]["processedAt"]
+                                .toString()
+                                .substring(
+                                  0,
+                                  snapshot[index]["node"]["processedAt"]
+                                          .toString()
+                                          .length -
+                                      10,
+                                ),
+                            style: TextStyle(
+                              color: darkTheme == true ? myWhite : myBlack,
+                              fontSize: dynamicWidth(context, .036),
+                            ),
+                          ),
+                        ],
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            snapshot[index]["node"]["fulfillmentStatus"]
+                                .toString(),
+                            style: TextStyle(
+                              color: darkTheme == true ? myWhite : myBlack,
+                              fontSize: dynamicWidth(context, .036),
+                            ),
+                          ),
+                          Text(
+                            snapshot[index]["node"]["processedAt"]
+                                .toString()
+                                .substring(
+                                  0,
+                                  snapshot[index]["node"]["processedAt"]
+                                          .toString()
+                                          .length -
+                                      10,
+                                ),
+                            style: TextStyle(
+                              color: darkTheme == true ? myWhite : myBlack,
+                              fontSize: dynamicWidth(context, .036),
+                            ),
+                          ),
+                        ],
+                      ),
+              ],
+            ),
+            heightBox(context, 0.01),
+            Divider(
+              color: darkTheme == true ? myWhite : myBlack,
+            ),
+            heightBox(context, 0.01),
+          ],
+        ),
+      );
+    },
+  );
 }
 
 Widget getOrderCards(orderQuantity) {
@@ -132,7 +176,13 @@ Widget getOrderCards(orderQuantity) {
               ),
             );
           } else if (snapshot.data == "Token Expired") {
-            return Text("Token Expired");
+            return Text(
+              "Token Expired",
+              style: TextStyle(
+                color: darkTheme == true ? myWhite : myBlack,
+                fontSize: dynamicWidth(context, .046),
+              ),
+            );
           } else {
             return orderCards(snapshot.data, orderQuantity);
           }

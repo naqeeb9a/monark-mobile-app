@@ -60,7 +60,8 @@ PreferredSizeWidget bar(
                             ),
                           );
                         }
-                      }),
+                      },
+                    ),
             )
           : Container(),
       backgroundColor: bgColor,

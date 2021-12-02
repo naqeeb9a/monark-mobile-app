@@ -5,49 +5,57 @@ import '../utils/config.dart';
 
 Widget inputTextField(context, label, myController,
     {function, function2, password = false}) {
-  return TextFormField(
-    autovalidateMode: AutovalidateMode.onUserInteraction,
-    validator: (function == "") ? () {} : function,
-    controller: myController,
-    textInputAction: TextInputAction.next,
-    keyboardType: TextInputType.emailAddress,
-    obscureText: password == true ? obscureText : false,
-    cursorColor: myBlack,
-    cursorWidth: 2.0,
-    cursorHeight: dynamicHeight(context, .03),
-    style: TextStyle(
-      color: myBlack,
-      fontSize: dynamicWidth(context, .04),
+  return Container(
+    decoration: BoxDecoration(
+      color: myWhite,
+      borderRadius: BorderRadius.circular(
+        dynamicWidth(context, .4),
+      ),
     ),
-    decoration: InputDecoration(
-      suffixIcon: password == false
-          ? null
-          : InkWell(
-              onTap: function2 == "" ? () {} : function2,
-              child: Icon(
-                Icons.remove_red_eye_rounded,
-                color: myRed,
-                size: dynamicWidth(context, .06),
+    child: TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (function == "") ? () {} : function,
+      controller: myController,
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.emailAddress,
+      obscureText: password == true ? obscureText : false,
+      cursorColor: myBlack,
+      cursorWidth: 2.0,
+      cursorHeight: dynamicHeight(context, .03),
+      style: TextStyle(
+        color: myBlack,
+        fontSize: dynamicWidth(context, .04),
+      ),
+      decoration: InputDecoration(
+        suffixIcon: password == false
+            ? null
+            : InkWell(
+                onTap: function2 == "" ? () {} : function2,
+                child: Icon(
+                  Icons.remove_red_eye_rounded,
+                  color: myRed,
+                  size: dynamicWidth(context, .06),
+                ),
               ),
-            ),
-      contentPadding: EdgeInsets.symmetric(
-        vertical: 0.0,
-        horizontal: dynamicWidth(context, .05),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(
-          dynamicWidth(context, .4),
+        contentPadding: EdgeInsets.symmetric(
+          vertical: 0.0,
+          horizontal: dynamicWidth(context, .05),
         ),
-        borderSide: BorderSide(
-          color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .4),
+          ),
+          borderSide: BorderSide(
+            color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
+          ),
         ),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(
-          dynamicWidth(context, .4),
-        ),
-        borderSide: BorderSide(
-          color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .4),
+          ),
+          borderSide: BorderSide(
+            color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
+          ),
         ),
       ),
     ),

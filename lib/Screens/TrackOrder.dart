@@ -4,15 +4,33 @@ import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
-class TrackOrder extends StatelessWidget {
+class TrackOrder extends StatefulWidget {
   final String orderNumber;
+
   const TrackOrder({Key? key, required this.orderNumber}) : super(key: key);
+
+  @override
+  State<TrackOrder> createState() => _TrackOrderState();
+}
+
+class _TrackOrderState extends State<TrackOrder> {
+  var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: bar(context,
-          leadingIcon: true, menuIcon: true, bgColor: Colors.transparent),
+      key: _scaffoldKey,
+      backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
+      appBar: bar(
+        context,
+        bgColor: Colors.transparent,
+        menuIcon: true,
+        leadingIcon: true,
+        function: () {
+          _scaffoldKey.currentState!.openEndDrawer();
+        },
+      ),
+      endDrawer: drawer(context),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -29,8 +47,11 @@ class TrackOrder extends StatelessWidget {
               ),
               padding: EdgeInsets.all(dynamicWidth(context, 0.03)),
               child: Text(
-                "order #MNK" + orderNumber,
-                style: TextStyle(color: myWhite),
+                "Order #MNK" + widget.orderNumber,
+                style: TextStyle(
+                  color: myWhite,
+                  fontSize: dynamicWidth(context, .036),
+                ),
               ),
             ),
             heightBox(context, 0.05),
@@ -40,7 +61,22 @@ class TrackOrder extends StatelessWidget {
             heightBox(context, 0.1),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text("Estimated Delivery Date"), Text("12-Dec-2021")],
+              children: [
+                Text(
+                  "Estimated Delivery Date",
+                  style: TextStyle(
+                    color: darkTheme == true ? myWhite : myBlack,
+                    fontSize: dynamicWidth(context, .034),
+                  ),
+                ),
+                Text(
+                  "12-Dec-2021",
+                  style: TextStyle(
+                    color: darkTheme == true ? myWhite : myBlack,
+                    fontSize: dynamicWidth(context, .034),
+                  ),
+                ),
+              ],
             )
           ],
         ),
@@ -55,17 +91,30 @@ Widget radioRow(context, text, radioState) {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(text),
-          Radio(
-            value: true,
-            groupValue: radioState,
-            onChanged: (value) {},
-            activeColor: Colors.green,
+          Text(
+            text,
+            style: TextStyle(
+              color: darkTheme == true ? myWhite : myBlack,
+              fontSize: dynamicWidth(context, .04),
+            ),
+          ),
+          Theme(
+            data: Theme.of(context).copyWith(
+              unselectedWidgetColor: darkTheme == true ? myWhite : myBlack,
+            ),
+            child: Radio(
+              value: true,
+              groupValue: radioState,
+              onChanged: (value) {},
+              activeColor: stockGreen,
+            ),
           )
         ],
       ),
       heightBox(context, 0.005),
-      Divider()
+      Divider(
+        color: darkTheme == true ? myWhite : myBlack,
+      ),
     ],
   );
 }
