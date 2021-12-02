@@ -100,7 +100,7 @@ class _ProfileState extends State<Profile> {
                         child: profileText(context, "My Wishlist"),
                       ),
                       profileText(context, "Order History"),
-                      profileText(context, "Track Order"),
+                      profileText(context, "Addresses"),
                       SizedBox(
                         height: dynamicHeight(context, 0.03),
                       ),
@@ -130,65 +130,72 @@ class _ProfileState extends State<Profile> {
                     future: getUserData(globalAccessToken),
                     builder: (context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            profilePicture(
-                              context,
-                            ),
-                            profileText(
+                        print(snapshot.data);
+                        if (snapshot.data == "Server Error") {
+                          return Center(
+                            child: Text("no internet"),
+                          );
+                        } else {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              profilePicture(
                                 context,
-                                snapshot.data["firstName"] +
-                                    " " +
-                                    snapshot.data["lastName"]),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => WishlistPage(
-                                            profileName:
-                                                snapshot.data["firstName"])));
-                              },
-                              child: profileText(context, "My Wishlist"),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                push(
+                              ),
+                              profileText(
                                   context,
-                                  Orders(),
-                                );
-                              },
-                              child: profileText(context, "Order History"),
-                            ),
-                            profileText(context, "Track Order"),
-                            SizedBox(
-                              height: dynamicHeight(context, 0.03),
-                            ),
-                            coloredButton(
-                                context,
-                                (globalAccessToken == "guest")
-                                    ? "Sign In"
-                                    : "logout", function: () async {
-                              if (globalAccessToken == "guest") {
-                                SharedPreferences saveUser =
-                                    await SharedPreferences.getInstance();
-                                saveUser.clear();
-                                Phoenix.rebirth(context);
-                              } else {
-                                CoolAlert.show(
-                                  context: context,
-                                  type: CoolAlertType.loading,
-                                  backgroundColor: noColor,
-                                );
-                                logoutUser(globalAccessToken);
-                              }
-                            }),
-                            SizedBox(
-                              height: dynamicHeight(context, 0.03),
-                            ),
-                          ],
-                        );
+                                  snapshot.data["firstName"] +
+                                      " " +
+                                      snapshot.data["lastName"]),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => WishlistPage(
+                                              profileName:
+                                                  snapshot.data["firstName"])));
+                                },
+                                child: profileText(context, "My Wishlist"),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  push(
+                                    context,
+                                    Orders(),
+                                  );
+                                },
+                                child: profileText(context, "Order History"),
+                              ),
+                              profileText(context, "Addresses"),
+                              SizedBox(
+                                height: dynamicHeight(context, 0.03),
+                              ),
+                              coloredButton(
+                                  context,
+                                  (globalAccessToken == "guest")
+                                      ? "Sign In"
+                                      : "logout", function: () async {
+                                if (globalAccessToken == "guest") {
+                                  SharedPreferences saveUser =
+                                      await SharedPreferences.getInstance();
+                                  saveUser.clear();
+                                  Phoenix.rebirth(context);
+                                } else {
+                                  CoolAlert.show(
+                                    context: context,
+                                    type: CoolAlertType.loading,
+                                    backgroundColor: noColor,
+                                  );
+                                  logoutUser(globalAccessToken);
+                                }
+                              }),
+                              SizedBox(
+                                height: dynamicHeight(context, 0.03),
+                              ),
+                            ],
+                          );
+                        }
                       } else {
                         return Center(
                           child: JumpingDotsProgressIndicator(

@@ -1,11 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:monark_app/Screens/TrackOrder.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
-
-import '../utils/config.dart';
 
 class Orders extends StatefulWidget {
   Orders({Key? key}) : super(key: key);
@@ -19,7 +17,8 @@ class _OrdersState extends State<Orders> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: bar(context),
+      appBar: bar(context,
+          bgColor: Colors.transparent, menuIcon: true, leadingIcon: true),
       body: Center(
         child: Container(
           width: dynamicWidth(context, .9),
@@ -29,15 +28,12 @@ class _OrdersState extends State<Orders> {
               SizedBox(
                 height: dynamicHeight(context, .02),
               ),
-              rowText("Orders", context),
+              rowText("Order History", context),
               SizedBox(
                 height: dynamicHeight(context, .01),
               ),
-              // Text(
-              //   "Total Orders : " + orderQuantity.toString(),
-              // ),
               SizedBox(
-                height: dynamicHeight(context, .01),
+                height: dynamicHeight(context, .05),
               ),
               getOrderCards(orderQuantity),
             ],
@@ -53,118 +49,69 @@ Widget orderCards(snapshot, orderQuantity) {
       itemCount: (snapshot as List).length,
       itemBuilder: (context, index) {
         orderQuantity = snapshot.length;
-        return Container(
-          padding: EdgeInsets.all(
-            dynamicWidth(context, 0.03),
-          ),
-          margin: EdgeInsets.symmetric(
-            vertical: dynamicHeight(context, .02),
-            horizontal: dynamicWidth(context, .03),
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              dynamicWidth(context, .04),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: myBlack.withOpacity(0.3),
-                spreadRadius: 2,
-                blurRadius: 6,
-                offset: Offset(0, 3), // changes position of shadow
-              ),
-            ],
-            color: myWhite,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Text("Order Number : " +
-                    snapshot[index]["node"]["orderNumber"].toString()),
-              ),
-              SizedBox(
-                height: dynamicHeight(context, 0.02),
-              ),
-              orderActualCard(
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
                 context,
-                snapshot[index]["node"]["lineItems"]["edges"],
-              ),
-              SizedBox(
-                height: dynamicHeight(context, 0.01),
-              ),
-              Text(
-                "Status : " +
-                    snapshot[index]["node"]["fulfillmentStatus"].toString(),
-              ),
-              SizedBox(
-                height: dynamicHeight(context, 0.01),
-              ),
-              Text(
-                "Cancelled : " +
-                    snapshot[index]["node"]["cancelReason"].toString(),
-              ),
-            ],
-          ),
-        );
-      });
-}
-
-Widget orderActualCard(context, snaphot) {
-  return ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: (snaphot as List).length,
-      shrinkWrap: true,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: dynamicHeight(context, .02),
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                MaterialPageRoute(
+                    builder: (context) => TrackOrder(
+                          orderNumber:
+                              snapshot[index]["node"]["orderNumber"].toString(),
+                        )));
+          },
+          child: Column(
             children: [
-              (snaphot[index]["node"]["variant"] == null)
-                  ? Image.asset(
-                      "assets/Monark.png",
-                      height: dynamicHeight(context, 0.15),
-                      width: dynamicWidth(context, 0.2),
-                    )
-                  : ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: CachedNetworkImage(
-                        imageUrl: snaphot[index]["node"]["variant"]["product"]
-                            ["images"]["edges"][0]["node"]["src"],
-                        fit: BoxFit.cover,
-                        height: dynamicHeight(context, 0.15),
-                        width: dynamicWidth(context, 0.2),
-                      ),
-                    ),
-              SizedBox(
-                height: dynamicHeight(context, 0.15),
-                width: dynamicWidth(context, 0.4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      snaphot[index]["node"]["title"],
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                    ),
-                    Text("Quantity : " +
-                        snaphot[index]["node"]["quantity"].toString()),
-                    (snaphot[index]["node"]["variant"] == null)
-                        ? Text("")
-                        : Text("Price : " +
-                            double.parse(snaphot[index]["node"]["variant"]
-                                        ["product"]["variants"]["edges"][0]
-                                    ["node"]["price"])
-                                .toInt()
-                                .toString()),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text((index + 1).toString() +
+                      ". Order #MNK" +
+                      snapshot[index]["node"]["orderNumber"].toString()),
+                  (snapshot[index]["node"]["cancelReason"] == "CUSTOMER" ||
+                          snapshot[index]["node"]["cancelReason"] ==
+                              "DECLINED" ||
+                          snapshot[index]["node"]["cancelReason"] == "FRAUD" ||
+                          snapshot[index]["node"]["cancelReason"] ==
+                              "INVENTORY" ||
+                          snapshot[index]["node"]["cancelReason"] == "OTHER")
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              "Cancelled",
+                            ),
+                            Text(snapshot[index]["node"]["processedAt"]
+                                .toString()
+                                .substring(
+                                    0,
+                                    snapshot[index]["node"]["processedAt"]
+                                            .toString()
+                                            .length -
+                                        10))
+                          ],
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              snapshot[index]["node"]["fulfillmentStatus"]
+                                  .toString(),
+                            ),
+                            Text(snapshot[index]["node"]["processedAt"]
+                                .toString()
+                                .substring(
+                                    0,
+                                    snapshot[index]["node"]["processedAt"]
+                                            .toString()
+                                            .length -
+                                        10))
+                          ],
+                        ),
+                ],
               ),
+              heightBox(context, 0.01),
+              Divider(),
+              heightBox(context, 0.01),
             ],
           ),
         );

@@ -243,6 +243,7 @@ getUserOrders() async {
                      email 
                      fulfillmentStatus 
                      cancelReason
+                     processedAt
                      lineItems(first:5){
                          edges{
                              node{
