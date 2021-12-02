@@ -5,57 +5,49 @@ import '../utils/config.dart';
 
 Widget inputTextField(context, label, myController,
     {function, function2, password = false}) {
-  return Container(
-    height: dynamicHeight(context, .054),
-    decoration: BoxDecoration(
-      color: myWhite,
-      borderRadius: BorderRadius.circular(
-        dynamicWidth(context, .4),
-      ),
+  return TextFormField(
+    autovalidateMode: AutovalidateMode.onUserInteraction,
+    validator: (function == "") ? () {} : function,
+    controller: myController,
+    textInputAction: TextInputAction.next,
+    keyboardType: TextInputType.emailAddress,
+    obscureText: password == true ? obscureText : false,
+    cursorColor: myBlack,
+    cursorWidth: 2.0,
+    cursorHeight: dynamicHeight(context, .03),
+    style: TextStyle(
+      color: myBlack,
+      fontSize: dynamicWidth(context, .04),
     ),
-    child: TextFormField(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (function == "") ? () {} : function,
-      controller: myController,
-      textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.emailAddress,
-      obscureText: password == true ? obscureText : false,
-      cursorColor: darkTheme == true ? myWhite : myBlack,
-      cursorWidth: 2.0,
-      cursorHeight: dynamicHeight(context, .03),
-      style: TextStyle(
-        color: darkTheme == true ? myWhite : myBlack,
-        fontSize: dynamicWidth(context, .04),
-      ),
-      decoration: InputDecoration(
-        suffixIcon: password == false
-            ? null
-            : InkWell(
-                onTap: function2 == "" ? () {} : function2,
-                child: Icon(
-                  Icons.remove_red_eye_rounded,
-                  color: myRed,
-                ),
+    decoration: InputDecoration(
+      suffixIcon: password == false
+          ? null
+          : InkWell(
+              onTap: function2 == "" ? () {} : function2,
+              child: Icon(
+                Icons.remove_red_eye_rounded,
+                color: myRed,
+                size: dynamicWidth(context, .06),
               ),
-        contentPadding: EdgeInsets.symmetric(
-          vertical: dynamicHeight(context, .008),
-          horizontal: dynamicWidth(context, .05),
+            ),
+      contentPadding: EdgeInsets.symmetric(
+        vertical: 0.0,
+        horizontal: dynamicWidth(context, .05),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(
+          dynamicWidth(context, .4),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            dynamicWidth(context, .4),
-          ),
-          borderSide: BorderSide(
-            color: darkTheme == true ? myWhite : myBlack,
-          ),
+        borderSide: BorderSide(
+          color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            dynamicWidth(context, .4),
-          ),
-          borderSide: BorderSide(
-            color: darkTheme == true ? myWhite : myBlack,
-          ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(
+          dynamicWidth(context, .4),
+        ),
+        borderSide: BorderSide(
+          color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
         ),
       ),
     ),
@@ -64,7 +56,7 @@ Widget inputTextField(context, label, myController,
 
 Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
   return Container(
-    height: dynamicHeight(context, .052),
+    height: dynamicHeight(context, .05),
     margin: EdgeInsets.symmetric(
       horizontal: dynamicWidth(context, .014),
     ),
@@ -89,6 +81,7 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
               color: darkTheme == true ? myWhite : myBlack,
               fontSize: dynamicWidth(context, .04),
             ),
+            cursorColor: darkTheme == true ? myWhite : myBlack,
             decoration: InputDecoration(
               border: InputBorder.none,
               errorBorder: InputBorder.none,
@@ -142,7 +135,7 @@ Widget addressInput(context, text, hintText, type,
         cursorWidth: 2.0,
         cursorHeight: dynamicHeight(context, .03),
         style: TextStyle(
-          color: darkTheme == true ? myWhite : myBlack,
+          color: darkTheme == true ? myBlack : myWhite,
           fontSize: dynamicWidth(context, .04),
         ),
         decoration: InputDecoration(

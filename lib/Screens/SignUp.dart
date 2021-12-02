@@ -88,11 +88,11 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
           )
-        : Scaffold(
-            body: SafeArea(
-              child: SizedBox(
-                width: dynamicWidth(context, 1),
-                height: dynamicHeight(context, 1),
+        : SafeArea(
+            child: SizedBox(
+              width: dynamicWidth(context, 1),
+              height: dynamicHeight(context, 1),
+              child: Material(
                 child: Stack(
                   children: [
                     Container(
@@ -369,7 +369,7 @@ class _SignUpState extends State<SignUp> {
                                     false,
                                   ),
                                   SizedBox(
-                                    height: dynamicHeight(context, .04),
+                                    height: dynamicHeight(context, .4),
                                   ),
                                 ],
                               ),
@@ -384,6 +384,7 @@ class _SignUpState extends State<SignUp> {
                       child: bar(
                         context,
                         bgColor: noColor,
+                        iconColor: myWhite,
                         leadingIcon: true,
                       ),
                     ),

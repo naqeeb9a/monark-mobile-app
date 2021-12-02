@@ -63,7 +63,7 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                       child: Image.asset(
                         "assets/icons/searchIcon.png",
-                        color: darkTheme == true ? myWhite : myBlack,
+                        color: darkTheme == true ? myRed : myBlack.withOpacity(.3),
                         scale: 20.0,
                       ),
                     ),

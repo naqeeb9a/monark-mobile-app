@@ -82,22 +82,21 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return (isLoading == true)
+    return isLoading == true
         ? Scaffold(
             body: Center(
               child: JumpingDotsProgressIndicator(
-
                 fontSize: dynamicWidth(context, .08),
                 numberOfDots: 5,
                 color: darkTheme == true ? myWhite : myBlack,
               ),
             ),
           )
-        : Scaffold(
-            body: SafeArea(
-              child: SizedBox(
-                width: dynamicWidth(context, 1),
-                height: dynamicHeight(context, 1),
+        : SafeArea(
+            child: SizedBox(
+              width: dynamicWidth(context, 1),
+              height: dynamicHeight(context, 1),
+              child: Material(
                 child: Stack(
                   children: [
                     Container(
@@ -142,165 +141,172 @@ class _LoginState extends State<Login> {
                             padding: EdgeInsets.symmetric(
                               horizontal: dynamicWidth(context, .05),
                             ),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: dynamicHeight(context, .1),
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Email",
-                                      style: TextStyle(
-                                        color: darkTheme == false
-                                            ? myBlack
-                                            : myWhite,
-                                        fontSize: dynamicWidth(context, .04),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: dynamicHeight(context, .01),
-                                ),
-                                inputTextField(
-                                  context,
-                                  "Email",
-                                  email,
-                                  function: (value) {
-                                    if (EmailValidator.validate(value)) {
-                                    } else {
-                                      return "Enter Valid Email";
-                                    }
-                                    return null;
-                                  },
-                                ),
-                                SizedBox(
-                                  height: dynamicHeight(context, .014),
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Password",
-                                      style: TextStyle(
-                                        color: darkTheme == false
-                                            ? myBlack
-                                            : myWhite,
-                                        fontSize: dynamicWidth(context, .04),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: dynamicHeight(context, .01),
-                                ),
-                                inputTextField(
-                                  context,
-                                  "Password",
-                                  password,
-                                  password: true,
-                                  function: (value) {
-                                    if (value!.isEmpty || value.length < 8) {
-                                      return 'Password must have 8 characters';
-                                    }
-                                    return null;
-                                  },
-                                  function2: () {
-                                    setState(() {
-                                      obscureText = !obscureText;
-                                    });
-                                  },
-                                ),
-                                SizedBox(
-                                  height: dynamicHeight(context, .01),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      "Forgot Password ?",
-                                      style: TextStyle(
-                                        color: darkTheme == false
-                                            ? myBlack
-                                            : myWhite,
-                                        fontSize: dynamicWidth(context, .04),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: dynamicHeight(context, .08),
-                                ),
-                                coloredButton(
-                                  context,
-                                  "Login",
-                                  function: () async {
-                                    if (!_formKey.currentState!.validate()) {
-                                      return;
-                                    }
-                                    setState(() {
-                                      isLoading = true;
-                                    });
-                                    var accessToken = await loginUser();
-                                    if (accessToken == "Server Error") {
-                                      Dialog(
-                                        child: Center(
-                                          child: SizedBox(
-                                            height: dynamicHeight(context, .25),
-                                            child: Image.asset(
-                                                "assets/network_error.png"),
-                                          ),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: dynamicHeight(context, .1),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Email",
+                                        style: TextStyle(
+                                          color: darkTheme == false
+                                              ? myBlack
+                                              : myWhite,
+                                          fontSize: dynamicWidth(context, .04),
                                         ),
-                                      );
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: dynamicHeight(context, .01),
+                                  ),
+                                  inputTextField(
+                                    context,
+                                    "Email",
+                                    email,
+                                    function: (value) {
+                                      if (EmailValidator.validate(value)) {
+                                      } else {
+                                        return "Enter Valid Email";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: dynamicHeight(context, .014),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Password",
+                                        style: TextStyle(
+                                          color: darkTheme == false
+                                              ? myBlack
+                                              : myWhite,
+                                          fontSize: dynamicWidth(context, .04),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: dynamicHeight(context, .01),
+                                  ),
+                                  inputTextField(
+                                    context,
+                                    "Password",
+                                    password,
+                                    password: true,
+                                    function: (value) {
+                                      if (value!.isEmpty || value.length < 8) {
+                                        return 'Password must have 8 characters';
+                                      }
+                                      return null;
+                                    },
+                                    function2: () {
                                       setState(() {
-                                        isLoading = false;
+                                        obscureText = !obscureText;
                                       });
-                                    } else if (accessToken != null) {
-                                      SharedPreferences saveUser =
-                                          await SharedPreferences.getInstance();
-
-                                      saveUser.setString(
-                                          "loginInfo", accessToken.toString());
-                                      pushAndRemoveUntil(
-                                        context,
-                                        BottomNav(),
-                                      );
-                                      email.clear();
-                                      password.clear();
-                                    } else {
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: dynamicHeight(context, .01),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        "Forgot Password ?",
+                                        style: TextStyle(
+                                          color: darkTheme == false
+                                              ? myBlack
+                                              : myWhite,
+                                          fontSize: dynamicWidth(context, .04),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: dynamicHeight(context, .08),
+                                  ),
+                                  coloredButton(
+                                    context,
+                                    "Login",
+                                    function: () async {
+                                      if (!_formKey.currentState!.validate()) {
+                                        return;
+                                      }
                                       setState(() {
-                                        isLoading = false;
+                                        isLoading = true;
                                       });
+                                      var accessToken = await loginUser();
+                                      if (accessToken == "Server Error") {
+                                        Dialog(
+                                          child: Center(
+                                            child: SizedBox(
+                                              height:
+                                                  dynamicHeight(context, .25),
+                                              child: Image.asset(
+                                                  "assets/network_error.png"),
+                                            ),
+                                          ),
+                                        );
+                                        setState(() {
+                                          isLoading = false;
+                                        });
+                                      } else if (accessToken != null) {
+                                        SharedPreferences saveUser =
+                                            await SharedPreferences
+                                                .getInstance();
 
-                                      CoolAlert.show(
-                                        context: context,
-                                        type: CoolAlertType.error,
-                                        title: "",
-                                        text:
-                                            "Username or Password not Matched!!",
-                                        backgroundColor: myRed,
-                                        confirmBtnColor: myRed,
-                                        animType: CoolAlertAnimType.scale,
-                                        flareAnimationName: "Dance",
-                                      );
-                                    }
-                                  },
-                                ),
-                                SizedBox(
-                                  height: dynamicHeight(context, .04),
-                                ),
-                                richTextWidget(
-                                  context,
-                                  "Don't have an account?  ",
-                                  "Sign Up",
-                                  dynamicWidth(context, .04),
-                                  dynamicWidth(context, .05),
-                                  SignUp(),
-                                  darkTheme == false ? myBlack : myWhite,
-                                  darkTheme == false ? myBlack : myWhite,
-                                  true,
-                                ),
-                              ],
+                                        saveUser.setString("loginInfo",
+                                            accessToken.toString());
+                                        pushAndRemoveUntil(
+                                          context,
+                                          BottomNav(),
+                                        );
+                                        email.clear();
+                                        password.clear();
+                                      } else {
+                                        setState(() {
+                                          isLoading = false;
+                                        });
+
+                                        CoolAlert.show(
+                                          context: context,
+                                          type: CoolAlertType.error,
+                                          title: "",
+                                          text:
+                                              "Username or Password not Matched!!",
+                                          backgroundColor: myRed,
+                                          confirmBtnColor: myRed,
+                                          animType: CoolAlertAnimType.scale,
+                                          flareAnimationName: "Dance",
+                                        );
+                                      }
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: dynamicHeight(context, .04),
+                                  ),
+                                  richTextWidget(
+                                    context,
+                                    "Don't have an account?  ",
+                                    "Sign Up",
+                                    dynamicWidth(context, .04),
+                                    dynamicWidth(context, .05),
+                                    SignUp(),
+                                    darkTheme == false ? myBlack : myWhite,
+                                    darkTheme == false ? myBlack : myWhite,
+                                    true,
+                                  ),
+                                  SizedBox(
+                                    height: dynamicHeight(context, .4),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -312,6 +318,7 @@ class _LoginState extends State<Login> {
                       child: bar(
                         context,
                         bgColor: noColor,
+                        iconColor: myWhite,
                         leadingIcon: true,
                       ),
                     ),
