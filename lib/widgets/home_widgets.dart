@@ -33,20 +33,20 @@ Widget cardList(context, {function}) {
                     horizontal: dynamicWidth(context, 0.018),
                   ),
                   child: basicCards(
-                    context,
-                    snapshot.data[index]["node"]["images"]["edges"],
-                    snapshot.data[index]["node"]["title"],
-                    snapshot.data[index]["node"]["availableForSale"],
-                    variantProduct: snapshot.data[index]["node"]["variants"]
-                        ["edges"],
-                    sizeOption: snapshot.data[index]["node"]["options"][0]
-                        ["values"],
-                    description: snapshot.data[index]["node"]["description"],
-                    check:
-                        snapshot.data[index]["node"]["availableForSale"] == true
-                            ? false
-                            : true,
-                  ),
+                      context,
+                      snapshot.data[index]["node"]["images"]["edges"],
+                      snapshot.data[index]["node"]["title"],
+                      snapshot.data[index]["node"]["availableForSale"],
+                      variantProduct: snapshot.data[index]["node"]["variants"]
+                          ["edges"],
+                      sizeOption: snapshot.data[index]["node"]["options"][0]
+                          ["values"],
+                      description: snapshot.data[index]["node"]["description"],
+                      check: snapshot.data[index]["node"]["availableForSale"] ==
+                              true
+                          ? false
+                          : true,
+                      wishList: snapshot.data),
                 );
               },
             ),
@@ -77,7 +77,8 @@ Widget basicCards(context, imageUrl, text, availableForSale,
     description = "No Description",
     variantProduct = "",
     categoriesCheck = false,
-    check = false}) {
+    check = false,
+    wishList = ""}) {
   return (check == true)
       ? InkWell(
           onTap: () {
@@ -132,18 +133,14 @@ Widget basicCards(context, imageUrl, text, availableForSale,
                   );
                 },
           child: internalWidgetCard(
-            context,
-            imageUrl,
-            variantProduct,
-            text,
-            categoriesCheck,
-          ),
+              context, imageUrl, variantProduct, text, categoriesCheck,
+              wishList: wishList),
         );
 }
 
 Widget internalWidgetCard(
     context, imageUrl, variantProduct, text, categoriesCheck,
-    {outOfStock = false}) {
+    {outOfStock = false, wishList = ""}) {
   return Container(
     margin: EdgeInsets.all(0),
     width: dynamicWidth(context, 0.47),
@@ -182,7 +179,7 @@ Widget internalWidgetCard(
                     right: dynamicWidth(context, 0.04),
                     child: GestureDetector(
                       onTap: () {
-                        print("object" +variantProduct.toString());
+                        print("object" + variantProduct.toString());
                       },
                       child: CircleAvatar(
                         radius: dynamicWidth(context, 0.04),

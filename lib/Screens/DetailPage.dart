@@ -302,75 +302,73 @@ class _DetailPageState extends State<DetailPage> {
                         ),
                       ),
                       heightBox(context, .008),
-                      Row(
-                        children: [
-                          Container(
-                            width: dynamicWidth(context, .3),
-                            decoration: BoxDecoration(
-                              color: noColor,
-                              borderRadius: BorderRadius.circular(
-                                dynamicWidth(context, .02),
-                              ),
-                              border: Border.all(
-                                color: darkTheme == true
-                                    ? myWhite
-                                    : myBlack.withOpacity(.3),
-                                width: 1.2,
-                              ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          width: dynamicWidth(context, .25),
+                          decoration: BoxDecoration(
+                            color: noColor,
+                            borderRadius: BorderRadius.circular(
+                              dynamicWidth(context, .03),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    if (quantity > 1) {
-                                      quantity--;
-                                    }
-                                  },
-                                  child: Container(
-                                    width: dynamicWidth(context, .1),
-                                    height: dynamicWidth(context, .1),
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.remove,
-                                        size: dynamicWidth(context, .054),
-                                        color:
-                                            darkTheme == true ? myWhite : myRed,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Obx(() {
-                                  return Text(
-                                    quantity.toString(),
-                                    style: TextStyle(
-                                      color:
-                                          darkTheme == true ? myWhite : myBlack,
-                                      fontSize: dynamicWidth(context, .054),
-                                    ),
-                                  );
-                                }),
-                                InkWell(
-                                  onTap: () {
-                                    if (quantity < 3) {
-                                      quantity++;
-                                    }
-                                  },
-                                  child: Container(
-                                    width: dynamicWidth(context, .1),
-                                    height: dynamicWidth(context, .1),
+                            border: Border.all(
+                              color: darkTheme == true
+                                  ? myWhite
+                                  : myBlack.withOpacity(.3),
+                              width: 1.2,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  if (quantity > 1) {
+                                    quantity--;
+                                  }
+                                },
+                                child: Container(
+                                  width: dynamicWidth(context, .09),
+                                  height: dynamicWidth(context, .09),
+                                  child: Center(
                                     child: Icon(
-                                      Icons.add,
-                                      size: dynamicWidth(context, .054),
+                                      Icons.remove,
+                                      size: dynamicWidth(context, .05),
                                       color:
                                           darkTheme == true ? myWhite : myRed,
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              Obx(() {
+                                return Text(
+                                  quantity.toString(),
+                                  style: TextStyle(
+                                    color:
+                                        darkTheme == true ? myWhite : myBlack,
+                                    fontSize: dynamicWidth(context, .05),
+                                  ),
+                                );
+                              }),
+                              InkWell(
+                                onTap: () {
+                                  if (quantity < 3) {
+                                    quantity++;
+                                  }
+                                },
+                                child: Container(
+                                  width: dynamicWidth(context, .09),
+                                  height: dynamicWidth(context, .09),
+                                  child: Icon(
+                                    Icons.add,
+                                    size: dynamicWidth(context, .05),
+                                    color: darkTheme == true ? myWhite : myRed,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(
@@ -432,64 +430,61 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   Widget sizeOptions(context, array, variantProduct, {function}) {
-    return Container(
-      height: dynamicHeight(context, .06),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: List.generate(
-          array.length,
-          (index) => Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: dynamicWidth(context, .02),
-            ),
-            child: Material(
-              color: noColor,
-              child: InkWell(
-                onTap: () {
-                  setState(() {
-                    selectedSize = array[index];
-                    productIndex = index;
-                  });
-                },
-                child: Ink(
-                  child: Container(
-                    width: dynamicWidth(context, .1),
-                    height: dynamicWidth(context, .1),
-                    decoration: BoxDecoration(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: List.generate(
+        array.length,
+        (index) => Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: dynamicWidth(context, .01),
+          ),
+          child: Material(
+            color: noColor,
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  selectedSize = array[index];
+                  productIndex = index;
+                });
+              },
+              child: Ink(
+                child: Container(
+                  width: dynamicWidth(context, .08),
+                  height: dynamicWidth(context, .09),
+                  decoration: BoxDecoration(
+                    color: darkTheme == true
+                        ? selectedSize == array[index]
+                            ? myWhite
+                            : noColor
+                        : selectedSize == array[index]
+                            ? myRed
+                            : noColor,
+                    borderRadius: BorderRadius.circular(
+                      dynamicWidth(context, .012),
+                    ),
+                    border: Border.all(
                       color: darkTheme == true
                           ? selectedSize == array[index]
                               ? myWhite
-                              : noColor
+                              : myWhite.withOpacity(.5)
                           : selectedSize == array[index]
                               ? myRed
-                              : noColor,
-                      borderRadius: BorderRadius.circular(
-                        dynamicWidth(context, .012),
-                      ),
-                      border: Border.all(
+                              : myBlack.withOpacity(.3),
+                      width: 1.4,
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      array[index].toString(),
+                      style: TextStyle(
+                        fontSize: dynamicWidth(context, .035),
                         color: darkTheme == true
                             ? selectedSize == array[index]
-                                ? myWhite
-                                : myWhite.withOpacity(.5)
+                                ? myBlack
+                                : myWhite
                             : selectedSize == array[index]
-                                ? myRed
-                                : myBlack.withOpacity(.3),
-                        width: 1.4,
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        array[index].toString(),
-                        style: TextStyle(
-                          fontSize: dynamicWidth(context, .044),
-                          color: darkTheme == true
-                              ? selectedSize == array[index]
-                                  ? myBlack
-                                  : myWhite
-                              : selectedSize == array[index]
-                                  ? myWhite
-                                  : myBlack,
-                        ),
+                                ? myWhite
+                                : myBlack,
                       ),
                     ),
                   ),
