@@ -180,10 +180,10 @@ Widget internalWidgetCard(
                     right: dynamicWidth(context, 0.04),
                     child: GestureDetector(
                       onTap: () {
-                        // wishListItems.clear();
+                        var check = "";
 
                         if (wishListItems.length == 0) {
-                          wishListItems.add(wishList);
+                          wishListItems.insert(0, wishList);
                           var snackBar = SnackBar(
                             content: Text(
                               'Item Added to Wish List',
@@ -198,40 +198,44 @@ Widget internalWidgetCard(
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         } else {
                           for (int i = 0; i < wishListItems.length; i++) {
-                            if (wishListItems[i][0]["node"]["id"] ==
+                            if (wishListItems[i]["node"]["id"] ==
                                 wishList["node"]["id"]) {
                               wishListItems.removeAt(i);
-                              var snackBar = SnackBar(
-                                content: Text(
-                                  'Item Removed from Wish List',
-                                  style: TextStyle(
-                                    color:
-                                        darkTheme == false ? myWhite : myBlack,
-                                  ),
-                                ),
-                                duration: const Duration(seconds: 1),
-                                backgroundColor:
-                                    darkTheme == true ? myWhite : myBlack,
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
+                              check = "no";
                             } else {
-                              wishListItems.add(wishList);
-                              var snackBar = SnackBar(
-                                content: Text(
-                                  'Item Added to Wish List',
-                                  style: TextStyle(
-                                    color:
-                                        darkTheme == false ? myWhite : myBlack,
-                                  ),
-                                ),
-                                duration: const Duration(seconds: 1),
-                                backgroundColor:
-                                    darkTheme == true ? myWhite : myBlack,
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
+                              wishListItems.insert(0, wishList);
+                              check = "ok";
+                              break;
                             }
+                          }
+                          if (check == "ok") {
+                            var snackBar = SnackBar(
+                              content: Text(
+                                'Item Added to Wish List',
+                                style: TextStyle(
+                                  color: darkTheme == false ? myWhite : myBlack,
+                                ),
+                              ),
+                              duration: const Duration(seconds: 1),
+                              backgroundColor:
+                                  darkTheme == true ? myWhite : myBlack,
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          } else if (check == "no") {
+                            var snackBar = SnackBar(
+                              content: Text(
+                                'Item Removed from Wish List',
+                                style: TextStyle(
+                                  color: darkTheme == false ? myWhite : myBlack,
+                                ),
+                              ),
+                              duration: const Duration(seconds: 1),
+                              backgroundColor:
+                                  darkTheme == true ? myWhite : myBlack,
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           }
                         }
                       },
