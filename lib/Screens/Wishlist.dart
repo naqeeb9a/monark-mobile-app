@@ -75,9 +75,15 @@ class _WishlistPageState extends State<WishlistPage> {
                 ),
               ),
               heightBox(context, 0.04),
-              wishListGrid(
-                context,
-              )
+              (wishListItems.length == 0)
+                  ? Expanded(
+                      child: Center(
+                        child: Text("No items in WishList"),
+                      ),
+                    )
+                  : wishListGrid(
+                      context,
+                    )
             ],
           ),
         ),
