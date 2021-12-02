@@ -18,26 +18,17 @@ class Cart extends StatefulWidget {
 
 class _CartState extends State<Cart> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
-  dynamic total = 0.obs;
 
-  totalAmountCalculate() {
+  totalAmountCalculate(total) {
     for (int i = 0; i < cartItems.length; i++) {
-      setState(() {
-        total = total + int.parse(cartItems[i]["total"].toString()).obs;
-      });
+      total = total + int.parse(cartItems[i]["total"].toString());
     }
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    print(cartItems.length);
-    totalAmountCalculate();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    dynamic total = 0.obs;
+    totalAmountCalculate(total);
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
@@ -82,7 +73,9 @@ class _CartState extends State<Cart> {
                                 )
                               ],
                             )
-                          : cartList(),
+                          : cartList(setState: (){setState(() {
+                            
+                          });}),
                     );
                   }),
                   SizedBox(
@@ -155,7 +148,7 @@ class _CartState extends State<Cart> {
   }
 }
 
-Widget cartList({check}) {
+Widget cartList({check,setState}) {
   return ListView.builder(
     itemCount: cartItems.length,
     itemBuilder: (context, index) {
@@ -168,6 +161,7 @@ Widget cartList({check}) {
               flex: 1,
               onPressed: (context) {
                 cartItems.remove(cartItems[index]);
+                setState();
               },
               backgroundColor: myRed,
               foregroundColor: myWhite,

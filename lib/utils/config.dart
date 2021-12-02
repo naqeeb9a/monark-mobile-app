@@ -12,7 +12,7 @@ const stockGreen = Color(0xff25a799);
 const noColor = Colors.transparent;
 
 var cartItems = [].obs;
-var wishListItems = [].obs;
+var wishListItems = [];
 var addressList = [];
 var group = 0.obs;
 bool obscureText = true;

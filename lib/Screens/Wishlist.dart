@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:monark_app/Screens/Search.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
@@ -17,6 +16,11 @@ class WishlistPage extends StatefulWidget {
 
 class _WishlistPageState extends State<WishlistPage> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
+  getWishList() async {
+    Future.delayed(Duration(seconds: 0), () {
+      return wishListItems;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +75,7 @@ class _WishlistPageState extends State<WishlistPage> {
             ),
             heightBox(context, 0.04),
             detailGrid(
-              getSearchResults("polo"),
+              getWishList(),
               context,
               false,
               expandedCheck: true,
@@ -81,4 +85,31 @@ class _WishlistPageState extends State<WishlistPage> {
       ),
     );
   }
+}
+
+wishListGrid(context,) {
+  return GridView.builder(
+      itemCount: wishListItems.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisSpacing: dynamicWidth(context, .04),
+        mainAxisSpacing: dynamicHeight(context, .02),
+        crossAxisCount: 2,
+        childAspectRatio: 5 / 9,
+      ),
+      itemBuilder: (context, index) {
+        return Center(
+          child: basicCards(
+              context,
+              wishListItems[index]["node"]["images"]["edges"],
+              wishListItems[index]["node"]["title"],
+              wishListItems[index]["node"]["availableForSale"],
+              variantProduct: wishListItems[index]["node"]["variants"]["edges"],
+              sizeOption: wishListItems[index]["node"]["options"][0]["values"],
+              description: wishListItems[index]["node"]["description"],
+              check: wishListItems[index]["node"]["availableForSale"] == true
+                  ? false
+                  : true,
+              wishList: wishListItems[index]),
+        );
+      });
 }

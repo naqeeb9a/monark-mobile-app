@@ -72,6 +72,7 @@ Widget detailGridExtension(function, context, check) {
     builder: (context, AsyncSnapshot snapshot) {
       if (snapshot.connectionState == ConnectionState.done &&
           snapshot.data != null) {
+        print(snapshot.data.length);
         if (snapshot.data == "Server Error") {
           return Center(
             child: SizedBox(
@@ -115,7 +116,7 @@ Widget detailGridExtension(function, context, check) {
                             description: snapshot.data[index]["node"]
                                 ["description"],
                             check: snapshot.data[index]["node"]["availableForSale"] == true ? false : true,
-                            wishList: snapshot.data),
+                            wishList: snapshot.data[index]),
                   );
                 }),
           );
