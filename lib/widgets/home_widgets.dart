@@ -182,32 +182,58 @@ Widget internalWidgetCard(
                       onTap: () {
                         // wishListItems.clear();
 
-                        // if (wishListItems.length == 0) {
-                        //   wishListItems.add(wishList);
-                        // } else {
-                        //   for (int i = 0; i < wishListItems.length; i++) {
-                        //
-                        //   }
-                        // }
-
-                        wishListItems.add(wishList);
-                        //
-                        // print(wishListItems[0][0]["node"]["id"]);
-
-
-                        var snackBar = SnackBar(
-                          content: Text(
-                            'Item Added to Wish List' +
-                                wishListItems.length.toString(),
-                            style: TextStyle(
-                              color: darkTheme == false ? myWhite : myBlack,
+                        if (wishListItems.length == 0) {
+                          wishListItems.add(wishList);
+                          var snackBar = SnackBar(
+                            content: Text(
+                              'Item Added to Wish List',
+                              style: TextStyle(
+                                color: darkTheme == false ? myWhite : myBlack,
+                              ),
                             ),
-                          ),
-                          duration: const Duration(seconds: 1),
-                          backgroundColor:
-                              darkTheme == true ? myWhite : myBlack,
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            duration: const Duration(seconds: 1),
+                            backgroundColor:
+                                darkTheme == true ? myWhite : myBlack,
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        } else {
+                          for (int i = 0; i < wishListItems.length; i++) {
+                            if (wishListItems[i][0]["node"]["id"] ==
+                                wishList["node"]["id"]) {
+                              wishListItems.removeAt(i);
+                              var snackBar = SnackBar(
+                                content: Text(
+                                  'Item Removed from Wish List',
+                                  style: TextStyle(
+                                    color:
+                                        darkTheme == false ? myWhite : myBlack,
+                                  ),
+                                ),
+                                duration: const Duration(seconds: 1),
+                                backgroundColor:
+                                    darkTheme == true ? myWhite : myBlack,
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            } else {
+                              wishListItems.add(wishList);
+                              var snackBar = SnackBar(
+                                content: Text(
+                                  'Item Added to Wish List',
+                                  style: TextStyle(
+                                    color:
+                                        darkTheme == false ? myWhite : myBlack,
+                                  ),
+                                ),
+                                duration: const Duration(seconds: 1),
+                                backgroundColor:
+                                    darkTheme == true ? myWhite : myBlack,
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            }
+                          }
+                        }
                       },
                       child: CircleAvatar(
                         radius: dynamicWidth(context, 0.04),
