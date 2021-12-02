@@ -1,9 +1,8 @@
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:graphql/client.dart';
-import 'package:monark_app/Screens/Login.dart';
 import 'package:monark_app/Screens/Orders.dart';
-import 'package:monark_app/Screens/Welcome.dart';
 import 'package:monark_app/Screens/Wishlist.dart';
 import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/utils/config.dart';
@@ -60,9 +59,7 @@ class _ProfileState extends State<Profile> {
         return "Server Error";
       } else {
         await saveUser.clear();
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (BuildContext context) => Welcome()),
-            (Route<dynamic> route) => false);
+        Phoenix.rebirth(context);
       }
     }
 
@@ -109,14 +106,12 @@ class _ProfileState extends State<Profile> {
                       ),
                       coloredButton(context,
                           (globalAccessToken == "guest") ? "Sign In" : "logout",
-                          function: () {
+                          function: () async {
                         if (globalAccessToken == "guest") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Login(),
-                            ),
-                          );
+                          SharedPreferences saveUser =
+                              await SharedPreferences.getInstance();
+                          saveUser.clear();
+                          Phoenix.rebirth(context);
                         } else {
                           CoolAlert.show(
                             context: context,
@@ -174,14 +169,12 @@ class _ProfileState extends State<Profile> {
                                 context,
                                 (globalAccessToken == "guest")
                                     ? "Sign In"
-                                    : "logout", function: () {
+                                    : "logout", function: () async {
                               if (globalAccessToken == "guest") {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Login(),
-                                  ),
-                                );
+                                SharedPreferences saveUser =
+                                    await SharedPreferences.getInstance();
+                                saveUser.clear();
+                                Phoenix.rebirth(context);
                               } else {
                                 CoolAlert.show(
                                   context: context,

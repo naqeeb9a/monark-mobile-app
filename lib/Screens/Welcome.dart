@@ -18,6 +18,14 @@ class Welcome extends StatefulWidget {
 
 class _WelcomeState extends State<Welcome> {
   @override
+  void initState() {
+    super.initState();
+    setState(() {
+      isBottomBarVisible = false;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
