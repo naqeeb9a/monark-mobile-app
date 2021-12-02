@@ -242,20 +242,21 @@ class _LoginState extends State<Login> {
                                         isLoading = true;
                                       });
                                       var accessToken = await loginUser();
+                                      print(accessToken);
                                       if (accessToken == "Server Error") {
-                                        Dialog(
-                                          child: Center(
-                                            child: SizedBox(
-                                              height:
-                                                  dynamicHeight(context, .25),
-                                              child: Image.asset(
-                                                  "assets/network_error.png"),
-                                            ),
-                                          ),
-                                        );
                                         setState(() {
                                           isLoading = false;
                                         });
+                                        CoolAlert.show(
+                                          context: context,
+                                          type: CoolAlertType.warning,
+                                          title: "No Internet",
+                                          text:
+                                              "Check your internet connection!!",
+                                          backgroundColor: myRed,
+                                          confirmBtnColor: myRed,
+                                          animType: CoolAlertAnimType.scale,
+                                        );
                                       } else if (accessToken != null) {
                                         SharedPreferences saveUser =
                                             await SharedPreferences

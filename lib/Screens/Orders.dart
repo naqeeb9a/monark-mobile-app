@@ -14,7 +14,6 @@ class Orders extends StatefulWidget {
 }
 
 class _OrdersState extends State<Orders> {
-  var orderQuantity = 0;
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -48,7 +47,7 @@ class _OrdersState extends State<Orders> {
               SizedBox(
                 height: dynamicHeight(context, .05),
               ),
-              getOrderCards(orderQuantity),
+              getOrderCards(),
             ],
           ),
         ),
@@ -57,11 +56,12 @@ class _OrdersState extends State<Orders> {
   }
 }
 
-Widget orderCards(snapshot, orderQuantity) {
+Widget orderCards(
+  snapshot,
+) {
   return ListView.builder(
     itemCount: (snapshot as List).length,
     itemBuilder: (context, index) {
-      orderQuantity = snapshot.length;
       return GestureDetector(
         onTap: () {
           Navigator.push(
@@ -162,7 +162,7 @@ Widget orderCards(snapshot, orderQuantity) {
   );
 }
 
-Widget getOrderCards(orderQuantity) {
+Widget getOrderCards() {
   return Expanded(
     child: FutureBuilder(
       future: getUserOrders(),
@@ -183,8 +183,12 @@ Widget getOrderCards(orderQuantity) {
                 fontSize: dynamicWidth(context, .046),
               ),
             );
+          } else if (snapshot.data.length == 0) {
+            return Center(
+              child: Text("no Orders Yet!!"),
+            );
           } else {
-            return orderCards(snapshot.data, orderQuantity);
+            return orderCards(snapshot.data);
           }
         } else {
           return SizedBox(

@@ -3,7 +3,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:monark_app/Screens/Login.dart';
-import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
@@ -326,7 +325,9 @@ class _SignUpState extends State<SignUp> {
                                             context: context,
                                             type: CoolAlertType.error,
                                             title:
-                                                "Creating Customer Limit exceeded. Please try again later.");
+                                                "Creating Customer Limit exceeded. Please try again later.",
+                                            text:
+                                                "Check your internet as well");
                                       } else if (response == null) {
                                         setState(() {
                                           isLoading = false;
@@ -344,7 +345,15 @@ class _SignUpState extends State<SignUp> {
                                         setState(() {
                                           isLoading = false;
                                         });
-                                        pop(context);
+                                        CoolAlert.show(
+                                            context: context,
+                                            type: CoolAlertType.success,
+                                            title: "Successfully Created",
+                                            text: "please login in Now",
+                                            onConfirmBtnTap: () {
+                                              Navigator.popUntil(context,
+                                                  (route) => route.isFirst);
+                                            });
                                       } else {
                                         CoolAlert.show(
                                           context: context,
