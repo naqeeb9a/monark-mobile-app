@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
@@ -24,6 +23,8 @@ class _WishlistPageState extends State<WishlistPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(wishListItems.length);
+    print(wishListItems);
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
@@ -37,79 +38,91 @@ class _WishlistPageState extends State<WishlistPage> {
         },
       ),
       endDrawer: drawer(context),
-      body: Container(
-        width: dynamicWidth(context, 1),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              height: dynamicHeight(context, .18),
-              decoration: BoxDecoration(
-                color: noColor,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: darkTheme == true ? myWhite : myBlack.withOpacity(.4),
-                ),
-              ),
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: dynamicHeight(context, .012),
-                  ),
-                  child: Icon(
-                    Icons.favorite,
-                    color: myRed,
-                    size: dynamicWidth(context, 0.26),
+      body: Center(
+        child: Container(
+          width: dynamicWidth(context, 0.9),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: dynamicHeight(context, .18),
+                decoration: BoxDecoration(
+                  color: noColor,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color:
+                        darkTheme == true ? myWhite : myBlack.withOpacity(.4),
                   ),
                 ),
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: dynamicHeight(context, .012),
+                    ),
+                    child: Icon(
+                      Icons.favorite,
+                      color: myRed,
+                      size: dynamicWidth(context, 0.26),
+                    ),
+                  ),
+                ),
               ),
-            ),
-            heightBox(context, 0.04),
-            Text(
-              titleCase(widget.profileName) + "'s Wishlist",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                color: darkTheme == true ? myWhite : myBlack,
-                fontSize: dynamicWidth(context, .04),
+              heightBox(context, 0.04),
+              Text(
+                titleCase(widget.profileName) + "'s Wishlist",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: darkTheme == true ? myWhite : myBlack,
+                  fontSize: dynamicWidth(context, .04),
+                ),
               ),
-            ),
-            heightBox(context, 0.04),
-            detailGrid(
-              getWishList(),
-              context,
-              false,
-              expandedCheck: true,
-            )
-          ],
+              heightBox(context, 0.04),
+              wishListGrid(
+                context,
+              )
+              // detailGrid(
+              //   getWishList(),
+              //   context,
+              //   false,
+              //   expandedCheck: true,
+              // )
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-wishListGrid(context,) {
-  return GridView.builder(
-      itemCount: wishListItems.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisSpacing: dynamicWidth(context, .04),
-        mainAxisSpacing: dynamicHeight(context, .02),
-        crossAxisCount: 2,
-        childAspectRatio: 5 / 9,
-      ),
-      itemBuilder: (context, index) {
-        return Center(
-          child: basicCards(
-              context,
-              wishListItems[index]["node"]["images"]["edges"],
-              wishListItems[index]["node"]["title"],
-              wishListItems[index]["node"]["availableForSale"],
-              variantProduct: wishListItems[index]["node"]["variants"]["edges"],
-              sizeOption: wishListItems[index]["node"]["options"][0]["values"],
-              description: wishListItems[index]["node"]["description"],
-              check: wishListItems[index]["node"]["availableForSale"] == true
-                  ? false
-                  : true,
-              wishList: wishListItems[index]),
-        );
-      });
+wishListGrid(
+  context,
+) {
+  return Expanded(
+    child: GridView.builder(
+        itemCount: wishListItems.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: dynamicWidth(context, .04),
+          mainAxisSpacing: dynamicHeight(context, .02),
+          crossAxisCount: 2,
+          childAspectRatio: 5 / 9,
+        ),
+        itemBuilder: (context, index) {
+          return Center(
+            child: basicCards(
+                context,
+                wishListItems[index]["node"]["images"]["edges"],
+                wishListItems[index]["node"]["title"],
+                wishListItems[index]["node"]["availableForSale"],
+                variantProduct: wishListItems[index]["node"]["variants"]
+                    ["edges"],
+                sizeOption: wishListItems[index]["node"]["options"][0]
+                    ["values"],
+                description: wishListItems[index]["node"]["description"],
+                check: wishListItems[index]["node"]["availableForSale"] == true
+                    ? false
+                    : true,
+                wishList: wishListItems[index]),
+          );
+        }),
+  );
 }
