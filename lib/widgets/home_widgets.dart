@@ -175,21 +175,26 @@ Widget internalWidgetCard(
                 ),
               ),
             ),
-            (categoriesCheck == true)
+            categoriesCheck == true
                 ? Container()
                 : Positioned(
                     bottom: dynamicHeight(context, 0.02),
                     right: dynamicWidth(context, 0.04),
-                    child: CircleAvatar(
-                      radius: dynamicWidth(context, 0.04),
-                      backgroundColor: myWhite,
-                      child: Icon(
-                        Icons.favorite,
-                        size: dynamicWidth(context, 0.05),
-                        color: myRed,
+                    child: GestureDetector(
+                      onTap: () {
+                        print("object" +variantProduct.toString());
+                      },
+                      child: CircleAvatar(
+                        radius: dynamicWidth(context, 0.04),
+                        backgroundColor: myWhite,
+                        child: Icon(
+                          Icons.favorite,
+                          size: dynamicWidth(context, 0.05),
+                          color: myRed,
+                        ),
                       ),
                     ),
-                  )
+                  ),
           ],
         ),
         categoriesCheck == true
