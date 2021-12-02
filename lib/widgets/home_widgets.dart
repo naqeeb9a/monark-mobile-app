@@ -33,20 +33,20 @@ Widget cardList(context, {function}) {
                     horizontal: dynamicWidth(context, 0.018),
                   ),
                   child: basicCards(
-                      context,
-                      snapshot.data[index]["node"]["images"]["edges"],
-                      snapshot.data[index]["node"]["title"],
-                      snapshot.data[index]["node"]["availableForSale"],
-                      variantProduct: snapshot.data[index]["node"]["variants"]
-                          ["edges"],
-                      sizeOption: snapshot.data[index]["node"]["options"][0]
-                          ["values"],
-                      description: snapshot.data[index]["node"]["description"],
-                      check: snapshot.data[index]["node"]["availableForSale"] ==
-                              true
-                          ? false
-                          : true,
-                      wishList: snapshot.data),
+                    context,
+                    snapshot.data[index]["node"]["images"]["edges"],
+                    snapshot.data[index]["node"]["title"],
+                    snapshot.data[index]["node"]["availableForSale"],
+                    variantProduct: snapshot.data[index]["node"]["variants"]
+                        ["edges"],
+                    sizeOption: snapshot.data[index]["node"]["options"][0]
+                        ["values"],
+                    description: snapshot.data[index]["node"]["description"],
+                    check:
+                        snapshot.data[index]["node"]["availableForSale"] == true
+                            ? false
+                            : true,
+                  ),
                 );
               },
             ),
@@ -141,6 +141,7 @@ Widget basicCards(context, imageUrl, text, availableForSale,
 Widget internalWidgetCard(
     context, imageUrl, variantProduct, text, categoriesCheck,
     {outOfStock = false, wishList = ""}) {
+  print(wishList);
   return Container(
     margin: EdgeInsets.all(0),
     width: dynamicWidth(context, 0.47),

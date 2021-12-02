@@ -114,12 +114,8 @@ Widget detailGridExtension(function, context, check) {
                                 [0]["values"],
                             description: snapshot.data[index]["node"]
                                 ["description"],
-                            check: snapshot.data[index]["node"]
-                                        ["availableForSale"] ==
-                                    true
-                                ? false
-                                : true,
-                          ),
+                            check: snapshot.data[index]["node"]["availableForSale"] == true ? false : true,
+                            wishList: snapshot.data),
                   );
                 }),
           );
