@@ -180,10 +180,31 @@ Widget internalWidgetCard(
                     right: dynamicWidth(context, 0.04),
                     child: GestureDetector(
                       onTap: () {
+                        // wishListItems.clear();
+
+                        // if (wishListItems.length == 0) {
+                        //   wishListItems.add(wishList);
+                        // } else {
+                        //   for (int i = 0; i < wishListItems.length; i++) {
+                        //
+                        //   }
+                        // }
+
+
+                        print(wishListItems[0]["node"]["id"]);
+
                         wishListItems.add(wishList);
                         var snackBar = SnackBar(
-                          content: Text('Item Added to Wish List'),
-                          duration: const Duration(seconds: 2),
+                          content: Text(
+                            'Item Added to Wish List' +
+                                wishListItems.length.toString(),
+                            style: TextStyle(
+                              color: darkTheme == false ? myWhite : myBlack,
+                            ),
+                          ),
+                          duration: const Duration(seconds: 1),
+                          backgroundColor:
+                              darkTheme == true ? myWhite : myBlack,
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
