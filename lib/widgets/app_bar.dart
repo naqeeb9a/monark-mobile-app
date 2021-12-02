@@ -3,6 +3,7 @@ import 'package:monark_app/widgets/shopify_functions.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 import '../utils/config.dart';
+import 'home_widgets.dart';
 import 'media_query.dart';
 
 PreferredSizeWidget bar(
@@ -39,9 +40,9 @@ PreferredSizeWidget bar(
                       builder: (context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return Text(
-                            snapshot.data["firstName"] +
+                            titleCase(snapshot.data["firstName"]) +
                                 " " +
-                                snapshot.data["lastName"],
+                                titleCase(snapshot.data["lastName"]),
                             style: TextStyle(
                               color: darkTheme == true ? myWhite : myBlack,
                               fontSize: dynamicWidth(context, .05),

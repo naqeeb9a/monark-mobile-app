@@ -92,10 +92,12 @@ class _ProfileState extends State<Profile> {
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      WishlistPage(profileName: "Guest")));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  WishlistPage(profileName: "Guest"),
+                            ),
+                          );
                         },
                         child: profileText(context, "My Wishlist"),
                       ),
@@ -143,18 +145,21 @@ class _ProfileState extends State<Profile> {
                                 context,
                               ),
                               profileText(
-                                  context,
-                                  snapshot.data["firstName"] +
-                                      " " +
-                                      snapshot.data["lastName"]),
+                                context,
+                                titleCase(snapshot.data["firstName"]) +
+                                    " " +
+                                    titleCase(snapshot.data["lastName"]),
+                              ),
                               GestureDetector(
                                 onTap: () {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => WishlistPage(
-                                              profileName:
-                                                  snapshot.data["firstName"])));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => WishlistPage(
+                                        profileName: snapshot.data["firstName"],
+                                      ),
+                                    ),
+                                  );
                                 },
                                 child: profileText(context, "My Wishlist"),
                               ),
