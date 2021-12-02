@@ -114,6 +114,7 @@ Widget detailGridExtension(function, context, check) {
                                 [0]["values"],
                             description: snapshot.data[index]["node"]
                                 ["description"],
+                              productType: snapshot.data[index]["node"]["productType"],
                             check: snapshot.data[index]["node"]["availableForSale"] == true ? false : true,
                             wishList: snapshot.data[index]),
                   );

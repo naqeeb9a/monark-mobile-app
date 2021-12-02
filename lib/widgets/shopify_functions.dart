@@ -62,6 +62,7 @@ getShopifyProductsBestSelling() async {
         id
         description
         title
+        productType
         availableForSale
         totalInventory
         variants(first :10){
@@ -120,6 +121,7 @@ getShopifyProducts() async {
         id
         description
         title
+        productType
         availableForSale
         totalInventory
         variants(first :10){
@@ -179,6 +181,7 @@ getShopifyCollection(handle) async {
         id
         description
         title
+        productType
         availableForSale
         totalInventory
         variants(first :10){

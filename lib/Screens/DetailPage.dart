@@ -16,6 +16,7 @@ class DetailPage extends StatefulWidget {
   final dynamic array;
   final dynamic description;
   final bool availableForSale;
+  final String productType;
 
   const DetailPage({
     Key? key,
@@ -25,6 +26,7 @@ class DetailPage extends StatefulWidget {
     required this.variantProduct,
     required this.text,
     required this.availableForSale,
+    required this.productType
   }) : super(key: key);
 
   @override

@@ -10,73 +10,11 @@ import '../utils/config.dart';
 import 'drawer_items.dart';
 import 'media_query.dart';
 
-Widget cardList(context, {function}) {
-  return FutureBuilder(
-    future: function,
-    builder: (BuildContext context, AsyncSnapshot snapshot) {
-      if (snapshot.connectionState == ConnectionState.done &&
-          snapshot.data != null) {
-        if (snapshot.data == "Server Error") {
-          return SizedBox(
-            height: dynamicHeight(context, .25),
-            child: Image.asset("assets/network_error.png"),
-          );
-        } else {
-          return SizedBox(
-            height: dynamicHeight(context, .4),
-            child: ListView.builder(
-              itemCount: (snapshot.data as List).length,
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: dynamicWidth(context, 0.018),
-                  ),
-                  child: basicCards(
-                    context,
-                    snapshot.data[index]["node"]["images"]["edges"],
-                    snapshot.data[index]["node"]["title"],
-                    snapshot.data[index]["node"]["availableForSale"],
-                    variantProduct: snapshot.data[index]["node"]["variants"]
-                        ["edges"],
-                    sizeOption: snapshot.data[index]["node"]["options"][0]
-                        ["values"],
-                    description: snapshot.data[index]["node"]["description"],
-                    check:
-                        snapshot.data[index]["node"]["availableForSale"] == true
-                            ? false
-                            : true,
-                  ),
-                );
-              },
-            ),
-          );
-        }
-      } else {
-        return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.28,
-          child: Image.asset(
-            "assets/loader.gif",
-            scale: 6,
-          ),
-        );
-      }
-    },
-  );
-}
-
-discountPrice(before, after) {
-  var a = before - after;
-  var b = a / before;
-  var c = b * 100;
-  return c;
-}
-
 Widget basicCards(context, imageUrl, text, availableForSale,
     {sizeOption = "",
     description = "No Description",
     variantProduct = "",
+    productType = "",
     categoriesCheck = false,
     check = false,
     wishList = ""}) {
@@ -129,6 +67,7 @@ Widget basicCards(context, imageUrl, text, availableForSale,
                         array: sizeOption,
                         description: description,
                         availableForSale: availableForSale,
+                        productType: productType,
                       ),
                     ),
                   );
