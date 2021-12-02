@@ -190,10 +190,11 @@ Widget internalWidgetCard(
                         //   }
                         // }
 
-
-                        print(wishListItems[0]["node"]["id"]);
-
                         wishListItems.add(wishList);
+                        //
+                        // print(wishListItems[0][0]["node"]["id"]);
+
+
                         var snackBar = SnackBar(
                           content: Text(
                             'Item Added to Wish List' +
