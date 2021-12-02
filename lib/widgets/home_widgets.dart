@@ -142,7 +142,6 @@ Widget basicCards(context, imageUrl, text, availableForSale,
 Widget internalWidgetCard(
     context, imageUrl, variantProduct, text, categoriesCheck,
     {outOfStock = false, wishList = ""}) {
-  print(wishList);
   return Container(
     margin: EdgeInsets.all(0),
     width: dynamicWidth(context, 0.47),

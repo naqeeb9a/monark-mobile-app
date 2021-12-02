@@ -132,7 +132,6 @@ class _ProfileState extends State<Profile> {
                     future: getUserData(globalAccessToken),
                     builder: (context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
-                        print(snapshot.data);
                         if (snapshot.data == "Server Error") {
                           return Center(
                             child: Text("no internet"),

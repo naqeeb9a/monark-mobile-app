@@ -32,8 +32,6 @@ class _CartState extends State<Cart> {
   void initState() {
     super.initState();
 
-    print("length\n\n\n");
-
     print(cartItems.length);
     totalAmountCalculate();
   }

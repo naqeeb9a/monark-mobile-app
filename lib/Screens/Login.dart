@@ -242,7 +242,7 @@ class _LoginState extends State<Login> {
                                         isLoading = true;
                                       });
                                       var accessToken = await loginUser();
-                                      print(accessToken);
+
                                       if (accessToken == "Server Error") {
                                         setState(() {
                                           isLoading = false;

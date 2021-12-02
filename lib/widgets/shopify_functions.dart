@@ -9,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 checkLoginStatus(context, Function function) async {
   SharedPreferences saveUser = await SharedPreferences.getInstance();
   if (saveUser.getString("loginInfo") == null) {
-    print("clear");
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (BuildContext context) => Welcome()),
         (Route<dynamic> route) => false);
@@ -375,8 +374,6 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
   if (result.hasException) {
     return "Server Error";
   } else {
-    print(result.data!["draftOrderCreate"]["draftOrder"]["id"]);
-    print(result.data!["draftOrderCreate"]["draftOrder"]["totalPrice"]);
     return result.data!["draftOrderCreate"]["draftOrder"]["id"];
   }
 }
