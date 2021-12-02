@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -180,7 +181,12 @@ Widget internalWidgetCard(
                     right: dynamicWidth(context, 0.04),
                     child: GestureDetector(
                       onTap: () {
-                        print("object" + variantProduct.toString());
+                        wishListItems.add(wishList);
+                        var snackBar = SnackBar(
+                          content: Text('Item Added to Wish List'),
+                          duration: const Duration(seconds: 2),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       child: CircleAvatar(
                         radius: dynamicWidth(context, 0.04),
@@ -278,12 +284,16 @@ Widget rowText(text, context, {function = "", check = false}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Text(
-        text,
-        style: TextStyle(
-          color: darkTheme == true ? myWhite : myBlack,
-          fontSize: dynamicWidth(context, .092),
-          fontWeight: FontWeight.w800,
+      SizedBox(
+        width: dynamicWidth(context, .78),
+        child: AutoSizeText(
+          text,
+          style: TextStyle(
+            color: darkTheme == true ? myWhite : myBlack,
+            fontSize: dynamicWidth(context, .092),
+            fontWeight: FontWeight.w800,
+          ),
+          maxLines: 1,
         ),
       ),
       check == true
