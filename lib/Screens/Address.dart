@@ -63,7 +63,7 @@ class _AddressPageState extends State<AddressPage> {
     }
   }
 
-  List addressListCheck = [], tempList = [];
+  List addressListCheck = [];
   bool loading = false;
 
   Future addr() async {
@@ -87,13 +87,18 @@ class _AddressPageState extends State<AddressPage> {
 
   @override
   Widget build(BuildContext context) {
-    return (loading == true)
-        ? JumpingDotsProgressIndicator()
-        : Scaffold(
-            backgroundColor: myWhite,
-            appBar: bar(context,
-                leadingIcon: true, menuIcon: true, bgColor: noColor),
-            body: Stack(
+    return Scaffold(
+      backgroundColor: myWhite,
+      appBar: bar(context, leadingIcon: true, menuIcon: true, bgColor: noColor),
+      body: (loading == true)
+          ? Center(
+              child: JumpingDotsProgressIndicator(
+                color: darkTheme == true ? myWhite : myBlack,
+                numberOfDots: 5,
+                fontSize: dynamicWidth(context, .08),
+              ),
+            )
+          : Stack(
               alignment: Alignment.center,
               children: [
                 Center(
@@ -190,7 +195,7 @@ class _AddressPageState extends State<AddressPage> {
                       ),
               ],
             ),
-          );
+    );
   }
 
   Widget addressListBuilder(context) {

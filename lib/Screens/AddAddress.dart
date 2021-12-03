@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
+import 'package:monark_app/Screens/Address.dart';
+import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/form_fields.dart';
@@ -222,9 +224,8 @@ class _AddAddressState extends State<AddAddress> {
 
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     } else {
-                      Navigator.pop(context, () {
-                        setState(() {});
-                      });
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                      push(context, AddressPage());
                     }
                   },
                 )
