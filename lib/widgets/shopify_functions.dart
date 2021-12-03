@@ -426,7 +426,7 @@ mutation draftOrderComplete($id: ID!, $paymentPending: Boolean) {
       id
       order {
         id
-        orderNumber
+        name
       }
     }
   }
@@ -444,6 +444,6 @@ mutation draftOrderComplete($id: ID!, $paymentPending: Boolean) {
   if (result.hasException) {
     return "Server Error";
   } else {
-    return result.data!["draftOrderComplete"]["draftOrder"]["orderNumber"];
+    return result.data!["draftOrderComplete"]["draftOrder"]["order"]["name"];
   }
 }

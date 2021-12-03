@@ -70,10 +70,8 @@ class _AddressPageState extends State<AddressPage> {
     setState(() {
       loading = true;
     });
-    var listOfAddresses = await getUserAddresses();
-    for (var i = 0; i < listOfAddresses.length; i++) {
-      addressList.add(listOfAddresses[i]["node"]["address1"]);
-    }
+    addressList = await getUserAddresses();
+
     setState(() {
       loading = false;
     });
@@ -269,7 +267,7 @@ class _AddressPageState extends State<AddressPage> {
                     vertical: dynamicHeight(context, .01),
                   ),
                   child: Text(
-                    addressList[index].toString(),
+                    addressList[index]["node"]["address1"].toString(),
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: darkTheme == true ? myWhite : myBlack,

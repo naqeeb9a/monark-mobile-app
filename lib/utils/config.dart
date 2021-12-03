@@ -22,4 +22,4 @@ var globalAccessToken = "";
 var checkOutEmail = "";
 var id = "";
 bool darkTheme = false;
-bool isBottomBarVisible = true;
+

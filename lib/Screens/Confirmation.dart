@@ -73,7 +73,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                               dynamicWidth(context, 0.03),
                             ),
                             child: Text(
-                              "Order #MNK" + widget.orderNumber,
+                              "Order " + widget.orderNumber,
                               style: TextStyle(
                                 color: myRed,
                                 fontSize: dynamicWidth(context, 0.038),
