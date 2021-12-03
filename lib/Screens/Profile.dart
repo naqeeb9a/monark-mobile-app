@@ -2,6 +2,7 @@ import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:graphql/client.dart';
+import 'package:monark_app/Screens/Address.dart';
 import 'package:monark_app/Screens/Orders.dart';
 import 'package:monark_app/Screens/Wishlist.dart';
 import 'package:monark_app/utils/appRoutes.dart';
@@ -101,8 +102,25 @@ class _ProfileState extends State<Profile> {
                         },
                         child: profileText(context, "My Wishlist"),
                       ),
-                      profileText(context, "Order History"),
-                      profileText(context, "Addresses"),
+                      GestureDetector(
+                        onTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content:
+                                Text("Please Sign in to View order History"),
+                            duration: const Duration(milliseconds: 1000),
+                          ));
+                        },
+                        child: profileText(context, "Order History"),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Please Sign in to View Addresses"),
+                            duration: const Duration(milliseconds: 1000),
+                          ));
+                        },
+                        child: profileText(context, "Addresses"),
+                      ),
                       SizedBox(
                         height: dynamicHeight(context, 0.03),
                       ),
@@ -171,7 +189,16 @@ class _ProfileState extends State<Profile> {
                                 },
                                 child: profileText(context, "Order History"),
                               ),
-                              profileText(context, "Addresses"),
+                              GestureDetector(
+                                onTap: () {
+                                  push(
+                                      context,
+                                      AddressPage(
+                                        check: true,
+                                      ));
+                                },
+                                child: profileText(context, "Addresses"),
+                              ),
                               SizedBox(
                                 height: dynamicHeight(context, 0.03),
                               ),

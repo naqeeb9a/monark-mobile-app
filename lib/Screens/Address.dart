@@ -7,6 +7,7 @@ import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 import 'Payment.dart';
 
@@ -63,364 +64,183 @@ class _AddressPageState extends State<AddressPage> {
   }
 
   List addressListCheck = [], tempList = [];
+  bool loading = false;
 
   Future addr() async {
-    return await getUserAddresses().then((value) {
-      for (int i = 0; i < value.length; i++) {
-        setState(() {
-          tempList.add(value[i]["node"]);
-        });
-      }
-      addressListCheck.add(tempList[0]);
-      for (final i in tempList) {
-        for (int j = 0; j < addressListCheck.length; j++) {
-          if (!addressListCheck[j]["address1"]
-              .toString()
-              .contains(i["address1"].toString())) {
-            addressListCheck.add(i);
-          }
-        }
-      }
+    setState(() {
+      loading = true;
+    });
+    var listOfAdresses = await getUserAddresses();
+    for (var i = 0; i < listOfAdresses.length; i++) {
+      addressListCheck.add(listOfAdresses[i]["node"]["address1"]);
+    }
+    setState(() {
+      loading = false;
     });
   }
 
   @override
   void initState() {
     super.initState();
-
-    print("address \n\n\n\n\n");
-    print(globalAccessToken);
     addr();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: myWhite,
-      appBar: bar(
-        context,
-        leadingIcon: true,
-        menuIcon: true,
-        bgColor: noColor
-      ),
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Center(
-            child: Container(
-              width: dynamicWidth(context, .92),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: dynamicHeight(context, .02),
-                  ),
-                  rowText("Address", context),
-                  SizedBox(
-                    height: dynamicHeight(context, .02),
-                  ),
-                  (globalAccessToken == "")
-                      ? SizedBox(
-                          height: dynamicHeight(context, 0.6),
-                          child: Center(child: Text("Sign in to continue")))
-                      : addressListBuilder(context),
-                  SizedBox(
-                    height: widget.check == true
-                        ? dynamicHeight(context, .1)
-                        : dynamicHeight(context, .17),
-                  )
-                ],
-              ),
-            ),
-          ),
-          widget.check == true
-              ? bottomButton2(
-                  context,
-                  "Add Address",
-                  Icons.home_outlined,
-                  function: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AddAddress(),
-                      ),
-                    );
-                  },
-                  bottom: dynamicHeight(context, .02),
-                )
-              : bottomButton2(context, "Add Address", Icons.home_outlined,
-                  function: () {
-                  if (globalAccessToken == "") {
-                    var snackBar = SnackBar(
-                      content: Text("Please Sign in to add Addresses"),
-                      duration: const Duration(milliseconds: 1000),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AddAddress(),
-                      ),
-                    );
-                  }
-                }),
-          widget.check == true
-              ? Container()
-              : bottomButton1(
-                  context,
-                  "Continue to Payment",
-                  () {
-                    if (globalAccessToken == "") {
-                      var snackBar = SnackBar(
-                        content: Text("Please sign in to continue"),
-                        duration: const Duration(milliseconds: 1000),
-                      );
-
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    } else if (cartItems.isNotEmpty && addressList.isNotEmpty) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Payment(),
+    return (loading == true)
+        ? JumpingDotsProgressIndicator()
+        : Scaffold(
+            backgroundColor: myWhite,
+            appBar: bar(context,
+                leadingIcon: true, menuIcon: true, bgColor: noColor),
+            body: Stack(
+              alignment: Alignment.center,
+              children: [
+                Center(
+                  child: Container(
+                    width: dynamicWidth(context, .92),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: dynamicHeight(context, .02),
                         ),
-                      );
-                    } else {
-                      var snackBar = SnackBar(
-                        content: Text("No Address selected"),
-                        duration: const Duration(milliseconds: 1000),
-                      );
-
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    }
-                  },
+                        rowText("Address", context),
+                        SizedBox(
+                          height: dynamicHeight(context, .02),
+                        ),
+                        (globalAccessToken == "")
+                            ? SizedBox(
+                                height: dynamicHeight(context, 0.6),
+                                child:
+                                    Center(child: Text("Sign in to continue")))
+                            : addressListBuilder(context),
+                        SizedBox(
+                          height: widget.check == true
+                              ? dynamicHeight(context, .1)
+                              : dynamicHeight(context, .17),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-        ],
-      ),
-    );
+                widget.check == true
+                    ? bottomButton2(
+                        context,
+                        "Add Address",
+                        Icons.home_outlined,
+                        function: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddAddress(),
+                            ),
+                          );
+                        },
+                        bottom: dynamicHeight(context, .02),
+                      )
+                    : bottomButton2(context, "Add Address", Icons.home_outlined,
+                        function: () {
+                        if (globalAccessToken == "") {
+                          var snackBar = SnackBar(
+                            content: Text("Please Sign in to add Addresses"),
+                            duration: const Duration(milliseconds: 1000),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddAddress(),
+                            ),
+                          );
+                        }
+                      }),
+                widget.check == true
+                    ? Container()
+                    : bottomButton1(
+                        context,
+                        "Continue to Payment",
+                        () {
+                          if (globalAccessToken == "") {
+                            var snackBar = SnackBar(
+                              content: Text("Please sign in to continue"),
+                              duration: const Duration(milliseconds: 1000),
+                            );
+
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          } else if (cartItems.isNotEmpty &&
+                              addressList.isNotEmpty) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Payment(),
+                              ),
+                            );
+                          } else {
+                            var snackBar = SnackBar(
+                              content: Text("No Address selected"),
+                              duration: const Duration(milliseconds: 1000),
+                            );
+
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        },
+                      ),
+              ],
+            ),
+          );
   }
 
   Widget addressListBuilder(context) {
     return Expanded(
-      child: (addressListCheck.isEmpty)
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Image.asset(
-                  "assets/noAddress.png",
-                  width: dynamicWidth(context, 0.5),
-                ),
-                SizedBox(
-                  height: dynamicHeight(context, .03),
-                ),
-                Text("No Addresses Found!")
-              ],
-            )
-          : ListView.builder(
-              itemCount: addressListCheck.length,
-              itemBuilder: (context, index) {
-                addressList.add(addressListCheck[index]);
-                return Padding(
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: addressListCheck.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding:
+                EdgeInsets.symmetric(vertical: dynamicHeight(context, 0.01)),
+            child: Row(
+              children: [
+                Obx(() {
+                  return Radio(
+                      value: index,
+                      groupValue: int.parse(group.toString()),
+                      onChanged: (value) {
+                        setState(() {
+                          group.value = value as int;
+                        });
+                      });
+                }),
+                Container(
+                  width: dynamicWidth(context, 0.75),
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1),
+                    borderRadius: BorderRadius.circular(
+                      dynamicWidth(context, 0.04),
+                    ),
+                  ),
                   padding: EdgeInsets.symmetric(
-                    vertical: dynamicHeight(context, 0.01),
+                    horizontal: dynamicWidth(context, 0.04),
+                    vertical: dynamicHeight(context, .01),
                   ),
-                  child: Row(
-                    children: [
-                      Obx(() {
-                        return Radio(
-                            value: index,
-                            groupValue: int.parse(group.toString()),
-                            onChanged: (value) {
-                              setState(() {
-                                group.value = value as int;
-                              });
-                            });
-                      }),
-                      Container(
-                        width: dynamicWidth(context, 0.75),
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 1),
-                          borderRadius: BorderRadius.circular(
-                            dynamicWidth(context, 0.04),
-                          ),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: dynamicWidth(context, 0.04),
-                          vertical: dynamicHeight(context, .01),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              addressListCheck[index]["address1"],
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: dynamicWidth(context, 0.06),
-                                fontWeight: FontWeight.w400,
-                              ),
-                              maxLines: 2,
-                            ),
-                            SizedBox(
-                              height: dynamicHeight(context, .01),
-                            ),
-                            Text(
-                              addressListCheck[index]["firstName"] +
-                                  " " +
-                                  addressListCheck[index]["lastName"],
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: dynamicWidth(context, 0.05),
-                              ),
-                            ),
-                            SizedBox(
-                              height: dynamicHeight(context, .01),
-                            ),
-                            Text(
-                              addressListCheck[index]["city"],
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: myBlack,
-                                fontSize: dynamicWidth(context, 0.04),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
+                  child: Text(
+                    addressListCheck[index].toString(),
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: dynamicWidth(context, 0.06),
+                      fontWeight: FontWeight.w400,
+                    ),
+                    maxLines: 2,
                   ),
-                );
-                // if (addressListCheck.toString().isEmpty) {
-                //
-                // }
-                // return Center(
-                //   child: CircularProgressIndicator(
-                //     color: myRed,
-                //   ),
-                // );
-              },
+                ),
+              ],
             ),
+          );
+        },
+      ),
     );
-    // child: FutureBuilder(
-    //   future: getUserAddresses(),
-    //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-    //     if (snapshot.connectionState == ConnectionState.done) {
-    //       if (snapshot.data == "Server Error") {
-    //         return Center(
-    //           child: SizedBox(
-    //             height: dynamicHeight(context, .25),
-    //             child: Image.asset("assets/network_error.png"),
-    //           ),
-    //         );
-    //       } else {
-    //         return (snapshot.data == null)
-    //             ? Column(
-    //                 mainAxisAlignment: MainAxisAlignment.center,
-    //                 children: <Widget>[
-    //                   Image.asset(
-    //                     "assets/noAddress.png",
-    //                     width: dynamicWidth(context, 0.5),
-    //                   ),
-    //                   SizedBox(
-    //                     height: dynamicHeight(context, .03),
-    //                   ),
-    //                   Text("No Addresses Found!")
-    //                 ],
-    //               )
-    //             : ListView.builder(
-    //                 itemCount: (snapshot.data as List).length,
-    //                 itemBuilder: (context, index) {
-    //                   addressList.add(snapshot.data[index]);
-    //                   if (snapshot.hasData) {
-    //                     return Padding(
-    //                       padding: EdgeInsets.symmetric(
-    //                         vertical: dynamicHeight(context, 0.01),
-    //                       ),
-    //                       child: Row(
-    //                         children: [
-    //                           Obx(() {
-    //                             return Radio(
-    //                                 value: index,
-    //                                 groupValue: int.parse(group.toString()),
-    //                                 onChanged: (value) {
-    //                                   setState(() {
-    //                                     group.value = value as int;
-    //                                   });
-    //                                 });
-    //                           }),
-    //                           Container(
-    //                             width: dynamicWidth(context, 0.75),
-    //                             decoration: BoxDecoration(
-    //                               border: Border.all(width: 1),
-    //                               borderRadius: BorderRadius.circular(
-    //                                 dynamicWidth(context, 0.04),
-    //                               ),
-    //                             ),
-    //                             padding: EdgeInsets.symmetric(
-    //                               horizontal: dynamicWidth(context, 0.04),
-    //                               vertical: dynamicHeight(context, .01),
-    //                             ),
-    //                             child: Column(
-    //                               crossAxisAlignment:
-    //                                   CrossAxisAlignment.start,
-    //                               children: [
-    //                                 Text(
-    //                                   snapshot.data[index]["node"]
-    //                                       ["address1"],
-    //                                   overflow: TextOverflow.ellipsis,
-    //                                   style: TextStyle(
-    //                                     fontSize: dynamicWidth(context, 0.06),
-    //                                     fontWeight: FontWeight.w400,
-    //                                   ),
-    //                                   maxLines: 2,
-    //                                 ),
-    //                                 SizedBox(
-    //                                   height: dynamicHeight(context, .01),
-    //                                 ),
-    //                                 Text(
-    //                                   snapshot.data[index]["node"]
-    //                                           ["firstName"] +
-    //                                       " " +
-    //                                       snapshot.data[index]["node"]
-    //                                           ["lastName"],
-    //                                   overflow: TextOverflow.ellipsis,
-    //                                   style: TextStyle(
-    //                                     fontSize: dynamicWidth(context, 0.05),
-    //                                   ),
-    //                                 ),
-    //                                 SizedBox(
-    //                                   height: dynamicHeight(context, .01),
-    //                                 ),
-    //                                 Text(
-    //                                   snapshot.data[index]["node"]["city"],
-    //                                   overflow: TextOverflow.ellipsis,
-    //                                   style: TextStyle(
-    //                                     color: myBlack,
-    //                                     fontSize: dynamicWidth(context, 0.04),
-    //                                   ),
-    //                                 )
-    //                               ],
-    //                             ),
-    //                           ),
-    //                         ],
-    //                       ),
-    //                     );
-    //                   }
-    //                   return Center(
-    //                     child: CircularProgressIndicator(
-    //                       color: myRed,
-    //                     ),
-    //                   );
-    //                 },
-    //               );
-    //       }
-    //     } else {
-    //       return Center(
-    //         child: JumpingDotsProgressIndicator(
-    //           fontSize: dynamicWidth(context, .08),
-    //           numberOfDots: 5,
-    //         ),
-    //       );
-    //     }
-    //   },
-    // ),
   }
 }
