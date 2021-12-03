@@ -333,7 +333,7 @@ dynamic imageAlert(context, image, assetImage) {
                   child: assetImage == true
                       ? Image.asset(
                           image,
-                          width: dynamicWidth(context, .96),
+                          width: dynamicWidth(context, 1),
                           fit: BoxFit.fitHeight,
                         )
                       : CachedNetworkImage(
@@ -423,7 +423,7 @@ Widget sliderContainer(context, String image, bool detail) {
     child: InteractiveViewer(
       child: CachedNetworkImage(
         imageUrl: image,
-        fit: BoxFit.cover,
+        fit: BoxFit.fitHeight,
         width: dynamicWidth(context, 1),
         placeholder: (context, string) {
           return Image.asset(

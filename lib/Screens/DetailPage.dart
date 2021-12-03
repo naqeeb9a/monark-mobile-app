@@ -18,16 +18,16 @@ class DetailPage extends StatefulWidget {
   final bool availableForSale;
   final String productType;
 
-  const DetailPage({
-    Key? key,
-    required this.image,
-    this.description,
-    this.array,
-    required this.variantProduct,
-    required this.text,
-    required this.availableForSale,
-    required this.productType
-  }) : super(key: key);
+  const DetailPage(
+      {Key? key,
+      required this.image,
+      this.description,
+      this.array,
+      required this.variantProduct,
+      required this.text,
+      required this.availableForSale,
+      required this.productType})
+      : super(key: key);
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -40,6 +40,7 @@ class _DetailPageState extends State<DetailPage> {
   var quantity = 1.obs;
   List sizeArray = [];
   int saleDifference = 0;
+  String sizeGuideImage = "";
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   sizeList() {
@@ -59,6 +60,51 @@ class _DetailPageState extends State<DetailPage> {
     }
   }
 
+  sizeImage() {
+    print(widget.productType);
+    if (widget.productType.toString() == "Blazers") {
+      setState(() {
+        sizeGuideImage = "assets/sizeChart/Blazer.jpg";
+      });
+    } else if (widget.productType.toString() == "Casual Shirts") {
+      setState(() {
+        sizeGuideImage = "assets/sizeChart/Casual Shirt.jpg";
+      });
+    } else if (widget.productType.toString() == "Cotton Pants") {
+      setState(() {
+        sizeGuideImage = "assets/sizeChart/Chino.jpg";
+      });
+    } else if (widget.productType.toString() == "Suits") {
+      setState(() {
+        sizeGuideImage = "assets/sizeChart/Suit.jpg";
+      });
+    } else if (widget.productType.toString() == "Sweatshirts") {
+      setState(() {
+        sizeGuideImage = "assets/sizeChart/Sweatshirt.jpg";
+      });
+    } else if (widget.productType.toString() == "Jackets") {
+      setState(() {
+        sizeGuideImage = "assets/sizeChart/Jackets.jpg";
+      });
+    } else if (widget.productType.toString() == "Sweaters") {
+      setState(() {
+        sizeGuideImage = "assets/sizeChart/Sweaters.jpg";
+      });
+    } else if (widget.productType.toString() == "Jeans") {
+      setState(() {
+        sizeGuideImage = "assets/sizeChart/Jeans.jpg";
+      });
+    } else if (widget.productType.toString() == "Formal Shirts") {
+      setState(() {
+        sizeGuideImage = "assets/sizeChart/Dress Shirts.jpg";
+      });
+    } else if (widget.productType.toString() == "trousers") {
+      setState(() {
+        sizeGuideImage = "assets/sizeChart/trousers.jpg";
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -71,6 +117,7 @@ class _DetailPageState extends State<DetailPage> {
               .toInt();
     }
 
+    sizeImage();
     sizeList();
     variantIndex();
     selectedSize = sizeArray[0];
@@ -165,6 +212,7 @@ class _DetailPageState extends State<DetailPage> {
                             height: dynamicHeight(context, .05),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   widget.text,
@@ -238,7 +286,9 @@ class _DetailPageState extends State<DetailPage> {
                           ? Container()
                           : Padding(
                               padding: EdgeInsets.symmetric(
-                                vertical: dynamicHeight(context, .006),
+                                vertical: sizeGuideImage == ""
+                                    ? dynamicHeight(context, .01)
+                                    : 0,
                               ),
                               child: Row(
                                 mainAxisAlignment:
@@ -252,29 +302,34 @@ class _DetailPageState extends State<DetailPage> {
                                       fontSize: dynamicWidth(context, .05),
                                     ),
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      imageAlert(
-                                        context,
-                                        "assets/size_guide.jpg",
-                                        true,
-                                      );
-                                    },
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: dynamicHeight(context, .01),
-                                      ),
-                                      child: Text(
-                                        "Size Guide",
-                                        style: TextStyle(
-                                          color: darkTheme == true
-                                              ? myWhite
-                                              : myBlack,
-                                          fontSize: dynamicWidth(context, .042),
+                                  sizeGuideImage == ""
+                                      ? Container()
+                                      : InkWell(
+                                          onTap: () {
+                                            print(sizeGuideImage);
+                                            imageAlert(
+                                              context,
+                                              "$sizeGuideImage",
+                                              true,
+                                            );
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical:
+                                                  dynamicHeight(context, .01),
+                                            ),
+                                            child: Text(
+                                              "Size Guide",
+                                              style: TextStyle(
+                                                color: darkTheme == true
+                                                    ? myWhite
+                                                    : myBlack,
+                                                fontSize:
+                                                    dynamicWidth(context, .042),
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),
