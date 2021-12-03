@@ -417,3 +417,33 @@ getUserData(accessToken) async {
     return result.data!["customer"];
   }
 }
+
+orderItems(orderId) async {
+  var createUserAccessToken = r'''
+mutation draftOrderComplete($id: ID!, $paymentPending: Boolean) {
+  draftOrderComplete(id: $id, paymentPending: $paymentPending) {
+    draftOrder {
+      id
+      order {
+        id
+        orderNumber
+      }
+    }
+  }
+}
+ ''';
+  var orderVariables = {"id": "$orderId", "paymentPending": true};
+  final HttpLink httpLink = HttpLink(
+    "https://32a2c56e6eeee31171cc4cb4349c2329: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@monark-clothings.myshopify.com/admin/api/2021-10/graphql.json",
+  );
+  GraphQLClient client = GraphQLClient(link: httpLink, cache: GraphQLCache());
+  final QueryOptions options = QueryOptions(
+      document: gql(createUserAccessToken), variables: orderVariables);
+  final QueryResult result = await client.query(options);
+
+  if (result.hasException) {
+    return "Server Error";
+  } else {
+    return result.data!["draftOrderComplete"]["draftOrder"]["orderNumber"];
+  }
+}

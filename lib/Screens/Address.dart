@@ -64,7 +64,6 @@ class _AddressPageState extends State<AddressPage> {
     }
   }
 
-  List addressListCheck = [];
   bool loading = false;
 
   Future addr() async {
@@ -73,7 +72,7 @@ class _AddressPageState extends State<AddressPage> {
     });
     var listOfAddresses = await getUserAddresses();
     for (var i = 0; i < listOfAddresses.length; i++) {
-      addressListCheck.add(listOfAddresses[i]["node"]["address1"]);
+      addressList.add(listOfAddresses[i]["node"]["address1"]);
     }
     setState(() {
       loading = false;
@@ -230,7 +229,7 @@ class _AddressPageState extends State<AddressPage> {
     return Expanded(
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: addressListCheck.length,
+        itemCount: addressList.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
             padding:
@@ -270,7 +269,7 @@ class _AddressPageState extends State<AddressPage> {
                     vertical: dynamicHeight(context, .01),
                   ),
                   child: Text(
-                    addressListCheck[index].toString(),
+                    addressList[index].toString(),
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: darkTheme == true ? myWhite : myBlack,

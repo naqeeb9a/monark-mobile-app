@@ -4,7 +4,8 @@ import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
 class ConfirmationPage extends StatefulWidget {
-  const ConfirmationPage({Key? key}) : super(key: key);
+  final String orderNumber;
+  const ConfirmationPage({Key? key, this.orderNumber = ""}) : super(key: key);
 
   @override
   State<ConfirmationPage> createState() => _ConfirmationPageState();
@@ -72,7 +73,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                               dynamicWidth(context, 0.03),
                             ),
                             child: Text(
-                              "Order #MNK55387",
+                              "Order #MNK" + widget.orderNumber,
                               style: TextStyle(
                                 color: myRed,
                                 fontSize: dynamicWidth(context, 0.038),
