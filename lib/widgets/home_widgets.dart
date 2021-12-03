@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
+import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
 
 import '../utils/config.dart';
@@ -288,7 +289,9 @@ Widget rowText(text, context, {function = "", check = false}) {
       ),
       check == true
           ? InkWell(
-              onTap: function == "" ? () {} : function,
+              onTap: () {
+                filterContainer(context);
+              },
               child: Padding(
                 padding: EdgeInsets.symmetric(
                   vertical: dynamicHeight(context, .01),
@@ -340,7 +343,7 @@ dynamic imageAlert(context, image, assetImage) {
                           imageUrl: image,
                           fit: BoxFit.fitWidth,
                           width: dynamicWidth(context, .96),
-                          height: dynamicHeight(context, .8),
+                          height: dynamicHeight(context, .5),
                           placeholder: (context, string) {
                             return Image.asset(
                               "assets/loader.gif",
@@ -459,6 +462,60 @@ String titleCase(String text) {
   return capitalized.join(' ');
 }
 
-filterContainer() {
-
+filterContainer(context) {
+  return showDialog(
+    barrierDismissible: true,
+    context: context,
+    builder: (BuildContext context) {
+      return Align(
+        alignment: Alignment.bottomRight,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Material(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(
+                  dynamicWidth(context, .08),
+                ),
+              ),
+              child: Container(
+                height: dynamicHeight(context, .9),
+                width: dynamicWidth(context, .84),
+                decoration: BoxDecoration(
+                  color: darkTheme == true ? darkThemeBlack : myWhite,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(
+                      dynamicWidth(context, .08),
+                    ),
+                  ),
+                ),
+                padding: EdgeInsets.symmetric(
+                  vertical: dynamicHeight(context, .04),
+                  horizontal: dynamicWidth(context, .06),
+                ),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            pop(context);
+                          },
+                          child: Image.asset(
+                            "assets/icons/crossIcon.png",
+                            color: darkTheme == true ? myWhite : myRed,
+                            height: dynamicHeight(context, .026),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    },
+  );
 }

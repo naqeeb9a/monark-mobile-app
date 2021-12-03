@@ -61,7 +61,6 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   sizeImage() {
-    print(widget.productType);
     if (widget.productType.toString() == "Blazers") {
       setState(() {
         sizeGuideImage = "assets/sizeChart/Blazer.jpg";
@@ -306,7 +305,6 @@ class _DetailPageState extends State<DetailPage> {
                                       ? Container()
                                       : InkWell(
                                           onTap: () {
-                                            print(sizeGuideImage);
                                             imageAlert(
                                               context,
                                               "$sizeGuideImage",
