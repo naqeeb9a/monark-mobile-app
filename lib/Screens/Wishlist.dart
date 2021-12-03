@@ -15,6 +15,7 @@ class WishlistPage extends StatefulWidget {
 
 class _WishlistPageState extends State<WishlistPage> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   getWishList() async {
     Future.delayed(Duration(seconds: 0), () {
       return wishListItems;
@@ -78,7 +79,13 @@ class _WishlistPageState extends State<WishlistPage> {
               (wishListItems.length == 0)
                   ? Expanded(
                       child: Center(
-                        child: Text("No items in WishList"),
+                        child: Text(
+                          "No items in WishList",
+                          style: TextStyle(
+                            color: darkTheme == true ? myWhite : myBlack,
+                            fontSize: dynamicWidth(context, .05),
+                          ),
+                        ),
                       ),
                     )
                   : wishListGrid(
