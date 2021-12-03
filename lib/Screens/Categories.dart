@@ -19,6 +19,23 @@ class CategoriesPage extends StatefulWidget {
 class _CategoriesPageState extends State<CategoriesPage> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   var isSelected = [];
+  var categoryList;
+  bool loading = false;
+  addCategory() async {
+    setState(() {
+      loading = true;
+    });
+    categoryList = await getShopifyCategory();
+    setState(() {
+      loading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    addCategory();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,89 +72,82 @@ class _CategoriesPageState extends State<CategoriesPage> {
               padding: EdgeInsets.symmetric(
                   horizontal: dynamicWidth(context, 0.02),
                   vertical: dynamicHeight(context, 0.01)),
-              child: FutureBuilder(
-                  future: getShopifyCategory(),
-                  builder: (context, AsyncSnapshot snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return Container(
-                        height: dynamicHeight(context, 0.05),
-                        width: dynamicWidth(context, 1),
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: snapshot.data.length,
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            isSelected.add(false);
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: dynamicWidth(context, 0.01)),
-                              child: ChoiceChip(
-                                label: Text(
-                                  snapshot.data[index]["node"]["title"],
-                                  style: TextStyle(
-                                    color: isSelected[index] == true
-                                        ? myWhite
-                                        : darkTheme == true
-                                            ? myWhite
-                                            : myBlack,
-                                  ),
-                                ),
-                                selected: isSelected[index],
-                                selectedColor: myRed,
-                                backgroundColor: darkTheme == true
-                                    ? darkThemeBlack
-                                    : myWhite,
-                                side: BorderSide(
-                                  color: darkTheme == true
-                                      ? myWhite
-                                      : myBlack.withOpacity(.3),
-                                  width: .1,
-                                ),
-                                labelStyle: TextStyle(),
-                                onSelected: (value) {
-                                  if (isSelected[index] == true) {
-                                    setState(() {
-                                      isSelected[index] = false;
-                                    });
-                                  } else if (isSelected.contains(true)) {
-                                    for (var i = 0;
-                                        i < isSelected.length;
-                                        i++) {
-                                      isSelected[i] = false;
-                                    }
-                                    setState(() {
-                                      isSelected[index] = value;
-                                    });
-                                  } else {
-                                    setState(() {
-                                      isSelected[index] = value;
-                                    });
-                                  }
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    } else {
-                      return Center(
+              child: Container(
+                height: dynamicHeight(context, 0.05),
+                width: dynamicWidth(context, 1),
+                child: (loading == true)
+                    ? Center(
                         child: JumpingDotsProgressIndicator(
-                          numberOfDots: 5,
-                          fontSize: dynamicWidth(context, 0.07),
                           color: darkTheme == true ? myWhite : myBlack,
+                          numberOfDots: 5,
+                          fontSize: dynamicWidth(context, .08),
                         ),
-                      );
-                    }
-                  }),
+                      )
+                    : ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: categoryList.length,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          isSelected.add(false);
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: dynamicWidth(context, 0.01)),
+                            child: ChoiceChip(
+                              label: Text(
+                                categoryList[index]["node"]["title"],
+                                style: TextStyle(
+                                  color: isSelected[index] == true
+                                      ? myWhite
+                                      : darkTheme == true
+                                          ? myWhite
+                                          : myBlack,
+                                ),
+                              ),
+                              selected: isSelected[index],
+                              selectedColor: myRed,
+                              backgroundColor:
+                                  darkTheme == true ? darkThemeBlack : myWhite,
+                              side: BorderSide(
+                                color: darkTheme == true
+                                    ? myWhite
+                                    : myBlack.withOpacity(.3),
+                                width: .1,
+                              ),
+                              labelStyle: TextStyle(),
+                              onSelected: (value) {
+                                if (isSelected[index] == true) {
+                                  setState(() {
+                                    isSelected[index] = false;
+                                  });
+                                } else if (isSelected.contains(true)) {
+                                  for (var i = 0; i < isSelected.length; i++) {
+                                    isSelected[i] = false;
+                                  }
+                                  setState(() {
+                                    isSelected[index] = value;
+                                  });
+                                } else {
+                                  setState(() {
+                                    isSelected[index] = value;
+                                  });
+                                }
+                              },
+                            ),
+                          );
+                        },
+                      ),
+              ),
             ),
             SizedBox(
               height: dynamicHeight(context, 0.01),
             ),
-            detailGrid(
-              getShopifyCategory(),
-              context,
-              true,
-            ),
+            (loading == true)
+                ? Center()
+                : detailGrid(
+                    getShopifyCategory(),
+                    context,
+                    true,
+                  ),
           ],
         ),
       ),
