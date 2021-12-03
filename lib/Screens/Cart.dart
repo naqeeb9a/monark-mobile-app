@@ -59,7 +59,10 @@ class _CartState extends State<Cart> {
                           ? Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset("assets/emptyCart.png"),
+                                Image.asset(
+                                  "assets/emptyCart.png",
+                                  color: darkTheme == true ? myWhite : myRed,
+                                ),
                                 SizedBox(
                                   height: dynamicHeight(context, .02),
                                 ),
