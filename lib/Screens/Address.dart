@@ -238,19 +238,29 @@ class _AddressPageState extends State<AddressPage> {
             child: Row(
               children: [
                 Obx(() {
-                  return Radio(
-                      value: index,
-                      groupValue: int.parse(group.toString()),
-                      onChanged: (value) {
-                        setState(() {
-                          group.value = value as int;
-                        });
-                      });
+                  return Theme(
+                    data: Theme.of(context).copyWith(
+                      unselectedWidgetColor:
+                          darkTheme == true ? myWhite : myBlack,
+                    ),
+                    child: Radio(
+                        value: index,
+                        activeColor: myRed,
+                        groupValue: int.parse(group.toString()),
+                        onChanged: (value) {
+                          setState(() {
+                            group.value = value as int;
+                          });
+                        }),
+                  );
                 }),
                 Container(
                   width: dynamicWidth(context, 0.75),
                   decoration: BoxDecoration(
-                    border: Border.all(width: 1),
+                    border: Border.all(
+                      width: 1,
+                      color: darkTheme == true ? myWhite : myBlack,
+                    ),
                     borderRadius: BorderRadius.circular(
                       dynamicWidth(context, 0.04),
                     ),
