@@ -65,25 +65,55 @@ class _PaymentState extends State<Payment> {
                         heightBox(context, 0.07),
                         Container(
                           width: dynamicWidth(context, 0.9),
-                          padding: EdgeInsets.all(dynamicWidth(context, 0.05)),
+                          padding: EdgeInsets.all(
+                            dynamicWidth(context, 0.05),
+                          ),
                           decoration: BoxDecoration(
-                              border: Border.all(width: 1, color: myGrey),
-                              borderRadius: BorderRadius.circular(15)),
+                            border: Border.all(
+                              width: 1,
+                              color: darkTheme == true ? myWhite : myGrey,
+                            ),
+                            borderRadius: BorderRadius.circular(
+                              dynamicWidth(context, .02),
+                            ),
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 "Information",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  color: darkTheme == true ? myWhite : myBlack,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: dynamicWidth(context, .034),
+                                ),
                               ),
-                              Text("Sarah Tahir"),
-                              Text("03070406873"),
-                              Text("sarah@gmail.com"),
+                              Text(
+                                "Sarah Tahir",
+                                style: TextStyle(
+                                  color: darkTheme == true ? myWhite : myBlack,
+                                  fontSize: dynamicWidth(context, .034),
+                                ),
+                              ),
+                              Text(
+                                "03070406873",
+                                style: TextStyle(
+                                  color: darkTheme == true ? myWhite : myBlack,
+                                  fontSize: dynamicWidth(context, .034),
+                                ),
+                              ),
+                              Text(
+                                "sarah@gmail.com",
+                                style: TextStyle(
+                                  color: darkTheme == true ? myWhite : myBlack,
+                                  fontSize: dynamicWidth(context, .034),
+                                ),
+                              ),
                             ],
                           ),
                         ),
                         heightBox(context, 0.02),
-                        radioOptions("COD"),
+                        radioOptions(context, "COD"),
                         SizedBox(
                           height: dynamicHeight(context, .01),
                         ),
@@ -93,7 +123,7 @@ class _PaymentState extends State<Payment> {
                           child: rowText("Shipping Address", context),
                         ),
                         heightBox(context, .01),
-                        radioOptions(
+                        radioOptions(context,
                             addressList[group.value]["node"]["address1"]),
                         heightBox(context, 0.06),
                         Padding(
@@ -108,18 +138,27 @@ class _PaymentState extends State<Payment> {
                                   Text(
                                     "Subtotal",
                                     style: TextStyle(
-                                        fontSize: dynamicWidth(context, 0.03)),
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontSize: dynamicWidth(context, .034),
+                                    ),
                                   ),
                                   Text(
                                     "Shipping",
                                     style: TextStyle(
-                                        fontSize: dynamicWidth(context, 0.03)),
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontSize: dynamicWidth(context, .034),
+                                    ),
                                   ),
                                   heightBox(context, 0.03),
                                   Text(
                                     "Total",
                                     style: TextStyle(
-                                        fontSize: dynamicWidth(context, 0.05)),
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontSize: dynamicWidth(context, .034),
+                                    ),
                                   )
                                 ],
                               ),
@@ -129,44 +168,58 @@ class _PaymentState extends State<Payment> {
                                   Text(
                                     "PKR. " + subtotal.toString(),
                                     style: TextStyle(
-                                        color: myRed,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: dynamicWidth(context, 0.03)),
+                                      fontWeight: FontWeight.w600,
+                                      color:
+                                          darkTheme == true ? myWhite : myRed,
+                                      fontSize: dynamicWidth(context, .034),
+                                    ),
                                   ),
                                   (subtotal < 2000)
                                       ? Text(
                                           "PKR. 200",
                                           style: TextStyle(
-                                              color: myRed,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  dynamicWidth(context, 0.03)),
+                                            fontWeight: FontWeight.w600,
+                                            color: darkTheme == true
+                                                ? myWhite
+                                                : myRed,
+                                            fontSize:
+                                                dynamicWidth(context, .034),
+                                          ),
                                         )
                                       : Text(
                                           "PKR. 0",
                                           style: TextStyle(
-                                              color: myRed,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  dynamicWidth(context, 0.03)),
+                                            fontWeight: FontWeight.w600,
+                                            color: darkTheme == true
+                                                ? myWhite
+                                                : myRed,
+                                            fontSize:
+                                                dynamicWidth(context, .034),
+                                          ),
                                         ),
                                   heightBox(context, 0.03),
                                   (subtotal < 2000)
                                       ? Text(
                                           "PKR. " + (subtotal + 200).toString(),
                                           style: TextStyle(
-                                              color: myRed,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  dynamicWidth(context, 0.04)),
+                                            fontWeight: FontWeight.w600,
+                                            color: darkTheme == true
+                                                ? myWhite
+                                                : myRed,
+                                            fontSize:
+                                                dynamicWidth(context, .04),
+                                          ),
                                         )
                                       : Text(
                                           "PKR. " + subtotal.toString(),
                                           style: TextStyle(
-                                              color: myRed,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  dynamicWidth(context, 0.04)),
+                                            fontWeight: FontWeight.w600,
+                                            color: darkTheme == true
+                                                ? myWhite
+                                                : myRed,
+                                            fontSize:
+                                                dynamicWidth(context, .04),
+                                          ),
                                         ),
                                 ],
                               )
@@ -221,11 +274,27 @@ class _PaymentState extends State<Payment> {
   }
 }
 
-Widget radioOptions(text) {
+Widget radioOptions(context, text) {
   return Row(
     children: [
-      Radio(value: true, groupValue: true, onChanged: (value) {}),
-      Text(text)
+      Theme(
+        data: Theme.of(context).copyWith(
+          unselectedWidgetColor: darkTheme == true ? myWhite : myBlack,
+        ),
+        child: Radio(
+          value: true,
+          groupValue: true,
+          onChanged: (value) {},
+          activeColor: myRed,
+        ),
+      ),
+      Text(
+        text,
+        style: TextStyle(
+          color: darkTheme == true ? myWhite : myBlack,
+          fontSize: dynamicWidth(context, .034),
+        ),
+      )
     ],
   );
 }
@@ -238,8 +307,20 @@ Widget totalRow(context, text, price) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(text),
-        Text(price),
+        Text(
+          text,
+          style: TextStyle(
+            color: darkTheme == true ? myWhite : myBlack,
+            fontSize: dynamicWidth(context, .034),
+          ),
+        ),
+        Text(
+          price,
+          style: TextStyle(
+            color: darkTheme == true ? myWhite : myBlack,
+            fontSize: dynamicWidth(context, .034),
+          ),
+        ),
       ],
     ),
   );

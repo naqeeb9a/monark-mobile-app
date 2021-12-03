@@ -46,7 +46,14 @@ class _SeeAllState extends State<SeeAll> {
               padding: EdgeInsets.symmetric(
                 horizontal: dynamicWidth(context, 0.04),
               ),
-              child: rowText(widget.text, context, check: true),
+              child: rowText(
+                widget.text,
+                context,
+                check: true,
+                function2: () {
+                  setState(() {});
+                },
+              ),
             ),
             heightBox(context, .06),
             detailGrid(widget.function, context, widget.check),
@@ -98,25 +105,29 @@ Widget detailGridExtension(function, context, check) {
                   return Center(
                     child: check == true
                         ? basicCards(
-                            context,
-                            snapshot.data[index]["node"]["image"]["src"],
-                            snapshot.data[index]["node"]["title"],
-                            snapshot.data[index]["node"]["handle"],
-                            categoriesCheck: true)
+                        context,
+                        snapshot.data[index]["node"]["image"]["src"],
+                        snapshot.data[index]["node"]["title"],
+                        snapshot.data[index]["node"]["handle"],
+                        categoriesCheck: true)
                         : basicCards(
-                            context,
-                            snapshot.data[index]["node"]["images"]["edges"],
-                            snapshot.data[index]["node"]["title"],
-                            snapshot.data[index]["node"]["availableForSale"],
-                            variantProduct: snapshot.data[index]["node"]
-                                ["variants"]["edges"],
-                            sizeOption: snapshot.data[index]["node"]["options"]
-                                [0]["values"],
-                            description: snapshot.data[index]["node"]
-                                ["description"],
-                              productType: snapshot.data[index]["node"]["productType"],
-                            check: snapshot.data[index]["node"]["availableForSale"] == true ? false : true,
-                            wishList: snapshot.data[index]),
+                        context,
+                        snapshot.data[index]["node"]["images"]["edges"],
+                        snapshot.data[index]["node"]["title"],
+                        snapshot.data[index]["node"]["availableForSale"],
+                        variantProduct: snapshot.data[index]["node"]
+                        ["variants"]["edges"],
+                        sizeOption: snapshot.data[index]["node"]["options"]
+                        [0]["values"],
+                        description: snapshot.data[index]["node"]
+                        ["description"],
+                        productType: snapshot
+                            .data[index]["node"]["productType"],
+                        check: snapshot
+                            .data[index]["node"]["availableForSale"] == true
+                            ? false
+                            : true,
+                        wishList: snapshot.data[index]),
                   );
                 }),
           );

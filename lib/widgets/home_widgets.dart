@@ -1,10 +1,13 @@
+import 'package:another_xlider/another_xlider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:grouped_buttons_ns/grouped_buttons_ns.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/utils/appRoutes.dart';
+import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
 
 import '../utils/config.dart';
@@ -273,7 +276,7 @@ Widget internalWidgetCard(
   );
 }
 
-Widget rowText(text, context, {function = "", check = false}) {
+Widget rowText(text, context, {function = "", check = false, function2 = ""}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -292,7 +295,7 @@ Widget rowText(text, context, {function = "", check = false}) {
       check == true
           ? InkWell(
               onTap: () {
-                filterContainer(context);
+                filterContainer(context, function2);
               },
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -464,7 +467,10 @@ String titleCase(String text) {
   return capitalized.join(' ');
 }
 
-filterContainer(context) {
+filterContainer(context, function) {
+  dynamic _lowerValue = 0;
+  dynamic _upperValue = 0;
+
   return showDialog(
     barrierDismissible: true,
     context: context,
@@ -473,7 +479,7 @@ filterContainer(context) {
         alignment: Alignment.bottomRight,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
+          children: [
             Material(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(
@@ -491,23 +497,211 @@ filterContainer(context) {
                     ),
                   ),
                 ),
-                padding: EdgeInsets.symmetric(
-                  vertical: dynamicHeight(context, .04),
-                  horizontal: dynamicWidth(context, .06),
-                ),
                 child: Column(
-                  children: <Widget>[
+                  children: [
                     Row(
                       children: [
                         InkWell(
                           onTap: () {
                             pop(context);
                           },
-                          child: Image.asset(
-                            "assets/icons/crossIcon.png",
-                            color: darkTheme == true ? myWhite : myRed,
-                            height: dynamicHeight(context, .026),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: dynamicHeight(context, .03),
+                              horizontal: dynamicWidth(context, .08),
+                            ),
+                            child: Image.asset(
+                              "assets/icons/crossIcon.png",
+                              color: darkTheme == true ? myWhite : myRed,
+                              height: dynamicHeight(context, .026),
+                            ),
                           ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: dynamicWidth(context, .08),
+                            top: dynamicHeight(context, .01),
+                            bottom: dynamicHeight(context, .01),
+                          ),
+                          child: Text(
+                            "Sort By",
+                            style: TextStyle(
+                              fontSize: dynamicWidth(context, .04),
+                              fontWeight: FontWeight.w600,
+                              color: darkTheme == true ? myWhite : myBlack,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: dynamicWidth(context, .26),
+                            top: dynamicHeight(context, .01),
+                            bottom: dynamicHeight(context, .01),
+                          ),
+                          child: Text(
+                            "Size",
+                            style: TextStyle(
+                              fontSize: dynamicWidth(context, .04),
+                              fontWeight: FontWeight.w600,
+                              color: darkTheme == true ? myWhite : myBlack,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          width: dynamicWidth(context, .4),
+                          height: dynamicHeight(context, .24),
+                          child: Theme(
+                            data: Theme.of(context).copyWith(
+                              unselectedWidgetColor: darkTheme == true
+                                  ? myWhite
+                                  : myBlack.withOpacity(.3),
+                            ),
+                            child: CheckboxGroup(
+                              labels: <String>[
+                                "Best Sellers",
+                                "Low - High",
+                                "High - Low",
+                              ],
+                              labelStyle: TextStyle(
+                                color: darkTheme == true ? myWhite : myBlack,
+                                fontSize: dynamicWidth(context, .032),
+                              ),
+                              margin: EdgeInsets.symmetric(
+                                horizontal: 1.0,
+                              ),
+                              activeColor: darkTheme == true ? myWhite : myRed,
+                              checkColor: darkTheme == true ? myBlack : myWhite,
+                              onSelected: (List<String> checked) => print(
+                                checked.toString(),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: dynamicWidth(context, .4),
+                          height: dynamicHeight(context, .24),
+                          child: Theme(
+                            data: Theme.of(context).copyWith(
+                              unselectedWidgetColor: darkTheme == true
+                                  ? myWhite
+                                  : myBlack.withOpacity(.3),
+                            ),
+                            child: CheckboxGroup(
+                              labels: <String>[
+                                "Small",
+                                "Medium",
+                                "Large",
+                                "Extra Large",
+                              ],
+                              labelStyle: TextStyle(
+                                color: darkTheme == true ? myWhite : myBlack,
+                                fontSize: dynamicWidth(context, .032),
+                              ),
+                              margin: EdgeInsets.symmetric(
+                                horizontal: 1.0,
+                              ),
+                              activeColor: darkTheme == true ? myWhite : myRed,
+                              checkColor: darkTheme == true ? myBlack : myWhite,
+                              onSelected: (List<String> checked) => print(
+                                checked.toString(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: dynamicWidth(context, .08),
+                            top: dynamicHeight(context, .01),
+                            bottom: dynamicHeight(context, .01),
+                          ),
+                          child: Text(
+                            "Price Range",
+                            style: TextStyle(
+                              fontSize: dynamicWidth(context, .04),
+                              fontWeight: FontWeight.w600,
+                              color: darkTheme == true ? myWhite : myBlack,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: dynamicWidth(context, .72),
+                      child: FlutterSlider(
+                        values: [30, 420],
+                        rangeSlider: true,
+                        max: 50000,
+                        min: 0,
+                        handlerAnimation: FlutterSliderHandlerAnimation(
+                          curve: Curves.elasticOut,
+                          reverseCurve: Curves.bounceIn,
+                          duration: Duration(milliseconds: 500),
+                          scale: 1.5,
+                        ),
+                        trackBar: FlutterSliderTrackBar(
+                          activeTrackBar: BoxDecoration(
+                            color: darkTheme == true ? myWhite : myBlack,
+                          ),
+                          inactiveTrackBar: BoxDecoration(
+                            color: darkTheme == true
+                                ? myWhite.withOpacity(.3)
+                                : myBlack.withOpacity(.3),
+                          ),
+                        ),
+                        onDragging: (handlerIndex, lowerValue, upperValue) {
+                          _lowerValue = lowerValue;
+                          _upperValue = upperValue;
+                          function();
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: dynamicHeight(context, .01),
+                        horizontal: dynamicWidth(context, .08),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "From : " + _lowerValue.toString(),
+                            style: TextStyle(
+                              fontSize: dynamicWidth(context, .04),
+                              fontWeight: FontWeight.w600,
+                              color: darkTheme == true ? myWhite : myBlack,
+                            ),
+                          ),
+                          Text(
+                            "To : " + _upperValue.toString(),
+                            style: TextStyle(
+                              fontSize: dynamicWidth(context, .04),
+                              fontWeight: FontWeight.w600,
+                              color: darkTheme == true ? myWhite : myBlack,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    heightBox(context, .1),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        coloredButton(
+                          context,
+                          "Apply Filters",
+                          width: dynamicWidth(context, .46),
                         ),
                       ],
                     ),

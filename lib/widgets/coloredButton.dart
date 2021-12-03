@@ -5,7 +5,7 @@ import 'package:monark_app/widgets/media_query.dart';
 
 import '../utils/config.dart';
 
-Widget coloredButton(context, text, {function = ""}) {
+Widget coloredButton(context, text, {function = "", width = ""}) {
   return Material(
     borderRadius: BorderRadius.circular(
       dynamicWidth(context, .4),
@@ -13,8 +13,8 @@ Widget coloredButton(context, text, {function = ""}) {
     child: GestureDetector(
       onTap: function == "" ? () {} : function,
       child: Container(
-        width: dynamicWidth(context, .8),
-        height: dynamicHeight(context, .05),
+        width: width == "" ? dynamicWidth(context, .8) : width,
+        height: dynamicHeight(context, .048),
         decoration: BoxDecoration(
           color: myRed,
           borderRadius: BorderRadius.circular(

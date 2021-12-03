@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
-import 'package:monark_app/widgets/form_fields.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
@@ -21,6 +20,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
   var isSelected = [];
   var categoryList;
   bool loading = false;
+
   addCategory() async {
     setState(() {
       loading = true;
@@ -56,22 +56,19 @@ class _CategoriesPageState extends State<CategoriesPage> {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: dynamicWidth(context, 0.02),
-                vertical: dynamicHeight(context, 0.01),
-              ),
-              child: searchbar(context, enabled: false),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
                 horizontal: dynamicWidth(context, 0.04),
-                vertical: dynamicHeight(context, 0.01),
               ),
-              child: rowText("Categories", context, check: true),
+              child: rowText(
+                "Categories",
+                context,
+              ),
             ),
+            heightBox(context, .04),
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: dynamicWidth(context, 0.02),
-                  vertical: dynamicHeight(context, 0.01)),
+                horizontal: dynamicWidth(context, 0.02),
+                vertical: dynamicHeight(context, 0.02),
+              ),
               child: Container(
                 height: dynamicHeight(context, 0.05),
                 width: dynamicWidth(context, 1),
