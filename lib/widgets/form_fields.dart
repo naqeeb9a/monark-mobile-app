@@ -134,8 +134,14 @@ Widget addressInput(context, text, hintText, type,
     padding: EdgeInsets.symmetric(
       vertical: dynamicHeight(context, .01),
     ),
-    child: SizedBox(
+    child: Container(
       height: dynamicHeight(context, .052),
+      decoration: BoxDecoration(
+        color: myWhite,
+        borderRadius: BorderRadius.circular(
+          dynamicWidth(context, .4),
+        ),
+      ),
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         textInputAction: TextInputAction.next,
@@ -143,23 +149,34 @@ Widget addressInput(context, text, hintText, type,
         cursorWidth: 2.0,
         cursorHeight: dynamicHeight(context, .03),
         style: TextStyle(
-          color: darkTheme == true ? myBlack : myWhite,
+          color: myBlack,
           fontSize: dynamicWidth(context, .04),
         ),
         decoration: InputDecoration(
           label: Text(
             text,
             style: TextStyle(
-              color: darkTheme == true ? myWhite : myBlack,
+              color: myBlack,
             ),
           ),
           contentPadding: EdgeInsets.symmetric(
             vertical: dynamicHeight(context, .01),
             horizontal: dynamicWidth(context, .03),
           ),
-          border: OutlineInputBorder(
+          focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(
-              dynamicWidth(context, .08),
+              dynamicWidth(context, .4),
+            ),
+            borderSide: BorderSide(
+              color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+              dynamicWidth(context, .4),
+            ),
+            borderSide: BorderSide(
+              color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
             ),
           ),
           hintText: hintText,

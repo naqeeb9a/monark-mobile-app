@@ -78,11 +78,11 @@ class _AddAddressState extends State<AddAddress> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: myWhite,
+      backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
       appBar: bar(
         context,
-        leadingIcon: true,
         menuIcon: true,
+        leadingIcon: true,
         bgColor: noColor,
         function: () {
           _scaffoldKey.currentState!.openEndDrawer();

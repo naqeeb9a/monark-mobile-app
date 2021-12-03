@@ -22,6 +22,7 @@ class AddressPage extends StatefulWidget {
 
 class _AddressPageState extends State<AddressPage> {
   dynamic shopifyAddress;
+  var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   getUserAddresses() async {
     var createUserAccessToken = '''
@@ -70,9 +71,9 @@ class _AddressPageState extends State<AddressPage> {
     setState(() {
       loading = true;
     });
-    var listOfAdresses = await getUserAddresses();
-    for (var i = 0; i < listOfAdresses.length; i++) {
-      addressListCheck.add(listOfAdresses[i]["node"]["address1"]);
+    var listOfAddresses = await getUserAddresses();
+    for (var i = 0; i < listOfAddresses.length; i++) {
+      addressListCheck.add(listOfAddresses[i]["node"]["address1"]);
     }
     setState(() {
       loading = false;
@@ -88,8 +89,18 @@ class _AddressPageState extends State<AddressPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: myWhite,
-      appBar: bar(context, leadingIcon: true, menuIcon: true, bgColor: noColor),
+      key: _scaffoldKey,
+      backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
+      appBar: bar(
+        context,
+        menuIcon: true,
+        leadingIcon: true,
+        bgColor: noColor,
+        function: () {
+          _scaffoldKey.currentState!.openEndDrawer();
+        },
+      ),
+      endDrawer: drawer(context),
       body: (loading == true)
           ? Center(
               child: JumpingDotsProgressIndicator(
@@ -116,8 +127,18 @@ class _AddressPageState extends State<AddressPage> {
                         (globalAccessToken == "")
                             ? SizedBox(
                                 height: dynamicHeight(context, 0.6),
-                                child:
-                                    Center(child: Text("Sign in to continue")))
+                                child: Center(
+                                  child: Text(
+                                    "Sign in to continue",
+                                    style: TextStyle(
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontSize: dynamicWidth(context, 0.05),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              )
                             : addressListBuilder(context),
                         SizedBox(
                           height: widget.check == true
@@ -147,7 +168,14 @@ class _AddressPageState extends State<AddressPage> {
                         function: () {
                         if (globalAccessToken == "") {
                           var snackBar = SnackBar(
-                            content: Text("Please Sign in to add Addresses"),
+                            content: Text(
+                              "Please Sign in to add Addresses",
+                              style: TextStyle(
+                                color: darkTheme == true ? myWhite : myBlack,
+                                fontSize: dynamicWidth(context, 0.05),
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
                             duration: const Duration(milliseconds: 1000),
                           );
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -235,7 +263,8 @@ class _AddressPageState extends State<AddressPage> {
                     addressListCheck[index].toString(),
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: dynamicWidth(context, 0.06),
+                      color: darkTheme == true ? myWhite : myBlack,
+                      fontSize: dynamicWidth(context, 0.04),
                       fontWeight: FontWeight.w400,
                     ),
                     maxLines: 2,

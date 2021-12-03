@@ -73,9 +73,9 @@ class _CartState extends State<Cart> {
                                 )
                               ],
                             )
-                          : cartList(setState: (){setState(() {
-                            
-                          });}),
+                          : cartList(setState: () {
+                              setState(() {});
+                            }),
                     );
                   }),
                   SizedBox(
@@ -148,7 +148,7 @@ class _CartState extends State<Cart> {
   }
 }
 
-Widget cartList({check,setState}) {
+Widget cartList({check, setState}) {
   return ListView.builder(
     itemCount: cartItems.length,
     itemBuilder: (context, index) {

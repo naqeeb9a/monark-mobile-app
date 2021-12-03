@@ -423,7 +423,8 @@ Widget sliderContainer(context, String image, bool detail) {
     child: InteractiveViewer(
       child: CachedNetworkImage(
         imageUrl: image,
-        fit: BoxFit.fitHeight,
+        // fit: detail == false ? BoxFit.fitHeight : BoxFit.cover,
+        fit: BoxFit.cover,
         width: dynamicWidth(context, 1),
         placeholder: (context, string) {
           return Image.asset(
