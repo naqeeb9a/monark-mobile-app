@@ -88,9 +88,9 @@ class _WishlistPageState extends State<WishlistPage> {
                         ),
                       ),
                     )
-                  : wishListGrid(
-                      context,
-                    )
+                  : wishListGrid(context, () {
+                      setState(() {});
+                    })
             ],
           ),
         ),
@@ -99,9 +99,7 @@ class _WishlistPageState extends State<WishlistPage> {
   }
 }
 
-wishListGrid(
-  context,
-) {
+wishListGrid(context, refreshScreen) {
   return Expanded(
     child: Padding(
       padding: EdgeInsets.symmetric(
@@ -131,7 +129,8 @@ wishListGrid(
                       wishListItems[index]["node"]["availableForSale"] == true
                           ? false
                           : true,
-                  wishList: wishListItems[index]),
+                  wishList: wishListItems[index],
+                  refreshScreen: refreshScreen),
             );
           }),
     ),

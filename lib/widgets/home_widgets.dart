@@ -18,7 +18,8 @@ Widget basicCards(context, imageUrl, text, availableForSale,
     productType = "",
     categoriesCheck = false,
     check = false,
-    wishList = ""}) {
+    wishList = "",
+    refreshScreen = ""}) {
   return (check == true)
       ? InkWell(
           onTap: () {
@@ -75,13 +76,13 @@ Widget basicCards(context, imageUrl, text, availableForSale,
                 },
           child: internalWidgetCard(
               context, imageUrl, variantProduct, text, categoriesCheck,
-              wishList: wishList),
+              wishList: wishList, refreshScreen: refreshScreen),
         );
 }
 
 Widget internalWidgetCard(
     context, imageUrl, variantProduct, text, categoriesCheck,
-    {outOfStock = false, wishList = ""}) {
+    {outOfStock = false, wishList = "", refreshScreen = ""}) {
   return Container(
     margin: EdgeInsets.all(0),
     width: dynamicWidth(context, 0.47),
@@ -174,6 +175,7 @@ Widget internalWidgetCard(
                               backgroundColor:
                                   darkTheme == true ? myWhite : myBlack,
                             );
+                            refreshScreen();
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
                           }
