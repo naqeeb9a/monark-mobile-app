@@ -168,6 +168,7 @@ class _PaymentState extends State<Payment> {
                                   Text(
                                     "PKR. " + subtotal.toString(),
                                     style: TextStyle(
+                                      fontFamily: "Aeonik",
                                       fontWeight: FontWeight.w600,
                                       color:
                                           darkTheme == true ? myWhite : myRed,
@@ -178,6 +179,7 @@ class _PaymentState extends State<Payment> {
                                       ? Text(
                                           "PKR. 200",
                                           style: TextStyle(
+                                            fontFamily: "Aeonik",
                                             fontWeight: FontWeight.w600,
                                             color: darkTheme == true
                                                 ? myWhite
@@ -189,6 +191,7 @@ class _PaymentState extends State<Payment> {
                                       : Text(
                                           "PKR. 0",
                                           style: TextStyle(
+                                            fontFamily: "Aeonik",
                                             fontWeight: FontWeight.w600,
                                             color: darkTheme == true
                                                 ? myWhite
@@ -202,6 +205,7 @@ class _PaymentState extends State<Payment> {
                                       ? Text(
                                           "PKR. " + (subtotal + 200).toString(),
                                           style: TextStyle(
+                                            fontFamily: "Aeonik",
                                             fontWeight: FontWeight.w600,
                                             color: darkTheme == true
                                                 ? myWhite
@@ -213,6 +217,7 @@ class _PaymentState extends State<Payment> {
                                       : Text(
                                           "PKR. " + subtotal.toString(),
                                           style: TextStyle(
+                                            fontFamily: "Aeonik",
                                             fontWeight: FontWeight.w600,
                                             color: darkTheme == true
                                                 ? myWhite

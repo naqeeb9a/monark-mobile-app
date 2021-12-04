@@ -106,6 +106,7 @@ class _SignUpState extends State<SignUp> {
                           child: Text(
                             "Welcome to Monark",
                             style: TextStyle(
+                              fontFamily: "Aeonik",
                               color: myWhite,
                               fontSize: dynamicWidth(context, .06),
                               fontWeight: FontWeight.w600,

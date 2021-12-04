@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
       title: 'Monark',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: 'Aeonik',
+        fontFamily: 'Open Sans',
         primarySwatch: primaryColor,
         brightness: Brightness.light,
       ),

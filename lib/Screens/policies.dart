@@ -53,6 +53,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
                     Text(
                       "USE OF THIS APP",
                       style: TextStyle(
+                        fontFamily: "Aeonik",
                         color: darkTheme == true ? myWhite : myBlack,
                         fontWeight: FontWeight.bold,
                         fontSize: dynamicWidth(context, .044),
@@ -84,6 +85,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
                       child: Text(
                         "PRODUCTS OR SERVICES",
                         style: TextStyle(
+                          fontFamily: "Aeonik",
                           color: darkTheme == true ? myWhite : myBlack,
                           fontWeight: FontWeight.bold,
                           fontSize: dynamicWidth(context, .044),
@@ -116,6 +118,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
                       child: Text(
                         "ACCURACY OF BILLING AND ACCOUNT INFORMATION",
                         style: TextStyle(
+                          fontFamily: "Aeonik",
                           color: darkTheme == true ? myWhite : myBlack,
                           fontWeight: FontWeight.bold,
                           fontSize: dynamicWidth(context, .044),
@@ -147,6 +150,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
                       child: Text(
                         "USER COMMENTS, FEEDBACK AND OTHER SUBMISSIONS",
                         style: TextStyle(
+                          fontFamily: "Aeonik",
                           color: darkTheme == true ? myWhite : myBlack,
                           fontWeight: FontWeight.bold,
                           fontSize: dynamicWidth(context, .044),
@@ -184,6 +188,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
                       child: Text(
                         "CHANGES TO TERMS OF SERVICE",
                         style: TextStyle(
+                          fontFamily: "Aeonik",
                           color: darkTheme == true ? myWhite : myBlack,
                           fontWeight: FontWeight.bold,
                           fontSize: dynamicWidth(context, .044),
@@ -210,6 +215,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
                       child: Text(
                         "What we collect",
                         style: TextStyle(
+                          fontFamily: "Aeonik",
                           color: darkTheme == true ? myWhite : myBlack,
                           fontWeight: FontWeight.bold,
                           fontSize: dynamicWidth(context, .044),
@@ -267,6 +273,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
                       child: Text(
                         "What we do with the information we gather",
                         style: TextStyle(
+                          fontFamily: "Aeonik",
                           color: darkTheme == true ? myWhite : myBlack,
                           fontWeight: FontWeight.bold,
                           fontSize: dynamicWidth(context, .044),
@@ -318,6 +325,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
                       child: Text(
                         "Security",
                         style: TextStyle(
+                          fontFamily: "Aeonik",
                           color: darkTheme == true ? myWhite : myBlack,
                           fontWeight: FontWeight.bold,
                           fontSize: dynamicWidth(context, .044),

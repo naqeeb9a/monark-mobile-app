@@ -3,6 +3,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/state_manager.dart';
 import 'package:grouped_buttons_ns/grouped_buttons_ns.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
@@ -203,6 +205,7 @@ Widget internalWidgetCard(
                 child: Text(
                   text,
                   style: TextStyle(
+                    fontFamily: "Aeonik",
                     color: darkTheme == true ? myWhite : myBlack,
                     fontSize: dynamicWidth(context, .04),
                     fontWeight: FontWeight.bold,
@@ -237,6 +240,7 @@ Widget internalWidgetCard(
                                   .toInt()
                                   .toString(),
                           style: TextStyle(
+                            fontFamily: "Aeonik",
                             color: darkTheme == true ? myWhite : myBlack,
                             fontWeight: FontWeight.w600,
                             fontSize: dynamicWidth(context, .034),
@@ -249,6 +253,7 @@ Widget internalWidgetCard(
                                   .toInt()
                                   .toString(),
                           style: TextStyle(
+                            fontFamily: "Aeonik",
                             color: darkTheme == true ? myWhite : myBlack,
                             decoration: TextDecoration.lineThrough,
                             fontSize: dynamicWidth(context, .034),
@@ -285,6 +290,7 @@ Widget rowText(text, context, {function = "", check = false, function2 = ""}) {
         child: AutoSizeText(
           text,
           style: TextStyle(
+            fontFamily: "Aeonik",
             color: darkTheme == true ? myWhite : myBlack,
             fontSize: dynamicWidth(context, .092),
             fontWeight: FontWeight.w800,
@@ -468,8 +474,8 @@ String titleCase(String text) {
 }
 
 filterContainer(context, function) {
-  dynamic _lowerValue = 0;
-  dynamic _upperValue = 0;
+  dynamic _lowerValue = 0.obs;
+  dynamic _upperValue = 0.obs;
 
   return showDialog(
     barrierDismissible: true,
@@ -530,6 +536,7 @@ filterContainer(context, function) {
                           child: Text(
                             "Sort By",
                             style: TextStyle(
+                              fontFamily: "Aeonik",
                               fontSize: dynamicWidth(context, .04),
                               fontWeight: FontWeight.w600,
                               color: darkTheme == true ? myWhite : myBlack,
@@ -545,6 +552,7 @@ filterContainer(context, function) {
                           child: Text(
                             "Size",
                             style: TextStyle(
+                              fontFamily: "Aeonik",
                               fontSize: dynamicWidth(context, .04),
                               fontWeight: FontWeight.w600,
                               color: darkTheme == true ? myWhite : myBlack,
@@ -629,6 +637,7 @@ filterContainer(context, function) {
                           child: Text(
                             "Price Range",
                             style: TextStyle(
+                              fontFamily: "Aeonik",
                               fontSize: dynamicWidth(context, .04),
                               fontWeight: FontWeight.w600,
                               color: darkTheme == true ? myWhite : myBlack,
@@ -675,22 +684,26 @@ filterContainer(context, function) {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "From : " + _lowerValue.toString(),
-                            style: TextStyle(
-                              fontSize: dynamicWidth(context, .04),
-                              fontWeight: FontWeight.w600,
-                              color: darkTheme == true ? myWhite : myBlack,
-                            ),
-                          ),
-                          Text(
-                            "To : " + _upperValue.toString(),
-                            style: TextStyle(
-                              fontSize: dynamicWidth(context, .04),
-                              fontWeight: FontWeight.w600,
-                              color: darkTheme == true ? myWhite : myBlack,
-                            ),
-                          ),
+                          Obx(() {
+                            return Text(
+                              "From : " + _lowerValue.toString(),
+                              style: TextStyle(
+                                fontSize: dynamicWidth(context, .04),
+                                fontWeight: FontWeight.w600,
+                                color: darkTheme == true ? myWhite : myBlack,
+                              ),
+                            );
+                          }),
+                          Obx(() {
+                            return Text(
+                              "To : " + _upperValue.toString(),
+                              style: TextStyle(
+                                fontSize: dynamicWidth(context, .04),
+                                fontWeight: FontWeight.w600,
+                                color: darkTheme == true ? myWhite : myBlack,
+                              ),
+                            );
+                          }),
                         ],
                       ),
                     ),

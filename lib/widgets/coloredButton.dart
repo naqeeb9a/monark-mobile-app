@@ -26,7 +26,7 @@ Widget coloredButton(context, text, {function = "", width = ""}) {
             text,
             style: TextStyle(
               color: myWhite,
-              fontSize: dynamicWidth(context, .056),
+              fontSize: dynamicWidth(context, .05),
             ),
           ),
         ),

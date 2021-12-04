@@ -216,6 +216,7 @@ class _DetailPageState extends State<DetailPage> {
                                 Text(
                                   widget.text,
                                   style: TextStyle(
+                                    fontFamily: "Aeonik",
                                     fontWeight: FontWeight.bold,
                                     fontSize: dynamicWidth(context, .04),
                                     color:
@@ -250,6 +251,7 @@ class _DetailPageState extends State<DetailPage> {
                                               .toInt()
                                               .toString(),
                                   style: TextStyle(
+                                    fontFamily: "Aeonik",
                                     color: darkTheme == true ? myWhite : myRed,
                                     fontWeight: FontWeight.bold,
                                     fontSize: dynamicWidth(context, .04),

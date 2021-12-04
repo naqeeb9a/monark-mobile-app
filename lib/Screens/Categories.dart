@@ -88,11 +88,13 @@ class _CategoriesPageState extends State<CategoriesPage> {
                           isSelected.add(false);
                           return Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal: dynamicWidth(context, 0.01)),
+                              horizontal: dynamicWidth(context, 0.01),
+                            ),
                             child: ChoiceChip(
                               label: Text(
                                 categoryList[index]["node"]["title"],
                                 style: TextStyle(
+                                  fontFamily: "Aeonik",
                                   color: isSelected[index] == true
                                       ? myWhite
                                       : darkTheme == true
@@ -138,7 +140,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
             SizedBox(
               height: dynamicHeight(context, 0.01),
             ),
-            (loading == true)
+            loading == true
                 ? Center()
                 : detailGrid(
                     getShopifyCategory(),

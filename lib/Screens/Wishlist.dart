@@ -70,13 +70,14 @@ class _WishlistPageState extends State<WishlistPage> {
               Text(
                 titleCase(widget.profileName) + "'s Wishlist",
                 style: TextStyle(
+                  fontFamily: "Aeonik",
                   fontWeight: FontWeight.w600,
                   color: darkTheme == true ? myWhite : myBlack,
                   fontSize: dynamicWidth(context, .04),
                 ),
               ),
               heightBox(context, 0.04),
-              (wishListItems.length == 0)
+              wishListItems.length == 0
                   ? Expanded(
                       child: Center(
                         child: Text(
@@ -88,9 +89,12 @@ class _WishlistPageState extends State<WishlistPage> {
                         ),
                       ),
                     )
-                  : wishListGrid(context, () {
-                      setState(() {});
-                    })
+                  : wishListGrid(
+                      context,
+                      () {
+                        setState(() {});
+                      },
+                    )
             ],
           ),
         ),
@@ -106,33 +110,33 @@ wishListGrid(context, refreshScreen) {
         horizontal: dynamicWidth(context, .04),
       ),
       child: GridView.builder(
-          itemCount: wishListItems.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisSpacing: dynamicWidth(context, .04),
-            mainAxisSpacing: dynamicHeight(context, .02),
-            crossAxisCount: 2,
-            childAspectRatio: 5 / 9,
-          ),
-          itemBuilder: (context, index) {
-            return Center(
-              child: basicCards(
-                  context,
-                  wishListItems[index]["node"]["images"]["edges"],
-                  wishListItems[index]["node"]["title"],
-                  wishListItems[index]["node"]["availableForSale"],
-                  variantProduct: wishListItems[index]["node"]["variants"]
-                      ["edges"],
-                  sizeOption: wishListItems[index]["node"]["options"][0]
-                      ["values"],
-                  description: wishListItems[index]["node"]["description"],
-                  check:
-                      wishListItems[index]["node"]["availableForSale"] == true
-                          ? false
-                          : true,
-                  wishList: wishListItems[index],
-                  refreshScreen: refreshScreen),
-            );
-          }),
+        itemCount: wishListItems.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: dynamicWidth(context, .04),
+          mainAxisSpacing: dynamicHeight(context, .02),
+          crossAxisCount: 2,
+          childAspectRatio: 5 / 9,
+        ),
+        itemBuilder: (context, index) {
+          return Center(
+            child: basicCards(
+                context,
+                wishListItems[index]["node"]["images"]["edges"],
+                wishListItems[index]["node"]["title"],
+                wishListItems[index]["node"]["availableForSale"],
+                variantProduct: wishListItems[index]["node"]["variants"]
+                    ["edges"],
+                sizeOption: wishListItems[index]["node"]["options"][0]
+                    ["values"],
+                description: wishListItems[index]["node"]["description"],
+                check: wishListItems[index]["node"]["availableForSale"] == true
+                    ? false
+                    : true,
+                wishList: wishListItems[index],
+                refreshScreen: refreshScreen),
+          );
+        },
+      ),
     ),
   );
 }

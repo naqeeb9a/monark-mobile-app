@@ -99,35 +99,37 @@ Widget detailGridExtension(function, context, check) {
                       ? dynamicHeight(context, .001)
                       : dynamicHeight(context, .02),
                   crossAxisCount: 2,
-                  childAspectRatio: 5 / 9,
+                  childAspectRatio: 5 / 9.2,
                 ),
                 itemBuilder: (context, index) {
                   return Center(
                     child: check == true
                         ? basicCards(
-                        context,
-                        snapshot.data[index]["node"]["image"]["src"],
-                        snapshot.data[index]["node"]["title"],
-                        snapshot.data[index]["node"]["handle"],
-                        categoriesCheck: true)
+                            context,
+                            snapshot.data[index]["node"]["image"]["src"],
+                            snapshot.data[index]["node"]["title"],
+                            snapshot.data[index]["node"]["handle"],
+                            categoriesCheck: true,
+                          )
                         : basicCards(
-                        context,
-                        snapshot.data[index]["node"]["images"]["edges"],
-                        snapshot.data[index]["node"]["title"],
-                        snapshot.data[index]["node"]["availableForSale"],
-                        variantProduct: snapshot.data[index]["node"]
-                        ["variants"]["edges"],
-                        sizeOption: snapshot.data[index]["node"]["options"]
-                        [0]["values"],
-                        description: snapshot.data[index]["node"]
-                        ["description"],
-                        productType: snapshot
-                            .data[index]["node"]["productType"],
-                        check: snapshot
-                            .data[index]["node"]["availableForSale"] == true
-                            ? false
-                            : true,
-                        wishList: snapshot.data[index]),
+                            context,
+                            snapshot.data[index]["node"]["images"]["edges"],
+                            snapshot.data[index]["node"]["title"],
+                            snapshot.data[index]["node"]["availableForSale"],
+                            variantProduct: snapshot.data[index]["node"]
+                                ["variants"]["edges"],
+                            sizeOption: snapshot.data[index]["node"]["options"]
+                                [0]["values"],
+                            description: snapshot.data[index]["node"]
+                                ["description"],
+                            productType: snapshot.data[index]["node"]
+                                ["productType"],
+                            check: snapshot.data[index]["node"]
+                                        ["availableForSale"] ==
+                                    true
+                                ? false
+                                : true,
+                            wishList: snapshot.data[index]),
                   );
                 }),
           );

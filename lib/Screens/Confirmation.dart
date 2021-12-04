@@ -5,6 +5,7 @@ import 'package:monark_app/widgets/media_query.dart';
 
 class ConfirmationPage extends StatefulWidget {
   final String orderNumber;
+
   const ConfirmationPage({Key? key, this.orderNumber = ""}) : super(key: key);
 
   @override
@@ -22,7 +23,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
         return false;
       },
       child: Scaffold(
-        backgroundColor: myGrey,
+        backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
         body: SafeArea(
           child: Container(
             height: dynamicHeight(context, 1),
@@ -48,6 +49,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                                 TextSpan(
                                   text: "Thank you\n",
                                   style: TextStyle(
+                                      fontFamily: "Aeonik",
                                       fontSize: dynamicWidth(context, 0.06),
                                       fontWeight: FontWeight.bold,
                                       color: myWhite),
@@ -75,6 +77,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                             child: Text(
                               "Order " + widget.orderNumber,
                               style: TextStyle(
+                                fontFamily: "Aeonik",
                                 color: myRed,
                                 fontSize: dynamicWidth(context, 0.038),
                               ),
@@ -94,6 +97,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                           Text(
                             "Your order is confirmed",
                             style: TextStyle(
+                              color: darkTheme == true ? myWhite : myBlack,
                               fontWeight: FontWeight.bold,
                               fontSize: dynamicWidth(context, 0.04),
                             ),
@@ -102,6 +106,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                           Text(
                             "You'll receive a confirmation email with your order number shortly.",
                             style: TextStyle(
+                              color: darkTheme == true ? myWhite : myBlack,
                               fontSize: dynamicWidth(context, 0.036),
                             ),
                           ),
@@ -109,6 +114,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                           Text(
                             "Order Updates",
                             style: TextStyle(
+                              color: darkTheme == true ? myWhite : myBlack,
                               fontWeight: FontWeight.bold,
                               fontSize: dynamicWidth(context, 0.04),
                             ),
@@ -117,6 +123,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                           Text(
                             "You'll get shipping and delivery updates",
                             style: TextStyle(
+                              color: darkTheme == true ? myWhite : myBlack,
                               fontSize: dynamicWidth(context, 0.036),
                             ),
                           ),
@@ -129,6 +136,8 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                       children: [
                         Checkbox(
                             value: emailCheck,
+                            activeColor: darkTheme == true ? myWhite : myRed,
+                            checkColor: darkTheme == true ? myBlack : myWhite,
                             onChanged: (value) {
                               setState(() {
                                 emailCheck = value!;
@@ -137,6 +146,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                         Text(
                           "via email",
                           style: TextStyle(
+                            color: darkTheme == true ? myWhite : myBlack,
                             fontSize: dynamicWidth(context, 0.036),
                           ),
                         ),
@@ -147,6 +157,8 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                       children: [
                         Checkbox(
                             value: textCheck,
+                            activeColor: darkTheme == true ? myWhite : myRed,
+                            checkColor: darkTheme == true ? myBlack : myWhite,
                             onChanged: (value1) {
                               setState(() {
                                 textCheck = value1!;
@@ -155,6 +167,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                         Text(
                           "via text",
                           style: TextStyle(
+                            color: darkTheme == true ? myWhite : myBlack,
                             fontSize: dynamicWidth(context, 0.036),
                           ),
                         ),

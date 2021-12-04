@@ -111,6 +111,7 @@ class _LoginState extends State<Login> {
                           child: Text(
                             "Welcome Back",
                             style: TextStyle(
+                              fontFamily: "Aeonik",
                               color: myWhite,
                               fontSize: dynamicWidth(context, .06),
                               fontWeight: FontWeight.w600,

@@ -189,11 +189,7 @@ class _StoreFinderState extends State<StoreFinder> {
                   context,
                   locationData[i]["name"],
                   locationData[i]["address"],
-                  locationData[i]["state"],
-                  locationData[i]["city"],
                   locationData[i]["phone"],
-                  locationData[i]["email"].toString(),
-                  locationData[i]["url"],
                   locationData[i]["workTime"],
                   locationData[i]["holiday"],
                 );
@@ -206,8 +202,7 @@ class _StoreFinderState extends State<StoreFinder> {
   }
 }
 
-Widget storeCard(
-    context, name, address, state, city, phone, email, url, workTime, holiday) {
+Widget storeCard(context, name, address, phone, workTime, holiday) {
   return Padding(
     padding: EdgeInsets.symmetric(
       horizontal: dynamicWidth(context, .05),
@@ -227,6 +222,7 @@ Widget storeCard(
                 Text(
                   name,
                   style: TextStyle(
+                    fontFamily: "Aeonik",
                     fontWeight: FontWeight.w700,
                     fontSize: dynamicWidth(context, .052),
                     color: darkTheme == true ? myWhite : myBlack,
@@ -257,7 +253,7 @@ Widget storeCard(
                   width: dynamicWidth(context, .7),
                   height: dynamicHeight(context, .046),
                   child: Text(
-                    "81 Babar block, Garden Town Lahore,Pakistan.",
+                    address,
                     style: TextStyle(
                       color: darkTheme == true ? myWhite : myBlack,
                       fontSize: dynamicWidth(context, .036),

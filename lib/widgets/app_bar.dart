@@ -31,6 +31,7 @@ PreferredSizeWidget bar(
                   ? Text(
                       "Hi, Guest",
                       style: TextStyle(
+                        fontFamily: "Aeonik",
                         color: darkTheme == true ? myWhite : myBlack,
                         fontSize: dynamicWidth(context, .05),
                       ),
@@ -44,6 +45,7 @@ PreferredSizeWidget bar(
                                 " " +
                                 titleCase(snapshot.data["lastName"]),
                             style: TextStyle(
+                              fontFamily: "Aeonik",
                               color: darkTheme == true ? myWhite : myBlack,
                               fontSize: dynamicWidth(context, .05),
                             ),

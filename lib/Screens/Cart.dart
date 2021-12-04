@@ -135,6 +135,7 @@ class _CartState extends State<Cart> {
                           Text(
                             "PKR. $total",
                             style: TextStyle(
+                              fontFamily: "Aeonik",
                               color: darkTheme == true ? myWhite : myBlack,
                               fontWeight: FontWeight.bold,
                               fontSize: dynamicWidth(context, .044),
@@ -216,6 +217,7 @@ Widget cartCard(index, context, {check}) {
                     child: Text(
                       cartItems[index]["title"],
                       style: TextStyle(
+                        fontFamily: "Aeonik",
                         color: darkTheme == true ? myWhite : myBlack,
                         fontWeight: FontWeight.bold,
                       ),
@@ -226,6 +228,7 @@ Widget cartCard(index, context, {check}) {
                   Text(
                     "PKR. " + cartItems[index]["total"].toString(),
                     style: TextStyle(
+                      fontFamily: "Aeonik",
                       fontSize: dynamicWidth(context, .04),
                       color: darkTheme == true ? myWhite : myRed,
                       fontWeight: FontWeight.bold,

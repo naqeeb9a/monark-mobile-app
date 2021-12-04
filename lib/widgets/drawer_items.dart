@@ -97,6 +97,7 @@ Widget drawerItems(context) {
                     title: Text(
                       drawerItemList[index]["text"].toString(),
                       style: TextStyle(
+                        fontFamily: "Aeonik",
                         color: darkTheme == true ? myWhite : myBlack,
                         fontWeight: FontWeight.bold,
                         fontSize: dynamicWidth(context, .044),
