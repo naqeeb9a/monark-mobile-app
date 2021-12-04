@@ -248,11 +248,15 @@ Widget profileText(context, text1) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(
-        text1,
-        style: TextStyle(
-          fontSize: dynamicWidth(context, .04),
-          color: darkTheme == true ? myWhite : myBlack,
+      Container(
+        width: dynamicWidth(context, 0.7),
+        padding: EdgeInsets.symmetric(vertical: dynamicHeight(context, 0.01)),
+        child: Text(
+          text1,
+          style: TextStyle(
+            fontSize: dynamicWidth(context, .04),
+            color: darkTheme == true ? myWhite : myBlack,
+          ),
         ),
       ),
       SizedBox(

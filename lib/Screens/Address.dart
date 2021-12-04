@@ -259,7 +259,7 @@ class _AddressPageState extends State<AddressPage> {
                       color: darkTheme == true ? myWhite : myBlack,
                     ),
                     borderRadius: BorderRadius.circular(
-                      dynamicWidth(context, 0.04),
+                      dynamicWidth(context, 0.1),
                     ),
                   ),
                   padding: EdgeInsets.symmetric(

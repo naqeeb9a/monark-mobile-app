@@ -22,6 +22,7 @@ class SeeAll extends StatefulWidget {
 
 class _SeeAllState extends State<SeeAll> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
+  var widegetIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -38,30 +39,40 @@ class _SeeAllState extends State<SeeAll> {
       ),
       endDrawer: drawer(context),
       backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: dynamicWidth(context, 0.04),
-              ),
-              child: rowText(
-                widget.text,
-                context,
-                check: true,
-                function2: () {
-                  setState(() {});
-                },
-              ),
+      body: IndexedStack(
+        index: widegetIndex,
+        children: [
+          filterContainer(context, () {
+            setState(() {});
+          }),
+          Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: dynamicWidth(context, 0.04),
+                  ),
+                  child: rowText(
+                    widget.text,
+                    context,
+                    check: true,
+                    function2: () {
+                      setState(() {
+                        widegetIndex = 0;
+                      });
+                    },
+                  ),
+                ),
+                heightBox(context, .06),
+                detailGrid(widget.function, context, widget.check),
+                SizedBox(
+                  height: dynamicHeight(context, .02),
+                )
+              ],
             ),
-            heightBox(context, .06),
-            detailGrid(widget.function, context, widget.check),
-            SizedBox(
-              height: dynamicHeight(context, .02),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

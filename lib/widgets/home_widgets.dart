@@ -1,4 +1,3 @@
-import 'package:another_xlider/another_xlider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -11,6 +10,7 @@ import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 import '../utils/config.dart';
 import 'drawer_items.dart';
@@ -474,6 +474,7 @@ String titleCase(String text) {
 }
 
 filterContainer(context, function) {
+  SfRangeValues _values = SfRangeValues(40.0, 80.0);
   dynamic _lowerValue = 0.obs;
   dynamic _upperValue = 0.obs;
 
@@ -646,36 +647,47 @@ filterContainer(context, function) {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      width: dynamicWidth(context, .72),
-                      child: FlutterSlider(
-                        values: [30, 420],
-                        rangeSlider: true,
-                        max: 50000,
-                        min: 0,
-                        handlerAnimation: FlutterSliderHandlerAnimation(
-                          curve: Curves.elasticOut,
-                          reverseCurve: Curves.bounceIn,
-                          duration: Duration(milliseconds: 500),
-                          scale: 1.5,
-                        ),
-                        trackBar: FlutterSliderTrackBar(
-                          activeTrackBar: BoxDecoration(
-                            color: darkTheme == true ? myWhite : myBlack,
-                          ),
-                          inactiveTrackBar: BoxDecoration(
-                            color: darkTheme == true
-                                ? myWhite.withOpacity(.3)
-                                : myBlack.withOpacity(.3),
-                          ),
-                        ),
-                        onDragging: (handlerIndex, lowerValue, upperValue) {
-                          _lowerValue = lowerValue;
-                          _upperValue = upperValue;
-                          function();
-                        },
-                      ),
-                    ),
+                    SfRangeSlider(
+                      min: 0.0,
+                      max: 100.0,
+                      values: _values,
+                      interval: 20,
+                      showTicks: true,
+                      showLabels: true,
+                      enableTooltip: true,
+                      minorTicksPerInterval: 1,
+                      onChanged: (SfRangeValues values) {
+                        // setState(() {
+                        //   _values = values;
+                        // });
+                      },
+                    )
+                    // FlutterSlider(
+                    //   values: [30, 420],
+                    //   rangeSlider: true,
+                    //   max: 50000,
+                    //   min: 0,
+                    //   handlerAnimation: FlutterSliderHandlerAnimation(
+                    //     curve: Curves.elasticOut,
+                    //     reverseCurve: Curves.bounceIn,
+                    //     duration: Duration(milliseconds: 500),
+                    //     scale: 1.5,
+                    //   ),
+                    //   trackBar: FlutterSliderTrackBar(
+                    //     activeTrackBar: BoxDecoration(
+                    //       color: darkTheme == true ? myWhite : myBlack,
+                    //     ),
+                    //     inactiveTrackBar: BoxDecoration(
+                    //       color: darkTheme == true
+                    //           ? myWhite.withOpacity(.3)
+                    //           : myBlack.withOpacity(.3),
+                    //     ),
+                    //   ),
+                    //   onDragging: (handlerIndex, lowerValue, upperValue) {
+                    //     print(lowerValue);
+                    //   },
+                    // ),
+                    ,
                     Padding(
                       padding: EdgeInsets.symmetric(
                         vertical: dynamicHeight(context, .01),
