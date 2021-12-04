@@ -63,54 +63,84 @@ class _PaymentState extends State<Payment> {
                           child: rowText("Payment", context),
                         ),
                         heightBox(context, 0.07),
-                        Container(
-                          width: dynamicWidth(context, 0.9),
-                          padding: EdgeInsets.all(
-                            dynamicWidth(context, 0.05),
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 1,
-                              color: darkTheme == true ? myWhite : myGrey,
-                            ),
-                            borderRadius: BorderRadius.circular(
-                              dynamicWidth(context, .02),
-                            ),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Information",
-                                style: TextStyle(
-                                  color: darkTheme == true ? myWhite : myBlack,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: dynamicWidth(context, .034),
+                        FutureBuilder(
+                          future: getUserData(globalAccessToken),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              return Container(
+                                width: dynamicWidth(context, 0.9),
+                                padding: EdgeInsets.all(
+                                  dynamicWidth(context, 0.05),
                                 ),
-                              ),
-                              Text(
-                                "Sarah Tahir",
-                                style: TextStyle(
-                                  color: darkTheme == true ? myWhite : myBlack,
-                                  fontSize: dynamicWidth(context, .034),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                    color: darkTheme == true ? myWhite : myGrey,
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                    dynamicWidth(context, .02),
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "03070406873",
-                                style: TextStyle(
-                                  color: darkTheme == true ? myWhite : myBlack,
-                                  fontSize: dynamicWidth(context, .034),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Information",
+                                      style: TextStyle(
+                                        color: darkTheme == true
+                                            ? myWhite
+                                            : myBlack,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: dynamicWidth(context, .034),
+                                      ),
+                                    ),
+                                    Text(
+                                      snapshot.data["firstName"] +
+                                          " " +
+                                          snapshot.data["lastName"],
+                                      style: TextStyle(
+                                        color: darkTheme == true
+                                            ? myWhite
+                                            : myBlack,
+                                        fontSize: dynamicWidth(context, .034),
+                                      ),
+                                    ),
+                                    Text(
+                                      snapshot.data["phone"] == null ||
+                                              snapshot.data["phone"] == ""
+                                          ? "No phone Number Provided"
+                                          : snapshot.data["phone"],
+                                      style: TextStyle(
+                                        color: darkTheme == true
+                                            ? myWhite
+                                            : myBlack,
+                                        fontSize: dynamicWidth(context, .034),
+                                      ),
+                                    ),
+                                    Text(
+                                      snapshot.data["email"],
+                                      style: TextStyle(
+                                        color: darkTheme == true
+                                            ? myWhite
+                                            : myBlack,
+                                        fontSize: dynamicWidth(context, .034),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              Text(
-                                "sarah@gmail.com",
-                                style: TextStyle(
+                              );
+                            } else {
+                              return Center(
+                                child: JumpingDotsProgressIndicator(
                                   color: darkTheme == true ? myWhite : myBlack,
-                                  fontSize: dynamicWidth(context, .034),
+                                  numberOfDots: 5,
+                                  fontSize: dynamicWidth(context, .08),
                                 ),
-                              ),
-                            ],
-                          ),
+                              );
+                            }
+                          },
                         ),
                         heightBox(context, 0.02),
                         radioOptions(context, "COD"),

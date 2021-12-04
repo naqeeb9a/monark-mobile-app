@@ -7,7 +7,6 @@ import 'package:monark_app/widgets/shopify_functions.dart';
 
 import 'SeeAll.dart';
 
-// ignore: must_be_immutable
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
 
