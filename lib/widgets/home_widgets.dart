@@ -474,8 +474,8 @@ String titleCase(String text) {
 }
 
 filterContainer(context) {
-  dynamic _lowerValue = 0.obs;
-  dynamic _upperValue = 0.obs;
+  dynamic _lowerValue = 0.0;
+  dynamic _upperValue = 0.0;
 
   return showDialog(
     barrierDismissible: true,
@@ -654,7 +654,7 @@ filterContainer(context) {
                       SizedBox(
                         width: dynamicWidth(context, .72),
                         child: FlutterSlider(
-                          values: [30, 420],
+                          values: [_lowerValue, _upperValue],
                           rangeSlider: true,
                           max: 50000,
                           min: 0,
@@ -677,9 +677,7 @@ filterContainer(context) {
                           onDragging: (handlerIndex, lowerValue, upperValue) {
                             _lowerValue = lowerValue;
                             _upperValue = upperValue;
-                            // setState((){
-                            //
-                            // });
+                            setState(() {});
                           },
                         ),
                       ),
@@ -691,26 +689,22 @@ filterContainer(context) {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Obx(() {
-                              return Text(
-                                "From : " + _lowerValue.toString(),
-                                style: TextStyle(
-                                  fontSize: dynamicWidth(context, .04),
-                                  fontWeight: FontWeight.w600,
-                                  color: darkTheme == true ? myWhite : myBlack,
-                                ),
-                              );
-                            }),
-                            Obx(() {
-                              return Text(
-                                "To : " + _upperValue.toString(),
-                                style: TextStyle(
-                                  fontSize: dynamicWidth(context, .04),
-                                  fontWeight: FontWeight.w600,
-                                  color: darkTheme == true ? myWhite : myBlack,
-                                ),
-                              );
-                            }),
+                            Text(
+                              "From : " + _lowerValue.toString(),
+                              style: TextStyle(
+                                fontSize: dynamicWidth(context, .04),
+                                fontWeight: FontWeight.w600,
+                                color: darkTheme == true ? myWhite : myBlack,
+                              ),
+                            ),
+                            Text(
+                              "To : " + _upperValue.toString(),
+                              style: TextStyle(
+                                fontSize: dynamicWidth(context, .04),
+                                fontWeight: FontWeight.w600,
+                                color: darkTheme == true ? myWhite : myBlack,
+                              ),
+                            ),
                           ],
                         ),
                       ),
