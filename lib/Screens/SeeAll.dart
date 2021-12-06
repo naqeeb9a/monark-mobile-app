@@ -22,7 +22,6 @@ class SeeAll extends StatefulWidget {
 
 class _SeeAllState extends State<SeeAll> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
-  var widegetIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -39,40 +38,27 @@ class _SeeAllState extends State<SeeAll> {
       ),
       endDrawer: drawer(context),
       backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
-      body: IndexedStack(
-        index: widegetIndex,
-        children: [
-          filterContainer(context, () {
-            setState(() {});
-          }),
-          Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: dynamicWidth(context, 0.04),
-                  ),
-                  child: rowText(
-                    widget.text,
-                    context,
-                    check: true,
-                    function2: () {
-                      setState(() {
-                        widegetIndex = 0;
-                      });
-                    },
-                  ),
-                ),
-                heightBox(context, .06),
-                detailGrid(widget.function, context, widget.check),
-                SizedBox(
-                  height: dynamicHeight(context, .02),
-                )
-              ],
+      body: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: dynamicWidth(context, 0.04),
+              ),
+              child: rowText(
+                widget.text,
+                context,
+                check: true,
+              ),
             ),
-          ),
-        ],
+            heightBox(context, .06),
+            detailGrid(widget.function, context, widget.check),
+            SizedBox(
+              height: dynamicHeight(context, .02),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -116,31 +102,31 @@ Widget detailGridExtension(function, context, check) {
                   return Center(
                     child: check == true
                         ? basicCards(
-                            context,
-                            snapshot.data[index]["node"]["image"]["src"],
-                            snapshot.data[index]["node"]["title"],
-                            snapshot.data[index]["node"]["handle"],
-                            categoriesCheck: true,
-                          )
+                      context,
+                      snapshot.data[index]["node"]["image"]["src"],
+                      snapshot.data[index]["node"]["title"],
+                      snapshot.data[index]["node"]["handle"],
+                      categoriesCheck: true,
+                    )
                         : basicCards(
-                            context,
-                            snapshot.data[index]["node"]["images"]["edges"],
-                            snapshot.data[index]["node"]["title"],
-                            snapshot.data[index]["node"]["availableForSale"],
-                            variantProduct: snapshot.data[index]["node"]
-                                ["variants"]["edges"],
-                            sizeOption: snapshot.data[index]["node"]["options"]
-                                [0]["values"],
-                            description: snapshot.data[index]["node"]
-                                ["description"],
-                            productType: snapshot.data[index]["node"]
-                                ["productType"],
-                            check: snapshot.data[index]["node"]
-                                        ["availableForSale"] ==
-                                    true
-                                ? false
-                                : true,
-                            wishList: snapshot.data[index]),
+                        context,
+                        snapshot.data[index]["node"]["images"]["edges"],
+                        snapshot.data[index]["node"]["title"],
+                        snapshot.data[index]["node"]["availableForSale"],
+                        variantProduct: snapshot.data[index]["node"]
+                        ["variants"]["edges"],
+                        sizeOption: snapshot.data[index]["node"]["options"]
+                        [0]["values"],
+                        description: snapshot.data[index]["node"]
+                        ["description"],
+                        productType: snapshot.data[index]["node"]
+                        ["productType"],
+                        check: snapshot.data[index]["node"]
+                        ["availableForSale"] ==
+                            true
+                            ? false
+                            : true,
+                        wishList: snapshot.data[index]),
                   );
                 }),
           );
