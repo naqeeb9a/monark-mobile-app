@@ -56,7 +56,7 @@ getShopifyCategory() async {
 getShopifyProductsBestSelling() async {
   var shopifyProducts = '''
 {
-  products(first:250 sortKey:BEST_SELLING) {
+  products(first:10 sortKey:BEST_SELLING) {
     edges {
       node {
         id

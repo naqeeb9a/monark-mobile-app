@@ -66,11 +66,12 @@ class _SeeAllState extends State<SeeAll> {
 
 Widget detailGrid(function, context, check, {expandedCheck = true}) {
   return (expandedCheck == true)
-      ? Expanded(child: detailGridExtension(function, context, check))
-      : detailGridExtension(function, context, check);
+      ? Expanded(
+          child: detailGridExtension(function, context, check, expandedCheck))
+      : detailGridExtension(function, context, check, expandedCheck);
 }
 
-Widget detailGridExtension(function, context, check) {
+Widget detailGridExtension(function, context, check, expandedCheck) {
   return FutureBuilder(
     future: function,
     builder: (context, AsyncSnapshot snapshot) {
@@ -90,6 +91,10 @@ Widget detailGridExtension(function, context, check) {
             ),
             child: GridView.builder(
                 itemCount: (snapshot.data as List).length,
+                physics: expandedCheck == true
+                    ? AlwaysScrollableScrollPhysics()
+                    : NeverScrollableScrollPhysics(),
+                shrinkWrap: expandedCheck == true ? false : true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisSpacing: dynamicWidth(context, .04),
                   mainAxisSpacing: check == true
@@ -102,31 +107,31 @@ Widget detailGridExtension(function, context, check) {
                   return Center(
                     child: check == true
                         ? basicCards(
-                      context,
-                      snapshot.data[index]["node"]["image"]["src"],
-                      snapshot.data[index]["node"]["title"],
-                      snapshot.data[index]["node"]["handle"],
-                      categoriesCheck: true,
-                    )
+                            context,
+                            snapshot.data[index]["node"]["image"]["src"],
+                            snapshot.data[index]["node"]["title"],
+                            snapshot.data[index]["node"]["handle"],
+                            categoriesCheck: true,
+                          )
                         : basicCards(
-                        context,
-                        snapshot.data[index]["node"]["images"]["edges"],
-                        snapshot.data[index]["node"]["title"],
-                        snapshot.data[index]["node"]["availableForSale"],
-                        variantProduct: snapshot.data[index]["node"]
-                        ["variants"]["edges"],
-                        sizeOption: snapshot.data[index]["node"]["options"]
-                        [0]["values"],
-                        description: snapshot.data[index]["node"]
-                        ["description"],
-                        productType: snapshot.data[index]["node"]
-                        ["productType"],
-                        check: snapshot.data[index]["node"]
-                        ["availableForSale"] ==
-                            true
-                            ? false
-                            : true,
-                        wishList: snapshot.data[index]),
+                            context,
+                            snapshot.data[index]["node"]["images"]["edges"],
+                            snapshot.data[index]["node"]["title"],
+                            snapshot.data[index]["node"]["availableForSale"],
+                            variantProduct: snapshot.data[index]["node"]
+                                ["variants"]["edges"],
+                            sizeOption: snapshot.data[index]["node"]["options"]
+                                [0]["values"],
+                            description: snapshot.data[index]["node"]
+                                ["description"],
+                            productType: snapshot.data[index]["node"]
+                                ["productType"],
+                            check: snapshot.data[index]["node"]
+                                        ["availableForSale"] ==
+                                    true
+                                ? false
+                                : true,
+                            wishList: snapshot.data[index]),
                   );
                 }),
           );
@@ -142,10 +147,18 @@ Widget detailGridExtension(function, context, check) {
           );
         }
       } else {
-        return Image.asset(
-          "assets/loader.gif",
-          scale: 4,
-        );
+        return (expandedCheck == true)
+            ? Image.asset(
+                "assets/loader.gif",
+                scale: 4,
+              )
+            : SizedBox(
+                height: dynamicHeight(context, 0.4),
+                child: Image.asset(
+                  "assets/loader.gif",
+                  scale: 4,
+                ),
+              );
       }
     },
   );

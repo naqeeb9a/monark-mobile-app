@@ -39,12 +39,13 @@ class _HomeState extends State<Home> {
       ),
       endDrawer: drawer(context),
       backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
-      body: SafeArea(
-        child: Center(
-          child: Container(
-            width: dynamicWidth(context, 1),
+      body: Center(
+        child: Container(
+          height: dynamicHeight(context, 1),
+          child: SafeArea(
             child: SingleChildScrollView(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
                     height: dynamicHeight(context, .01),
@@ -73,12 +74,8 @@ class _HomeState extends State<Home> {
                   SizedBox(
                     height: dynamicHeight(context, .02),
                   ),
-                  SizedBox(
-                    height: dynamicHeight(context, .7),
-                    child: detailGrid(
-                        getShopifyProductsBestSelling(), context, false,
-                        expandedCheck: false),
-                  ),
+                  detailGrid(getShopifyProductsBestSelling(), context, false,
+                      expandedCheck: false),
                   SizedBox(
                     height: dynamicHeight(context, .02),
                   ),
