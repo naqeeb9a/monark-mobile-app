@@ -321,72 +321,77 @@ Widget rowText(text, context, {function = "", check = false}) {
 
 dynamic imageAlert(context, image, assetImage) {
   return showDialog(
+    barrierDismissible: true,
     context: context,
     builder: (BuildContext context) {
-      return Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            dynamicWidth(
-              context,
-              dynamicWidth(context, .03),
+      return Center(
+        child: Material(
+          child: Container(
+            width: dynamicWidth(context, .9),
+            decoration: BoxDecoration(
+              color: noColor,
+              borderRadius: BorderRadius.circular(
+                dynamicWidth(
+                  context,
+                  dynamicWidth(context, .03),
+                ),
+              ),
             ),
-          ),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(
-            dynamicWidth(context, .03),
-          ),
-          child: Stack(
-            children: [
-              Hero(
-                tag: 1,
-                child: InteractiveViewer(
-                  child: assetImage == true
-                      ? Image.asset(
-                          image,
-                          width: dynamicWidth(context, 1),
-                          fit: BoxFit.fitHeight,
-                        )
-                      : CachedNetworkImage(
-                          imageUrl: image,
-                          fit: BoxFit.fitWidth,
-                          width: dynamicWidth(context, .96),
-                          height: dynamicHeight(context, .5),
-                          placeholder: (context, string) {
-                            return Image.asset(
-                              "assets/loader.gif",
-                              scale: 4,
-                            );
-                          },
-                        ),
+            child: Stack(
+              children: [
+                Hero(
+                  tag: 1,
+                  child: InteractiveViewer(
+                    child: assetImage == true
+                        ? Image.asset(
+                            image,
+                            width: dynamicWidth(context, 1),
+                            fit: BoxFit.fitHeight,
+                          )
+                        : CachedNetworkImage(
+                            imageUrl: image,
+                            fit: BoxFit.fitWidth,
+                            width: dynamicWidth(context, .96),
+                            height: dynamicHeight(context, .5),
+                            placeholder: (context, string) {
+                              return Image.asset(
+                                "assets/loader.gif",
+                                scale: 4,
+                              );
+                            },
+                          ),
+                  ),
                 ),
-              ),
-              Container(
-                width: dynamicWidth(context, 1),
-                height: dynamicHeight(context, .05),
-                color: noColor,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        right: dynamicWidth(context, .02),
-                      ),
-                      child: ColoredBox(
-                        color: myWhite,
-                        child: Icon(
-                          Icons.clear,
-                          color: myRed,
-                          size: dynamicWidth(context, .08),
+                Container(
+                  width: dynamicWidth(context, 1),
+                  height: dynamicHeight(context, .05),
+                  color: noColor,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          right: dynamicWidth(context, .02),
+                        ),
+                        child: ColoredBox(
+                          color: myWhite,
+                          child: InkWell(
+                            onTap: () {
+                              pop(context);
+                            },
+                            child: Icon(
+                              Icons.clear,
+                              color: myRed,
+                              size: dynamicWidth(context, .08),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );

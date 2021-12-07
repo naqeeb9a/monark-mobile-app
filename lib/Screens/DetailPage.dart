@@ -81,9 +81,10 @@ class _DetailPageState extends State<DetailPage> {
       setState(() {
         sizeGuideImage = "assets/sizeChart/Sweatshirt.jpg";
       });
-    } else if (widget.productType.toString() == "Jackets") {
+    } else if (widget.productType.toString() == "Jackets" ||
+        widget.productType.toString() == "Hoodies") {
       setState(() {
-        sizeGuideImage = "assets/sizeChart/Jackets.jpg";
+        sizeGuideImage = "assets/sizeChart/Jackets.png";
       });
     } else if (widget.productType.toString() == "Sweaters") {
       setState(() {
