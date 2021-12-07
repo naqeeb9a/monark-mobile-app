@@ -3,17 +3,20 @@ import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
+import 'package:monark_app/widgets/shopify_functions.dart';
 
 class SeeAll extends StatefulWidget {
   final bool check;
   final String text;
   final dynamic function;
+  final dynamic handle;
 
   SeeAll({
     Key? key,
     required this.text,
     this.function,
     required this.check,
+    this.handle = "",
   }) : super(key: key);
 
   @override
@@ -53,7 +56,9 @@ class _SeeAllState extends State<SeeAll> {
               ),
             ),
             heightBox(context, .06),
-            detailGrid(widget.function, context, widget.check),
+            filterChecks != ""
+                ? getfilteredGrid(widget.handle, context, widget.check)
+                : detailGrid(widget.function, context, widget.check),
             SizedBox(
               height: dynamicHeight(context, .02),
             )
@@ -61,6 +66,23 @@ class _SeeAllState extends State<SeeAll> {
         ),
       ),
     );
+  }
+}
+
+getfilteredGrid(handle, context, check) {
+  print(filterChecks[0]);
+  if (filterChecks[0] == "Best Sellers") {
+    print(true);
+    return detailGrid(
+        getShopifyCollection(handle, sortKey: "BEST_SELLING"), context, check);
+  } else if (filterChecks[0] == "Low - High") {
+    return detailGrid(
+        getShopifyCollection(handle, sortKey: "PRICE"), context, check);
+  } else {
+    return detailGrid(
+        getShopifyCollection(handle, sortKey: "PRICE", reverse: true),
+        context,
+        check);
   }
 }
 

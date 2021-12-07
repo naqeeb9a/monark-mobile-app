@@ -171,8 +171,10 @@ getShopifyProducts() async {
   }
 }
 
-getShopifyCollection(handle) async {
-  var shopifyCollection = '''
+getShopifyCollection(handle, {sortKey = "", reverse = ""}) async {
+  var shopifyCollection;
+  if (sortKey == "") {
+    shopifyCollection = '''
 {
   collectionByHandle(handle:"$handle") {
     products(first:250) {
@@ -213,6 +215,93 @@ getShopifyCollection(handle) async {
   }
 }
  ''';
+  } else {
+    if (reverse == "") {
+      shopifyCollection = '''
+{
+  collectionByHandle(handle:"$handle") {
+    products(first:250 sortKey:$sortKey) {
+    edges {
+      node {
+        id
+        description
+        title
+        productType
+        availableForSale
+        totalInventory
+        variants(first :10){
+            edges{
+                node
+                {
+                    id
+                    price
+                    sku
+                    compareAtPrice
+                    requiresShipping
+                    availableForSale
+                }
+            }
+        }
+        options{
+            values
+        }
+        images(first:10){
+            edges{
+                node{
+                    src
+                }
+            }
+        }
+      }
+    }
+  }
+  }
+}
+ ''';
+    } else {
+      shopifyCollection = '''
+{
+  collectionByHandle(handle:"$handle") {
+    products(first:250 sortKey:$sortKey reverse:$reverse) {
+    edges {
+      node {
+        id
+        description
+        title
+        productType
+        availableForSale
+        totalInventory
+        variants(first :10){
+            edges{
+                node
+                {
+                    id
+                    price
+                    sku
+                    compareAtPrice
+                    requiresShipping
+                    availableForSale
+                }
+            }
+        }
+        options{
+            values
+        }
+        images(first:10){
+            edges{
+                node{
+                    src
+                }
+            }
+        }
+      }
+    }
+  }
+  }
+}
+ ''';
+    }
+  }
   final HttpLink httpLink = HttpLink(
       "https://monark-clothings.myshopify.com/api/2021-10/graphql.json",
       defaultHeaders: {

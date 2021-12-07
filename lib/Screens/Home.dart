@@ -39,48 +39,46 @@ class _HomeState extends State<Home> {
       ),
       endDrawer: drawer(context),
       backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
-      body: Center(
-        child: Container(
-          height: dynamicHeight(context, 1),
-          child: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: dynamicHeight(context, .01),
+      body: Container(
+        height: dynamicHeight(context, 1),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: dynamicHeight(context, .01),
+                ),
+                homeSlider(
+                  context,
+                  dynamicHeight(context, .33),
+                  sliderImage.length,
+                  .84,
+                  sliderImage,
+                  true,
+                ),
+                SizedBox(
+                  height: dynamicHeight(context, .02),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: dynamicWidth(context, .04),
                   ),
-                  homeSlider(
+                  child: rowText(
+                    "Best Sellers",
                     context,
-                    dynamicHeight(context, .33),
-                    sliderImage.length,
-                    .84,
-                    sliderImage,
-                    true,
+                    check: false,
                   ),
-                  SizedBox(
-                    height: dynamicHeight(context, .02),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: dynamicWidth(context, .04),
-                    ),
-                    child: rowText(
-                      "Best Sellers",
-                      context,
-                      check: false,
-                    ),
-                  ),
-                  SizedBox(
-                    height: dynamicHeight(context, .02),
-                  ),
-                  detailGrid(getShopifyProductsBestSelling(), context, false,
-                      expandedCheck: false),
-                  SizedBox(
-                    height: dynamicHeight(context, .02),
-                  ),
-                ],
-              ),
+                ),
+                SizedBox(
+                  height: dynamicHeight(context, .02),
+                ),
+                detailGrid(getShopifyProductsBestSelling(), context, false,
+                    expandedCheck: false),
+                SizedBox(
+                  height: dynamicHeight(context, .02),
+                ),
+              ],
             ),
           ),
         ),

@@ -3,8 +3,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/state_manager.dart';
 import 'package:grouped_buttons_ns/grouped_buttons_ns.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
@@ -58,6 +56,7 @@ Widget basicCards(context, imageUrl, text, availableForSale,
                       builder: (context) => SeeAll(
                         text: text,
                         function: getShopifyCollection(availableForSale),
+                        handle: availableForSale,
                         check: false,
                       ),
                     ),
@@ -574,26 +573,25 @@ filterContainer(context) {
                                     : myBlack.withOpacity(.3),
                               ),
                               child: CheckboxGroup(
-                                labels: <String>[
-                                  "Best Sellers",
-                                  "Low - High",
-                                  "High - Low",
-                                ],
-                                labelStyle: TextStyle(
-                                  color: darkTheme == true ? myWhite : myBlack,
-                                  fontSize: dynamicWidth(context, .032),
-                                ),
-                                margin: EdgeInsets.symmetric(
-                                  horizontal: 1.0,
-                                ),
-                                activeColor:
-                                    darkTheme == true ? myWhite : myRed,
-                                checkColor:
-                                    darkTheme == true ? myBlack : myWhite,
-                                onSelected: (List<String> checked) => print(
-                                  checked.toString(),
-                                ),
-                              ),
+                                  labels: <String>[
+                                    "Best Sellers",
+                                    "Low - High",
+                                    "High - Low",
+                                  ],
+                                  labelStyle: TextStyle(
+                                    color:
+                                        darkTheme == true ? myWhite : myBlack,
+                                    fontSize: dynamicWidth(context, .032),
+                                  ),
+                                  margin: EdgeInsets.symmetric(
+                                    horizontal: 1.0,
+                                  ),
+                                  activeColor:
+                                      darkTheme == true ? myWhite : myRed,
+                                  checkColor:
+                                      darkTheme == true ? myBlack : myWhite,
+                                  onSelected: (List<String> checked) =>
+                                      filterChecks = checked),
                             ),
                           ),
                           Container(
