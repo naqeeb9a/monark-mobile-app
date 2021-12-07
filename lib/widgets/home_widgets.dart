@@ -436,7 +436,6 @@ Widget sliderContainer(context, String image, bool detail) {
     child: InteractiveViewer(
       child: CachedNetworkImage(
         imageUrl: image,
-        // fit: detail == false ? BoxFit.fitHeight : BoxFit.cover,
         fit: BoxFit.cover,
         width: dynamicWidth(context, 1),
         placeholder: (context, string) {
@@ -572,26 +571,24 @@ filterContainer(context) {
                                     ? myWhite
                                     : myBlack.withOpacity(.3),
                               ),
-                              child: CheckboxGroup(
-                                  labels: <String>[
-                                    "Best Sellers",
-                                    "Low - High",
-                                    "High - Low",
-                                  ],
-                                  labelStyle: TextStyle(
-                                    color:
-                                        darkTheme == true ? myWhite : myBlack,
-                                    fontSize: dynamicWidth(context, .032),
-                                  ),
-                                  margin: EdgeInsets.symmetric(
-                                    horizontal: 1.0,
-                                  ),
-                                  activeColor:
-                                      darkTheme == true ? myWhite : myRed,
-                                  checkColor:
-                                      darkTheme == true ? myBlack : myWhite,
-                                  onSelected: (List<String> checked) =>
-                                      filterChecks = checked),
+                              child: RadioButtonGroup(
+                                labels: <String>[
+                                  "Best Sellers",
+                                  "Low - High",
+                                  "High - Low",
+                                ],
+                                labelStyle: TextStyle(
+                                  color: darkTheme == true ? myWhite : myBlack,
+                                  fontSize: dynamicWidth(context, .032),
+                                ),
+                                margin: EdgeInsets.symmetric(
+                                  horizontal: 1.0,
+                                ),
+                                activeColor:
+                                    darkTheme == true ? myWhite : myRed,
+                                onSelected: (String selected) =>
+                                    sortFilterCheck = selected,
+                              ),
                             ),
                           ),
                           Container(
@@ -603,7 +600,7 @@ filterContainer(context) {
                                     ? myWhite
                                     : myBlack.withOpacity(.3),
                               ),
-                              child: CheckboxGroup(
+                              child: RadioButtonGroup(
                                 labels: <String>[
                                   "Small",
                                   "Medium",
@@ -619,11 +616,8 @@ filterContainer(context) {
                                 ),
                                 activeColor:
                                     darkTheme == true ? myWhite : myRed,
-                                checkColor:
-                                    darkTheme == true ? myBlack : myWhite,
-                                onSelected: (List<String> checked) => print(
-                                  checked.toString(),
-                                ),
+                                onSelected: (String selected) =>
+                                    sizeFilterCheck = selected,
                               ),
                             ),
                           ),
@@ -710,11 +704,10 @@ filterContainer(context) {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          coloredButton(
-                            context,
-                            "Apply Filters",
-                            width: dynamicWidth(context, .46),
-                          ),
+                          coloredButton(context, "Apply Filters",
+                              width: dynamicWidth(context, .46), function: () {
+                            pop(context);
+                          }),
                         ],
                       ),
                     ],

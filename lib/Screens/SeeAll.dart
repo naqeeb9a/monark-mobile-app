@@ -56,8 +56,8 @@ class _SeeAllState extends State<SeeAll> {
               ),
             ),
             heightBox(context, .06),
-            filterChecks != ""
-                ? getfilteredGrid(widget.handle, context, widget.check)
+            sortFilterCheck != ""
+                ? getFilteredGrid(widget.handle, context, widget.check)
                 : detailGrid(widget.function, context, widget.check),
             SizedBox(
               height: dynamicHeight(context, .02),
@@ -69,13 +69,13 @@ class _SeeAllState extends State<SeeAll> {
   }
 }
 
-getfilteredGrid(handle, context, check) {
-  print(filterChecks[0]);
-  if (filterChecks[0] == "Best Sellers") {
+getFilteredGrid(handle, context, check) {
+  print(sortFilterCheck);
+  if (sortFilterCheck == "Best Sellers") {
     print(true);
     return detailGrid(
         getShopifyCollection(handle, sortKey: "BEST_SELLING"), context, check);
-  } else if (filterChecks[0] == "Low - High") {
+  } else if (sortFilterCheck == "Low - High") {
     return detailGrid(
         getShopifyCollection(handle, sortKey: "PRICE"), context, check);
   } else {
