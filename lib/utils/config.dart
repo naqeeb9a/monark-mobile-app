@@ -23,3 +23,6 @@ var id = "";
 bool darkTheme = false;
 dynamic sortFilterCheck = "";
 dynamic sizeFilterCheck = "";
+
+dynamic lowerPriceFilter = 0.0;
+dynamic upperPriceFilter = 0.0;

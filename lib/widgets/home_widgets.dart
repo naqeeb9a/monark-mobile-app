@@ -472,9 +472,6 @@ String titleCase(String text) {
 }
 
 filterContainer(context) {
-  dynamic _lowerValue = 0.0;
-  dynamic _upperValue = 0.0;
-
   return showDialog(
     barrierDismissible: true,
     context: context,
@@ -646,7 +643,7 @@ filterContainer(context) {
                       SizedBox(
                         width: dynamicWidth(context, .72),
                         child: FlutterSlider(
-                          values: [_lowerValue, _upperValue],
+                          values: [lowerPriceFilter, upperPriceFilter],
                           rangeSlider: true,
                           max: 50000,
                           min: 0,
@@ -667,8 +664,8 @@ filterContainer(context) {
                             ),
                           ),
                           onDragging: (handlerIndex, lowerValue, upperValue) {
-                            _lowerValue = lowerValue;
-                            _upperValue = upperValue;
+                            lowerPriceFilter = lowerValue;
+                            upperPriceFilter = upperValue;
                             setState(() {});
                           },
                         ),
@@ -682,7 +679,7 @@ filterContainer(context) {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "From : " + _lowerValue.toString(),
+                              "From : " + lowerPriceFilter.toString(),
                               style: TextStyle(
                                 fontSize: dynamicWidth(context, .04),
                                 fontWeight: FontWeight.w600,
@@ -690,7 +687,7 @@ filterContainer(context) {
                               ),
                             ),
                             Text(
-                              "To : " + _upperValue.toString(),
+                              "To : " + upperPriceFilter.toString(),
                               style: TextStyle(
                                 fontSize: dynamicWidth(context, .04),
                                 fontWeight: FontWeight.w600,
