@@ -65,11 +65,26 @@ class _AddressPageState extends State<AddressPage> {
 
   bool loading = false;
 
-  Future addr() async {
+  Future addressClean() async {
     setState(() {
       loading = true;
     });
     addressList = await getUserAddresses();
+
+    for (int i = 0; i < addressList.length; i++) {
+      print("i $i " + addressList[i]['node']["address1"]);
+      for (int j = 0; j < addressList.length; j++) {
+        print("j $j " + addressList[j]['node']["address1"]);
+        if (i != j) {
+          if (addressList[i]['node']["address1"] ==
+              addressList[j]['node']["address1"]) {
+            print("\n\n\n\ntrue\n\n");
+            addressList.removeAt(j);
+            break;
+          }
+        }
+      }
+    }
 
     setState(() {
       loading = false;
@@ -79,7 +94,7 @@ class _AddressPageState extends State<AddressPage> {
   @override
   void initState() {
     super.initState();
-    addr();
+    addressClean();
   }
 
   @override
