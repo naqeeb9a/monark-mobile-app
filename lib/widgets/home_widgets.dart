@@ -729,6 +729,7 @@ Widget jumpingDots(context) {
   return Center(
     child: JumpingText(
       ".....",
+      end: Offset(0.0, -0.1),
       style: TextStyle(
         color: darkTheme == true ? myWhite : myBlack,
         fontSize: dynamicWidth(context, .08),

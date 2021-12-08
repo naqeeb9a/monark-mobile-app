@@ -107,56 +107,7 @@ Widget detailGridExtension(function, context, check, expandedCheck) {
             ),
           );
         } else if ((snapshot.data as List).length != 0) {
-          return Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: dynamicWidth(context, .04),
-            ),
-            child: GridView.builder(
-                itemCount: (snapshot.data as List).length,
-                physics: expandedCheck == true
-                    ? AlwaysScrollableScrollPhysics()
-                    : NeverScrollableScrollPhysics(),
-                shrinkWrap: expandedCheck == true ? false : true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisSpacing: dynamicWidth(context, .04),
-                  mainAxisSpacing: check == true
-                      ? dynamicHeight(context, .001)
-                      : dynamicHeight(context, .02),
-                  crossAxisCount: 2,
-                  childAspectRatio: 5 / 9.2,
-                ),
-                itemBuilder: (context, index) {
-                  return Center(
-                    child: check == true
-                        ? basicCards(
-                            context,
-                            snapshot.data[index]["node"]["image"]["src"],
-                            snapshot.data[index]["node"]["title"],
-                            snapshot.data[index]["node"]["handle"],
-                            categoriesCheck: true,
-                          )
-                        : basicCards(
-                            context,
-                            snapshot.data[index]["node"]["images"]["edges"],
-                            snapshot.data[index]["node"]["title"],
-                            snapshot.data[index]["node"]["availableForSale"],
-                            variantProduct: snapshot.data[index]["node"]
-                                ["variants"]["edges"],
-                            sizeOption: snapshot.data[index]["node"]["options"]
-                                [0]["values"],
-                            description: snapshot.data[index]["node"]
-                                ["description"],
-                            productType: snapshot.data[index]["node"]
-                                ["productType"],
-                            check: snapshot.data[index]["node"]
-                                        ["availableForSale"] ==
-                                    true
-                                ? false
-                                : true,
-                            wishList: snapshot.data[index]),
-                  );
-                }),
-          );
+          return customGrid(context, expandedCheck, check, snapshot.data);
         } else {
           return Center(
             child: Text(
@@ -183,5 +134,52 @@ Widget detailGridExtension(function, context, check, expandedCheck) {
               );
       }
     },
+  );
+}
+
+Widget customGrid(context, expandedCheck, check, data) {
+  return Padding(
+    padding: EdgeInsets.symmetric(
+      horizontal: dynamicWidth(context, .04),
+    ),
+    child: GridView.builder(
+        itemCount: (data as List).length,
+        physics: expandedCheck == true
+            ? AlwaysScrollableScrollPhysics()
+            : NeverScrollableScrollPhysics(),
+        shrinkWrap: expandedCheck == true ? false : true,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: dynamicWidth(context, .04),
+          mainAxisSpacing: check == true
+              ? dynamicHeight(context, .001)
+              : dynamicHeight(context, .02),
+          crossAxisCount: 2,
+          childAspectRatio: 5 / 9.2,
+        ),
+        itemBuilder: (context, index) {
+          return Center(
+            child: check == true
+                ? basicCards(
+                    context,
+                    data[index]["node"]["image"]["src"],
+                    data[index]["node"]["title"],
+                    data[index]["node"]["handle"],
+                    categoriesCheck: true,
+                  )
+                : basicCards(
+                    context,
+                    data[index]["node"]["images"]["edges"],
+                    data[index]["node"]["title"],
+                    data[index]["node"]["availableForSale"],
+                    variantProduct: data[index]["node"]["variants"]["edges"],
+                    sizeOption: data[index]["node"]["options"][0]["values"],
+                    description: data[index]["node"]["description"],
+                    productType: data[index]["node"]["productType"],
+                    check: data[index]["node"]["availableForSale"] == true
+                        ? false
+                        : true,
+                    wishList: data[index]),
+          );
+        }),
   );
 }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
-
-import 'SeeAll.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -16,13 +15,26 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
-
+  dynamic futureHomeData = "";
+  bool loading = true;
   List sliderImage = [
     'https://www.crushpixel.com/big-static20/preview4/modern-black-friday-sale-splash-3971985.jpg',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7igM_cOrelNFSjvci4DzT8HMo6xHbNnSjkTg8gkgD5_psi5hE0NVncBEAFLGn15uCaRk&usqp=CAU',
     'https://img.paisawapas.com/ovz3vew9pw/2021/07/20170241/04.jpg',
     'https://www.shopickr.com/wp-content/uploads/2016/06/landmark-shops-india-online-lifestyle-fashion-sale.jpg',
   ];
+  getHomeData() async {
+    futureHomeData = await getShopifyProductsBestSelling();
+    setState(() {
+      loading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getHomeData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +85,15 @@ class _HomeState extends State<Home> {
                 SizedBox(
                   height: dynamicHeight(context, .02),
                 ),
-                detailGrid(getShopifyProductsBestSelling(), context, false,
-                    expandedCheck: false),
+                loading == true
+                    ? SizedBox(
+                        height: dynamicHeight(context, 0.4),
+                        child: Image.asset(
+                          "assets/loader.gif",
+                          scale: 4,
+                        ),
+                      )
+                    : customGrid(context, false, false, futureHomeData),
                 SizedBox(
                   height: dynamicHeight(context, .02),
                 ),
