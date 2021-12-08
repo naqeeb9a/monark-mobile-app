@@ -75,6 +75,7 @@ Widget basicCards(context, imageUrl, text, availableForSale,
                         description: description,
                         availableForSale: availableForSale,
                         productType: productType,
+                        wishList: wishList,
                       ),
                     ),
                   );
@@ -88,73 +89,48 @@ Widget basicCards(context, imageUrl, text, availableForSale,
 Widget internalWidgetCard(
     context, imageUrl, variantProduct, text, categoriesCheck,
     {outOfStock = false, wishList = "", refreshScreen = ""}) {
-  return Container(
-    margin: EdgeInsets.all(0),
-    width: dynamicWidth(context, 0.47),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(
-                dynamicWidth(context, .06),
-              ),
-              child: Container(
-                height: dynamicHeight(context, .32),
-                width: dynamicWidth(context, .47),
-                color: myWhite,
-                child: CachedNetworkImage(
-                  imageUrl: categoriesCheck == true
-                      ? imageUrl
-                      : imageUrl[0]["node"]["src"],
-                  fit: BoxFit.cover,
-                  placeholder: (context, string) {
-                    return Image.asset(
-                      "assets/loader.gif",
-                      scale: 6,
-                    );
-                  },
+  return StatefulBuilder(builder: (context, stateful) {
+    return Container(
+      margin: EdgeInsets.all(0),
+      width: dynamicWidth(context, 0.47),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(
+                  dynamicWidth(context, .06),
+                ),
+                child: Container(
+                  height: dynamicHeight(context, .32),
+                  width: dynamicWidth(context, .47),
+                  color: myWhite,
+                  child: CachedNetworkImage(
+                    imageUrl: categoriesCheck == true
+                        ? imageUrl
+                        : imageUrl[0]["node"]["src"],
+                    fit: BoxFit.cover,
+                    placeholder: (context, string) {
+                      return Image.asset(
+                        "assets/loader.gif",
+                        scale: 6,
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-            categoriesCheck == true
-                ? Container()
-                : Positioned(
-                    bottom: dynamicHeight(context, 0.02),
-                    right: dynamicWidth(context, 0.04),
-                    child: GestureDetector(
-                      onTap: () {
-                        var check = "";
-
-                        if (wishListItems.length == 0) {
-                          wishListItems.insert(0, wishList);
-                          var snackBar = SnackBar(
-                            content: Text(
-                              'Item Added to Wish List',
-                              style: TextStyle(
-                                color: darkTheme == false ? myWhite : myBlack,
-                              ),
-                            ),
-                            duration: const Duration(seconds: 1),
-                            backgroundColor:
-                                darkTheme == true ? myWhite : myBlack,
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        } else {
-                          for (int i = 0; i < wishListItems.length; i++) {
-                            if (wishListItems[i]["node"]["id"] ==
-                                wishList["node"]["id"]) {
-                              wishListItems.removeAt(i);
-                              check = "no";
-                            } else {
-                              wishListItems.insert(0, wishList);
-                              check = "ok";
-                              break;
-                            }
-                          }
-                          if (check == "ok") {
+              categoriesCheck == true
+                  ? Container()
+                  : Positioned(
+                      bottom: dynamicHeight(context, 0.02),
+                      right: dynamicWidth(context, 0.04),
+                      child: GestureDetector(
+                        onTap: () {
+                          var check = "";
+                          if (wishListItems.length == 0) {
+                            wishListItems.add(wishList);
                             var snackBar = SnackBar(
                               content: Text(
                                 'Item Added to Wish List',
@@ -168,117 +144,150 @@ Widget internalWidgetCard(
                             );
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
-                          } else if (check == "no") {
-                            var snackBar = SnackBar(
-                              content: Text(
-                                'Item Removed from Wish List',
-                                style: TextStyle(
-                                  color: darkTheme == false ? myWhite : myBlack,
-                                ),
-                              ),
-                              duration: const Duration(seconds: 1),
-                              backgroundColor:
-                                  darkTheme == true ? myWhite : myBlack,
-                            );
                             refreshScreen();
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
+                          } else {
+                            for (int i = 0; i < wishListItems.length; i++) {
+                              if (wishListItems[i]["node"]["id"] ==
+                                  wishList["node"]["id"]) {
+                                wishListItems.removeAt(i);
+                                var snackBar = SnackBar(
+                                  content: Text(
+                                    'Item Removed from Wish List',
+                                    style: TextStyle(
+                                      color: darkTheme == false
+                                          ? myWhite
+                                          : myBlack,
+                                    ),
+                                  ),
+                                  duration: const Duration(seconds: 1),
+                                  backgroundColor:
+                                      darkTheme == true ? myWhite : myBlack,
+                                );
+
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                                refreshScreen();
+                                check = "yes";
+                                break;
+                              } else {
+                                check = "no";
+                              }
+                            }
+
+                            if (check == "no" && check != "yes") {
+                              wishListItems.add(wishList);
+                              var snackBar = SnackBar(
+                                content: Text(
+                                  'Item Added to Wish List',
+                                  style: TextStyle(
+                                    color:
+                                        darkTheme == false ? myWhite : myBlack,
+                                  ),
+                                ),
+                                duration: const Duration(seconds: 1),
+                                backgroundColor:
+                                    darkTheme == true ? myWhite : myBlack,
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                              refreshScreen();
+                            }
                           }
-                        }
-                      },
-                      child: CircleAvatar(
-                        radius: dynamicWidth(context, 0.04),
-                        backgroundColor: myWhite,
-                        child: Icon(
-                          Icons.favorite,
-                          size: dynamicWidth(context, 0.05),
-                          color: myRed,
+                        },
+                        child: CircleAvatar(
+                          radius: dynamicWidth(context, 0.04),
+                          backgroundColor: myWhite,
+                          child: Icon(
+                            Icons.favorite,
+                            size: dynamicWidth(context, 0.05),
+                            color: myRed,
+                          ),
                         ),
                       ),
                     ),
+            ],
+          ),
+          categoriesCheck == true
+              ? Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                      fontFamily: "Aeonik",
+                      color: darkTheme == true ? myWhite : myBlack,
+                      fontSize: dynamicWidth(context, .04),
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-          ],
-        ),
-        categoriesCheck == true
-            ? Align(
-                alignment: Alignment.center,
-                child: Text(
-                  text,
-                  style: TextStyle(
-                    fontFamily: "Aeonik",
-                    color: darkTheme == true ? myWhite : myBlack,
-                    fontSize: dynamicWidth(context, .04),
-                    fontWeight: FontWeight.bold,
+                )
+              : Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                      color: darkTheme == true ? myWhite : myBlack,
+                      fontSize: dynamicWidth(context, .03),
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
                 ),
-              )
-            : Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  text,
-                  style: TextStyle(
-                    color: darkTheme == true ? myWhite : myBlack,
-                    fontSize: dynamicWidth(context, .03),
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+          categoriesCheck == true
+              ? Container()
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    (variantProduct[0]["node"]["compareAtPrice"] ==
+                                variantProduct[0]["node"]["price"] ||
+                            variantProduct[0]["node"]["compareAtPrice"] == null)
+                        ? Text(
+                            "Pkr. " +
+                                double.parse(variantProduct[0]["node"]["price"])
+                                    .toInt()
+                                    .toString(),
+                            style: TextStyle(
+                              fontFamily: "Aeonik",
+                              color: darkTheme == true ? myWhite : myBlack,
+                              fontWeight: FontWeight.w600,
+                              fontSize: dynamicWidth(context, .034),
+                            ),
+                          )
+                        : Text(
+                            "Pkr. " +
+                                double.parse(variantProduct[0]["node"]
+                                        ["compareAtPrice"])
+                                    .toInt()
+                                    .toString(),
+                            style: TextStyle(
+                              fontFamily: "Aeonik",
+                              color: darkTheme == true ? myWhite : myBlack,
+                              decoration: TextDecoration.lineThrough,
+                              fontSize: dynamicWidth(context, .034),
+                            ),
+                          ),
+                    (variantProduct[0]["node"]["compareAtPrice"] ==
+                                variantProduct[0]["node"]["price"] ||
+                            variantProduct[0]["node"]["compareAtPrice"] == null)
+                        ? Container()
+                        : Text(
+                            "Pkr. " +
+                                double.parse(variantProduct[0]["node"]["price"])
+                                    .toInt()
+                                    .toString(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: dynamicWidth(context, .034),
+                              color: darkTheme == true ? myWhite : myRed,
+                            ),
+                          )
+                  ],
                 ),
-              ),
-        categoriesCheck == true
-            ? Container()
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  (variantProduct[0]["node"]["compareAtPrice"] ==
-                              variantProduct[0]["node"]["price"] ||
-                          variantProduct[0]["node"]["compareAtPrice"] == null)
-                      ? Text(
-                          "Pkr. " +
-                              double.parse(variantProduct[0]["node"]["price"])
-                                  .toInt()
-                                  .toString(),
-                          style: TextStyle(
-                            fontFamily: "Aeonik",
-                            color: darkTheme == true ? myWhite : myBlack,
-                            fontWeight: FontWeight.w600,
-                            fontSize: dynamicWidth(context, .034),
-                          ),
-                        )
-                      : Text(
-                          "Pkr. " +
-                              double.parse(variantProduct[0]["node"]
-                                      ["compareAtPrice"])
-                                  .toInt()
-                                  .toString(),
-                          style: TextStyle(
-                            fontFamily: "Aeonik",
-                            color: darkTheme == true ? myWhite : myBlack,
-                            decoration: TextDecoration.lineThrough,
-                            fontSize: dynamicWidth(context, .034),
-                          ),
-                        ),
-                  (variantProduct[0]["node"]["compareAtPrice"] ==
-                              variantProduct[0]["node"]["price"] ||
-                          variantProduct[0]["node"]["compareAtPrice"] == null)
-                      ? Container()
-                      : Text(
-                          "Pkr. " +
-                              double.parse(variantProduct[0]["node"]["price"])
-                                  .toInt()
-                                  .toString(),
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: dynamicWidth(context, .034),
-                            color: darkTheme == true ? myWhite : myRed,
-                          ),
-                        )
-                ],
-              ),
-      ],
-    ),
-  );
+        ],
+      ),
+    );
+  });
 }
 
 Widget rowText(text, context, {function = "", check = false}) {

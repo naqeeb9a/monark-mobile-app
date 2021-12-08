@@ -23,6 +23,7 @@ class _HomeState extends State<Home> {
     'https://img.paisawapas.com/ovz3vew9pw/2021/07/20170241/04.jpg',
     'https://www.shopickr.com/wp-content/uploads/2016/06/landmark-shops-india-online-lifestyle-fashion-sale.jpg',
   ];
+
   getHomeData() async {
     futureHomeData = await getShopifyProductsBestSelling();
     setState(() {

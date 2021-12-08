@@ -17,16 +17,19 @@ class DetailPage extends StatefulWidget {
   final dynamic description;
   final bool availableForSale;
   final String productType;
+  final dynamic wishList;
 
-  const DetailPage({Key? key,
+  const DetailPage({
+    Key? key,
     required this.image,
     this.description,
     this.array,
     required this.variantProduct,
     required this.text,
     required this.availableForSale,
-    required this.productType})
-      : super(key: key);
+    required this.productType,
+    required this.wishList,
+  }) : super(key: key);
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -110,8 +113,8 @@ class _DetailPageState extends State<DetailPage> {
 
     if (widget.variantProduct[productIndex]["node"]["compareAtPrice"] != null) {
       saleDifference = double.parse(
-          widget.variantProduct[productIndex]["node"]["compareAtPrice"])
-          .toInt() -
+                  widget.variantProduct[productIndex]["node"]["compareAtPrice"])
+              .toInt() -
           double.parse(widget.variantProduct[productIndex]["node"]["price"])
               .toInt();
     }
@@ -220,7 +223,7 @@ class _DetailPageState extends State<DetailPage> {
                                     fontWeight: FontWeight.bold,
                                     fontSize: dynamicWidth(context, .04),
                                     color:
-                                    darkTheme == true ? myWhite : myBlack,
+                                        darkTheme == true ? myWhite : myBlack,
                                   ),
                                 ),
                               ],
@@ -234,23 +237,22 @@ class _DetailPageState extends State<DetailPage> {
                               children: [
                                 Text(
                                   (widget.variantProduct[productIndex]["node"]
-                                  ["compareAtPrice"] ==
-                                      widget.variantProduct[productIndex]
-                                      ["node"]["price"] ||
-                                      widget.variantProduct[productIndex]
-                                      ["node"]["compareAtPrice"] ==
-                                          null)
+                                                  ["compareAtPrice"] ==
+                                              widget.variantProduct[productIndex]
+                                                  ["node"]["price"] ||
+                                          widget.variantProduct[productIndex]
+                                                  ["node"]["compareAtPrice"] ==
+                                              null)
                                       ? "Pkr. " +
-                                      double.parse(widget
-                                          .variantProduct[productIndex]["node"]["price"])
-                                          .toInt()
-                                          .toString()
+                                          double.parse(widget.variantProduct[productIndex]["node"]["price"])
+                                              .toInt()
+                                              .toString()
                                       : "Pkr. " +
-                                      double.parse(widget
-                                          .variantProduct[productIndex]
-                                      ["node"]["compareAtPrice"])
-                                          .toInt()
-                                          .toString(),
+                                          double.parse(widget
+                                                      .variantProduct[productIndex]
+                                                  ["node"]["compareAtPrice"])
+                                              .toInt()
+                                              .toString(),
                                   style: TextStyle(
                                     fontFamily: "Aeonik",
                                     color: darkTheme == true ? myWhite : myRed,
@@ -260,17 +262,17 @@ class _DetailPageState extends State<DetailPage> {
                                 ),
                                 Text(
                                   (widget.variantProduct[productIndex]["node"]
-                                  ["compareAtPrice"] ==
-                                      widget.variantProduct[
-                                      productIndex]["node"]
-                                      ["price"] ||
-                                      widget.variantProduct[productIndex]
-                                      ["node"]["compareAtPrice"] ==
-                                          null)
+                                                  ["compareAtPrice"] ==
+                                              widget.variantProduct[
+                                                      productIndex]["node"]
+                                                  ["price"] ||
+                                          widget.variantProduct[productIndex]
+                                                  ["node"]["compareAtPrice"] ==
+                                              null)
                                       ? ""
                                       : "You Save  " +
-                                      saleDifference.toString() +
-                                      " Pkr",
+                                          saleDifference.toString() +
+                                          " Pkr",
                                   style: TextStyle(
                                     color: darkTheme == true
                                         ? myWhite
@@ -284,64 +286,64 @@ class _DetailPageState extends State<DetailPage> {
                         ],
                       ),
                       (widget.array.toString().contains("Default") ||
-                          widget.array == "")
+                              widget.array == "")
                           ? Container()
                           : Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: sizeGuideImage == ""
-                              ? dynamicHeight(context, .01)
-                              : 0,
-                        ),
-                        child: Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Size",
-                              style: TextStyle(
-                                color:
-                                darkTheme == true ? myWhite : myBlack,
-                                fontSize: dynamicWidth(context, .05),
+                              padding: EdgeInsets.symmetric(
+                                vertical: sizeGuideImage == ""
+                                    ? dynamicHeight(context, .01)
+                                    : 0,
                               ),
-                            ),
-                            sizeGuideImage == ""
-                                ? Container()
-                                : InkWell(
-                              onTap: () {
-                                imageAlert(
-                                  context,
-                                  "$sizeGuideImage",
-                                  true,
-                                );
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical:
-                                  dynamicHeight(context, .01),
-                                ),
-                                child: Text(
-                                  "Size Guide",
-                                  style: TextStyle(
-                                    color: darkTheme == true
-                                        ? myWhite
-                                        : myBlack,
-                                    fontSize:
-                                    dynamicWidth(context, .042),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Size",
+                                    style: TextStyle(
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontSize: dynamicWidth(context, .05),
+                                    ),
                                   ),
-                                ),
+                                  sizeGuideImage == ""
+                                      ? Container()
+                                      : InkWell(
+                                          onTap: () {
+                                            imageAlert(
+                                              context,
+                                              "$sizeGuideImage",
+                                              true,
+                                            );
+                                          },
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              vertical:
+                                                  dynamicHeight(context, .01),
+                                            ),
+                                            child: Text(
+                                              "Size Guide",
+                                              style: TextStyle(
+                                                color: darkTheme == true
+                                                    ? myWhite
+                                                    : myBlack,
+                                                fontSize:
+                                                    dynamicWidth(context, .042),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
                       (widget.array.toString().contains("Default") ||
-                          widget.array == "")
+                              widget.array == "")
                           ? Container()
                           : sizeOptions(
-                        context,
-                        sizeArray,
-                        widget.variantProduct,
-                      ),
+                              context,
+                              sizeArray,
+                              widget.variantProduct,
+                            ),
                       Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: dynamicHeight(context, .008),
@@ -393,7 +395,7 @@ class _DetailPageState extends State<DetailPage> {
                                       Icons.remove,
                                       size: dynamicWidth(context, .05),
                                       color:
-                                      darkTheme == true ? myWhite : myRed,
+                                          darkTheme == true ? myWhite : myRed,
                                     ),
                                   ),
                                 ),
@@ -403,7 +405,7 @@ class _DetailPageState extends State<DetailPage> {
                                   quantity.toString(),
                                   style: TextStyle(
                                     color:
-                                    darkTheme == true ? myWhite : myBlack,
+                                        darkTheme == true ? myWhite : myBlack,
                                     fontSize: dynamicWidth(context, .05),
                                   ),
                                 );
@@ -436,7 +438,7 @@ class _DetailPageState extends State<DetailPage> {
                           context,
                           widget.image[0]["node"]["src"],
                           double.parse(widget.variantProduct[productIndex]
-                          ["node"]["price"])
+                                  ["node"]["price"])
                               .toInt()
                               .toString(),
                           widget.text,
@@ -470,13 +472,75 @@ class _DetailPageState extends State<DetailPage> {
               Positioned(
                 top: dynamicHeight(context, .43),
                 right: dynamicWidth(context, .08),
-                child: CircleAvatar(
-                  radius: dynamicWidth(context, 0.05),
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.favorite,
-                    size: dynamicWidth(context, 0.06),
-                    color: myRed,
+                child: GestureDetector(
+                  onTap: () {
+                    var check = "";
+                    if (wishListItems.length == 0) {
+                      wishListItems.add(widget.wishList);
+                      var snackBar = SnackBar(
+                        content: Text(
+                          'Item Added to Wish List',
+                          style: TextStyle(
+                            color: darkTheme == false ? myWhite : myBlack,
+                          ),
+                        ),
+                        duration: const Duration(seconds: 1),
+                        backgroundColor: darkTheme == true ? myWhite : myBlack,
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      setState(() {});
+                    } else {
+                      for (int i = 0; i < wishListItems.length; i++) {
+                        if (wishListItems[i]["node"]["id"] ==
+                            widget.wishList["node"]["id"]) {
+                          wishListItems.removeAt(i);
+                          var snackBar = SnackBar(
+                            content: Text(
+                              'Item Removed from Wish List',
+                              style: TextStyle(
+                                color: darkTheme == false ? myWhite : myBlack,
+                              ),
+                            ),
+                            duration: const Duration(seconds: 1),
+                            backgroundColor:
+                                darkTheme == true ? myWhite : myBlack,
+                          );
+
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          setState(() {});
+                          check = "yes";
+                          break;
+                        } else {
+                          check = "no";
+                        }
+                      }
+
+                      if (check == "no" && check != "yes") {
+                        wishListItems.add(widget.wishList);
+                        var snackBar = SnackBar(
+                          content: Text(
+                            'Item Added to Wish List',
+                            style: TextStyle(
+                              color: darkTheme == false ? myWhite : myBlack,
+                            ),
+                          ),
+                          duration: const Duration(seconds: 1),
+                          backgroundColor:
+                              darkTheme == true ? myWhite : myBlack,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        setState(() {});
+                      }
+                    }
+                  },
+                  child: CircleAvatar(
+                    radius: dynamicWidth(context, 0.05),
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Icons.favorite,
+                      size: dynamicWidth(context, 0.06),
+                      color: myRed,
+                    ),
                   ),
                 ),
               )
@@ -492,73 +556,72 @@ class _DetailPageState extends State<DetailPage> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: List.generate(
         array.length,
-            (index) =>
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: dynamicWidth(context, .01),
-              ),
-              child: Material(
-                color: noColor,
-                child: InkWell(
-                  onTap: () {
-                    setState(() {
-                      selectedSize = array[index];
-                      productIndex = index;
-                    });
-                  },
-                  child: Ink(
-                    child: Container(
-                      width: dynamicWidth(context, .08),
-                      height: dynamicWidth(context, .09),
-                      decoration: BoxDecoration(
-                        color: darkTheme == true
-                            ? selectedSize == array[index]
+        (index) => Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: dynamicWidth(context, .01),
+          ),
+          child: Material(
+            color: noColor,
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  selectedSize = array[index];
+                  productIndex = index;
+                });
+              },
+              child: Ink(
+                child: Container(
+                  width: dynamicWidth(context, .08),
+                  height: dynamicWidth(context, .09),
+                  decoration: BoxDecoration(
+                    color: darkTheme == true
+                        ? selectedSize == array[index]
                             ? myWhite
                             : noColor
-                            : selectedSize == array[index]
+                        : selectedSize == array[index]
                             ? myRed
                             : noColor,
-                        borderRadius: BorderRadius.circular(
-                          dynamicWidth(context, .012),
-                        ),
-                        border: Border.all(
-                          color: darkTheme == true
-                              ? selectedSize == array[index]
+                    borderRadius: BorderRadius.circular(
+                      dynamicWidth(context, .012),
+                    ),
+                    border: Border.all(
+                      color: darkTheme == true
+                          ? selectedSize == array[index]
                               ? myWhite
                               : myWhite.withOpacity(.5)
-                              : selectedSize == array[index]
+                          : selectedSize == array[index]
                               ? myRed
                               : myBlack.withOpacity(.3),
-                          width: 1.4,
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          array[index].toString(),
-                          style: TextStyle(
-                            fontSize: dynamicWidth(context, .035),
-                            color: darkTheme == true
-                                ? selectedSize == array[index]
+                      width: 1.4,
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      array[index].toString(),
+                      style: TextStyle(
+                        fontSize: dynamicWidth(context, .035),
+                        color: darkTheme == true
+                            ? selectedSize == array[index]
                                 ? myBlack
                                 : myWhite
-                                : selectedSize == array[index]
+                            : selectedSize == array[index]
                                 ? myWhite
                                 : myBlack,
-                          ),
-                        ),
                       ),
                     ),
                   ),
                 ),
               ),
             ),
+          ),
+        ),
       ),
     );
   }
 }
 
-Widget bottomButton(context, image, price, text, cartQuantity, sku, variantId,
-    size) {
+Widget bottomButton(
+    context, image, price, text, cartQuantity, sku, variantId, size) {
   return MaterialButton(
     color: myRed,
     height: dynamicHeight(context, .05),
@@ -567,9 +630,7 @@ Widget bottomButton(context, image, price, text, cartQuantity, sku, variantId,
       borderRadius: BorderRadius.circular(
         dynamicWidth(context, .08),
       ),
-      side: BorderSide(color: Theme
-          .of(context)
-          .primaryColor),
+      side: BorderSide(color: Theme.of(context).primaryColor),
     ),
     onPressed: () {
       if (cartItems.length == 0) {
