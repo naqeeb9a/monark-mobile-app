@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
+import 'package:monark_app/api/api.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
@@ -17,12 +18,27 @@ class _HomeState extends State<Home> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   dynamic futureHomeData = "";
   bool loading = true;
-  List sliderImage = [
-    'https://www.crushpixel.com/big-static20/preview4/modern-black-friday-sale-splash-3971985.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7igM_cOrelNFSjvci4DzT8HMo6xHbNnSjkTg8gkgD5_psi5hE0NVncBEAFLGn15uCaRk&usqp=CAU',
-    'https://img.paisawapas.com/ovz3vew9pw/2021/07/20170241/04.jpg',
-    'https://www.shopickr.com/wp-content/uploads/2016/06/landmark-shops-india-online-lifestyle-fashion-sale.jpg',
-  ];
+
+  List sliderImage = [];
+
+  sliderImageApi() async {
+    await ApiData().getInfo("banners").then(
+      (value) {
+        for (int i = 0; i < value.length; i++) {
+          setState(() {
+            sliderImage.add(value[i]["image_url"]);
+          });
+        }
+      },
+    );
+  }
+
+  // List sliderImage = [
+  //   'https://www.crushpixel.com/big-static20/preview4/modern-black-friday-sale-splash-3971985.jpg',
+  //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7igM_cOrelNFSjvci4DzT8HMo6xHbNnSjkTg8gkgD5_psi5hE0NVncBEAFLGn15uCaRk&usqp=CAU',
+  //   'https://img.paisawapas.com/ovz3vew9pw/2021/07/20170241/04.jpg',
+  //   'https://www.shopickr.com/wp-content/uploads/2016/06/landmark-shops-india-online-lifestyle-fashion-sale.jpg',
+  // ];
 
   getHomeData() async {
     futureHomeData = await getShopifyProductsBestSelling();
@@ -34,6 +50,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    sliderImageApi();
     getHomeData();
   }
 
