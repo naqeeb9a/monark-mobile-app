@@ -93,7 +93,31 @@ class _HomeState extends State<Home> {
                           scale: 4,
                         ),
                       )
-                    : customGrid(context, false, false, futureHomeData),
+                    : (futureHomeData == "Server Error")
+                        ? SizedBox(
+                            height: dynamicHeight(context, 0.4),
+                            child: Center(
+                              child: SizedBox(
+                                height: dynamicHeight(context, .25),
+                                child: Image.asset("assets/network_error.png"),
+                              ),
+                            ),
+                          )
+                        : (futureHomeData.length == 0)
+                            ? SizedBox(
+                                height: dynamicHeight(context, 0.4),
+                                child: Center(
+                                  child: Text(
+                                    "No Products Found",
+                                    style: TextStyle(
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontSize: dynamicWidth(context, .05),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : customGrid(context, false, false, futureHomeData),
                 SizedBox(
                   height: dynamicHeight(context, .02),
                 ),
