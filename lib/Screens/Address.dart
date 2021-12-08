@@ -7,7 +7,6 @@ import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 
 import 'Payment.dart';
 
@@ -99,13 +98,7 @@ class _AddressPageState extends State<AddressPage> {
       ),
       endDrawer: drawer(context),
       body: (loading == true)
-          ? Center(
-              child: JumpingDotsProgressIndicator(
-                color: darkTheme == true ? myWhite : myBlack,
-                numberOfDots: 5,
-                fontSize: dynamicWidth(context, .08),
-              ),
-            )
+          ? jumpingDots(context)
           : Stack(
               alignment: Alignment.center,
               children: [

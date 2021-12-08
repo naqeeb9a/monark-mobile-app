@@ -7,9 +7,9 @@ import 'package:monark_app/Screens/Home.dart';
 import 'package:monark_app/Screens/Profile.dart';
 import 'package:monark_app/Screens/Search.dart';
 import 'package:monark_app/utils/config.dart';
+import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BottomNav extends StatefulWidget {
@@ -44,13 +44,7 @@ class _BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     return (_loading == true)
         ? Scaffold(
-            body: Center(
-              child: JumpingDotsProgressIndicator(
-                color: darkTheme == true ? myWhite : myBlack,
-                numberOfDots: 5,
-                fontSize: dynamicWidth(context, .08),
-              ),
-            ),
+            body: jumpingDots(context),
           )
         : CupertinoTabScaffold(
             tabBar: CupertinoTabBar(

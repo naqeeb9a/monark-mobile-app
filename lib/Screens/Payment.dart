@@ -4,7 +4,6 @@ import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 
 import '../utils/config.dart';
 import 'Confirmation.dart';
@@ -17,7 +16,7 @@ class Payment extends StatefulWidget {
 }
 
 class _PaymentState extends State<Payment> {
-  bool isloading = false;
+  bool isLoading = false;
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -26,15 +25,9 @@ class _PaymentState extends State<Payment> {
     for (var u in cartItems) {
       subtotal += int.parse(u["total"].toString());
     }
-    return (isloading == true)
+    return (isLoading == true)
         ? Scaffold(
-            body: Center(
-              child: JumpingDotsProgressIndicator(
-                color: darkTheme == true ? myWhite : myBlack,
-                numberOfDots: 5,
-                fontSize: dynamicWidth(context, .08),
-              ),
-            ),
+            body: jumpingDots(context),
           )
         : Scaffold(
             key: _scaffoldKey,
@@ -132,13 +125,7 @@ class _PaymentState extends State<Payment> {
                                 ),
                               );
                             } else {
-                              return Center(
-                                child: JumpingDotsProgressIndicator(
-                                  color: darkTheme == true ? myWhite : myBlack,
-                                  numberOfDots: 5,
-                                  fontSize: dynamicWidth(context, .08),
-                                ),
-                              );
+                              return jumpingDots(context);
                             }
                           },
                         ),
@@ -267,12 +254,12 @@ class _PaymentState extends State<Payment> {
                 ),
                 bottomButton1(context, "CheckOut", () async {
                   setState(() {
-                    isloading = true;
+                    isLoading = true;
                   });
                   var response = await createDraftOrders(subtotal);
                   if (response == null || response == "Server Error") {
                     setState(() {
-                      isloading = false;
+                      isLoading = false;
                     });
                     var snackBar = SnackBar(
                       content: Text('Server Error check your internet'),
@@ -284,7 +271,7 @@ class _PaymentState extends State<Payment> {
                     var response2 = await orderItems(response);
                     if (response2 == null || response2 == "Server Error") {
                       setState(() {
-                        isloading = false;
+                        isLoading = false;
                       });
                       var snackBar = SnackBar(
                         content: Text("Try again Order not placed"),

@@ -9,6 +9,7 @@ import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 import '../utils/config.dart';
 import 'drawer_items.dart';
@@ -721,5 +722,17 @@ filterContainer(context) {
         );
       });
     },
+  );
+}
+
+Widget jumpingDots(context) {
+  return Center(
+    child: JumpingText(
+      ".....",
+      style: TextStyle(
+        color: darkTheme == true ? myWhite : myBlack,
+        fontSize: dynamicWidth(context, .08),
+      ),
+    ),
   );
 }

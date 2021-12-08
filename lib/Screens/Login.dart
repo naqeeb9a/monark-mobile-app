@@ -7,9 +7,9 @@ import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/form_fields.dart';
+import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/rich_text.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'SignUp.dart';
@@ -84,13 +84,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return isLoading == true
         ? Scaffold(
-            body: Center(
-              child: JumpingDotsProgressIndicator(
-                fontSize: dynamicWidth(context, .08),
-                numberOfDots: 5,
-                color: darkTheme == true ? myWhite : myBlack,
-              ),
-            ),
+            body: jumpingDots(context),
           )
         : SafeArea(
             child: SizedBox(

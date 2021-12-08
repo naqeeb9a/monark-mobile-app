@@ -7,9 +7,9 @@ import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/form_fields.dart';
+import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/rich_text.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -79,13 +79,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return (isLoading == true)
         ? Scaffold(
-            body: Center(
-              child: JumpingDotsProgressIndicator(
-                color: darkTheme == true ? myWhite : myBlack,
-                fontSize: dynamicWidth(context, .08),
-                numberOfDots: 5,
-              ),
-            ),
+            body: jumpingDots(context),
           )
         : SafeArea(
             child: SizedBox(

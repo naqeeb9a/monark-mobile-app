@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 
 import '../utils/config.dart';
 import 'home_widgets.dart';
@@ -56,11 +55,7 @@ PreferredSizeWidget bar(
                                 -dynamicWidth(context, .2),
                                 -dynamicWidth(context, 0.03),
                                 0.0),
-                            child: JumpingDotsProgressIndicator(
-                              numberOfDots: 5,
-                              fontSize: dynamicWidth(context, .08),
-                              color: darkTheme == true ? myWhite : myBlack,
-                            ),
+                            child: jumpingDots(context),
                           );
                         }
                       },

@@ -4,7 +4,8 @@ import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
-import 'package:progress_indicators/progress_indicators.dart';
+
+
 
 import 'SeeAll.dart';
 
@@ -73,13 +74,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 height: dynamicHeight(context, 0.05),
                 width: dynamicWidth(context, 1),
                 child: (loading == true)
-                    ? Center(
-                        child: JumpingDotsProgressIndicator(
-                          color: darkTheme == true ? myWhite : myBlack,
-                          numberOfDots: 5,
-                          fontSize: dynamicWidth(context, .08),
-                        ),
-                      )
+                    ? jumpingDots(context)
                     : ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: categoryList.length,

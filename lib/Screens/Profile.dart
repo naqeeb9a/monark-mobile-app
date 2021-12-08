@@ -13,7 +13,6 @@ import 'package:monark_app/widgets/drawer_items.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
@@ -84,12 +83,13 @@ class _ProfileState extends State<Profile> {
             height: dynamicHeight(context, .8),
             child: globalAccessToken == "guest"
                 ? Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       profilePicture(
                         context,
                       ),
-                      profileText(context, "Sign in"),
+                      heightBox(context, .06),
+                      profileText(context, "Guest"),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -124,6 +124,7 @@ class _ProfileState extends State<Profile> {
                       SizedBox(
                         height: dynamicHeight(context, 0.03),
                       ),
+                      heightBox(context, .06),
                       coloredButton(context,
                           (globalAccessToken == "guest") ? "Sign In" : "logout",
                           function: () async {
@@ -156,11 +157,12 @@ class _ProfileState extends State<Profile> {
                           );
                         } else {
                           return Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               profilePicture(
                                 context,
                               ),
+                              heightBox(context, .06),
                               profileText(
                                 context,
                                 titleCase(snapshot.data["firstName"]) +
@@ -192,16 +194,15 @@ class _ProfileState extends State<Profile> {
                               GestureDetector(
                                 onTap: () {
                                   push(
-                                      context,
-                                      AddressPage(
-                                        check: true,
-                                      ));
+                                    context,
+                                    AddressPage(
+                                      check: true,
+                                    ),
+                                  );
                                 },
                                 child: profileText(context, "Addresses"),
                               ),
-                              SizedBox(
-                                height: dynamicHeight(context, 0.03),
-                              ),
+                              heightBox(context, .06),
                               coloredButton(
                                   context,
                                   (globalAccessToken == "guest")
@@ -228,13 +229,7 @@ class _ProfileState extends State<Profile> {
                           );
                         }
                       } else {
-                        return Center(
-                          child: JumpingDotsProgressIndicator(
-                            color: darkTheme == true ? myWhite : myBlack,
-                            numberOfDots: 5,
-                            fontSize: dynamicWidth(context, .08),
-                          ),
-                        );
+                        return jumpingDots(context);
                       }
                     }),
           ),
@@ -250,7 +245,9 @@ Widget profileText(context, text1) {
     children: [
       Container(
         width: dynamicWidth(context, 0.7),
-        padding: EdgeInsets.symmetric(vertical: dynamicHeight(context, 0.01)),
+        padding: EdgeInsets.symmetric(
+          vertical: dynamicHeight(context, 0.014),
+        ),
         child: Text(
           text1,
           style: TextStyle(
@@ -258,9 +255,6 @@ Widget profileText(context, text1) {
             color: darkTheme == true ? myWhite : myBlack,
           ),
         ),
-      ),
-      SizedBox(
-        height: dynamicHeight(context, 0.01),
       ),
       Divider(
         color: darkTheme == true ? myWhite : myBlack,
