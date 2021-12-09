@@ -63,7 +63,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 context,
               ),
             ),
-            heightBox(context, .04),
+            heightBox(context, .02),
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: dynamicWidth(context, 0.02),
@@ -97,7 +97,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                 itemCount: categoryList.length,
                                 shrinkWrap: true,
                                 itemBuilder: (BuildContext context, int index) {
-                                  if (index == 0) {
+                                  if (index <= 0) {
                                     isSelected.add(true);
                                   } else {
                                     isSelected.add(false);
