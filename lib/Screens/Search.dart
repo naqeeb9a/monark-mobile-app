@@ -15,6 +15,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  bool loading = false;
+  dynamic futureSearchData = "";
   TextEditingController searchText = TextEditingController();
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -48,32 +50,61 @@ class _SearchPageState extends State<SearchPage> {
                   child: searchbar(
                     context,
                     controller: searchText,
-                    setStateFunction: () {
-                      setState(() {});
+                    setStateFunction: () async {
+                      setState(() {
+                        loading = true;
+                      });
+                      futureSearchData =
+                          await getSearchResults(searchText.text);
+                      print(futureSearchData);
+                      setState(() {
+                        loading = false;
+                      });
                     },
                   ),
                 ),
               ),
             ),
-            searchText.text == ""
-                ? Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: dynamicHeight(context, .2),
-                      ),
-                      child: Image.asset(
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: dynamicHeight(context, 0.01)),
+                child: searchText.text == ""
+                    ? Image.asset(
                         "assets/icons/searchIcon.png",
                         color:
                             darkTheme == true ? myRed : myBlack.withOpacity(.3),
                         scale: 20.0,
-                      ),
-                    ),
-                  )
-                : detailGrid(
-                    getSearchResults(searchText.text),
-                    context,
-                    false,
-                  ),
+                      )
+                    : (loading == true)
+                        ? Image.asset(
+                            "assets/loader.gif",
+                            scale: 4,
+                          )
+                        : futureSearchData == "Server Error"
+                            ? Center(
+                                child: SizedBox(
+                                  height: dynamicHeight(context, .25),
+                                  child:
+                                      Image.asset("assets/network_error.png"),
+                                ),
+                              )
+                            : futureSearchData.length == 0
+                                ? Center(
+                                    child: Text(
+                                      "No Products Found",
+                                      style: TextStyle(
+                                        color: darkTheme == true
+                                            ? myWhite
+                                            : myBlack,
+                                        fontSize: dynamicWidth(context, .05),
+                                      ),
+                                    ),
+                                  )
+                                : customGrid(
+                                    context, true, false, futureSearchData),
+              ),
+            )
           ],
         ),
       ),
@@ -90,6 +121,7 @@ getSearchResults(query) async {
         id
         description
         title
+        productType
         availableForSale
         totalInventory
         variants(first :10){
