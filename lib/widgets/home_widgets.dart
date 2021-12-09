@@ -112,6 +112,15 @@ Widget internalWidgetCard(
                         ? imageUrl
                         : imageUrl[0]["node"]["src"],
                     fit: BoxFit.cover,
+                    errorWidget: (context, url, error) => SizedBox(
+                      height: dynamicHeight(context, 0.4),
+                      child: Center(
+                        child: SizedBox(
+                          height: dynamicHeight(context, .25),
+                          child: Image.asset("assets/network_error.png"),
+                        ),
+                      ),
+                    ),
                     placeholder: (context, string) {
                       return Image.asset(
                         "assets/loader.gif",
@@ -415,7 +424,12 @@ Widget homeSlider(context, height, length, viewFraction, image, bool detail,
     itemCount: length,
     itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
         detail == true
-            ? sliderContainer(context, image[itemIndex], detail)
+            ? (image == "loading")
+                ? sliderContainer(context, "loading", detail)
+                : (image == false)
+                    ? sliderContainer(context, image, detail)
+                    : sliderContainer(
+                        context, image[itemIndex]["image_url"], detail)
             : InkWell(
                 onTap: page == "" ? () {} : page,
                 child: sliderContainer(
@@ -443,23 +457,38 @@ Widget homeSlider(context, height, length, viewFraction, image, bool detail,
   );
 }
 
-Widget sliderContainer(context, String image, bool detail) {
+Widget sliderContainer(context, image, bool detail) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(
       detail == false ? dynamicWidth(context, 0.0) : dynamicWidth(context, .08),
     ),
     child: InteractiveViewer(
-      child: CachedNetworkImage(
-        imageUrl: image,
-        fit: BoxFit.cover,
-        width: dynamicWidth(context, 1),
-        placeholder: (context, string) {
-          return Image.asset(
-            "assets/loader.gif",
-            scale: 6,
-          );
-        },
-      ),
+      child: (image == "loading")
+          ? Image.asset(
+              "assets/loader.gif",
+              scale: 6,
+            )
+          : (image == false)
+              ? SizedBox(
+                  height: dynamicHeight(context, 0.4),
+                  child: Center(
+                    child: SizedBox(
+                      height: dynamicHeight(context, .25),
+                      child: Image.asset("assets/network_error.png"),
+                    ),
+                  ),
+                )
+              : CachedNetworkImage(
+                  imageUrl: image,
+                  fit: BoxFit.cover,
+                  width: dynamicWidth(context, 1),
+                  placeholder: (context, string) {
+                    return Image.asset(
+                      "assets/loader.gif",
+                      scale: 6,
+                    );
+                  },
+                ),
     ),
   );
 }

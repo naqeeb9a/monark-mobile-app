@@ -18,29 +18,25 @@ class _HomeState extends State<Home> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   dynamic futureHomeData = "";
   bool loading = true;
+  bool sLoading = true;
 
-  List sliderImage = [];
+  dynamic sliderImage = "";
 
   sliderImageApi() async {
-    await ApiData().getInfo("banners").then(
-      (value) {
-        for (int i = 0; i < value.length; i++) {
-          setState(() {
-            sliderImage.add(value[i]["image_url"]);
-          });
-        }
-      },
-    );
+    setState(() {
+      sLoading = true;
+    });
+    sliderImage = await ApiData().getInfo("banners");
+
+    setState(() {
+      sLoading = false;
+    });
   }
 
-  // List sliderImage = [
-  //   'https://www.crushpixel.com/big-static20/preview4/modern-black-friday-sale-splash-3971985.jpg',
-  //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7igM_cOrelNFSjvci4DzT8HMo6xHbNnSjkTg8gkgD5_psi5hE0NVncBEAFLGn15uCaRk&usqp=CAU',
-  //   'https://img.paisawapas.com/ovz3vew9pw/2021/07/20170241/04.jpg',
-  //   'https://www.shopickr.com/wp-content/uploads/2016/06/landmark-shops-india-online-lifestyle-fashion-sale.jpg',
-  // ];
-
   getHomeData() async {
+    setState(() {
+      loading = true;
+    });
     futureHomeData = await getShopifyProductsBestSelling();
     setState(() {
       loading = false;
@@ -79,14 +75,37 @@ class _HomeState extends State<Home> {
                 SizedBox(
                   height: dynamicHeight(context, .01),
                 ),
-                homeSlider(
-                  context,
-                  dynamicHeight(context, .33),
-                  sliderImage.length,
-                  .84,
-                  sliderImage,
-                  true,
-                ),
+                sLoading == true
+                    ? homeSlider(
+                        context,
+                        dynamicHeight(context, .33),
+                        3,
+                        .84,
+                        "loading",
+                        true,
+                      )
+                    : (sliderImage == false)
+                        ? InkWell(
+                            onTap: () {
+                              sliderImageApi();
+                            },
+                            child: homeSlider(
+                              context,
+                              dynamicHeight(context, .33),
+                              3,
+                              .84,
+                              sliderImage,
+                              true,
+                            ),
+                          )
+                        : homeSlider(
+                            context,
+                            dynamicHeight(context, .33),
+                            sliderImage.length,
+                            .84,
+                            sliderImage,
+                            true,
+                          ),
                 SizedBox(
                   height: dynamicHeight(context, .02),
                 ),
@@ -112,12 +131,18 @@ class _HomeState extends State<Home> {
                         ),
                       )
                     : (futureHomeData == "Server Error")
-                        ? SizedBox(
-                            height: dynamicHeight(context, 0.4),
-                            child: Center(
-                              child: SizedBox(
-                                height: dynamicHeight(context, .25),
-                                child: Image.asset("assets/network_error.png"),
+                        ? InkWell(
+                            onTap: () {
+                              getHomeData();
+                            },
+                            child: SizedBox(
+                              height: dynamicHeight(context, 0.4),
+                              child: Center(
+                                child: SizedBox(
+                                  height: dynamicHeight(context, .25),
+                                  child:
+                                      Image.asset("assets/network_error.png"),
+                                ),
                               ),
                             ),
                           )

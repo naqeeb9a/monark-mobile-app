@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:monark_app/api/api.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
-import 'package:monark_app/widgets/shopify_functions.dart';
-
-
 
 import 'SeeAll.dart';
 
@@ -21,12 +19,13 @@ class _CategoriesPageState extends State<CategoriesPage> {
   var isSelected = [];
   var categoryList;
   bool loading = false;
+  var settedCategory = 5;
 
   addCategory() async {
     setState(() {
       loading = true;
     });
-    categoryList = await getShopifyCategory();
+    categoryList = await ApiData().getInfo("categories");
     setState(() {
       loading = false;
     });
@@ -75,61 +74,90 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 width: dynamicWidth(context, 1),
                 child: (loading == true)
                     ? jumpingDots(context)
-                    : ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: categoryList.length,
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) {
-                          isSelected.add(false);
-                          return Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: dynamicWidth(context, 0.01),
+                    : (categoryList == false)
+                        ? Center(
+                            child: SizedBox(
+                              height: dynamicHeight(context, .25),
+                              child: Image.asset("assets/network_error.png"),
                             ),
-                            child: ChoiceChip(
-                              label: Text(
-                                categoryList[index]["node"]["title"],
-                                style: TextStyle(
-                                  fontFamily: "Aeonik",
-                                  color: isSelected[index] == true
-                                      ? myWhite
-                                      : darkTheme == true
-                                          ? myWhite
-                                          : myBlack,
+                          )
+                        : categoryList.length == 0
+                            ? Center(
+                                child: Text(
+                                  "No Categories Found",
+                                  style: TextStyle(
+                                    color:
+                                        darkTheme == true ? myWhite : myBlack,
+                                    fontSize: dynamicWidth(context, .05),
+                                  ),
                                 ),
-                              ),
-                              selected: isSelected[index],
-                              selectedColor: myRed,
-                              backgroundColor:
-                                  darkTheme == true ? darkThemeBlack : myWhite,
-                              side: BorderSide(
-                                color: darkTheme == true
-                                    ? myWhite
-                                    : myBlack.withOpacity(.3),
-                                width: .1,
-                              ),
-                              labelStyle: TextStyle(),
-                              onSelected: (value) {
-                                if (isSelected[index] == true) {
-                                  setState(() {
-                                    isSelected[index] = false;
-                                  });
-                                } else if (isSelected.contains(true)) {
-                                  for (var i = 0; i < isSelected.length; i++) {
-                                    isSelected[i] = false;
+                              )
+                            : ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: categoryList.length,
+                                shrinkWrap: true,
+                                itemBuilder: (BuildContext context, int index) {
+                                  if (index == 0) {
+                                    isSelected.add(true);
+                                  } else {
+                                    isSelected.add(false);
                                   }
-                                  setState(() {
-                                    isSelected[index] = value;
-                                  });
-                                } else {
-                                  setState(() {
-                                    isSelected[index] = value;
-                                  });
-                                }
-                              },
-                            ),
-                          );
-                        },
-                      ),
+                                  return Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: dynamicWidth(context, 0.01),
+                                    ),
+                                    child: ChoiceChip(
+                                      label: Text(
+                                        categoryList[index]["title"],
+                                        style: TextStyle(
+                                          fontFamily: "Aeonik",
+                                          color: isSelected[index] == true
+                                              ? myWhite
+                                              : darkTheme == true
+                                                  ? myWhite
+                                                  : myBlack,
+                                        ),
+                                      ),
+                                      selected: isSelected[index],
+                                      selectedColor: myRed,
+                                      backgroundColor: darkTheme == true
+                                          ? darkThemeBlack
+                                          : myWhite,
+                                      side: BorderSide(
+                                        color: darkTheme == true
+                                            ? myWhite
+                                            : myBlack.withOpacity(.3),
+                                        width: .1,
+                                      ),
+                                      labelStyle: TextStyle(),
+                                      onSelected: (value) {
+                                        if (isSelected[index] == true) {
+                                          setState(() {
+                                            isSelected[index] = true;
+                                          });
+                                        } else if (isSelected.contains(true)) {
+                                          for (var i = 0;
+                                              i < isSelected.length;
+                                              i++) {
+                                            isSelected[i] = false;
+                                          }
+                                          setState(() {
+                                            settedCategory =
+                                                categoryList[index]["id"];
+                                            isSelected[index] = value;
+                                          });
+                                        } else {
+                                          setState(() {
+                                            settedCategory =
+                                                categoryList[index]["id"];
+                                            isSelected[index] = value;
+                                          });
+                                        }
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
               ),
             ),
             SizedBox(
@@ -138,7 +166,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
             loading == true
                 ? Center()
                 : detailGrid(
-                    getShopifyCategory(),
+                    ApiData().getInfo("categories/$settedCategory"),
                     context,
                     true,
                   ),

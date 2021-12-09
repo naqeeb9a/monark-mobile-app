@@ -111,7 +111,7 @@ Widget detailGridExtension(function, context, check, expandedCheck) {
         } else {
           return Center(
             child: Text(
-              "No Products Found",
+              check == true ? "No Categories found" : "No Products Found",
               style: TextStyle(
                 color: darkTheme == true ? myWhite : myBlack,
                 fontSize: dynamicWidth(context, .05),
@@ -161,9 +161,9 @@ Widget customGrid(context, expandedCheck, check, data) {
             child: check == true
                 ? basicCards(
                     context,
-                    data[index]["node"]["image"]["src"],
-                    data[index]["node"]["title"],
-                    data[index]["node"]["handle"],
+                    data[index]["url"],
+                    data[index]["title"],
+                    data[index]["handle"],
                     categoriesCheck: true,
                   )
                 : basicCards(
