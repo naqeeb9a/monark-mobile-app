@@ -239,10 +239,10 @@ Widget internalWidgetCard(
                           )
                         : Text(
                             "PKR." +
-                                double.parse(variantProduct[0]["node"]
-                                        ["compareAtPrice"])
+                                numberFormat(double.parse(variantProduct[0]["node"]
+                                ["compareAtPrice"])
                                     .toInt()
-                                    .toString(),
+                                    .toString()),
                             style: TextStyle(
                               fontFamily: "Aeonik",
                               color: darkTheme == true ? myWhite : myBlack,
@@ -256,9 +256,9 @@ Widget internalWidgetCard(
                         ? Container()
                         : Text(
                             "PKR." +
-                                double.parse(variantProduct[0]["node"]["price"])
+                                numberFormat(double.parse(variantProduct[0]["node"]["price"])
                                     .toInt()
-                                    .toString(),
+                                    .toString()),
                             style: TextStyle(
                               fontWeight: FontWeight.w900,
                               fontSize: dynamicWidth(context, .025),

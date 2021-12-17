@@ -180,7 +180,8 @@ Widget customGrid(context, expandedCheck, check, data) {
                     sizeOption: data[index]["node"]["options"][0]["values"],
                     description: data[index]["node"]["description"],
                     productType: data[index]["node"]["productType"],
-                    wishList: data[index]),
+                    wishList: data[index],
+                  ),
           );
         }),
   );
