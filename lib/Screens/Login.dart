@@ -150,7 +150,8 @@ class _LoginState extends State<Login> {
                                           color: darkTheme == false
                                               ? myBlack
                                               : myWhite,
-                                          fontSize: dynamicWidth(context, .04),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: dynamicWidth(context, .028),
                                         ),
                                       ),
                                     ],
@@ -181,7 +182,8 @@ class _LoginState extends State<Login> {
                                           color: darkTheme == false
                                               ? myBlack
                                               : myWhite,
-                                          fontSize: dynamicWidth(context, .04),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: dynamicWidth(context, .028),
                                         ),
                                       ),
                                     ],
@@ -218,13 +220,13 @@ class _LoginState extends State<Login> {
                                           color: darkTheme == false
                                               ? myBlack
                                               : myWhite,
-                                          fontSize: dynamicWidth(context, .04),
+                                          fontSize: dynamicWidth(context, .028),
                                         ),
                                       ),
                                     ],
                                   ),
                                   SizedBox(
-                                    height: dynamicHeight(context, .08),
+                                    height: dynamicHeight(context, .06),
                                   ),
                                   coloredButton(
                                     context,
@@ -285,14 +287,14 @@ class _LoginState extends State<Login> {
                                     },
                                   ),
                                   SizedBox(
-                                    height: dynamicHeight(context, .04),
+                                    height: dynamicHeight(context, .06),
                                   ),
                                   richTextWidget(
                                     context,
                                     "Don't have an account?  ",
                                     "Sign Up",
-                                    dynamicWidth(context, .04),
-                                    dynamicWidth(context, .05),
+                                    dynamicWidth(context, .032),
+                                    dynamicWidth(context, .032),
                                     SignUp(),
                                     darkTheme == false ? myBlack : myWhite,
                                     darkTheme == false ? myBlack : myWhite,

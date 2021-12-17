@@ -4,86 +4,64 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons_ns/grouped_buttons_ns.dart';
+import 'package:monark_app/Screens/Categories.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
 import 'package:progress_indicators/progress_indicators.dart';
+import 'package:recase/recase.dart';
+import 'package:intl/intl.dart';
 
 import '../utils/config.dart';
 import 'drawer_items.dart';
 import 'media_query.dart';
 
-Widget basicCards(context, imageUrl, text, availableForSale,
-    {sizeOption = "",
+Widget basicCards(context, imageUrl, text,
+    {handle = "",
+    sizeOption = "",
     description = "No Description",
     variantProduct = "",
     productType = "",
     categoriesCheck = false,
-    check = false,
     wishList = "",
     refreshScreen = ""}) {
-  return (check == true)
-      ? InkWell(
-          onTap: () {
-            var snackBar = SnackBar(
-              backgroundColor: myRed,
-              content: Text("Product Out of Stock"),
-              duration: const Duration(milliseconds: 1000),
+  return InkWell(
+    onTap: (categoriesCheck == true)
+        ? () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SeeAll(
+                  text: text,
+                  function: getShopifyCollection(handle),
+                  handle: handle,
+                  check: false,
+                ),
+              ),
             );
-
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+        : () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailPage(
+                  image: imageUrl,
+                  variantProduct: variantProduct,
+                  text: text,
+                  array: sizeOption,
+                  description: description,
+                  productType: productType,
+                  wishList: wishList,
+                ),
+              ),
+            );
           },
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              internalWidgetCard(
-                  context, imageUrl, variantProduct, text, categoriesCheck,
-                  outOfStock: true),
-              Image.asset(
-                "assets/soldOut.png",
-                scale: 2.6,
-              )
-            ],
-          ),
-        )
-      : InkWell(
-          onTap: (categoriesCheck == true)
-              ? () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SeeAll(
-                        text: text,
-                        function: getShopifyCollection(availableForSale),
-                        handle: availableForSale,
-                        check: false,
-                      ),
-                    ),
-                  );
-                }
-              : () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetailPage(
-                        image: imageUrl,
-                        variantProduct: variantProduct,
-                        text: text,
-                        array: sizeOption,
-                        description: description,
-                        availableForSale: availableForSale,
-                        productType: productType,
-                        wishList: wishList,
-                      ),
-                    ),
-                  );
-                },
-          child: internalWidgetCard(
-              context, imageUrl, variantProduct, text, categoriesCheck,
-              wishList: wishList, refreshScreen: refreshScreen),
-        );
+    child: internalWidgetCard(
+        context, imageUrl, variantProduct, text, categoriesCheck,
+        wishList: wishList, refreshScreen: refreshScreen),
+  );
 }
 
 Widget internalWidgetCard(
@@ -91,10 +69,9 @@ Widget internalWidgetCard(
     {outOfStock = false, wishList = "", refreshScreen = ""}) {
   return StatefulBuilder(builder: (context, stateful) {
     return Container(
-      margin: EdgeInsets.all(0),
       width: dynamicWidth(context, 0.47),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Stack(
@@ -104,7 +81,7 @@ Widget internalWidgetCard(
                   dynamicWidth(context, .06),
                 ),
                 child: Container(
-                  height: dynamicHeight(context, .32),
+                  height: dynamicWidth(context, .61),
                   width: dynamicWidth(context, .47),
                   color: myWhite,
                   child: CachedNetworkImage(
@@ -114,12 +91,7 @@ Widget internalWidgetCard(
                     fit: BoxFit.cover,
                     errorWidget: (context, url, error) => SizedBox(
                       height: dynamicHeight(context, 0.4),
-                      child: Center(
-                        child: SizedBox(
-                          height: dynamicHeight(context, .25),
-                          child: Image.asset("assets/network_error.png"),
-                        ),
-                      ),
+                      child: Center(child: retryFunction(context, check: true)),
                     ),
                     placeholder: (context, string) {
                       return Image.asset(
@@ -204,11 +176,11 @@ Widget internalWidgetCard(
                           }
                         },
                         child: CircleAvatar(
-                          radius: dynamicWidth(context, 0.04),
+                          radius: dynamicWidth(context, 0.03),
                           backgroundColor: myWhite,
                           child: Icon(
                             Icons.favorite,
-                            size: dynamicWidth(context, 0.05),
+                            size: dynamicWidth(context, 0.04),
                             color: myRed,
                           ),
                         ),
@@ -216,6 +188,7 @@ Widget internalWidgetCard(
                     ),
             ],
           ),
+          heightBox(context, 0.01),
           categoriesCheck == true
               ? Align(
                   alignment: Alignment.center,
@@ -224,7 +197,7 @@ Widget internalWidgetCard(
                     style: TextStyle(
                       fontFamily: "Aeonik",
                       color: darkTheme == true ? myWhite : myBlack,
-                      fontSize: dynamicWidth(context, .04),
+                      fontSize: dynamicWidth(context, .03),
                       fontWeight: FontWeight.bold,
                     ),
                     maxLines: 1,
@@ -234,10 +207,10 @@ Widget internalWidgetCard(
               : Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    text,
+                    text.toString().titleCase,
                     style: TextStyle(
                       color: darkTheme == true ? myWhite : myBlack,
-                      fontSize: dynamicWidth(context, .03),
+                      fontSize: dynamicWidth(context, .025),
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -252,19 +225,20 @@ Widget internalWidgetCard(
                                 variantProduct[0]["node"]["price"] ||
                             variantProduct[0]["node"]["compareAtPrice"] == null)
                         ? Text(
-                            "Pkr. " +
-                                double.parse(variantProduct[0]["node"]["price"])
+                            "PKR." +
+                                numberFormat(double.parse(
+                                        variantProduct[0]["node"]["price"])
                                     .toInt()
-                                    .toString(),
+                                    .toString()),
                             style: TextStyle(
                               fontFamily: "Aeonik",
                               color: darkTheme == true ? myWhite : myBlack,
-                              fontWeight: FontWeight.w600,
-                              fontSize: dynamicWidth(context, .034),
+                              fontWeight: FontWeight.w900,
+                              fontSize: dynamicWidth(context, .025),
                             ),
                           )
                         : Text(
-                            "Pkr. " +
+                            "PKR." +
                                 double.parse(variantProduct[0]["node"]
                                         ["compareAtPrice"])
                                     .toInt()
@@ -273,7 +247,7 @@ Widget internalWidgetCard(
                               fontFamily: "Aeonik",
                               color: darkTheme == true ? myWhite : myBlack,
                               decoration: TextDecoration.lineThrough,
-                              fontSize: dynamicWidth(context, .034),
+                              fontSize: dynamicWidth(context, .025),
                             ),
                           ),
                     (variantProduct[0]["node"]["compareAtPrice"] ==
@@ -281,13 +255,13 @@ Widget internalWidgetCard(
                             variantProduct[0]["node"]["compareAtPrice"] == null)
                         ? Container()
                         : Text(
-                            "Pkr. " +
+                            "PKR." +
                                 double.parse(variantProduct[0]["node"]["price"])
                                     .toInt()
                                     .toString(),
                             style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: dynamicWidth(context, .034),
+                              fontWeight: FontWeight.w900,
+                              fontSize: dynamicWidth(context, .025),
                               color: darkTheme == true ? myWhite : myRed,
                             ),
                           )
@@ -310,7 +284,7 @@ Widget rowText(text, context, {function = "", check = false}) {
           style: TextStyle(
             fontFamily: "Aeonik",
             color: darkTheme == true ? myWhite : myBlack,
-            fontSize: dynamicWidth(context, .092),
+            fontSize: dynamicWidth(context, .082),
             fontWeight: FontWeight.w800,
           ),
           maxLines: 1,
@@ -329,7 +303,7 @@ Widget rowText(text, context, {function = "", check = false}) {
                 child: Image.asset(
                   "assets/icons/filterIcon.png",
                   color: darkTheme == true ? myWhite : myRed,
-                  width: dynamicWidth(context, .07),
+                  width: dynamicWidth(context, .06),
                 ),
               ),
             )
@@ -446,50 +420,53 @@ Widget homeSlider(context, height, length, viewFraction, image, bool detail,
               function(index);
             }
           : null,
+      enlargeStrategy: CenterPageEnlargeStrategy.height,
       enlargeCenterPage: true,
-      viewportFraction: viewFraction,
       autoPlay: detail,
       autoPlayInterval: Duration(seconds: 6),
+      viewportFraction: viewFraction,
       autoPlayAnimationDuration: Duration(seconds: 2),
-      aspectRatio: 2.0,
       autoPlayCurve: Curves.fastLinearToSlowEaseIn,
     ),
   );
 }
 
 Widget sliderContainer(context, image, bool detail) {
-  return ClipRRect(
-    borderRadius: BorderRadius.circular(
-      detail == false ? dynamicWidth(context, 0.0) : dynamicWidth(context, .08),
-    ),
-    child: InteractiveViewer(
-      child: (image == "loading")
-          ? Image.asset(
-              "assets/loader.gif",
-              scale: 6,
-            )
-          : (image == false)
-              ? SizedBox(
-                  height: dynamicHeight(context, 0.4),
-                  child: Center(
-                    child: SizedBox(
-                      height: dynamicHeight(context, .25),
-                      child: Image.asset("assets/network_error.png"),
-                    ),
+  return InteractiveViewer(
+    child: (image == "loading")
+        ? Image.asset(
+            "assets/loader.gif",
+            scale: 6,
+          )
+        : (image == false)
+            ? SizedBox(
+                height: dynamicHeight(context, 0.4),
+                child: Center(child: retryFunction(context, check: true)),
+              )
+            : Padding(
+                padding: detail == false
+                    ? EdgeInsets.all(0)
+                    : EdgeInsets.symmetric(
+                        horizontal: dynamicWidth(context, 0.02)),
+                child: ClipRRect(
+                  borderRadius: (detail == true)
+                      ? BorderRadius.circular(
+                          dynamicWidth(context, 0.08),
+                        )
+                      : BorderRadius.circular(0),
+                  child: CachedNetworkImage(
+                    imageUrl: image,
+                    fit: BoxFit.cover,
+                    width: dynamicWidth(context, 1),
+                    placeholder: (context, string) {
+                      return Image.asset(
+                        "assets/loader.gif",
+                        scale: 6,
+                      );
+                    },
                   ),
-                )
-              : CachedNetworkImage(
-                  imageUrl: image,
-                  fit: BoxFit.cover,
-                  width: dynamicWidth(context, 1),
-                  placeholder: (context, string) {
-                    return Image.asset(
-                      "assets/loader.gif",
-                      scale: 6,
-                    );
-                  },
                 ),
-    ),
+              ),
   );
 }
 
@@ -774,4 +751,9 @@ Widget jumpingDots(context) {
       ),
     ),
   );
+}
+
+numberFormat(number) {
+  final oCcy = new NumberFormat("#,##,##0", "en_US");
+  return oCcy.format(int.parse(number.toString()));
 }

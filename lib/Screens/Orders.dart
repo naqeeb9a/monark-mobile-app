@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monark_app/Screens/Categories.dart';
 import 'package:monark_app/Screens/TrackOrder.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
@@ -47,7 +48,9 @@ class _OrdersState extends State<Orders> {
               SizedBox(
                 height: dynamicHeight(context, .05),
               ),
-              getOrderCards(),
+              getOrderCards(() {
+                setState(() {});
+              }),
             ],
           ),
         ),
@@ -84,7 +87,7 @@ Widget orderCards(
                       snapshot[index]["node"]["orderNumber"].toString(),
                   style: TextStyle(
                     color: darkTheme == true ? myWhite : myBlack,
-                    fontSize: dynamicWidth(context, .04),
+                    fontSize: dynamicWidth(context, .028),
                   ),
                 ),
                 (snapshot[index]["node"]["cancelReason"] == "CUSTOMER" ||
@@ -100,7 +103,8 @@ Widget orderCards(
                             "Cancelled",
                             style: TextStyle(
                               color: darkTheme == true ? myWhite : myBlack,
-                              fontSize: dynamicWidth(context, .04),
+                              fontWeight: FontWeight.bold,
+                              fontSize: dynamicWidth(context, .028),
                             ),
                           ),
                           Text(
@@ -115,7 +119,7 @@ Widget orderCards(
                                 ),
                             style: TextStyle(
                               color: darkTheme == true ? myWhite : myBlack,
-                              fontSize: dynamicWidth(context, .036),
+                              fontSize: dynamicWidth(context, .028),
                             ),
                           ),
                         ],
@@ -128,7 +132,7 @@ Widget orderCards(
                                 .toString(),
                             style: TextStyle(
                               color: darkTheme == true ? myWhite : myBlack,
-                              fontSize: dynamicWidth(context, .036),
+                              fontSize: dynamicWidth(context, .028),
                             ),
                           ),
                           Text(
@@ -143,7 +147,7 @@ Widget orderCards(
                                 ),
                             style: TextStyle(
                               color: darkTheme == true ? myWhite : myBlack,
-                              fontSize: dynamicWidth(context, .036),
+                              fontSize: dynamicWidth(context, .028),
                             ),
                           ),
                         ],
@@ -162,19 +166,14 @@ Widget orderCards(
   );
 }
 
-Widget getOrderCards() {
+Widget getOrderCards(function) {
   return Expanded(
     child: FutureBuilder(
       future: getUserOrders(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data == "Server Error") {
-            return Center(
-              child: SizedBox(
-                height: dynamicHeight(context, .25),
-                child: Image.asset("assets/network_error.png"),
-              ),
-            );
+            return Center(child: retryFunction(context, function: function));
           } else if (snapshot.data == "Token Expired") {
             return Text(
               "Token Expired",

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
+import 'package:monark_app/Screens/Categories.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
@@ -73,8 +74,8 @@ class _SearchPageState extends State<SearchPage> {
                     ? Image.asset(
                         "assets/icons/searchIcon.png",
                         color:
-                            darkTheme == true ? myRed : myBlack.withOpacity(.3),
-                        scale: 20.0,
+                            darkTheme == true ? myRed : myBlack.withOpacity(.1),
+                        scale: 1.8,
                       )
                     : (loading == true)
                         ? Image.asset(
@@ -83,12 +84,18 @@ class _SearchPageState extends State<SearchPage> {
                           )
                         : futureSearchData == "Server Error"
                             ? Center(
-                                child: SizedBox(
-                                  height: dynamicHeight(context, .25),
-                                  child:
-                                      Image.asset("assets/network_error.png"),
-                                ),
-                              )
+                                child:
+                                    retryFunction(context, function: () async {
+                                setState(() {
+                                  loading = true;
+                                });
+                                futureSearchData =
+                                    await getSearchResults(searchText.text);
+                                print(futureSearchData);
+                                setState(() {
+                                  loading = false;
+                                });
+                              }))
                             : futureSearchData.length == 0
                                 ? Center(
                                     child: Text(

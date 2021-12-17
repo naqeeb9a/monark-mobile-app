@@ -8,6 +8,7 @@ import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
+import 'package:recase/recase.dart';
 
 class DetailPage extends StatefulWidget {
   final dynamic image;
@@ -15,7 +16,6 @@ class DetailPage extends StatefulWidget {
   final String text;
   final dynamic array;
   final dynamic description;
-  final bool availableForSale;
   final String productType;
   final dynamic wishList;
 
@@ -26,7 +26,6 @@ class DetailPage extends StatefulWidget {
     this.array,
     required this.variantProduct,
     required this.text,
-    required this.availableForSale,
     required this.productType,
     required this.wishList,
   }) : super(key: key);
@@ -169,7 +168,7 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                     ),
                     Positioned(
-                      bottom: dynamicHeight(context, 0.09),
+                      bottom: dynamicHeight(context, 0.1),
                       child: DotsIndicator(
                         decorator: DotsDecorator(
                           color: myWhite,
@@ -205,6 +204,7 @@ class _DetailPageState extends State<DetailPage> {
                     horizontal: dynamicWidth(context, .05),
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -217,11 +217,11 @@ class _DetailPageState extends State<DetailPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  widget.text,
+                                  widget.text.titleCase,
                                   style: TextStyle(
                                     fontFamily: "Aeonik",
                                     fontWeight: FontWeight.bold,
-                                    fontSize: dynamicWidth(context, .04),
+                                    fontSize: dynamicWidth(context, .035),
                                     color:
                                         darkTheme == true ? myWhite : myBlack,
                                   ),
@@ -243,21 +243,21 @@ class _DetailPageState extends State<DetailPage> {
                                           widget.variantProduct[productIndex]
                                                   ["node"]["compareAtPrice"] ==
                                               null)
-                                      ? "Pkr. " +
-                                          double.parse(widget.variantProduct[productIndex]["node"]["price"])
-                                              .toInt()
-                                              .toString()
-                                      : "Pkr. " +
-                                          double.parse(widget
-                                                      .variantProduct[productIndex]
-                                                  ["node"]["compareAtPrice"])
-                                              .toInt()
-                                              .toString(),
+                                      ? "PKR. " +
+                                          numberFormat(
+                                              double.parse(widget.variantProduct[productIndex]["node"]["price"])
+                                                  .toInt()
+                                                  .toString())
+                                      : "PKR. " +
+                                          numberFormat(
+                                              double.parse(widget.variantProduct[productIndex]["node"]["compareAtPrice"])
+                                                  .toInt()
+                                                  .toString()),
                                   style: TextStyle(
                                     fontFamily: "Aeonik",
                                     color: darkTheme == true ? myWhite : myRed,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: dynamicWidth(context, .04),
+                                    fontSize: dynamicWidth(context, .035),
                                   ),
                                 ),
                                 Text(
@@ -271,7 +271,8 @@ class _DetailPageState extends State<DetailPage> {
                                               null)
                                       ? ""
                                       : "You Save  " +
-                                          saleDifference.toString() +
+                                          numberFormat(
+                                              saleDifference.toString()) +
                                           " Pkr",
                                   style: TextStyle(
                                     color: darkTheme == true
@@ -288,53 +289,49 @@ class _DetailPageState extends State<DetailPage> {
                       (widget.array.toString().contains("Default") ||
                               widget.array == "")
                           ? Container()
-                          : Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: sizeGuideImage == ""
-                                    ? dynamicHeight(context, .01)
-                                    : 0,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Size",
-                                    style: TextStyle(
-                                      color:
-                                          darkTheme == true ? myWhite : myBlack,
-                                      fontSize: dynamicWidth(context, .05),
-                                    ),
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Size",
+                                  style: TextStyle(
+                                    color:
+                                        darkTheme == true ? myWhite : myBlack,
+                                    fontSize: dynamicWidth(context, .035),
                                   ),
-                                  sizeGuideImage == ""
-                                      ? Container()
-                                      : InkWell(
-                                          onTap: () {
-                                            imageAlert(
-                                              context,
-                                              "$sizeGuideImage",
-                                              true,
-                                            );
-                                          },
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                              vertical:
-                                                  dynamicHeight(context, .01),
-                                            ),
-                                            child: Text(
-                                              "Size Guide",
-                                              style: TextStyle(
-                                                color: darkTheme == true
-                                                    ? myWhite
-                                                    : myBlack,
-                                                fontSize:
-                                                    dynamicWidth(context, .042),
-                                              ),
-                                            ),
+                                ),
+                                sizeGuideImage == ""
+                                    ? Container()
+                                    : InkWell(
+                                        onTap: () {
+                                          imageAlert(
+                                            context,
+                                            "$sizeGuideImage",
+                                            true,
+                                          );
+                                        },
+                                        child: Text(
+                                          "Size Guide",
+                                          style: TextStyle(
+                                            shadows: [
+                                              Shadow(
+                                                  color: darkTheme == true
+                                                      ? myWhite
+                                                      : myBlack,
+                                                  offset: Offset(0, -5))
+                                            ],
+                                            color: Colors.transparent,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            decorationColor: myRed,
+                                            decorationThickness: 4,
+                                            decorationStyle:
+                                                TextDecorationStyle.solid,
                                           ),
                                         ),
-                                ],
-                              ),
+                                      ),
+                              ],
                             ),
                       (widget.array.toString().contains("Default") ||
                               widget.array == "")
@@ -344,32 +341,25 @@ class _DetailPageState extends State<DetailPage> {
                               sizeArray,
                               widget.variantProduct,
                             ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: dynamicHeight(context, .008),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Qty",
-                              style: TextStyle(
-                                color: darkTheme == true ? myWhite : myBlack,
-                                fontSize: dynamicWidth(context, .05),
-                              ),
-                            ),
-                          ],
+                      heightBox(context, 0.01),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Qty",
+                          style: TextStyle(
+                            color: darkTheme == true ? myWhite : myBlack,
+                            fontSize: dynamicWidth(context, .035),
+                          ),
                         ),
                       ),
-                      heightBox(context, .008),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Container(
-                          width: dynamicWidth(context, .25),
+                          width: dynamicWidth(context, .2),
                           decoration: BoxDecoration(
                             color: noColor,
                             borderRadius: BorderRadius.circular(
-                              dynamicWidth(context, .03),
+                              dynamicWidth(context, .01),
                             ),
                             border: Border.all(
                               color: darkTheme == true
@@ -379,7 +369,7 @@ class _DetailPageState extends State<DetailPage> {
                             ),
                           ),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               InkWell(
                                 onTap: () {
@@ -388,12 +378,12 @@ class _DetailPageState extends State<DetailPage> {
                                   }
                                 },
                                 child: Container(
-                                  width: dynamicWidth(context, .09),
-                                  height: dynamicWidth(context, .09),
+                                  width: dynamicWidth(context, .03),
+                                  height: dynamicWidth(context, .07),
                                   child: Center(
                                     child: Icon(
                                       Icons.remove,
-                                      size: dynamicWidth(context, .05),
+                                      size: dynamicWidth(context, .03),
                                       color:
                                           darkTheme == true ? myWhite : myRed,
                                     ),
@@ -406,7 +396,7 @@ class _DetailPageState extends State<DetailPage> {
                                   style: TextStyle(
                                     color:
                                         darkTheme == true ? myWhite : myBlack,
-                                    fontSize: dynamicWidth(context, .05),
+                                    fontSize: dynamicWidth(context, .03),
                                   ),
                                 );
                               }),
@@ -417,11 +407,11 @@ class _DetailPageState extends State<DetailPage> {
                                   }
                                 },
                                 child: Container(
-                                  width: dynamicWidth(context, .09),
-                                  height: dynamicWidth(context, .09),
+                                  width: dynamicWidth(context, .03),
+                                  height: dynamicWidth(context, .07),
                                   child: Icon(
                                     Icons.add,
-                                    size: dynamicWidth(context, .05),
+                                    size: dynamicWidth(context, .03),
                                     color: darkTheme == true ? myWhite : myRed,
                                   ),
                                 ),
@@ -430,24 +420,21 @@ class _DetailPageState extends State<DetailPage> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: dynamicHeight(context, .03),
-                        ),
-                        child: bottomButton(
-                          context,
-                          widget.image[0]["node"]["src"],
-                          double.parse(widget.variantProduct[productIndex]
-                                  ["node"]["price"])
-                              .toInt()
-                              .toString(),
-                          widget.text,
-                          quantity,
-                          widget.variantProduct[productIndex]["node"]["sku"],
-                          widget.variantProduct[productIndex]["node"]["id"],
-                          selectedSize,
-                        ),
+                      heightBox(context, 0.02),
+                      bottomButton(
+                        context,
+                        widget.image[0]["node"]["src"],
+                        double.parse(widget.variantProduct[productIndex]["node"]
+                                ["price"])
+                            .toInt()
+                            .toString(),
+                        widget.text,
+                        quantity,
+                        widget.variantProduct[productIndex]["node"]["sku"],
+                        widget.variantProduct[productIndex]["node"]["id"],
+                        selectedSize,
                       ),
+                      heightBox(context, 0.01),
                     ],
                   ),
                 ),
@@ -571,8 +558,8 @@ class _DetailPageState extends State<DetailPage> {
               },
               child: Ink(
                 child: Container(
-                  width: dynamicWidth(context, .08),
-                  height: dynamicWidth(context, .09),
+                  width: dynamicWidth(context, .07),
+                  height: dynamicWidth(context, .075),
                   decoration: BoxDecoration(
                     color: darkTheme == true
                         ? selectedSize == array[index]
@@ -599,7 +586,7 @@ class _DetailPageState extends State<DetailPage> {
                     child: Text(
                       array[index].toString(),
                       style: TextStyle(
-                        fontSize: dynamicWidth(context, .035),
+                        fontSize: dynamicWidth(context, .03),
                         color: darkTheme == true
                             ? selectedSize == array[index]
                                 ? myBlack
@@ -624,7 +611,7 @@ Widget bottomButton(
     context, image, price, text, cartQuantity, sku, variantId, size) {
   return MaterialButton(
     color: myRed,
-    height: dynamicHeight(context, .05),
+    height: dynamicHeight(context, .048),
     minWidth: dynamicWidth(context, .88),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(
@@ -680,10 +667,11 @@ Widget bottomButton(
     },
     child: Center(
       child: Text(
-        "Add to Cart",
+        "Add to Bag",
         style: TextStyle(
           color: myWhite,
-          fontSize: dynamicWidth(context, .05),
+          fontWeight: FontWeight.bold,
+          fontSize: dynamicWidth(context, .04),
         ),
       ),
     ),

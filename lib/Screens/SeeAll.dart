@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:monark_app/Screens/Categories.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
+import 'package:recase/recase.dart';
 
 class SeeAll extends StatefulWidget {
   final bool check;
@@ -46,8 +48,9 @@ class _SeeAllState extends State<SeeAll> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: dynamicWidth(context, 0.04),
+              padding: EdgeInsets.only(
+                left: dynamicWidth(context, 0.04),
+                right: dynamicWidth(context, 0.012),
               ),
               child: rowText(
                 widget.text,
@@ -55,7 +58,7 @@ class _SeeAllState extends State<SeeAll> {
                 check: true,
               ),
             ),
-            heightBox(context, .06),
+            heightBox(context, .04),
             sortFilterCheck != ""
                 ? getFilteredGrid(widget.handle, context, widget.check)
                 : detailGrid(widget.function, context, widget.check),
@@ -86,38 +89,43 @@ getFilteredGrid(handle, context, check) {
   }
 }
 
-Widget detailGrid(function, context, check, {expandedCheck = true}) {
+Widget detailGrid(function, context, check,
+    {expandedCheck = true, function1 = "", handle = ""}) {
   return (expandedCheck == true)
       ? Expanded(
-          child: detailGridExtension(function, context, check, expandedCheck))
-      : detailGridExtension(function, context, check, expandedCheck);
+          child: detailGridExtension(
+              function, context, check, expandedCheck, function1, handle))
+      : detailGridExtension(
+          function, context, check, expandedCheck, function1, handle);
 }
 
-Widget detailGridExtension(function, context, check, expandedCheck) {
+Widget detailGridExtension(
+    function, context, check, expandedCheck, function1, handle) {
   return FutureBuilder(
     future: function,
     builder: (context, AsyncSnapshot snapshot) {
       if (snapshot.connectionState == ConnectionState.done &&
           snapshot.data != null) {
-        if (snapshot.data == "Server Error") {
-          return Center(
-            child: SizedBox(
-              height: dynamicHeight(context, .25),
-              child: Image.asset("assets/network_error.png"),
-            ),
-          );
+        if (snapshot.data == "Server Error" || snapshot.data == false) {
+          return Center(child: retryFunction(context, function: function1));
         } else if ((snapshot.data as List).length != 0) {
           return customGrid(context, expandedCheck, check, snapshot.data);
         } else {
-          return Center(
-            child: Text(
-              check == true ? "No Categories found" : "No Products Found",
-              style: TextStyle(
-                color: darkTheme == true ? myWhite : myBlack,
-                fontSize: dynamicWidth(context, .05),
-              ),
-            ),
-          );
+          return check == true
+              ? SingleChildScrollView(
+                  child: detailGrid(
+                      getShopifyCollection(handle), context, false,
+                      expandedCheck: false),
+                )
+              : Center(
+                  child: Text(
+                    "No Products Found",
+                    style: TextStyle(
+                      color: darkTheme == true ? myWhite : myBlack,
+                      fontSize: dynamicWidth(context, .05),
+                    ),
+                  ),
+                );
         }
       } else {
         return (expandedCheck == true)
@@ -149,12 +157,12 @@ Widget customGrid(context, expandedCheck, check, data) {
             : NeverScrollableScrollPhysics(),
         shrinkWrap: expandedCheck == true ? false : true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisSpacing: dynamicWidth(context, .04),
+          crossAxisSpacing: dynamicWidth(context, .03),
           mainAxisSpacing: check == true
               ? dynamicHeight(context, .001)
-              : dynamicHeight(context, .02),
+              : dynamicHeight(context, .01),
           crossAxisCount: 2,
-          childAspectRatio: 5 / 9.2,
+          childAspectRatio: 5 / 8.5,
         ),
         itemBuilder: (context, index) {
           return Center(
@@ -162,22 +170,16 @@ Widget customGrid(context, expandedCheck, check, data) {
                 ? basicCards(
                     context,
                     data[index]["url"],
-                    data[index]["title"],
-                    data[index]["handle"],
+                    data[index]["title"].toString().titleCase,
                     categoriesCheck: true,
+                    handle: data[index]["handle"],
                   )
-                : basicCards(
-                    context,
-                    data[index]["node"]["images"]["edges"],
-                    data[index]["node"]["title"],
-                    data[index]["node"]["availableForSale"],
+                : basicCards(context, data[index]["node"]["images"]["edges"],
+                    data[index]["node"]["title"].toString().titleCase,
                     variantProduct: data[index]["node"]["variants"]["edges"],
                     sizeOption: data[index]["node"]["options"][0]["values"],
                     description: data[index]["node"]["description"],
                     productType: data[index]["node"]["productType"],
-                    check: data[index]["node"]["availableForSale"] == true
-                        ? false
-                        : true,
                     wishList: data[index]),
           );
         }),

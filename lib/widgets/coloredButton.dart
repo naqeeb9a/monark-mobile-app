@@ -5,7 +5,7 @@ import 'package:monark_app/widgets/media_query.dart';
 
 import '../utils/config.dart';
 
-Widget coloredButton(context, text, {function = "", width = ""}) {
+Widget coloredButton(context, text, {function = "", width = "", heigth = ""}) {
   return Material(
     borderRadius: BorderRadius.circular(
       dynamicWidth(context, .4),
@@ -14,7 +14,7 @@ Widget coloredButton(context, text, {function = "", width = ""}) {
       onTap: function == "" ? () {} : function,
       child: Container(
         width: width == "" ? dynamicWidth(context, .8) : width,
-        height: dynamicHeight(context, .048),
+        height: heigth == "" ? dynamicHeight(context, .048) : heigth,
         decoration: BoxDecoration(
           color: myRed,
           borderRadius: BorderRadius.circular(
@@ -26,7 +26,7 @@ Widget coloredButton(context, text, {function = "", width = ""}) {
             text,
             style: TextStyle(
               color: myWhite,
-              fontSize: dynamicWidth(context, .05),
+              fontSize: dynamicWidth(context, .035),
             ),
           ),
         ),
@@ -37,11 +37,11 @@ Widget coloredButton(context, text, {function = "", width = ""}) {
 
 Widget bottomButton1(context, text, page) {
   return Positioned(
-    bottom: dynamicHeight(context, .02),
+    bottom: dynamicHeight(context, .05),
     child: InkWell(
       onTap: page,
       child: Container(
-        height: dynamicHeight(context, .056),
+        height: dynamicHeight(context, .048),
         width: dynamicWidth(context, .8),
         decoration: BoxDecoration(
           color: myRed,
@@ -54,7 +54,8 @@ Widget bottomButton1(context, text, page) {
             text,
             style: TextStyle(
               color: myWhite,
-              fontSize: dynamicWidth(context, .046),
+              fontWeight: FontWeight.bold,
+              fontSize: dynamicWidth(context, .035),
             ),
           ),
         ),
@@ -72,14 +73,14 @@ Widget bottomButton2(context, text, icon, {function, double bottom = 80}) {
         borderType: BorderType.RRect,
         color: myRed,
         radius: Radius.circular(
-          dynamicWidth(context, 0.02),
+          dynamicWidth(context, 0.8),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(
             dynamicWidth(context, 0.02),
           ),
           child: Container(
-            height: dynamicHeight(context, .058),
+            height: dynamicHeight(context, .042),
             width: dynamicWidth(context, .78),
             decoration: BoxDecoration(
               color: noColor,
@@ -93,7 +94,7 @@ Widget bottomButton2(context, text, icon, {function, double bottom = 80}) {
                 Icon(
                   icon,
                   color: myRed,
-                  size: dynamicWidth(context, 0.07),
+                  size: dynamicWidth(context, 0.06),
                 ),
                 SizedBox(
                   width: dynamicWidth(context, 0.02),
@@ -102,7 +103,7 @@ Widget bottomButton2(context, text, icon, {function, double bottom = 80}) {
                   text,
                   style: TextStyle(
                     color: myRed,
-                    fontSize: dynamicWidth(context, 0.05),
+                    fontSize: dynamicWidth(context, 0.032),
                   ),
                 )
               ],

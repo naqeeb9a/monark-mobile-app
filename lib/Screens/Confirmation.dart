@@ -50,7 +50,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                                   text: "Thank you\n",
                                   style: TextStyle(
                                       fontFamily: "Aeonik",
-                                      fontSize: dynamicWidth(context, 0.06),
+                                      fontSize: dynamicWidth(context, 0.04),
                                       fontWeight: FontWeight.bold,
                                       color: myWhite),
                                 ),
@@ -58,7 +58,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                                   text: "for your purchase from Monark",
                                   style: TextStyle(
                                     color: myWhite,
-                                    fontSize: dynamicWidth(context, 0.04),
+                                    fontSize: dynamicWidth(context, 0.032),
                                   ),
                                 )
                               ],
@@ -79,7 +79,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                               style: TextStyle(
                                 fontFamily: "Aeonik",
                                 color: myRed,
-                                fontSize: dynamicWidth(context, 0.038),
+                                fontSize: dynamicWidth(context, 0.032),
                               ),
                             ),
                           ),
@@ -99,7 +99,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                             style: TextStyle(
                               color: darkTheme == true ? myWhite : myBlack,
                               fontWeight: FontWeight.bold,
-                              fontSize: dynamicWidth(context, 0.04),
+                              fontSize: dynamicWidth(context, 0.032),
                             ),
                           ),
                           heightBox(context, 0.01),
@@ -107,7 +107,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                             "You'll receive a confirmation email with your order number shortly.",
                             style: TextStyle(
                               color: darkTheme == true ? myWhite : myBlack,
-                              fontSize: dynamicWidth(context, 0.036),
+                              fontSize: dynamicWidth(context, 0.032),
                             ),
                           ),
                           heightBox(context, 0.05),
@@ -116,7 +116,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                             style: TextStyle(
                               color: darkTheme == true ? myWhite : myBlack,
                               fontWeight: FontWeight.bold,
-                              fontSize: dynamicWidth(context, 0.04),
+                              fontSize: dynamicWidth(context, 0.032),
                             ),
                           ),
                           heightBox(context, 0.01),
@@ -124,7 +124,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                             "You'll get shipping and delivery updates",
                             style: TextStyle(
                               color: darkTheme == true ? myWhite : myBlack,
-                              fontSize: dynamicWidth(context, 0.036),
+                              fontSize: dynamicWidth(context, 0.032),
                             ),
                           ),
                           heightBox(context, 0.007),
@@ -147,7 +147,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                           "via email",
                           style: TextStyle(
                             color: darkTheme == true ? myWhite : myBlack,
-                            fontSize: dynamicWidth(context, 0.036),
+                            fontSize: dynamicWidth(context, 0.032),
                           ),
                         ),
                       ],
@@ -168,7 +168,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                           "via text",
                           style: TextStyle(
                             color: darkTheme == true ? myWhite : myBlack,
-                            fontSize: dynamicWidth(context, 0.036),
+                            fontSize: dynamicWidth(context, 0.032),
                           ),
                         ),
                       ],

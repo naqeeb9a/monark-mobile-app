@@ -50,7 +50,7 @@ class _TrackOrderState extends State<TrackOrder> {
                 "Order #MNK" + widget.orderNumber,
                 style: TextStyle(
                   color: myWhite,
-                  fontSize: dynamicWidth(context, .036),
+                  fontSize: dynamicWidth(context, .032),
                 ),
               ),
             ),
@@ -66,14 +66,14 @@ class _TrackOrderState extends State<TrackOrder> {
                   "Estimated Delivery Date",
                   style: TextStyle(
                     color: darkTheme == true ? myWhite : myBlack,
-                    fontSize: dynamicWidth(context, .034),
+                    fontSize: dynamicWidth(context, .032),
                   ),
                 ),
                 Text(
                   "12-Dec-2021",
                   style: TextStyle(
                     color: darkTheme == true ? myWhite : myBlack,
-                    fontSize: dynamicWidth(context, .034),
+                    fontSize: dynamicWidth(context, .032),
                   ),
                 ),
               ],
@@ -95,7 +95,7 @@ Widget radioRow(context, text, radioState) {
             text,
             style: TextStyle(
               color: darkTheme == true ? myWhite : myBlack,
-              fontSize: dynamicWidth(context, .04),
+              fontSize: dynamicWidth(context, .03),
             ),
           ),
           Theme(

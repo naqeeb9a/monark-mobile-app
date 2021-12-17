@@ -90,7 +90,7 @@ class _SignUpState extends State<SignUp> {
                   children: [
                     Container(
                       width: dynamicWidth(context, 1),
-                      height: dynamicHeight(context, .32),
+                      height: dynamicHeight(context, .26),
                       color: myRed,
                       child: Center(
                         child: Padding(
@@ -102,8 +102,8 @@ class _SignUpState extends State<SignUp> {
                             style: TextStyle(
                               fontFamily: "Aeonik",
                               color: myWhite,
-                              fontSize: dynamicWidth(context, .06),
-                              fontWeight: FontWeight.w600,
+                              fontSize: dynamicWidth(context, .05),
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
@@ -113,7 +113,7 @@ class _SignUpState extends State<SignUp> {
                       bottom: 0.0,
                       child: Container(
                         width: dynamicWidth(context, 1),
-                        height: dynamicHeight(context, .7),
+                        height: dynamicHeight(context, .74),
                         decoration: BoxDecoration(
                           color: darkTheme == false ? myWhite : darkThemeBlack,
                           borderRadius: BorderRadius.only(
@@ -129,13 +129,13 @@ class _SignUpState extends State<SignUp> {
                           key: _formKey,
                           child: Padding(
                             padding: EdgeInsets.symmetric(
-                              horizontal: dynamicWidth(context, .05),
+                              horizontal: dynamicWidth(context, .08),
                             ),
                             child: SingleChildScrollView(
                               child: Column(
                                 children: [
                                   SizedBox(
-                                    height: dynamicHeight(context, .04),
+                                    height: dynamicHeight(context, .07),
                                   ),
                                   Row(
                                     children: [
@@ -145,7 +145,8 @@ class _SignUpState extends State<SignUp> {
                                           color: darkTheme == false
                                               ? myBlack
                                               : myWhite,
-                                          fontSize: dynamicWidth(context, .04),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: dynamicWidth(context, .028),
                                         ),
                                       ),
                                     ],
@@ -175,7 +176,8 @@ class _SignUpState extends State<SignUp> {
                                           color: darkTheme == false
                                               ? myBlack
                                               : myWhite,
-                                          fontSize: dynamicWidth(context, .04),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: dynamicWidth(context, .028),
                                         ),
                                       ),
                                     ],
@@ -205,7 +207,8 @@ class _SignUpState extends State<SignUp> {
                                           color: darkTheme == false
                                               ? myBlack
                                               : myWhite,
-                                          fontSize: dynamicWidth(context, .04),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: dynamicWidth(context, .028),
                                         ),
                                       ),
                                     ],
@@ -236,7 +239,8 @@ class _SignUpState extends State<SignUp> {
                                           color: darkTheme == false
                                               ? myBlack
                                               : myWhite,
-                                          fontSize: dynamicWidth(context, .04),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: dynamicWidth(context, .028),
                                         ),
                                       ),
                                     ],
@@ -272,7 +276,8 @@ class _SignUpState extends State<SignUp> {
                                           color: darkTheme == false
                                               ? myBlack
                                               : myWhite,
-                                          fontSize: dynamicWidth(context, .04),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: dynamicWidth(context, .028),
                                         ),
                                       ),
                                     ],
@@ -299,7 +304,7 @@ class _SignUpState extends State<SignUp> {
                                     },
                                   ),
                                   SizedBox(
-                                    height: dynamicHeight(context, .04),
+                                    height: dynamicHeight(context, .06),
                                   ),
                                   coloredButton(
                                     context,
@@ -359,14 +364,14 @@ class _SignUpState extends State<SignUp> {
                                     },
                                   ),
                                   SizedBox(
-                                    height: dynamicHeight(context, .02),
+                                    height: dynamicHeight(context, .06),
                                   ),
                                   richTextWidget(
                                     context,
                                     "Already have an account?  ",
                                     "Log In",
-                                    dynamicWidth(context, .04),
-                                    dynamicWidth(context, .05),
+                                    dynamicWidth(context, .032),
+                                    dynamicWidth(context, .032),
                                     Login(),
                                     darkTheme == false ? myBlack : myWhite,
                                     darkTheme == false ? myBlack : myWhite,

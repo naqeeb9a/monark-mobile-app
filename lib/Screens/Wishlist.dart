@@ -112,10 +112,10 @@ wishListGrid(context, refreshScreen) {
       child: GridView.builder(
         itemCount: wishListItems.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisSpacing: dynamicWidth(context, .04),
-          mainAxisSpacing: dynamicHeight(context, .02),
+          crossAxisSpacing: dynamicWidth(context, .03),
+          mainAxisSpacing: dynamicHeight(context, .01),
           crossAxisCount: 2,
-          childAspectRatio: 5 / 9.2,
+          childAspectRatio: 5 / 8.5,
         ),
         itemBuilder: (context, index) {
           return Center(
@@ -123,13 +123,9 @@ wishListGrid(context, refreshScreen) {
               context,
               wishListItems[index]["node"]["images"]["edges"],
               wishListItems[index]["node"]["title"],
-              wishListItems[index]["node"]["availableForSale"],
               variantProduct: wishListItems[index]["node"]["variants"]["edges"],
               sizeOption: wishListItems[index]["node"]["options"][0]["values"],
               description: wishListItems[index]["node"]["description"],
-              check: wishListItems[index]["node"]["availableForSale"] == true
-                  ? false
-                  : true,
               wishList: wishListItems[index],
               refreshScreen: refreshScreen,
             ),

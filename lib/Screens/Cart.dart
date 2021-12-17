@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:monark_app/Screens/Address.dart';
@@ -60,20 +61,40 @@ class _CartState extends State<Cart> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.asset(
-                                  "assets/emptyCart.png",
-                                  color: darkTheme == true ? myWhite : myRed,
+                                  "assets/icons/cartIcon.png",
+                                  color: darkTheme == true ? myRed : myBlack,
+                                  scale: 2.6,
                                 ),
                                 SizedBox(
                                   height: dynamicHeight(context, .02),
                                 ),
                                 Text(
-                                  "No Items in Cart",
+                                  "Empty Bag",
+                                  style: TextStyle(
+                                    color: darkTheme == true ? myWhite : myRed,
+                                    fontSize: dynamicWidth(context, .04),
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                heightBox(context, .014),
+                                Text(
+                                  "Looks like you haven't made\nyour choice yet",
                                   style: TextStyle(
                                     color:
                                         darkTheme == true ? myWhite : myBlack,
-                                    fontSize: dynamicWidth(context, .05),
+                                    fontSize: dynamicWidth(context, .03),
                                   ),
-                                )
+                                  textAlign: TextAlign.center,
+                                ),
+                                heightBox(context, .06),
+                                coloredButton(
+                                  context,
+                                  "Continue Shopping",
+                                  width: dynamicWidth(context, .6),
+                                  function: () {
+                                    Phoenix.rebirth(context);
+                                  },
+                                ),
                               ],
                             )
                           : cartList(setState: () {
@@ -82,7 +103,7 @@ class _CartState extends State<Cart> {
                     );
                   }),
                   SizedBox(
-                    height: dynamicHeight(context, .15),
+                    height: dynamicHeight(context, .2),
                   ),
                 ],
               ),
@@ -117,7 +138,7 @@ class _CartState extends State<Cart> {
                 : Positioned(
                     left: 0.0,
                     right: 0.0,
-                    bottom: dynamicHeight(context, .1),
+                    bottom: dynamicHeight(context, .15),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: dynamicWidth(context, .05),
@@ -129,7 +150,7 @@ class _CartState extends State<Cart> {
                             "Total Amount",
                             style: TextStyle(
                               color: darkTheme == true ? myWhite : myBlack,
-                              fontSize: dynamicWidth(context, .05),
+                              fontSize: dynamicWidth(context, .035),
                             ),
                           ),
                           Text(
@@ -138,7 +159,7 @@ class _CartState extends State<Cart> {
                               fontFamily: "Aeonik",
                               color: darkTheme == true ? myWhite : myBlack,
                               fontWeight: FontWeight.bold,
-                              fontSize: dynamicWidth(context, .044),
+                              fontSize: dynamicWidth(context, .035),
                             ),
                           ),
                         ],
@@ -159,10 +180,10 @@ Widget cartList({check, setState}) {
       return Slidable(
         key: const ValueKey(0),
         endActionPane: ActionPane(
+          extentRatio: .25,
           motion: BehindMotion(),
           children: [
             SlidableAction(
-              flex: 1,
               onPressed: (context) {
                 cartItems.remove(cartItems[index]);
                 setState();
@@ -180,93 +201,104 @@ Widget cartList({check, setState}) {
 }
 
 Widget cartCard(index, context, {check}) {
-  return Padding(
-    padding: EdgeInsets.symmetric(
-      vertical: dynamicHeight(context, 0.01),
-    ),
-    child: Container(
-      color: noColor,
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(
-                dynamicWidth(context, .03),
-              ),
-              child: CachedNetworkImage(
-                imageUrl: cartItems[index]["imageUrl"],
-                height: dynamicHeight(context, .16),
-                width: dynamicWidth(context, .26),
-                fit: BoxFit.fill,
-              ),
+  return Container(
+    padding: EdgeInsets.symmetric(vertical: dynamicHeight(context, 0.04)),
+    decoration: BoxDecoration(
+        color: noColor,
+        border: Border(bottom: BorderSide(width: 1, color: myGrey))),
+    child: IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(
+              dynamicWidth(context, .03),
             ),
-            SizedBox(
-              width: dynamicWidth(context, .04),
+            child: CachedNetworkImage(
+              imageUrl: cartItems[index]["imageUrl"],
+              height: dynamicHeight(context, .14),
+              width: dynamicWidth(context, .22),
+              fit: BoxFit.fill,
             ),
-            Container(
-              width: (check == true)
-                  ? dynamicWidth(context, 0.5)
-                  : dynamicWidth(context, .6),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: Text(
+          ),
+          SizedBox(
+            width: dynamicWidth(context, .04),
+          ),
+          Container(
+            width: (check == true)
+                ? dynamicWidth(context, 0.5)
+                : dynamicWidth(context, .6),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
                       cartItems[index]["title"],
                       style: TextStyle(
                         fontFamily: "Aeonik",
                         color: darkTheme == true ? myWhite : myBlack,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w900,
+                        fontSize: dynamicWidth(context, 0.028),
                       ),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                     ),
-                  ),
-                  Text(
-                    "PKR. " + cartItems[index]["total"].toString(),
-                    style: TextStyle(
-                      fontFamily: "Aeonik",
-                      fontSize: dynamicWidth(context, .04),
-                      color: darkTheme == true ? myWhite : myRed,
-                      fontWeight: FontWeight.bold,
+                    Text(
+                      "PKR. " + cartItems[index]["total"].toString(),
+                      style: TextStyle(
+                        fontFamily: "Aeonik",
+                        fontSize: dynamicWidth(context, .028),
+                        color: darkTheme == true ? myWhite : myRed,
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "Qty: ",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: dynamicWidth(context, .04),
-                            color: darkTheme == true ? myWhite : myBlack,
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "Size: " + cartItems[index]["size"].toString(),
+                      style: TextStyle(
+                        fontSize: dynamicWidth(context, .028),
+                        color: darkTheme == true ? myWhite : myBlack,
+                      ),
+                    ),
+                    widthBox(context, 0.014),
+                    Text(
+                      "|",
+                      style: TextStyle(color: myGrey),
+                    ),
+                    widthBox(context, 0.014),
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Qty: ",
+                            style: TextStyle(
+                              fontSize: dynamicWidth(context, .028),
+                              color: darkTheme == true ? myWhite : myBlack,
+                            ),
                           ),
-                        ),
-                        TextSpan(
-                          text: cartItems[index]["quantity"].toString(),
-                          style: TextStyle(
-                            fontSize: dynamicWidth(context, .04),
-                            color: darkTheme == true ? myWhite : myBlack,
-                          ),
-                        )
-                      ],
+                          TextSpan(
+                            text: cartItems[index]["quantity"].toString(),
+                            style: TextStyle(
+                              fontSize: dynamicWidth(context, .028),
+                              color: darkTheme == true ? myWhite : myBlack,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Text(
-                    "Size: " + cartItems[index]["size"].toString(),
-                    style: TextStyle(
-                      fontSize: dynamicWidth(context, .04),
-                      color: darkTheme == true ? myWhite : myBlack,
-                    ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     ),
   );

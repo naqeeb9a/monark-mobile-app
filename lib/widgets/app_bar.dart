@@ -13,6 +13,7 @@ PreferredSizeWidget bar(
   title = false,
   titleText = "",
   function = "",
+  refreshFucnction = "",
   iconColor = "",
 }) {
   return PreferredSize(
@@ -32,23 +33,32 @@ PreferredSizeWidget bar(
                       style: TextStyle(
                         fontFamily: "Aeonik",
                         color: darkTheme == true ? myWhite : myBlack,
-                        fontSize: dynamicWidth(context, .05),
+                        fontSize: dynamicWidth(context, .04),
                       ),
                     )
                   : FutureBuilder(
                       future: getUserData(globalAccessToken),
                       builder: (context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
-                          return Text(
-                            titleCase(snapshot.data["firstName"]) +
-                                " " +
-                                titleCase(snapshot.data["lastName"]),
-                            style: TextStyle(
-                              fontFamily: "Aeonik",
-                              color: darkTheme == true ? myWhite : myBlack,
-                              fontSize: dynamicWidth(context, .05),
-                            ),
-                          );
+                          if (snapshot.data == "Server Error") {
+                            return InkWell(
+                                onTap: refreshFucnction,
+                                child: Icon(
+                                  Icons.refresh,
+                                  color: Colors.black,
+                                ));
+                          } else {
+                            return Text(
+                              titleCase(snapshot.data["firstName"]) +
+                                  " " +
+                                  titleCase(snapshot.data["lastName"]),
+                              style: TextStyle(
+                                fontFamily: "Aeonik",
+                                color: darkTheme == true ? myWhite : myBlack,
+                                fontSize: dynamicWidth(context, .05),
+                              ),
+                            );
+                          }
                         } else {
                           return Transform(
                             transform: Matrix4.translationValues(
@@ -76,7 +86,7 @@ PreferredSizeWidget bar(
                         ? myBlack
                         : myWhite
                     : iconColor,
-                height: dynamicHeight(context, .03),
+                height: dynamicHeight(context, .025),
               ),
             )
           : Container(),
@@ -86,7 +96,7 @@ PreferredSizeWidget bar(
                 onPressed: function == "" ? () {} : function,
                 icon: Image.asset(
                   "assets/icons/menuIcon.png",
-                  height: dynamicHeight(context, .03),
+                  height: dynamicHeight(context, .025),
                   color: iconColor == ""
                       ? darkTheme == false
                           ? myBlack

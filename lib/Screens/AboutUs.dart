@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
@@ -38,13 +37,13 @@ class _AboutUsState extends State<AboutUs> {
               children: [
                 rowText("About Monark", context),
                 SizedBox(
-                  height: dynamicHeight(context, 0.06),
+                  height: dynamicHeight(context, 0.04),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
-                      child: AutoSizeText(
+                      child: Text(
                         "Monark - A smart casual fashion retail brand for men is an abstract of our rich "
                         "fashion retailing experience for more than two decades. Our continuing journey of "
                         "creating success stories in men's wear business with years of expertise in fashion "
@@ -57,7 +56,7 @@ class _AboutUsState extends State<AboutUs> {
                         "side of the spectrum, so tuck in that shirt, revamp your wardrobe and let’s begin this "
                         "journey with us.",
                         style: TextStyle(
-                          fontSize: dynamicWidth(context, .036),
+                          fontSize: dynamicWidth(context, 0.024),
                           color: darkTheme == true ? myWhite : myBlack,
                         ),
                         textAlign: TextAlign.justify,

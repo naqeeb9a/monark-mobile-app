@@ -12,7 +12,7 @@ const noColor = Colors.transparent;
 
 var cartItems = [].obs;
 var wishListItems = [];
-var addressList = [];
+dynamic addressList = [];
 var group = 0.obs;
 bool obscureText = true;
 

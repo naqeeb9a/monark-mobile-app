@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monark_app/Screens/Categories.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/api/api.dart';
 import 'package:monark_app/utils/config.dart';
@@ -54,15 +55,15 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: bar(
-        context,
-        menuIcon: true,
-        bgColor: darkTheme == true ? darkThemeBlack : myWhite,
-        title: true,
-        function: () {
-          _scaffoldKey.currentState!.openEndDrawer();
-        },
-      ),
+      appBar: bar(context,
+          menuIcon: true,
+          bgColor: darkTheme == true ? darkThemeBlack : myWhite,
+          title: true, function: () {
+        _scaffoldKey.currentState!.openEndDrawer();
+      }, refreshFucnction: () {
+        setState(() {});
+      }),
+      drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
       body: Container(
@@ -78,9 +79,9 @@ class _HomeState extends State<Home> {
                 sLoading == true
                     ? homeSlider(
                         context,
-                        dynamicHeight(context, .33),
+                        dynamicHeight(context, .35),
                         3,
-                        .84,
+                        1.0,
                         "loading",
                         true,
                       )
@@ -91,7 +92,7 @@ class _HomeState extends State<Home> {
                             },
                             child: homeSlider(
                               context,
-                              dynamicHeight(context, .33),
+                              dynamicHeight(context, .35),
                               3,
                               .84,
                               sliderImage,
@@ -100,7 +101,7 @@ class _HomeState extends State<Home> {
                           )
                         : homeSlider(
                             context,
-                            dynamicHeight(context, .33),
+                            dynamicHeight(context, .35),
                             sliderImage.length,
                             .84,
                             sliderImage,
@@ -131,18 +132,14 @@ class _HomeState extends State<Home> {
                         ),
                       )
                     : (futureHomeData == "Server Error")
-                        ? InkWell(
-                            onTap: () {
-                              getHomeData();
-                            },
-                            child: SizedBox(
-                              height: dynamicHeight(context, 0.4),
-                              child: Center(
-                                child: SizedBox(
-                                  height: dynamicHeight(context, .25),
-                                  child:
-                                      Image.asset("assets/network_error.png"),
-                                ),
+                        ? SizedBox(
+                            height: dynamicHeight(context, 0.4),
+                            child: Center(
+                              child: retryFunction(
+                                context,
+                                function: () {
+                                  getHomeData();
+                                },
                               ),
                             ),
                           )

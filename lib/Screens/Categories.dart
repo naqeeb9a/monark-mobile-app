@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:monark_app/api/api.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
+import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
@@ -20,6 +21,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
   var categoryList;
   bool loading = false;
   var settedCategory = 5;
+  dynamic globalIndex = 0;
 
   addCategory() async {
     setState(() {
@@ -64,41 +66,37 @@ class _CategoriesPageState extends State<CategoriesPage> {
               ),
             ),
             heightBox(context, .02),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: dynamicWidth(context, 0.02),
-                vertical: dynamicHeight(context, 0.02),
-              ),
-              child: Container(
-                height: dynamicHeight(context, 0.05),
-                width: dynamicWidth(context, 1),
-                child: (loading == true)
-                    ? jumpingDots(context)
-                    : (categoryList == false)
+            (loading == true)
+                ? Expanded(child: Center(child: jumpingDots(context)))
+                : (categoryList == false)
+                    ? Expanded(
+                        child: retryFunction(context, function: addCategory))
+                    : categoryList.length == 0
                         ? Center(
-                            child: SizedBox(
-                              height: dynamicHeight(context, .25),
-                              child: Image.asset("assets/network_error.png"),
+                            child: Text(
+                              "No Categories Found",
+                              style: TextStyle(
+                                color: darkTheme == true ? myWhite : myBlack,
+                                fontSize: dynamicWidth(context, .05),
+                              ),
                             ),
                           )
-                        : categoryList.length == 0
-                            ? Center(
-                                child: Text(
-                                  "No Categories Found",
-                                  style: TextStyle(
-                                    color:
-                                        darkTheme == true ? myWhite : myBlack,
-                                    fontSize: dynamicWidth(context, .05),
-                                  ),
-                                ),
-                              )
-                            : ListView.builder(
+                        : Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: dynamicWidth(context, 0.02),
+                              vertical: dynamicHeight(context, 0.02),
+                            ),
+                            child: Container(
+                              height: dynamicHeight(context, 0.05),
+                              width: dynamicWidth(context, 1),
+                              child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: categoryList.length,
                                 shrinkWrap: true,
                                 itemBuilder: (BuildContext context, int index) {
                                   if (index <= 0) {
                                     isSelected.add(true);
+                                    globalIndex = 0;
                                   } else {
                                     isSelected.add(false);
                                   }
@@ -111,6 +109,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                         categoryList[index]["title"],
                                         style: TextStyle(
                                           fontFamily: "Aeonik",
+                                          fontSize: dynamicWidth(context, 0.03),
+                                          fontWeight: FontWeight.w700,
                                           color: isSelected[index] == true
                                               ? myWhite
                                               : darkTheme == true
@@ -131,6 +131,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                       ),
                                       labelStyle: TextStyle(),
                                       onSelected: (value) {
+                                        globalIndex = index;
                                         if (isSelected[index] == true) {
                                           setState(() {
                                             isSelected[index] = true;
@@ -158,21 +159,68 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                   );
                                 },
                               ),
-              ),
-            ),
-            SizedBox(
-              height: dynamicHeight(context, 0.01),
-            ),
+                            ),
+                          ),
+            categoryList == false ? Container() : heightBox(context, 0.025),
             loading == true
                 ? Center()
-                : detailGrid(
-                    ApiData().getInfo("categories/$settedCategory"),
-                    context,
-                    true,
-                  ),
+                : categoryList == false
+                    ? Container()
+                    : detailGrid(
+                        ApiData().getInfo("categories/$settedCategory"),
+                        context,
+                        true, function1: () {
+                        setState(() {});
+                      }, handle: categoryList[globalIndex]["handle"]),
           ],
         ),
       ),
     );
   }
+}
+
+Widget retryFunction(context, {function = "", check = false}) {
+  return check == true
+      ? Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              "assets/network_error.png",
+              scale: 8,
+              color: myRed,
+            ),
+            heightBox(context, 0.02),
+            coloredButton(context, "retry",
+                width: dynamicWidth(context, 0.2),
+                heigth: dynamicHeight(context, 0.04))
+          ],
+        )
+      : Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "..OOPS",
+              style: TextStyle(
+                  fontSize: dynamicWidth(context, 0.028),
+                  fontWeight: FontWeight.bold,
+                  color: darkTheme == true ? myWhite : myBlack),
+            ),
+            heightBox(context, 0.04),
+            Image.asset(
+              "assets/network_error.png",
+              scale: 2.6,
+              color: myRed,
+            ),
+            heightBox(context, 0.02),
+            Text(
+              "No Internet Connection",
+              style: TextStyle(
+                  fontSize: dynamicWidth(context, 0.032),
+                  color: darkTheme == true ? myWhite : myBlack),
+            ),
+            heightBox(context, 0.025),
+            coloredButton(context, "Retry",
+                width: dynamicWidth(context, 0.3), function: function),
+          ],
+        );
 }

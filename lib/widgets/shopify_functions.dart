@@ -56,7 +56,7 @@ getShopifyCategory() async {
 getShopifyProductsBestSelling() async {
   var shopifyProducts = '''
 {
-  products(first:10 sortKey:BEST_SELLING) {
+  products(first:10 sortKey:BEST_SELLING query: "available_for_sale:true") {
     edges {
       node {
         id
@@ -105,79 +105,86 @@ getShopifyProductsBestSelling() async {
   final QueryResult result = await client.query(options);
 
   if (result.hasException) {
-    getShopifyProducts();
+    // getShopifyProducts();
     return "Server Error";
   } else {
     return result.data!["products"]["edges"];
   }
 }
 
-getShopifyProducts() async {
-  var shopifyProducts = '''
-{
-  products(first:250) {
-    edges {
-      node {
-        id
-        description
-        title
-        productType
-        availableForSale
-        totalInventory
-        variants(first :10){
-            edges{
-                node
-                {
-                    id
-                    price
-                    sku
-                    compareAtPrice
-                    requiresShipping
-                    availableForSale
-                }
-            }
-        }
-        options{
-            values
-        }
-        images(first:10){
-            edges{
-                node{
-                    src
-                }
-            }
-        }
-      }
-    }
-  }
-}
- ''';
-  final HttpLink httpLink = HttpLink(
-      "https://monark-clothings.myshopify.com/api/2021-10/graphql.json",
-      defaultHeaders: {
-        "X-Shopify-Storefront-Access-Token": "fce9486a511f6a4f45939c2c6829cdaa"
-      });
-  GraphQLClient client = GraphQLClient(link: httpLink, cache: GraphQLCache());
-  final QueryOptions options = QueryOptions(
-    document: gql(shopifyProducts),
-  );
-  final QueryResult result = await client.query(options);
+// getShopifyProducts() async {
+//   var shopifyProducts = '''
+// {
+//   products(first:250   ) {
+//     edges {
+//       node {
+//         id
+//         description
+//         title
+//         productType
+//         availableForSale
+//         totalInventory
+//         variants(first :10){
+//             edges{
+//                 node
+//                 {
+//                     id
+//                     price
+//                     sku
+//                     compareAtPrice
+//                     requiresShipping
+//                     availableForSale
+//                 }
+//             }
+//         }
+//         options{
+//             values
+//         }
+//         images(first:10){
+//             edges{
+//                 node{
+//                     src
+//                 }
+//             }
+//         }
+//       }
+//     }
+//   }
+// }
+//  ''';
+//   final HttpLink httpLink = HttpLink(
+//       "https://monark-clothings.myshopify.com/api/2021-10/graphql.json",
+//       defaultHeaders: {
+//         "X-Shopify-Storefront-Access-Token": "fce9486a511f6a4f45939c2c6829cdaa"
+//       });
+//   GraphQLClient client = GraphQLClient(link: httpLink, cache: GraphQLCache());
+//   final QueryOptions options = QueryOptions(
+//     document: gql(shopifyProducts),
+//   );
+//   final QueryResult result = await client.query(options);
 
-  if (result.hasException) {
-    getShopifyProducts();
-    return "Server Error";
-  } else {
-    return result.data!["products"]["edges"];
-  }
-}
+//   if (result.hasException) {
+//     getShopifyProducts();
+//     return "Server Error";
+//   } else {
+//     return result.data!["products"]["edges"];
+//   }
+// }
 
 getShopifyCollection(handle, {sortKey = "", reverse = ""}) async {
   var shopifyCollection;
+  var variables = {
+    "product_filters": [
+      {"available": true}
+    ]
+  };
   if (sortKey == "") {
-    shopifyCollection = '''
-{
-  collectionByHandle(handle:"$handle") {
-    products(first:250) {
+    shopifyCollection = r'''
+query InStock($product_filters: [ProductFilter!]){''' +
+        '''
+  	collectionByHandle(handle: "$handle") {''' +
+        r'''
+    products(first: 250, filters: $product_filters) {
     edges {
       node {
         id
@@ -217,10 +224,12 @@ getShopifyCollection(handle, {sortKey = "", reverse = ""}) async {
  ''';
   } else {
     if (reverse == "") {
-      shopifyCollection = '''
-{
+      shopifyCollection = r'''
+query InStock($product_filters: [ProductFilter!]){''' +
+          '''
   collectionByHandle(handle:"$handle") {
-    products(first:250 sortKey:$sortKey) {
+    products(first:250 sortKey:$sortKey  filters:''' +
+          r''' $product_filters) {
     edges {
       node {
         id
@@ -259,10 +268,12 @@ getShopifyCollection(handle, {sortKey = "", reverse = ""}) async {
 }
  ''';
     } else {
-      shopifyCollection = '''
-{
+      shopifyCollection = r'''
+query InStock($product_filters: [ProductFilter!]){''' +
+          '''
   collectionByHandle(handle:"$handle") {
-    products(first:250 sortKey:$sortKey reverse:$reverse) {
+    products(first:250 sortKey:$sortKey reverse:$reverse  filters:''' +
+          r''' $product_filters) {
     edges {
       node {
         id
@@ -303,18 +314,16 @@ getShopifyCollection(handle, {sortKey = "", reverse = ""}) async {
     }
   }
   final HttpLink httpLink = HttpLink(
-      "https://monark-clothings.myshopify.com/api/2021-10/graphql.json",
+      "https://monark-clothings.myshopify.com/api/2022-01/graphql.json",
       defaultHeaders: {
         "X-Shopify-Storefront-Access-Token": "fce9486a511f6a4f45939c2c6829cdaa"
       });
   GraphQLClient client = GraphQLClient(link: httpLink, cache: GraphQLCache());
-  final QueryOptions options = QueryOptions(
-    document: gql(shopifyCollection),
-  );
+  final QueryOptions options =
+      QueryOptions(document: gql(shopifyCollection), variables: variables);
   final QueryResult result = await client.query(options);
 
   if (result.hasException) {
-    getShopifyCollection(handle);
     return "Server Error";
   } else {
     return result.data!["collectionByHandle"]["products"]["edges"];

@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
@@ -26,7 +25,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'phone': "042-35131653",
       'email': "customercare@monark.com.pk",
       'url': "https://www.monark.com.pk",
-      'workTime': "11:00 - 22:00",
+      'workTime': "11:00 am - 10:00 pm",
       'holiday': "SUNDAY OFF",
     },
     {
@@ -37,7 +36,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'phone': "042-37341401",
       'email': "",
       'url': "https://www.monark.com.pk",
-      'workTime': "12:00 - 22:00",
+      'workTime': "12:00 pm - 10:00 pm",
       'holiday': "SUNDAY OFF",
     },
     {
@@ -48,7 +47,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'phone': "042-332171186",
       'email': "",
       'url': "https://www.monark.com.pk",
-      'workTime': "11:00 - 22:00",
+      'workTime': "11:00 am - 10:00 pm",
       'holiday': "SUNDAY OFF",
     },
     {
@@ -59,7 +58,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'phone': "042-32592390",
       'email': "",
       'url': "https://www.monark.com.pk",
-      'workTime': "10:00 - 22:00",
+      'workTime': "10:00 am - 10:00 pm",
       'holiday': "SUNDAY OFF",
     },
     {
@@ -70,7 +69,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'phone': "042-32084751",
       'email': "",
       'url': "https://www.monark.com.pk",
-      'workTime': "11:00 - 22:00",
+      'workTime': "11:00 am - 10:00 pm",
       'holiday': "SUNDAY OFF",
     },
     {
@@ -81,7 +80,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'phone': "042-38915254",
       'email': "",
       'url': "https://www.monark.com.pk",
-      'workTime': "10:00 - 22:00",
+      'workTime': "10:00 am - 10:00 pm",
       'holiday': "SUNDAY OFF",
     },
     {
@@ -92,7 +91,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'phone': "061-6521614",
       'email': "",
       'url': "https://www.monark.com.pk",
-      'workTime': "11:00 - 22:00",
+      'workTime': "11:00 am - 10:00 pm",
       'holiday': "FRIDAY OFF",
     },
     {
@@ -103,7 +102,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'phone': "055-2061732",
       'email': "",
       'url': "https://www.monark.com.pk",
-      'workTime': "11:00 - 22:00",
+      'workTime': "11:00 am - 10:00 pm",
       'holiday': "FRIDAY OFF",
     },
     {
@@ -115,7 +114,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'phone': "055-4283088",
       'email': "",
       'url': "https://www.monark.com.pk",
-      'workTime': "11:00 - 22:00",
+      'workTime': "11:00 am - 10:00 pm",
       'holiday': "FRIDAY OFF",
     },
     {
@@ -126,7 +125,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'phone': "041-5225986",
       'email': "",
       'url': "https://www.monark.com.pk",
-      'workTime': "11:00 - 22:00",
+      'workTime': "11:00 am - 10:00 pm",
       'holiday': "FRIDAY OFF",
     },
     {
@@ -137,7 +136,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'phone': "051-2725550",
       'email': "",
       'url': "https://www.monark.com.pk",
-      'workTime': "10:00 - 22:00",
+      'workTime': "10:00 am - 10:00 pm",
       'holiday': "THURSDAY OFF",
     },
     {
@@ -148,7 +147,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'phone': "052-4291180",
       'email': "",
       'url': "https://www.monark.com.pk",
-      'workTime': "11:00 - 22:00",
+      'workTime': "11:00 am - 10:00 pm",
       'holiday': "FRIDAY OFF",
     },
   ];
@@ -224,129 +223,99 @@ Widget storeCard(context, name, address, phone, workTime, holiday) {
                   style: TextStyle(
                     fontFamily: "Aeonik",
                     fontWeight: FontWeight.w700,
-                    fontSize: dynamicWidth(context, .052),
+                    fontSize: dynamicWidth(context, .04),
                     color: darkTheme == true ? myWhite : myBlack,
                   ),
                 ),
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: dynamicHeight(context, .006),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  height: dynamicHeight(context, .046),
-                  child: Text(
-                    "Address: ",
-                    style: TextStyle(
-                      color: darkTheme == true ? myWhite : myBlack,
-                      fontWeight: FontWeight.w500,
-                      fontSize: dynamicWidth(context, .04),
-                    ),
-                    maxLines: 1,
+          Row(
+            children: [
+              Container(
+                child: Text(
+                  "Address: ",
+                  style: TextStyle(
+                    color: darkTheme == true ? myWhite : myBlack,
+                    fontWeight: FontWeight.bold,
+                    fontSize: dynamicWidth(context, .024),
                   ),
+                  maxLines: 1,
                 ),
-                Container(
-                  width: dynamicWidth(context, .7),
-                  height: dynamicHeight(context, .046),
-                  child: Text(
-                    address,
-                    style: TextStyle(
-                      color: darkTheme == true ? myWhite : myBlack,
-                      fontSize: dynamicWidth(context, .036),
-                      fontWeight: FontWeight.w400,
-                    ),
-                    maxLines: 2,
+              ),
+              Container(
+                child: Text(
+                  address,
+                  style: TextStyle(
+                    color: darkTheme == true ? myWhite : myBlack,
+                    fontSize: dynamicWidth(context, .024),
+                    fontWeight: FontWeight.w400,
                   ),
+                  maxLines: 2,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           InkWell(
             onTap: () {
               launch("tel:$phone");
             },
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: dynamicHeight(context, .006),
-              ),
-              child: Row(
-                children: [
-                  Text(
-                    "Phone: ",
-                    style: TextStyle(
-                      color: darkTheme == true ? myWhite : myBlack,
-                      fontWeight: FontWeight.w500,
-                      fontSize: dynamicWidth(context, .04),
-                    ),
-                    maxLines: 1,
-                  ),
-                  SizedBox(
-                    width: dynamicWidth(context, .7),
-                    child: AutoSizeText(
-                      phone,
-                      style: TextStyle(
-                        color: darkTheme == true ? myWhite : myBlack,
-                        fontSize: dynamicWidth(context, .036),
-                        fontWeight: FontWeight.w400,
-                      ),
-                      maxLines: 2,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: dynamicHeight(context, .006),
-            ),
             child: Row(
               children: [
                 Text(
-                  "Time: ",
+                  "Phone: ",
                   style: TextStyle(
                     color: darkTheme == true ? myWhite : myBlack,
-                    fontWeight: FontWeight.w500,
-                    fontSize: dynamicWidth(context, .04),
+                    fontWeight: FontWeight.bold,
+                    fontSize: dynamicWidth(context, .024),
                   ),
                   maxLines: 1,
                 ),
-                SizedBox(
-                  width: dynamicWidth(context, .7),
-                  child: AutoSizeText(
-                    workTime,
-                    style: TextStyle(
-                      color: darkTheme == true ? myWhite : myBlack,
-                      fontSize: dynamicWidth(context, .036),
-                      fontWeight: FontWeight.w400,
-                    ),
-                    maxLines: 1,
+                Text(
+                  phone,
+                  style: TextStyle(
+                    color: darkTheme == true ? myWhite : myBlack,
+                    fontSize: dynamicWidth(context, .024),
+                    fontWeight: FontWeight.w400,
                   ),
+                  maxLines: 2,
                 ),
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: dynamicHeight(context, .006),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                AutoSizeText(
-                  holiday,
-                  style: TextStyle(
-                    color: darkTheme == true ? myWhite : myRed,
-                    fontSize: dynamicWidth(context, .032),
-                    fontWeight: FontWeight.w500,
-                  ),
-                  maxLines: 1,
+          heightBox(context, 0.015),
+          Row(
+            children: [
+              Text(
+                "Time: ",
+                style: TextStyle(
+                  color: darkTheme == true ? myWhite : myBlack,
+                  fontWeight: FontWeight.bold,
+                  fontSize: dynamicWidth(context, .024),
                 ),
-              ],
+                maxLines: 1,
+              ),
+              Text(
+                workTime,
+                style: TextStyle(
+                  color: darkTheme == true ? myWhite : myBlack,
+                  fontSize: dynamicWidth(context, .024),
+                  fontWeight: FontWeight.w400,
+                ),
+                maxLines: 1,
+              ),
+            ],
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              holiday,
+              style: TextStyle(
+                color: darkTheme == true ? myWhite : myRed,
+                fontSize: dynamicWidth(context, .024),
+                fontWeight: FontWeight.bold,
+              ),
+              maxLines: 1,
             ),
           ),
         ],

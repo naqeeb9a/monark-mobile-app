@@ -86,7 +86,7 @@ class _PaymentState extends State<Payment> {
                                             ? myWhite
                                             : myBlack,
                                         fontWeight: FontWeight.w600,
-                                        fontSize: dynamicWidth(context, .034),
+                                        fontSize: dynamicWidth(context, .032),
                                       ),
                                     ),
                                     Text(
@@ -97,7 +97,7 @@ class _PaymentState extends State<Payment> {
                                         color: darkTheme == true
                                             ? myWhite
                                             : myBlack,
-                                        fontSize: dynamicWidth(context, .034),
+                                        fontSize: dynamicWidth(context, .032),
                                       ),
                                     ),
                                     Text(
@@ -109,7 +109,7 @@ class _PaymentState extends State<Payment> {
                                         color: darkTheme == true
                                             ? myWhite
                                             : myBlack,
-                                        fontSize: dynamicWidth(context, .034),
+                                        fontSize: dynamicWidth(context, .032),
                                       ),
                                     ),
                                     Text(
@@ -118,7 +118,7 @@ class _PaymentState extends State<Payment> {
                                         color: darkTheme == true
                                             ? myWhite
                                             : myBlack,
-                                        fontSize: dynamicWidth(context, .034),
+                                        fontSize: dynamicWidth(context, .032),
                                       ),
                                     ),
                                   ],
@@ -157,7 +157,7 @@ class _PaymentState extends State<Payment> {
                                     style: TextStyle(
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
-                                      fontSize: dynamicWidth(context, .034),
+                                      fontSize: dynamicWidth(context, .03),
                                     ),
                                   ),
                                   Text(
@@ -165,7 +165,7 @@ class _PaymentState extends State<Payment> {
                                     style: TextStyle(
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
-                                      fontSize: dynamicWidth(context, .034),
+                                      fontSize: dynamicWidth(context, .03),
                                     ),
                                   ),
                                   heightBox(context, 0.03),
@@ -174,7 +174,7 @@ class _PaymentState extends State<Payment> {
                                     style: TextStyle(
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
-                                      fontSize: dynamicWidth(context, .034),
+                                      fontSize: dynamicWidth(context, .03),
                                     ),
                                   )
                                 ],
@@ -183,13 +183,13 @@ class _PaymentState extends State<Payment> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "PKR. " + subtotal.toString(),
+                                    "PKR. " + numberFormat(subtotal.toString()),
                                     style: TextStyle(
                                       fontFamily: "Aeonik",
                                       fontWeight: FontWeight.w600,
                                       color:
                                           darkTheme == true ? myWhite : myRed,
-                                      fontSize: dynamicWidth(context, .034),
+                                      fontSize: dynamicWidth(context, .03),
                                     ),
                                   ),
                                   (subtotal < 2000)
@@ -202,7 +202,7 @@ class _PaymentState extends State<Payment> {
                                                 ? myWhite
                                                 : myRed,
                                             fontSize:
-                                                dynamicWidth(context, .034),
+                                                dynamicWidth(context, .03),
                                           ),
                                         )
                                       : Text(
@@ -214,13 +214,15 @@ class _PaymentState extends State<Payment> {
                                                 ? myWhite
                                                 : myRed,
                                             fontSize:
-                                                dynamicWidth(context, .034),
+                                                dynamicWidth(context, .03),
                                           ),
                                         ),
                                   heightBox(context, 0.03),
                                   (subtotal < 2000)
                                       ? Text(
-                                          "PKR. " + (subtotal + 200).toString(),
+                                          "PKR. " +
+                                              numberFormat(
+                                                  (subtotal + 200).toString()),
                                           style: TextStyle(
                                             fontFamily: "Aeonik",
                                             fontWeight: FontWeight.w600,
@@ -228,11 +230,12 @@ class _PaymentState extends State<Payment> {
                                                 ? myWhite
                                                 : myRed,
                                             fontSize:
-                                                dynamicWidth(context, .04),
+                                                dynamicWidth(context, .034),
                                           ),
                                         )
                                       : Text(
-                                          "PKR. " + subtotal.toString(),
+                                          "PKR. " +
+                                              numberFormat(subtotal.toString()),
                                           style: TextStyle(
                                             fontFamily: "Aeonik",
                                             fontWeight: FontWeight.w600,
@@ -240,7 +243,7 @@ class _PaymentState extends State<Payment> {
                                                 ? myWhite
                                                 : myRed,
                                             fontSize:
-                                                dynamicWidth(context, .04),
+                                                dynamicWidth(context, .034),
                                           ),
                                         ),
                                 ],
@@ -314,7 +317,7 @@ Widget radioOptions(context, text) {
         text,
         style: TextStyle(
           color: darkTheme == true ? myWhite : myBlack,
-          fontSize: dynamicWidth(context, .034),
+          fontSize: dynamicWidth(context, .032),
         ),
       )
     ],

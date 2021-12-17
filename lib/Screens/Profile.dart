@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:graphql/client.dart';
 import 'package:monark_app/Screens/Address.dart';
+import 'package:monark_app/Screens/Categories.dart';
 import 'package:monark_app/Screens/Orders.dart';
 import 'package:monark_app/Screens/Wishlist.dart';
 import 'package:monark_app/utils/appRoutes.dart';
@@ -77,7 +78,8 @@ class _ProfileState extends State<Profile> {
       ),
       endDrawer: drawer(context),
       body: SafeArea(
-        child: Center(
+        child: Align(
+          alignment: Alignment.topCenter,
           child: Container(
             width: dynamicWidth(context, .8),
             height: dynamicHeight(context, .8),
@@ -153,7 +155,9 @@ class _ProfileState extends State<Profile> {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.data == "Server Error") {
                           return Center(
-                            child: Text("no internet"),
+                            child: retryFunction(context, function: () {
+                              setState(() {});
+                            }),
                           );
                         } else {
                           return Column(
@@ -215,11 +219,20 @@ class _ProfileState extends State<Profile> {
                                   Phoenix.rebirth(context);
                                 } else {
                                   CoolAlert.show(
+                                    barrierDismissible: false,
                                     context: context,
                                     type: CoolAlertType.loading,
                                     backgroundColor: noColor,
                                   );
-                                  logoutUser(globalAccessToken);
+                                  dynamic response =
+                                      logoutUser(globalAccessToken);
+                                  if (response == "Server Error") {
+                                    CoolAlert.show(
+                                        context: context,
+                                        type: CoolAlertType.warning,
+                                        text: "Check Your Internet ",
+                                        backgroundColor: noColor);
+                                  }
                                 }
                               }),
                               SizedBox(
@@ -251,7 +264,7 @@ Widget profileText(context, text1) {
         child: Text(
           text1,
           style: TextStyle(
-            fontSize: dynamicWidth(context, .04),
+            fontSize: dynamicWidth(context, .03),
             color: darkTheme == true ? myWhite : myBlack,
           ),
         ),

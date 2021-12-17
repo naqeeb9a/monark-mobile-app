@@ -35,6 +35,7 @@ Widget richTextWidget(
                 text: text2,
                 style: TextStyle(
                   fontSize: size2,
+                  decoration: TextDecoration.underline,
                   color: color2,
                   fontWeight: FontWeight.bold,
                 ),

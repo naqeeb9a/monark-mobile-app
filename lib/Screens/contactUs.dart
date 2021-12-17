@@ -57,8 +57,8 @@ class _ContactPageState extends State<ContactPage> {
                                   style: TextStyle(
                                     color:
                                         darkTheme == true ? myWhite : myBlack,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: dynamicWidth(context, .036),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: dynamicWidth(context, .024),
                                   ),
                                   maxLines: 1,
                                 ),
@@ -72,7 +72,7 @@ class _ContactPageState extends State<ContactPage> {
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
                                       fontWeight: FontWeight.w400,
-                                      fontSize: dynamicWidth(context, .032),
+                                      fontSize: dynamicWidth(context, .024),
                                     ),
                                     maxLines: 1,
                                   ),
@@ -99,8 +99,8 @@ class _ContactPageState extends State<ContactPage> {
                                     style: TextStyle(
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: dynamicWidth(context, .036),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: dynamicWidth(context, .024),
                                     ),
                                     maxLines: 1,
                                   ),
@@ -110,7 +110,7 @@ class _ContactPageState extends State<ContactPage> {
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
                                       fontWeight: FontWeight.w400,
-                                      fontSize: dynamicWidth(context, .032),
+                                      fontSize: dynamicWidth(context, .024),
                                     ),
                                     maxLines: 1,
                                   ),
@@ -131,8 +131,8 @@ class _ContactPageState extends State<ContactPage> {
                                     style: TextStyle(
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: dynamicWidth(context, .036),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: dynamicWidth(context, .024),
                                     ),
                                     maxLines: 1,
                                   ),
@@ -146,7 +146,7 @@ class _ContactPageState extends State<ContactPage> {
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
                                       fontWeight: FontWeight.w400,
-                                      fontSize: dynamicWidth(context, .032),
+                                      fontSize: dynamicWidth(context, .024),
                                     ),
                                     maxLines: 2,
                                   ),
@@ -171,17 +171,17 @@ class _ContactPageState extends State<ContactPage> {
                                   },
                                   child: CircleAvatar(
                                     backgroundColor: Color(0xff4267B2),
-                                    radius: dynamicWidth(context, .04),
+                                    radius: dynamicWidth(context, .034),
                                     child: Image.asset(
                                       "assets/icons/fbIcon.png",
-                                      width: dynamicWidth(context, .032),
+                                      width: dynamicWidth(context, .024),
                                       color: myWhite,
                                     ),
                                   ),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
-                                    horizontal: dynamicWidth(context, .08),
+                                    horizontal: dynamicWidth(context, .07),
                                   ),
                                   child: InkWell(
                                     onTap: () {
@@ -194,7 +194,7 @@ class _ContactPageState extends State<ContactPage> {
                                     child: ClipOval(
                                       child: Image.asset(
                                         "assets/icons/instaIcon.png",
-                                        width: dynamicWidth(context, .086),
+                                        width: dynamicWidth(context, .07),
                                       ),
                                     ),
                                   ),
@@ -209,10 +209,10 @@ class _ContactPageState extends State<ContactPage> {
                                   },
                                   child: CircleAvatar(
                                     backgroundColor: myRed,
-                                    radius: dynamicWidth(context, .04),
+                                    radius: dynamicWidth(context, .034),
                                     child: Image.asset(
                                       "assets/icons/webIcon.png",
-                                      width: dynamicWidth(context, .056),
+                                      width: dynamicWidth(context, .034),
                                       color: myWhite,
                                     ),
                                   ),

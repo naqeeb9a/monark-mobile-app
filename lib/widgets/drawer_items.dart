@@ -7,6 +7,7 @@ import 'package:monark_app/Screens/store_finder.dart';
 import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:switcher_button/switcher_button.dart';
 
 import '../utils/config.dart';
 
@@ -15,46 +16,29 @@ Widget drawerItems(context) {
     {
       "text": "About Monark",
       "function": () {
-        pop(context);
+        popUntil(context);
         push(context, AboutUs());
       },
     },
     {
       "text": "Policies",
       "function": () {
-        pop(context);
+        popUntil(context);
         push(context, PoliciesPage());
       },
     },
     {
       "text": "Store Locator",
       "function": () {
-        pop(context);
+        popUntil(context);
         push(context, StoreFinder());
       },
     },
     {
       "text": "Contact Us",
       "function": () {
-        pop(context);
+        popUntil(context);
         push(context, ContactPage());
-      },
-    },
-    {
-      "text": darkTheme == true ? "Light Mode" : "Dark Mode",
-      "function": () async {
-        SharedPreferences pref = await SharedPreferences.getInstance();
-        darkTheme = !darkTheme;
-
-        await pref.setBool("darkThemeCheck", darkTheme);
-
-        var snackBar = SnackBar(
-          content: Text('Theme Changed'),
-          duration: const Duration(milliseconds: 1000),
-        );
-
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        Phoenix.rebirth(context);
       },
     },
   ];
@@ -83,24 +67,33 @@ Widget drawerItems(context) {
               ),
             ],
           ),
-          Flexible(
-            child: Padding(
-              padding: EdgeInsets.only(
-                top: dynamicHeight(context, .12),
-                left: dynamicWidth(context, .06),
-              ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: dynamicHeight(context, .06),
+              left: dynamicWidth(context, .08),
+            ),
+            child: Container(
+              height: dynamicHeight(context, .23),
               child: ListView.builder(
                 itemCount: drawerItemList.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    onTap: drawerItemList[index]["function"],
-                    title: Text(
-                      drawerItemList[index]["text"].toString(),
-                      style: TextStyle(
-                        fontFamily: "Aeonik",
-                        color: darkTheme == true ? myWhite : myBlack,
-                        fontWeight: FontWeight.bold,
-                        fontSize: dynamicWidth(context, .044),
+                  return SizedBox(
+                    height: dynamicHeight(context, .056),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 0.0,
+                        vertical: 0.0,
+                      ),
+                      minVerticalPadding: 0,
+                      onTap: drawerItemList[index]["function"],
+                      title: Text(
+                        drawerItemList[index]["text"].toString(),
+                        style: TextStyle(
+                          fontFamily: "Aeonik",
+                          color: darkTheme == true ? myWhite : myBlack,
+                          fontWeight: FontWeight.bold,
+                          fontSize: dynamicWidth(context, .04),
+                        ),
                       ),
                     ),
                   );
@@ -108,6 +101,48 @@ Widget drawerItems(context) {
               ),
             ),
           ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: dynamicHeight(context, .016),
+              left: dynamicWidth(context, .08),
+              right: dynamicWidth(context, .08),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Dark Mode",
+                  style: TextStyle(
+                    fontFamily: "Aeonik",
+                    color: darkTheme == true ? myWhite : myBlack,
+                    fontWeight: FontWeight.bold,
+                    fontSize: dynamicWidth(context, .04),
+                  ),
+                ),
+                SwitcherButton(
+                  value: darkTheme,
+                  onColor: myWhite,
+                  offColor: myBlack,
+                  size: dynamicWidth(context, .1),
+                  onChange: (value) async {
+                    SharedPreferences pref =
+                        await SharedPreferences.getInstance();
+                    darkTheme = !darkTheme;
+
+                    await pref.setBool("darkThemeCheck", darkTheme);
+
+                    var snackBar = SnackBar(
+                      content: Text('Theme Changed'),
+                      duration: const Duration(milliseconds: 1000),
+                    );
+
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    Phoenix.rebirth(context);
+                  },
+                ),
+              ],
+            ),
+          )
         ],
       ),
     ),
@@ -118,7 +153,7 @@ Widget profilePicture(context) {
   return Column(
     children: [
       CircleAvatar(
-        radius: dynamicWidth(context, .22),
+        radius: dynamicWidth(context, .18),
         backgroundColor: myRed,
         child: ClipOval(
           child: Image.asset(

@@ -39,6 +39,7 @@ class _BottomNavState extends State<BottomNav> {
     });
   }
 
+  var iconSizes = 0.05;
   @override
   Widget build(BuildContext context) {
     return (_loading == true)
@@ -55,21 +56,21 @@ class _BottomNavState extends State<BottomNav> {
                       "assets/icons/homeIcon.png",
                     ),
                     color: myWhite,
-                    size: dynamicWidth(context, .06),
+                    size: dynamicWidth(context, iconSizes),
                   ),
                   // ignore: deprecated_member_use
                   title: Text(
                     "Home",
                     style: TextStyle(
                       color: myWhite,
-                      fontSize: dynamicWidth(context, .025),
+                      fontSize: dynamicWidth(context, .023),
                     ),
                   ),
                 ),
                 BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/icons/searchIcon.png",
-                    width: dynamicWidth(context, .06),
+                    width: dynamicWidth(context, iconSizes),
                     color: myWhite,
                   ),
                   // ignore: deprecated_member_use
@@ -77,14 +78,14 @@ class _BottomNavState extends State<BottomNav> {
                     "Search",
                     style: TextStyle(
                       color: myWhite,
-                      fontSize: dynamicWidth(context, .025),
+                      fontSize: dynamicWidth(context, .023),
                     ),
                   ),
                 ),
                 BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/icons/categoryIcon.png",
-                    width: dynamicWidth(context, .06),
+                    width: dynamicWidth(context, iconSizes),
                     color: myWhite,
                   ),
                   // ignore: deprecated_member_use
@@ -92,14 +93,14 @@ class _BottomNavState extends State<BottomNav> {
                     "Categories",
                     style: TextStyle(
                       color: myWhite,
-                      fontSize: dynamicWidth(context, .025),
+                      fontSize: dynamicWidth(context, .023),
                     ),
                   ),
                 ),
                 BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/icons/cartIcon.png",
-                    width: dynamicWidth(context, .06),
+                    width: dynamicWidth(context, iconSizes),
                     color: myWhite,
                   ),
                   // ignore: deprecated_member_use
@@ -107,14 +108,14 @@ class _BottomNavState extends State<BottomNav> {
                     "My Bag",
                     style: TextStyle(
                       color: myWhite,
-                      fontSize: dynamicWidth(context, .025),
+                      fontSize: dynamicWidth(context, .023),
                     ),
                   ),
                 ),
                 BottomNavigationBarItem(
                   icon: Image.asset(
                     "assets/icons/profileIcon.png",
-                    width: dynamicWidth(context, .06),
+                    width: dynamicWidth(context, iconSizes),
                     color: myWhite,
                   ),
                   // ignore: deprecated_member_use
@@ -122,7 +123,7 @@ class _BottomNavState extends State<BottomNav> {
                     "Profile",
                     style: TextStyle(
                       color: myWhite,
-                      fontSize: dynamicWidth(context, .025),
+                      fontSize: dynamicWidth(context, .023),
                     ),
                   ),
                 ),

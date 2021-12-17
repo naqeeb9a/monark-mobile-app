@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graphql/client.dart';
 import 'package:monark_app/Screens/AddAddress.dart';
+import 'package:monark_app/Screens/Categories.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
@@ -70,17 +71,15 @@ class _AddressPageState extends State<AddressPage> {
       loading = true;
     });
     addressList = await getUserAddresses();
-
-    for (int i = 0; i < addressList.length; i++) {
-      print("i $i " + addressList[i]['node']["address1"]);
-      for (int j = 0; j < addressList.length; j++) {
-        print("j $j " + addressList[j]['node']["address1"]);
-        if (i != j) {
-          if (addressList[i]['node']["address1"] ==
-              addressList[j]['node']["address1"]) {
-            print("\n\n\n\ntrue\n\n");
-            addressList.removeAt(j);
-            break;
+    if (addressList != "Server Error") {
+      for (int i = 0; i < addressList.length; i++) {
+        for (int j = 0; j < addressList.length; j++) {
+          if (i != j) {
+            if (addressList[i]['node']["address1"] ==
+                addressList[j]['node']["address1"]) {
+              addressList.removeAt(j);
+              break;
+            }
           }
         }
       }
@@ -144,11 +143,11 @@ class _AddressPageState extends State<AddressPage> {
                                   ),
                                 ),
                               )
-                            : addressListBuilder(context),
+                            : addressListBuilder(context, addressClean()),
                         SizedBox(
                           height: widget.check == true
                               ? dynamicHeight(context, .1)
-                              : dynamicHeight(context, .17),
+                              : dynamicHeight(context, .2),
                         )
                       ],
                     ),
@@ -167,10 +166,10 @@ class _AddressPageState extends State<AddressPage> {
                             ),
                           );
                         },
-                        bottom: dynamicHeight(context, .02),
+                        bottom: dynamicHeight(context, .05),
                       )
                     : bottomButton2(context, "Add Address", Icons.home_outlined,
-                        function: () {
+                        bottom: dynamicHeight(context, 0.12), function: () {
                         if (globalAccessToken == "") {
                           var snackBar = SnackBar(
                             content: Text(
@@ -231,65 +230,69 @@ class _AddressPageState extends State<AddressPage> {
     );
   }
 
-  Widget addressListBuilder(context) {
+  Widget addressListBuilder(context, function) {
     return Expanded(
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: addressList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding:
-                EdgeInsets.symmetric(vertical: dynamicHeight(context, 0.01)),
-            child: Row(
-              children: [
-                Obx(() {
-                  return Theme(
-                    data: Theme.of(context).copyWith(
-                      unselectedWidgetColor:
-                          darkTheme == true ? myWhite : myBlack,
-                    ),
-                    child: Radio(
-                        value: index,
-                        activeColor: myRed,
-                        groupValue: int.parse(group.toString()),
-                        onChanged: (value) {
-                          setState(() {
-                            group.value = value as int;
-                          });
-                        }),
-                  );
-                }),
-                Container(
-                  width: dynamicWidth(context, 0.75),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1,
-                      color: darkTheme == true ? myWhite : myBlack,
-                    ),
-                    borderRadius: BorderRadius.circular(
-                      dynamicWidth(context, 0.1),
-                    ),
-                  ),
+      child: addressList == "Server Error"
+          ? Center(
+              child: retryFunction(context, function: function),
+            )
+          : ListView.builder(
+              shrinkWrap: true,
+              itemCount: addressList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: dynamicWidth(context, 0.04),
-                    vertical: dynamicHeight(context, .01),
+                      vertical: dynamicHeight(context, 0.01)),
+                  child: Row(
+                    children: [
+                      Obx(() {
+                        return Theme(
+                          data: Theme.of(context).copyWith(
+                            unselectedWidgetColor:
+                                darkTheme == true ? myWhite : myBlack,
+                          ),
+                          child: Radio(
+                              value: index,
+                              activeColor: myRed,
+                              groupValue: int.parse(group.toString()),
+                              onChanged: (value) {
+                                setState(() {
+                                  group.value = value as int;
+                                });
+                              }),
+                        );
+                      }),
+                      Container(
+                        width: dynamicWidth(context, 0.75),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: darkTheme == true ? myWhite : myBlack,
+                          ),
+                          borderRadius: BorderRadius.circular(
+                            dynamicWidth(context, 0.1),
+                          ),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: dynamicWidth(context, 0.04),
+                          vertical: dynamicHeight(context, .01),
+                        ),
+                        child: Text(
+                          addressList[index]["node"]["address1"].toString(),
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: darkTheme == true ? myWhite : myBlack,
+                            fontSize: dynamicWidth(context, 0.04),
+                            fontWeight: FontWeight.w400,
+                          ),
+                          maxLines: 2,
+                        ),
+                      ),
+                    ],
                   ),
-                  child: Text(
-                    addressList[index]["node"]["address1"].toString(),
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: darkTheme == true ? myWhite : myBlack,
-                      fontSize: dynamicWidth(context, 0.04),
-                      fontWeight: FontWeight.w400,
-                    ),
-                    maxLines: 2,
-                  ),
-                ),
-              ],
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }
