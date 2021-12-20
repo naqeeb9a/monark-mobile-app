@@ -121,7 +121,7 @@ class _DetailPageState extends State<DetailPage> {
     sizeImage();
     sizeList();
     variantIndex();
-    selectedSize = sizeArray[0];
+    selectedSize = sizeArray.length == 0 ? "0" : sizeArray[0];
   }
 
   @override
