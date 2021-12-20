@@ -210,7 +210,7 @@ Widget internalWidgetCard(
                     text.toString().titleCase,
                     style: TextStyle(
                       color: darkTheme == true ? myWhite : myBlack,
-                      fontSize: dynamicWidth(context, .025),
+                      fontSize: dynamicWidth(context, .028),
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -225,7 +225,7 @@ Widget internalWidgetCard(
                                 variantProduct[0]["node"]["price"] ||
                             variantProduct[0]["node"]["compareAtPrice"] == null)
                         ? Text(
-                            "PKR." +
+                            "PKR. " +
                                 numberFormat(double.parse(
                                         variantProduct[0]["node"]["price"])
                                     .toInt()
@@ -234,11 +234,11 @@ Widget internalWidgetCard(
                               fontFamily: "Aeonik",
                               color: darkTheme == true ? myWhite : myBlack,
                               fontWeight: FontWeight.w900,
-                              fontSize: dynamicWidth(context, .025),
+                              fontSize: dynamicWidth(context, .028),
                             ),
                           )
                         : Text(
-                            "PKR." +
+                            "PKR. " +
                                 numberFormat(double.parse(variantProduct[0]["node"]
                                 ["compareAtPrice"])
                                     .toInt()
@@ -247,7 +247,7 @@ Widget internalWidgetCard(
                               fontFamily: "Aeonik",
                               color: darkTheme == true ? myWhite : myBlack,
                               decoration: TextDecoration.lineThrough,
-                              fontSize: dynamicWidth(context, .025),
+                              fontSize: dynamicWidth(context, .028),
                             ),
                           ),
                     (variantProduct[0]["node"]["compareAtPrice"] ==
@@ -255,13 +255,13 @@ Widget internalWidgetCard(
                             variantProduct[0]["node"]["compareAtPrice"] == null)
                         ? Container()
                         : Text(
-                            "PKR." +
+                            "PKR. " +
                                 numberFormat(double.parse(variantProduct[0]["node"]["price"])
                                     .toInt()
                                     .toString()),
                             style: TextStyle(
                               fontWeight: FontWeight.w900,
-                              fontSize: dynamicWidth(context, .025),
+                              fontSize: dynamicWidth(context, .028),
                               color: darkTheme == true ? myWhite : myRed,
                             ),
                           )

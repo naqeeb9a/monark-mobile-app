@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
@@ -47,14 +48,10 @@ class _PaymentState extends State<Payment> {
               children: [
                 Center(
                   child: Container(
-                    width: dynamicWidth(context, 1),
+                    width: dynamicWidth(context, .9),
                     child: Column(
                       children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: dynamicWidth(context, 0.04)),
-                          child: rowText("Payment", context),
-                        ),
+                        rowText("Payment", context),
                         heightBox(context, 0.07),
                         FutureBuilder(
                           future: getUserData(globalAccessToken),
@@ -64,8 +61,10 @@ class _PaymentState extends State<Payment> {
                                 ConnectionState.done) {
                               return Container(
                                 width: dynamicWidth(context, 0.9),
-                                padding: EdgeInsets.all(
-                                  dynamicWidth(context, 0.05),
+                                height: dynamicHeight(context, .16),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: dynamicWidth(context, 0.05),
+                                  vertical: dynamicHeight(context, .01),
                                 ),
                                 decoration: BoxDecoration(
                                   border: Border.all(
@@ -78,6 +77,8 @@ class _PaymentState extends State<Payment> {
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
                                       "Information",
@@ -130,127 +131,134 @@ class _PaymentState extends State<Payment> {
                           },
                         ),
                         heightBox(context, 0.02),
+                        radioOptions(context, "Debit Card/Credit Card"),
                         radioOptions(context, "COD"),
                         SizedBox(
                           height: dynamicHeight(context, .01),
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: dynamicWidth(context, 0.04)),
-                          child: rowText("Shipping Address", context),
-                        ),
-                        heightBox(context, .01),
-                        radioOptions(context,
-                            addressList[group.value]["node"]["address1"]),
-                        heightBox(context, 0.06),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: dynamicWidth(context, 0.04)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Subtotal",
-                                    style: TextStyle(
-                                      color:
-                                          darkTheme == true ? myWhite : myBlack,
-                                      fontSize: dynamicWidth(context, .03),
-                                    ),
-                                  ),
-                                  Text(
-                                    "Shipping",
-                                    style: TextStyle(
-                                      color:
-                                          darkTheme == true ? myWhite : myBlack,
-                                      fontSize: dynamicWidth(context, .03),
-                                    ),
-                                  ),
-                                  heightBox(context, 0.03),
-                                  Text(
-                                    "Total",
-                                    style: TextStyle(
-                                      color:
-                                          darkTheme == true ? myWhite : myBlack,
-                                      fontSize: dynamicWidth(context, .03),
-                                    ),
-                                  )
-                                ],
+                        rowText("Shipping Address", context),
+                        heightBox(context, .03),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                addressList[group.value]["node"]["address1"],
+                                style: TextStyle(
+                                  color: darkTheme == true ? myWhite : myBlack,
+                                  fontSize: dynamicWidth(context, .032),
+                                ),
+                                maxLines: 2,
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "PKR. " + numberFormat(subtotal.toString()),
-                                    style: TextStyle(
-                                      fontFamily: "Aeonik",
-                                      fontWeight: FontWeight.w600,
-                                      color:
-                                          darkTheme == true ? myWhite : myRed,
-                                      fontSize: dynamicWidth(context, .03),
-                                    ),
+                            ),
+                          ],
+                        ),
+                        heightBox(context, 0.03),
+                        Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Subtotal",
+                                  style: TextStyle(
+                                    color:
+                                        darkTheme == true ? myWhite : myBlack,
+                                    fontSize: dynamicWidth(context, .032),
                                   ),
-                                  (subtotal < 2000)
-                                      ? Text(
-                                          "PKR. 200",
-                                          style: TextStyle(
-                                            fontFamily: "Aeonik",
-                                            fontWeight: FontWeight.w600,
-                                            color: darkTheme == true
-                                                ? myWhite
-                                                : myRed,
-                                            fontSize:
-                                                dynamicWidth(context, .03),
-                                          ),
-                                        )
-                                      : Text(
-                                          "PKR. 0",
-                                          style: TextStyle(
-                                            fontFamily: "Aeonik",
-                                            fontWeight: FontWeight.w600,
-                                            color: darkTheme == true
-                                                ? myWhite
-                                                : myRed,
-                                            fontSize:
-                                                dynamicWidth(context, .03),
-                                          ),
+                                ),
+                                Text(
+                                  "PKR. " + numberFormat(subtotal.toString()),
+                                  style: TextStyle(
+                                    fontFamily: "Aeonik",
+                                    fontWeight: FontWeight.w700,
+                                    color: darkTheme == true ? myWhite : myRed,
+                                    fontSize: dynamicWidth(context, .032),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            heightBox(context, 0.01),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Shipping",
+                                  style: TextStyle(
+                                    color:
+                                        darkTheme == true ? myWhite : myBlack,
+                                    fontSize: dynamicWidth(context, .032),
+                                  ),
+                                ),
+                                subtotal < 2000
+                                    ? Text(
+                                        "PKR . 200",
+                                        style: TextStyle(
+                                          fontFamily: "Aeonik",
+                                          fontWeight: FontWeight.w700,
+                                          color: darkTheme == true
+                                              ? myWhite
+                                              : myRed,
+                                          fontSize: dynamicWidth(context, .032),
                                         ),
-                                  heightBox(context, 0.03),
-                                  (subtotal < 2000)
-                                      ? Text(
-                                          "PKR. " +
-                                              numberFormat(
-                                                  (subtotal + 200).toString()),
-                                          style: TextStyle(
-                                            fontFamily: "Aeonik",
-                                            fontWeight: FontWeight.w600,
-                                            color: darkTheme == true
-                                                ? myWhite
-                                                : myRed,
-                                            fontSize:
-                                                dynamicWidth(context, .034),
-                                          ),
-                                        )
-                                      : Text(
-                                          "PKR. " +
-                                              numberFormat(subtotal.toString()),
-                                          style: TextStyle(
-                                            fontFamily: "Aeonik",
-                                            fontWeight: FontWeight.w600,
-                                            color: darkTheme == true
-                                                ? myWhite
-                                                : myRed,
-                                            fontSize:
-                                                dynamicWidth(context, .034),
-                                          ),
+                                      )
+                                    : Text(
+                                        "PKR . 0",
+                                        style: TextStyle(
+                                          fontFamily: "Aeonik",
+                                          fontWeight: FontWeight.w700,
+                                          color: darkTheme == true
+                                              ? myWhite
+                                              : myRed,
+                                          fontSize: dynamicWidth(context, .032),
                                         ),
-                                ],
-                              )
-                            ],
-                          ),
-                        )
+                                      ),
+                              ],
+                            ),
+                            heightBox(context, 0.05),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Total",
+                                  style: TextStyle(
+                                    fontFamily: "Aeonik",
+                                    fontWeight: FontWeight.w700,
+                                    color:
+                                        darkTheme == true ? myWhite : myBlack,
+                                    fontSize: dynamicWidth(context, .032),
+                                  ),
+                                ),
+                                subtotal < 2000
+                                    ? Text(
+                                        "PKR. " +
+                                            numberFormat(
+                                                (subtotal + 200).toString()),
+                                        style: TextStyle(
+                                          fontFamily: "Aeonik",
+                                          fontWeight: FontWeight.w700,
+                                          color: darkTheme == true
+                                              ? myWhite
+                                              : myRed,
+                                          fontSize: dynamicWidth(context, .032),
+                                        ),
+                                      )
+                                    : Text(
+                                        "PKR. " +
+                                            numberFormat(subtotal.toString()),
+                                        style: TextStyle(
+                                          fontFamily: "Aeonik",
+                                          fontWeight: FontWeight.w700,
+                                          color: darkTheme == true
+                                              ? myWhite
+                                              : myRed,
+                                          fontSize: dynamicWidth(context, .032),
+                                        ),
+                                      ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -301,25 +309,36 @@ class _PaymentState extends State<Payment> {
 
 Widget radioOptions(context, text) {
   return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
     children: [
       Theme(
         data: Theme.of(context).copyWith(
           unselectedWidgetColor: darkTheme == true ? myWhite : myBlack,
         ),
         child: Radio(
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           value: true,
           groupValue: true,
           onChanged: (value) {},
           activeColor: myRed,
+          visualDensity: VisualDensity(horizontal: -4),
         ),
       ),
-      Text(
-        text,
-        style: TextStyle(
-          color: darkTheme == true ? myWhite : myBlack,
-          fontSize: dynamicWidth(context, .032),
+      Padding(
+        padding: EdgeInsets.only(
+          left: dynamicWidth(context, .01),
         ),
-      )
+        child: Flexible(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: darkTheme == true ? myWhite : myBlack,
+              fontSize: dynamicWidth(context, .032),
+            ),
+            maxLines: 2,
+          ),
+        ),
+      ),
     ],
   );
 }
@@ -336,14 +355,14 @@ Widget totalRow(context, text, price) {
           text,
           style: TextStyle(
             color: darkTheme == true ? myWhite : myBlack,
-            fontSize: dynamicWidth(context, .034),
+            fontSize: dynamicWidth(context, .032),
           ),
         ),
         Text(
           price,
           style: TextStyle(
             color: darkTheme == true ? myWhite : myBlack,
-            fontSize: dynamicWidth(context, .034),
+            fontSize: dynamicWidth(context, .032),
           ),
         ),
       ],

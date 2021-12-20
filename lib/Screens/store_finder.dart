@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
+import 'package:recase/recase.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/config.dart';
@@ -18,7 +19,7 @@ class _StoreFinderState extends State<StoreFinder> {
 
   List locationData = [
     {
-      'name': "Amanah Mall Lahore",
+      'name': "Amanah Mall, Lahore",
       'address': "Amanah Mall, Second Floor, Model Town Link Road, Lahore",
       'state': "Punjab",
       'city': "Lahore , 54000",
@@ -29,7 +30,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'holiday': "SUNDAY OFF",
     },
     {
-      'name': "Fortress Square Mall",
+      'name': "Fortress Square Mall, Lahore",
       'address': "Fortress Stadium، Mian Mir Bridge, Lahore, 54000",
       'state': "Punjab",
       'city': "Lahore , 54000",
@@ -40,7 +41,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'holiday': "SUNDAY OFF",
     },
     {
-      'name': "Gold Crest Mall",
+      'name': "Gold Crest Mall, Lahore",
       'address': "Sector DD Dha Phase 4, Lahore",
       'state': "Punjab",
       'city': "Lahore , 54000",
@@ -51,7 +52,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'holiday': "SUNDAY OFF",
     },
     {
-      'name': "Emporium Mall",
+      'name': "Emporium Mall, Lahore",
       'address': "Emporium Mall, First Floor, Johar Town, Lahore",
       'state': "Punjab",
       'city': "Lahore , 54000",
@@ -62,7 +63,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'holiday': "SUNDAY OFF",
     },
     {
-      'name': "MM Alam Outlet",
+      'name': "MM Alam, Lahore",
       'address': "Mall 96, M.M.Alam Road, Lahore",
       'state': "Punjab",
       'city': "Lahore , 54000",
@@ -73,7 +74,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'holiday': "SUNDAY OFF",
     },
     {
-      'name': "Packages Mall",
+      'name': "Packages Mall, Lahore",
       'address': "Packages Mall, Second Floor, Walton Road, Lahore",
       'state': "Punjab",
       'city': "Lahore , 54000",
@@ -84,7 +85,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'holiday': "SUNDAY OFF",
     },
     {
-      'name': "Mall of Multan",
+      'name': "Mall of Multan, Multan",
       'address': "Mall of Multan, Ground Floor",
       'state': "Punjab",
       'city': "Multan , 66000",
@@ -95,7 +96,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'holiday': "FRIDAY OFF",
     },
     {
-      'name': "Sattalite town Gujranwala",
+      'name': "Sattalite Town, Gujranwala, Gujranwala",
       'address': "Sattalite Town , Gujranwala",
       'state': "Punjab",
       'city': "Gujranwala , 52250",
@@ -106,7 +107,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'holiday': "FRIDAY OFF",
     },
     {
-      'name': "Kings mall",
+      'name': "Kings mall, Gujranwala",
       'address':
           "Kings Mall, First Floor, GT Road By-Pass , Opposite to WAPDA TOWN, Gujranwala",
       'state': "Punjab",
@@ -129,7 +130,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'holiday': "FRIDAY OFF",
     },
     {
-      'name': "Giga Mall Islamabad",
+      'name': "Giga Mall, Islamabad",
       'address': "Giga Mall, Ground Floor, WTC, DHA Phase 2 Islamabad",
       'state': "Islamabad Capital Territory",
       'city': "Islamabad , 45710",
@@ -140,7 +141,7 @@ class _StoreFinderState extends State<StoreFinder> {
       'holiday': "THURSDAY OFF",
     },
     {
-      'name': "V-mall Sialkot",
+      'name': "V-mall, Sialkot",
       'address': "V-mall Sialkot",
       'state': "Punjab",
       'city': "Sialkot , 51310",
@@ -166,6 +167,7 @@ class _StoreFinderState extends State<StoreFinder> {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
+      drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: Column(
         children: [
@@ -178,21 +180,22 @@ class _StoreFinderState extends State<StoreFinder> {
           SizedBox(
             height: dynamicHeight(context, .04),
           ),
-          SizedBox(
-            width: dynamicWidth(context, 1),
-            height: dynamicHeight(context, .74),
-            child: ListView.builder(
-              itemCount: locationData.length,
-              itemBuilder: (context, i) {
-                return storeCard(
-                  context,
-                  locationData[i]["name"],
-                  locationData[i]["address"],
-                  locationData[i]["phone"],
-                  locationData[i]["workTime"],
-                  locationData[i]["holiday"],
-                );
-              },
+          Expanded(
+            child: SizedBox(
+              width: dynamicWidth(context, 1),
+              child: ListView.builder(
+                itemCount: locationData.length,
+                itemBuilder: (context, i) {
+                  return storeCard(
+                    context,
+                    locationData[i]["name"],
+                    locationData[i]["address"],
+                    locationData[i]["phone"],
+                    locationData[i]["workTime"],
+                    locationData[i]["holiday"],
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -231,6 +234,7 @@ Widget storeCard(context, name, address, phone, workTime, holiday) {
             ),
           ),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 child: Text(
@@ -238,20 +242,23 @@ Widget storeCard(context, name, address, phone, workTime, holiday) {
                   style: TextStyle(
                     color: darkTheme == true ? myWhite : myBlack,
                     fontWeight: FontWeight.bold,
-                    fontSize: dynamicWidth(context, .024),
+                    fontSize: dynamicWidth(context, .026),
                   ),
                   maxLines: 1,
                 ),
               ),
-              Container(
-                child: Text(
-                  address,
-                  style: TextStyle(
-                    color: darkTheme == true ? myWhite : myBlack,
-                    fontSize: dynamicWidth(context, .024),
-                    fontWeight: FontWeight.w400,
+              FittedBox(
+                child: Container(
+                  width: dynamicWidth(context, .78),
+                  child: Text(
+                    address,
+                    style: TextStyle(
+                      color: darkTheme == true ? myWhite : myBlack,
+                      fontSize: dynamicWidth(context, .026),
+                      fontWeight: FontWeight.w400,
+                    ),
+                    maxLines: 2,
                   ),
-                  maxLines: 2,
                 ),
               ),
             ],
@@ -267,7 +274,7 @@ Widget storeCard(context, name, address, phone, workTime, holiday) {
                   style: TextStyle(
                     color: darkTheme == true ? myWhite : myBlack,
                     fontWeight: FontWeight.bold,
-                    fontSize: dynamicWidth(context, .024),
+                    fontSize: dynamicWidth(context, .026),
                   ),
                   maxLines: 1,
                 ),
@@ -275,7 +282,7 @@ Widget storeCard(context, name, address, phone, workTime, holiday) {
                   phone,
                   style: TextStyle(
                     color: darkTheme == true ? myWhite : myBlack,
-                    fontSize: dynamicWidth(context, .024),
+                    fontSize: dynamicWidth(context, .026),
                     fontWeight: FontWeight.w400,
                   ),
                   maxLines: 2,
@@ -291,7 +298,7 @@ Widget storeCard(context, name, address, phone, workTime, holiday) {
                 style: TextStyle(
                   color: darkTheme == true ? myWhite : myBlack,
                   fontWeight: FontWeight.bold,
-                  fontSize: dynamicWidth(context, .024),
+                  fontSize: dynamicWidth(context, .026),
                 ),
                 maxLines: 1,
               ),
@@ -299,7 +306,7 @@ Widget storeCard(context, name, address, phone, workTime, holiday) {
                 workTime,
                 style: TextStyle(
                   color: darkTheme == true ? myWhite : myBlack,
-                  fontSize: dynamicWidth(context, .024),
+                  fontSize: dynamicWidth(context, .026),
                   fontWeight: FontWeight.w400,
                 ),
                 maxLines: 1,
@@ -309,7 +316,7 @@ Widget storeCard(context, name, address, phone, workTime, holiday) {
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              holiday,
+              holiday.toString().titleCase,
               style: TextStyle(
                 color: darkTheme == true ? myWhite : myRed,
                 fontSize: dynamicWidth(context, .024),

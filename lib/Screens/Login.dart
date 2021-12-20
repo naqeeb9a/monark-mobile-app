@@ -100,7 +100,7 @@ class _LoginState extends State<Login> {
                       child: Center(
                         child: Padding(
                           padding: EdgeInsets.only(
-                            bottom: dynamicHeight(context, .04),
+                            bottom: dynamicHeight(context, .08),
                           ),
                           child: Text(
                             "Welcome Back",
@@ -108,7 +108,7 @@ class _LoginState extends State<Login> {
                               fontFamily: "Aeonik",
                               color: myWhite,
                               fontSize: dynamicWidth(context, .06),
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                         ),

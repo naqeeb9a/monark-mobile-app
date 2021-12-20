@@ -31,6 +31,7 @@ class _PoliciesPageState extends State<PoliciesPage> {
             _scaffoldKey.currentState!.openEndDrawer();
           },
         ),
+        drawerScrimColor: Colors.white54,
         endDrawer: drawer(context),
         body: SingleChildScrollView(
           child: Column(

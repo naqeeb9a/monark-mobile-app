@@ -36,6 +36,7 @@ class _WishlistPageState extends State<WishlistPage> {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
+      drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: Center(
         child: Container(
@@ -81,7 +82,7 @@ class _WishlistPageState extends State<WishlistPage> {
                   ? Expanded(
                       child: Center(
                         child: Text(
-                          "No items in WishList",
+                          "No items in Wishlist",
                           style: TextStyle(
                             color: darkTheme == true ? myWhite : myBlack,
                             fontSize: dynamicWidth(context, .05),

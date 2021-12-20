@@ -18,7 +18,7 @@ PreferredSizeWidget bar(
 }) {
   return PreferredSize(
     preferredSize: Size.fromHeight(
-      dynamicHeight(context, .06),
+      dynamicHeight(context, .062),
     ),
     child: AppBar(
       centerTitle: false,
@@ -55,7 +55,7 @@ PreferredSizeWidget bar(
                               style: TextStyle(
                                 fontFamily: "Aeonik",
                                 color: darkTheme == true ? myWhite : myBlack,
-                                fontSize: dynamicWidth(context, .05),
+                                fontSize: dynamicWidth(context, .04),
                               ),
                             );
                           }

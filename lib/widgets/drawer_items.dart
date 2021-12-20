@@ -56,12 +56,12 @@ Widget drawerItems(context) {
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     vertical: dynamicHeight(context, .02),
-                    horizontal: dynamicWidth(context, .03),
+                    horizontal: dynamicWidth(context, .08),
                   ),
                   child: Image.asset(
                     "assets/icons/crossIcon.png",
                     color: darkTheme == true ? myWhite : myRed,
-                    height: dynamicHeight(context, .03),
+                    height: dynamicHeight(context, .024),
                   ),
                 ),
               ),

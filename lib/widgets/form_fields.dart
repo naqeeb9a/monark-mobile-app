@@ -56,8 +56,8 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
         dynamicWidth(context, .08),
       ),
       border: Border.all(
-        color: darkTheme == true ? myWhite : myBlack.withOpacity(.1),
-        width: 1.4,
+        color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
+        width: .2,
       ),
     ),
     child: Row(

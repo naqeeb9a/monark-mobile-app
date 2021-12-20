@@ -50,7 +50,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                                   text: "Thank you\n",
                                   style: TextStyle(
                                       fontFamily: "Aeonik",
-                                      fontSize: dynamicWidth(context, 0.04),
+                                      fontSize: dynamicWidth(context, 0.05),
                                       fontWeight: FontWeight.bold,
                                       color: myWhite),
                                 ),
@@ -58,7 +58,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                                   text: "for your purchase from Monark",
                                   style: TextStyle(
                                     color: myWhite,
-                                    fontSize: dynamicWidth(context, 0.032),
+                                    fontSize: dynamicWidth(context, 0.038),
                                   ),
                                 )
                               ],
@@ -131,18 +131,24 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                         ],
                       ),
                     ),
+                    heightBox(context, .02),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Checkbox(
-                            value: emailCheck,
-                            activeColor: darkTheme == true ? myWhite : myRed,
-                            checkColor: darkTheme == true ? myBlack : myWhite,
-                            onChanged: (value) {
-                              setState(() {
-                                emailCheck = value!;
-                              });
-                            }),
+                          value: emailCheck,
+                          activeColor: darkTheme == true ? myWhite : myRed,
+                          checkColor: darkTheme == true ? myBlack : myWhite,
+                          side: BorderSide(
+                            width: .4,
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              emailCheck = value!;
+                            });
+                          },
+                          visualDensity: VisualDensity(vertical: -4),
+                        ),
                         Text(
                           "via email",
                           style: TextStyle(
@@ -156,14 +162,19 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Checkbox(
-                            value: textCheck,
-                            activeColor: darkTheme == true ? myWhite : myRed,
-                            checkColor: darkTheme == true ? myBlack : myWhite,
-                            onChanged: (value1) {
-                              setState(() {
-                                textCheck = value1!;
-                              });
-                            }),
+                          value: textCheck,
+                          activeColor: darkTheme == true ? myWhite : myRed,
+                          checkColor: darkTheme == true ? myBlack : myWhite,
+                          side: BorderSide(
+                            width: .4,
+                          ),
+                          onChanged: (value1) {
+                            setState(() {
+                              textCheck = value1!;
+                            });
+                          },
+                          visualDensity: VisualDensity(vertical: -4),
+                        ),
                         Text(
                           "via text",
                           style: TextStyle(

@@ -3,6 +3,7 @@ import 'package:monark_app/api/api.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
+import 'package:monark_app/widgets/form_fields.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
@@ -51,7 +52,9 @@ class _CategoriesPageState extends State<CategoriesPage> {
         function: () {
           _scaffoldKey.currentState!.openEndDrawer();
         },
+        leadingIcon: true,
       ),
+      drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: SafeArea(
         child: Column(
@@ -65,6 +68,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 context,
               ),
             ),
+            heightBox(context, .02),
+            searchbar(context),
             heightBox(context, .02),
             (loading == true)
                 ? Expanded(child: Center(child: jumpingDots(context)))

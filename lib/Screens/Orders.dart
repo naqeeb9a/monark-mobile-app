@@ -31,6 +31,7 @@ class _OrdersState extends State<Orders> {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
+      drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: Center(
         child: Container(
@@ -102,7 +103,7 @@ Widget orderCards(
                           Text(
                             "Cancelled",
                             style: TextStyle(
-                              color: darkTheme == true ? myWhite : myBlack,
+                              color: darkTheme == true ? myWhite : myRed,
                               fontWeight: FontWeight.bold,
                               fontSize: dynamicWidth(context, .028),
                             ),

@@ -129,6 +129,7 @@ class _DetailPageState extends State<DetailPage> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
+      drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: SafeArea(
         child: Container(
@@ -221,7 +222,7 @@ class _DetailPageState extends State<DetailPage> {
                                   style: TextStyle(
                                     fontFamily: "Aeonik",
                                     fontWeight: FontWeight.bold,
-                                    fontSize: dynamicWidth(context, .035),
+                                    fontSize: dynamicWidth(context, .038),
                                     color:
                                         darkTheme == true ? myWhite : myBlack,
                                   ),
@@ -257,7 +258,7 @@ class _DetailPageState extends State<DetailPage> {
                                     fontFamily: "Aeonik",
                                     color: darkTheme == true ? myWhite : myRed,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: dynamicWidth(context, .035),
+                                    fontSize: dynamicWidth(context, .038),
                                   ),
                                 ),
                                 Text(
@@ -270,10 +271,10 @@ class _DetailPageState extends State<DetailPage> {
                                                   ["node"]["compareAtPrice"] ==
                                               null)
                                       ? ""
-                                      : "You Save  " +
+                                      : "You Save " +
                                           numberFormat(
                                               saleDifference.toString()) +
-                                          " Pkr",
+                                          " PKR",
                                   style: TextStyle(
                                     color: darkTheme == true
                                         ? myWhite
@@ -286,6 +287,7 @@ class _DetailPageState extends State<DetailPage> {
                           ),
                         ],
                       ),
+                      heightBox(context, .004),
                       (widget.array.toString().contains("Default") ||
                               widget.array == "")
                           ? Container()
@@ -365,7 +367,7 @@ class _DetailPageState extends State<DetailPage> {
                               color: darkTheme == true
                                   ? myWhite
                                   : myBlack.withOpacity(.3),
-                              width: 1.2,
+                              width: .2,
                             ),
                           ),
                           child: Row(
@@ -443,7 +445,7 @@ class _DetailPageState extends State<DetailPage> {
                 top: 0.0,
                 child: SizedBox(
                   width: dynamicWidth(context, 1),
-                  height: dynamicHeight(context, .06),
+                  height: dynamicHeight(context, .062),
                   child: bar(
                     context,
                     menuIcon: true,
@@ -544,8 +546,8 @@ class _DetailPageState extends State<DetailPage> {
       children: List.generate(
         array.length,
         (index) => Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: dynamicWidth(context, .01),
+          padding: EdgeInsets.only(
+            right: dynamicWidth(context, .02),
           ),
           child: Material(
             color: noColor,
@@ -579,7 +581,7 @@ class _DetailPageState extends State<DetailPage> {
                           : selectedSize == array[index]
                               ? myRed
                               : myBlack.withOpacity(.3),
-                      width: 1.4,
+                      width: .2,
                     ),
                   ),
                   child: Center(

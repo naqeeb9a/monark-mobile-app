@@ -30,6 +30,7 @@ class _TrackOrderState extends State<TrackOrder> {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
+      drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),

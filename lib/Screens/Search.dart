@@ -34,6 +34,7 @@ class _SearchPageState extends State<SearchPage> {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
+      drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: SafeArea(
         child: Column(
@@ -85,16 +86,17 @@ class _SearchPageState extends State<SearchPage> {
                             ? Center(
                                 child:
                                     retryFunction(context, function: () async {
-                                setState(() {
-                                  loading = true;
-                                });
-                                futureSearchData =
-                                    await getSearchResults(searchText.text);
-                                print(futureSearchData);
-                                setState(() {
-                                  loading = false;
-                                });
-                              }))
+                                  setState(() {
+                                    loading = true;
+                                  });
+                                  futureSearchData =
+                                      await getSearchResults(searchText.text);
+                                  print(futureSearchData);
+                                  setState(() {
+                                    loading = false;
+                                  });
+                                }),
+                              )
                             : futureSearchData.length == 0
                                 ? Center(
                                     child: Text(
@@ -108,7 +110,11 @@ class _SearchPageState extends State<SearchPage> {
                                     ),
                                   )
                                 : customGrid(
-                                    context, true, false, futureSearchData),
+                                    context,
+                                    true,
+                                    false,
+                                    futureSearchData,
+                                  ),
               ),
             )
           ],

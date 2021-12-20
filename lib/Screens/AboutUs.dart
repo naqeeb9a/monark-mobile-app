@@ -28,6 +28,7 @@ class _AboutUsState extends State<AboutUs> {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
+      drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: SafeArea(
         child: Center(
@@ -56,7 +57,7 @@ class _AboutUsState extends State<AboutUs> {
                         "side of the spectrum, so tuck in that shirt, revamp your wardrobe and let’s begin this "
                         "journey with us.",
                         style: TextStyle(
-                          fontSize: dynamicWidth(context, 0.024),
+                          fontSize: dynamicWidth(context, 0.027),
                           color: darkTheme == true ? myWhite : myBlack,
                         ),
                         textAlign: TextAlign.justify,

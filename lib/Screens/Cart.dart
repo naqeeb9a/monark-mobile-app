@@ -7,6 +7,7 @@ import 'package:monark_app/Screens/Address.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
+import 'package:monark_app/widgets/form_fields.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
@@ -19,6 +20,7 @@ class Cart extends StatefulWidget {
 
 class _CartState extends State<Cart> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final promoCode = TextEditingController();
 
   totalAmountCalculate(total) {
     for (int i = 0; i < cartItems.length; i++) {
@@ -35,12 +37,14 @@ class _CartState extends State<Cart> {
       backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
       appBar: bar(
         context,
+        leadingIcon: true,
         menuIcon: true,
         bgColor: noColor,
         function: () {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
+      drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: Stack(
         alignment: Alignment.center,
@@ -103,7 +107,7 @@ class _CartState extends State<Cart> {
                     );
                   }),
                   SizedBox(
-                    height: dynamicHeight(context, .2),
+                    height: dynamicHeight(context, .28),
                   ),
                 ],
               ),
@@ -132,41 +136,78 @@ class _CartState extends State<Cart> {
                     }
                   },
                 ),
-          Obx(() {
-            return cartItems.length == 0
-                ? Container()
-                : Positioned(
-                    left: 0.0,
-                    right: 0.0,
-                    bottom: dynamicHeight(context, .15),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: dynamicWidth(context, .05),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Total Amount",
-                            style: TextStyle(
-                              color: darkTheme == true ? myWhite : myBlack,
-                              fontSize: dynamicWidth(context, .035),
+          Obx(
+            () {
+              return cartItems.length == 0
+                  ? Container()
+                  : Positioned(
+                      left: 0.0,
+                      right: 0.0,
+                      bottom: dynamicHeight(context, .15),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: dynamicWidth(context, .05),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Promo Code",
+                                  style: TextStyle(
+                                    color:
+                                        darkTheme == true ? myWhite : myBlack,
+                                    fontSize: dynamicWidth(context, .035),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: dynamicWidth(context, .4),
+                                  child: inputTextField(
+                                    context,
+                                    "Promo Code",
+                                    promoCode,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          Text(
-                            "PKR. $total",
-                            style: TextStyle(
-                              fontFamily: "Aeonik",
-                              color: darkTheme == true ? myWhite : myBlack,
-                              fontWeight: FontWeight.bold,
-                              fontSize: dynamicWidth(context, .035),
+                            heightBox(context, .014),
+                            Divider(
+                              color: darkTheme == true
+                                  ? myWhite
+                                  : myBlack.withOpacity(.3),
+                              thickness: .3,
                             ),
-                          ),
-                        ],
+                            heightBox(context, .014),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Total Amount",
+                                  style: TextStyle(
+                                    color:
+                                        darkTheme == true ? myWhite : myBlack,
+                                    fontSize: dynamicWidth(context, .035),
+                                  ),
+                                ),
+                                Text(
+                                  "PKR. " + numberFormat(total),
+                                  style: TextStyle(
+                                    fontFamily: "Aeonik",
+                                    color:
+                                        darkTheme == true ? myWhite : myBlack,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: dynamicWidth(context, .035),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-          })
+                    );
+            },
+          )
         ],
       ),
     );
@@ -202,10 +243,18 @@ Widget cartList({check, setState}) {
 
 Widget cartCard(index, context, {check}) {
   return Container(
-    padding: EdgeInsets.symmetric(vertical: dynamicHeight(context, 0.04)),
+    padding: EdgeInsets.symmetric(
+      vertical: dynamicHeight(context, 0.04),
+    ),
     decoration: BoxDecoration(
-        color: noColor,
-        border: Border(bottom: BorderSide(width: 1, color: myGrey))),
+      color: noColor,
+      border: Border(
+        bottom: BorderSide(
+          width: 1,
+          color: myGrey,
+        ),
+      ),
+    ),
     child: IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -239,19 +288,20 @@ Widget cartCard(index, context, {check}) {
                     Text(
                       cartItems[index]["title"],
                       style: TextStyle(
-                        fontFamily: "Aeonik",
                         color: darkTheme == true ? myWhite : myBlack,
-                        fontWeight: FontWeight.w900,
-                        fontSize: dynamicWidth(context, 0.028),
+                        fontSize: dynamicWidth(context, 0.034),
                       ),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                     ),
                     Text(
-                      "PKR. " + cartItems[index]["total"].toString(),
+                      "PKR. " +
+                          numberFormat(
+                            cartItems[index]["total"].toString(),
+                          ),
                       style: TextStyle(
                         fontFamily: "Aeonik",
-                        fontSize: dynamicWidth(context, .028),
+                        fontSize: dynamicWidth(context, .032),
                         color: darkTheme == true ? myWhite : myRed,
                         fontWeight: FontWeight.w900,
                       ),
@@ -259,39 +309,53 @@ Widget cartCard(index, context, {check}) {
                   ],
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Size: " + cartItems[index]["size"].toString(),
-                      style: TextStyle(
-                        fontSize: dynamicWidth(context, .028),
-                        color: darkTheme == true ? myWhite : myBlack,
-                      ),
-                    ),
-                    widthBox(context, 0.014),
-                    Text(
-                      "|",
-                      style: TextStyle(color: myGrey),
-                    ),
-                    widthBox(context, 0.014),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "Qty: ",
-                            style: TextStyle(
-                              fontSize: dynamicWidth(context, .028),
-                              color: darkTheme == true ? myWhite : myBlack,
-                            ),
+                    Row(
+                      children: [
+                        Text(
+                          "Size: " + cartItems[index]["size"].toString(),
+                          style: TextStyle(
+                            fontSize: dynamicWidth(context, .032),
+                            color: darkTheme == true ? myWhite : myBlack,
                           ),
-                          TextSpan(
-                            text: cartItems[index]["quantity"].toString(),
-                            style: TextStyle(
-                              fontSize: dynamicWidth(context, .028),
-                              color: darkTheme == true ? myWhite : myBlack,
-                            ),
-                          )
-                        ],
-                      ),
+                        ),
+                        widthBox(context, 0.014),
+                        Text(
+                          "|",
+                          style: TextStyle(color: myGrey),
+                        ),
+                        widthBox(context, 0.014),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Qty: ",
+                                style: TextStyle(
+                                  fontSize: dynamicWidth(context, .032),
+                                  color: darkTheme == true ? myWhite : myBlack,
+                                ),
+                              ),
+                              TextSpan(
+                                text: cartItems[index]["quantity"].toString(),
+                                style: TextStyle(
+                                  fontSize: dynamicWidth(context, .032),
+                                  color: darkTheme == true ? myWhite : myBlack,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Image.asset(
+                          "assets/icons/bin.png",
+                          height: dynamicHeight(context, .03),
+                          color: myBlack.withOpacity(.2),
+                        ),
+                      ],
                     ),
                   ],
                 ),

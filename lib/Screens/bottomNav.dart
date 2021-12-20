@@ -40,6 +40,7 @@ class _BottomNavState extends State<BottomNav> {
   }
 
   var iconSizes = 0.05;
+
   @override
   Widget build(BuildContext context) {
     return (_loading == true)
@@ -51,79 +52,136 @@ class _BottomNavState extends State<BottomNav> {
               backgroundColor: myRed,
               items: [
                 BottomNavigationBarItem(
-                  icon: ImageIcon(
-                    AssetImage(
+                  icon: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: 0.0,
+                      top: dynamicHeight(context, .002),
+                    ),
+                    child: Image.asset(
                       "assets/icons/homeIcon.png",
-                    ),
-                    color: myWhite,
-                    size: dynamicWidth(context, iconSizes),
-                  ),
-                  // ignore: deprecated_member_use
-                  title: Text(
-                    "Home",
-                    style: TextStyle(
+                      width: dynamicWidth(context, iconSizes),
                       color: myWhite,
-                      fontSize: dynamicWidth(context, .023),
                     ),
                   ),
-                ),
-                BottomNavigationBarItem(
-                  icon: Image.asset(
-                    "assets/icons/searchIcon.png",
-                    width: dynamicWidth(context, iconSizes),
-                    color: myWhite,
-                  ),
-                  // ignore: deprecated_member_use
-                  title: Text(
-                    "Search",
-                    style: TextStyle(
-                      color: myWhite,
-                      fontSize: dynamicWidth(context, .023),
+                  title: Padding(
+                    padding: EdgeInsets.only(
+                      top: 0.0,
+                      bottom: dynamicHeight(context, .002),
+                    ),
+                    child: Text(
+                      "Home",
+                      style: TextStyle(
+                        color: myWhite,
+                        fontSize: dynamicWidth(context, .026),
+                      ),
                     ),
                   ),
                 ),
                 BottomNavigationBarItem(
-                  icon: Image.asset(
-                    "assets/icons/categoryIcon.png",
-                    width: dynamicWidth(context, iconSizes),
-                    color: myWhite,
+                  icon: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: 0.0,
+                      top: dynamicHeight(context, .002),
+                    ),
+                    child: Image.asset(
+                      "assets/icons/searchIcon.png",
+                      width: dynamicWidth(context, iconSizes),
+                      color: myWhite,
+                    ),
                   ),
                   // ignore: deprecated_member_use
-                  title: Text(
-                    "Categories",
-                    style: TextStyle(
-                      color: myWhite,
-                      fontSize: dynamicWidth(context, .023),
+                  title: Padding(
+                    padding: EdgeInsets.only(
+                      top: 0.0,
+                      bottom: dynamicHeight(context, .002),
+                    ),
+                    child: Text(
+                      "Search",
+                      style: TextStyle(
+                        color: myWhite,
+                        fontSize: dynamicWidth(context, .026),
+                      ),
                     ),
                   ),
                 ),
                 BottomNavigationBarItem(
-                  icon: Image.asset(
-                    "assets/icons/cartIcon.png",
-                    width: dynamicWidth(context, iconSizes),
-                    color: myWhite,
+                  icon: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: 0.0,
+                      top: dynamicHeight(context, .002),
+                    ),
+                    child: Image.asset(
+                      "assets/icons/categoryIcon.png",
+                      width: dynamicWidth(context, iconSizes),
+                      color: myWhite,
+                    ),
                   ),
                   // ignore: deprecated_member_use
-                  title: Text(
-                    "My Bag",
-                    style: TextStyle(
-                      color: myWhite,
-                      fontSize: dynamicWidth(context, .023),
+                  title: Padding(
+                    padding: EdgeInsets.only(
+                      top: 0.0,
+                      bottom: dynamicHeight(context, .002),
+                    ),
+                    child: Text(
+                      "Categories",
+                      style: TextStyle(
+                        color: myWhite,
+                        fontSize: dynamicWidth(context, .026),
+                      ),
                     ),
                   ),
                 ),
                 BottomNavigationBarItem(
-                  icon: Image.asset(
-                    "assets/icons/profileIcon.png",
-                    width: dynamicWidth(context, iconSizes),
-                    color: myWhite,
+                  icon: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: 0.0,
+                      top: dynamicHeight(context, .002),
+                    ),
+                    child: Image.asset(
+                      "assets/icons/cartIcon.png",
+                      width: dynamicWidth(context, iconSizes),
+                      color: myWhite,
+                    ),
                   ),
                   // ignore: deprecated_member_use
-                  title: Text(
-                    "Profile",
-                    style: TextStyle(
+                  title: Padding(
+                    padding: EdgeInsets.only(
+                      top: 0.0,
+                      bottom: dynamicHeight(context, .002),
+                    ),
+                    child: Text(
+                      "My Bag",
+                      style: TextStyle(
+                        color: myWhite,
+                        fontSize: dynamicWidth(context, .026),
+                      ),
+                    ),
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  icon: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: 0.0,
+                      top: dynamicHeight(context, .002),
+                    ),
+                    child: Image.asset(
+                      "assets/icons/profileIcon.png",
+                      width: dynamicWidth(context, iconSizes),
                       color: myWhite,
-                      fontSize: dynamicWidth(context, .023),
+                    ),
+                  ),
+                  // ignore: deprecated_member_use
+                  title: Padding(
+                    padding: EdgeInsets.only(
+                      top: 0.0,
+                      bottom: dynamicHeight(context, .002),
+                    ),
+                    child: Text(
+                      "Profile",
+                      style: TextStyle(
+                        color: myWhite,
+                        fontSize: dynamicWidth(context, .026),
+                      ),
                     ),
                   ),
                 ),

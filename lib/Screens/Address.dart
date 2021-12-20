@@ -110,6 +110,7 @@ class _AddressPageState extends State<AddressPage> {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
+      drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: (loading == true)
           ? jumpingDots(context)

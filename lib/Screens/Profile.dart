@@ -71,11 +71,13 @@ class _ProfileState extends State<Profile> {
       appBar: bar(
         context,
         bgColor: Colors.transparent,
+        leadingIcon: true,
         menuIcon: true,
         function: () {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
+      drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: SafeArea(
         child: Align(

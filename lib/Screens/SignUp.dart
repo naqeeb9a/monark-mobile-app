@@ -95,7 +95,7 @@ class _SignUpState extends State<SignUp> {
                       child: Center(
                         child: Padding(
                           padding: EdgeInsets.only(
-                            bottom: dynamicHeight(context, .04),
+                            bottom: dynamicHeight(context, .08),
                           ),
                           child: Text(
                             "Welcome to Monark",
@@ -103,7 +103,7 @@ class _SignUpState extends State<SignUp> {
                               fontFamily: "Aeonik",
                               color: myWhite,
                               fontSize: dynamicWidth(context, .05),
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                         ),

@@ -29,6 +29,7 @@ class _ContactPageState extends State<ContactPage> {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
+      drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -58,7 +59,7 @@ class _ContactPageState extends State<ContactPage> {
                                     color:
                                         darkTheme == true ? myWhite : myBlack,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: dynamicWidth(context, .024),
+                                    fontSize: dynamicWidth(context, .027),
                                   ),
                                   maxLines: 1,
                                 ),
@@ -67,12 +68,12 @@ class _ContactPageState extends State<ContactPage> {
                                     vertical: dynamicHeight(context, .01),
                                   ),
                                   child: Text(
-                                    "042 3500451",
+                                    "042-3500451",
                                     style: TextStyle(
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
                                       fontWeight: FontWeight.w400,
-                                      fontSize: dynamicWidth(context, .024),
+                                      fontSize: dynamicWidth(context, .027),
                                     ),
                                     maxLines: 1,
                                   ),
@@ -100,7 +101,7 @@ class _ContactPageState extends State<ContactPage> {
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: dynamicWidth(context, .024),
+                                      fontSize: dynamicWidth(context, .027),
                                     ),
                                     maxLines: 1,
                                   ),
@@ -110,7 +111,7 @@ class _ContactPageState extends State<ContactPage> {
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
                                       fontWeight: FontWeight.w400,
-                                      fontSize: dynamicWidth(context, .024),
+                                      fontSize: dynamicWidth(context, .027),
                                     ),
                                     maxLines: 1,
                                   ),
@@ -132,7 +133,7 @@ class _ContactPageState extends State<ContactPage> {
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: dynamicWidth(context, .024),
+                                      fontSize: dynamicWidth(context, .027),
                                     ),
                                     maxLines: 1,
                                   ),
@@ -146,7 +147,7 @@ class _ContactPageState extends State<ContactPage> {
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
                                       fontWeight: FontWeight.w400,
-                                      fontSize: dynamicWidth(context, .024),
+                                      fontSize: dynamicWidth(context, .027),
                                     ),
                                     maxLines: 2,
                                   ),
