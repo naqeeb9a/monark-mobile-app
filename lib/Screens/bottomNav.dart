@@ -63,6 +63,7 @@ class _BottomNavState extends State<BottomNav> {
                       color: myWhite,
                     ),
                   ),
+                  // ignore: deprecated_member_use
                   title: Padding(
                     padding: EdgeInsets.only(
                       top: 0.0,
