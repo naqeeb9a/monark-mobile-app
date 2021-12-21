@@ -54,20 +54,26 @@ class _HomeState extends State<Home>
 
   @override
   bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
     globalContextHome = context;
     super.build(context);
     return Scaffold(
       key: _scaffoldKey,
-      appBar: bar(context,
-          menuIcon: true,
-          bgColor: darkTheme == true ? darkThemeBlack : myWhite,
-          title: true, function: () {
-        _scaffoldKey.currentState!.openEndDrawer();
-      }, refreshFucnction: () {
-        setState(() {});
-      }),
+      appBar: bar(
+        context,
+        menuIcon: true,
+        bgColor: darkTheme == true ? darkThemeBlack : myWhite,
+        title: true,
+        function: () {
+          _scaffoldKey.currentState!.openEndDrawer();
+        },
+        refreshFucnction: () {
+          setState(() {});
+        },
+      ),
+      resizeToAvoidBottomInset: false,
       drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,

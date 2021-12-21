@@ -5,39 +5,48 @@ import '../utils/config.dart';
 
 Widget inputTextField(context, label, myController,
     {function, function2, password = false}) {
-  return TextFormField(
-    autovalidateMode: AutovalidateMode.onUserInteraction,
-    validator: (function == "") ? () {} : function,
-    controller: myController,
-    textInputAction: TextInputAction.next,
-    keyboardType: TextInputType.emailAddress,
-    obscureText: password == true ? obscureText : false,
-    cursorColor: myBlack,
-    cursorWidth: 1.0,
-    style: TextStyle(
-      color: myBlack,
-      fontSize: dynamicWidth(context, .04),
+  return Container(
+    decoration: BoxDecoration(
+      color: myWhite,
+      borderRadius: BorderRadius.circular(
+        dynamicWidth(context, .4),
+      ),
     ),
-    decoration: InputDecoration(
-      isDense: true,
-      contentPadding: EdgeInsets.symmetric(
-        vertical: dynamicHeight(context, 0.01),
-        horizontal: dynamicWidth(context, .05),
+    child: TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (function == "") ? () {} : function,
+      controller: myController,
+      textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.emailAddress,
+      obscureText: password == true ? obscureText : false,
+      cursorColor: myBlack,
+      cursorWidth: 1.0,
+      style: TextStyle(
+        color: myBlack,
+        fontSize: dynamicWidth(context, .04),
       ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(
-          dynamicWidth(context, .4),
+      decoration: InputDecoration(
+        fillColor: myWhite,
+        isDense: true,
+        contentPadding: EdgeInsets.symmetric(
+          vertical: dynamicHeight(context, 0.01),
+          horizontal: dynamicWidth(context, .05),
         ),
-        borderSide: BorderSide(
-          color: darkTheme == true ? myWhite : myBlack.withOpacity(.1),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .4),
+          ),
+          borderSide: BorderSide(
+            color: darkTheme == true ? myWhite : myBlack.withOpacity(.1),
+          ),
         ),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(
-          dynamicWidth(context, .4),
-        ),
-        borderSide: BorderSide(
-          color: darkTheme == true ? myWhite : myBlack.withOpacity(.1),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .4),
+          ),
+          borderSide: BorderSide(
+            color: darkTheme == true ? myWhite : myBlack.withOpacity(.1),
+          ),
         ),
       ),
     ),

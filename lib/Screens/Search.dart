@@ -35,6 +35,7 @@ class _SearchPageState extends State<SearchPage> {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
+      resizeToAvoidBottomInset: false,
       drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: SafeArea(
@@ -70,7 +71,8 @@ class _SearchPageState extends State<SearchPage> {
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: dynamicHeight(context, 0.01)),
+                  vertical: dynamicHeight(context, 0.01),
+                ),
                 child: searchText.text == ""
                     ? Image.asset(
                         "assets/icons/searchIcon.png",

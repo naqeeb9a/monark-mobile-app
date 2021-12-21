@@ -244,13 +244,13 @@ Widget cartList({check, setState}) {
             ),
           ],
         ),
-        child: cartCard(index, context, check: check),
+        child: cartCard(index, context, check: check, setState: setState),
       );
     },
   );
 }
 
-Widget cartCard(index, context, {check}) {
+Widget cartCard(index, context, {check, setState}) {
   return Container(
     padding: EdgeInsets.symmetric(
       vertical: dynamicHeight(context, 0.04),
@@ -357,14 +357,19 @@ Widget cartCard(index, context, {check}) {
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        Image.asset(
-                          "assets/icons/bin.png",
-                          height: dynamicHeight(context, .03),
-                          color: myBlack.withOpacity(.2),
-                        ),
-                      ],
+                    Padding(
+                      padding: EdgeInsets.all(
+                        dynamicWidth(context, .02),
+                      ),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            "assets/icons/bin.png",
+                            height: dynamicHeight(context, .03),
+                            color: myBlack.withOpacity(.2),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

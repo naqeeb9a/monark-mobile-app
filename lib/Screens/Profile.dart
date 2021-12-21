@@ -264,7 +264,7 @@ Widget profileText(context, text1) {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Container(
-        width: dynamicWidth(context, 0.7),
+        width: dynamicWidth(context, 0.8),
         padding: EdgeInsets.symmetric(
           vertical: dynamicHeight(context, 0.014),
         ),

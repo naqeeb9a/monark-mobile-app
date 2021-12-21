@@ -11,6 +11,7 @@ import 'SeeAll.dart';
 
 class CategoriesPage extends StatefulWidget {
   final PageController controller;
+
   CategoriesPage({Key? key, required this.controller}) : super(key: key);
 
   @override
@@ -44,6 +45,7 @@ class _CategoriesPageState extends State<CategoriesPage>
 
   @override
   bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
     globalContextCategories = context;
@@ -51,18 +53,21 @@ class _CategoriesPageState extends State<CategoriesPage>
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
-      appBar: bar(context,
-          menuIcon: true,
-          bgColor: noColor,
-          function: () {
-            _scaffoldKey.currentState!.openEndDrawer();
-          },
-          leadingIcon: true,
-          functionIcon: () {
-            widget.controller.animateTo(0,
-                duration: const Duration(milliseconds: 600),
-                curve: Curves.easeInOut);
-          }),
+      appBar: bar(
+        context,
+        menuIcon: true,
+        bgColor: noColor,
+        function: () {
+          _scaffoldKey.currentState!.openEndDrawer();
+        },
+        leadingIcon: true,
+        functionIcon: () {
+          widget.controller.animateTo(0,
+              duration: const Duration(milliseconds: 600),
+              curve: Curves.easeInOut);
+        },
+      ),
+      resizeToAvoidBottomInset: false,
       drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: SafeArea(
@@ -109,7 +114,7 @@ class _CategoriesPageState extends State<CategoriesPage>
                               vertical: dynamicHeight(context, 0.02),
                             ),
                             child: Container(
-                              height: dynamicHeight(context, 0.05),
+                              height: dynamicHeight(context, 0.058),
                               width: dynamicWidth(context, 1),
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
@@ -153,6 +158,8 @@ class _CategoriesPageState extends State<CategoriesPage>
                                       ),
                                       labelStyle: TextStyle(),
                                       onSelected: (value) {
+
+                                        print(" \n\n\n $value \n");
                                         globalIndex = index;
                                         if (isSelected[index] == true) {
                                           setState(() {
