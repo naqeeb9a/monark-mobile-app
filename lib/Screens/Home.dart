@@ -15,7 +15,8 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home>
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   dynamic futureHomeData = "";
   bool loading = true;
@@ -52,7 +53,10 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       key: _scaffoldKey,
       appBar: bar(context,

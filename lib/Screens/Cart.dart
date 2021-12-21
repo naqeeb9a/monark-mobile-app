@@ -12,7 +12,8 @@ import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
 class Cart extends StatefulWidget {
-  const Cart({Key? key}) : super(key: key);
+  final PageController controller;
+  const Cart({Key? key, required this.controller}) : super(key: key);
 
   @override
   State<Cart> createState() => _CartState();
@@ -33,17 +34,17 @@ class _CartState extends State<Cart> {
     dynamic total = 0.obs;
     totalAmountCalculate(total);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
       backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
-      appBar: bar(
-        context,
-        leadingIcon: true,
-        menuIcon: true,
-        bgColor: noColor,
-        function: () {
-          _scaffoldKey.currentState!.openEndDrawer();
-        },
-      ),
+      appBar: bar(context, leadingIcon: true, menuIcon: true, bgColor: noColor,
+          function: () {
+        _scaffoldKey.currentState!.openEndDrawer();
+      }, functionIcon: () {
+        widget.controller.animateTo(0,
+            duration: const Duration(milliseconds: 600),
+            curve: Curves.easeInOut);
+      }),
       drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: Stack(

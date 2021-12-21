@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/Categories.dart';
@@ -19,6 +18,7 @@ class BottomNav extends StatefulWidget {
 }
 
 class _BottomNavState extends State<BottomNav> {
+  final PageController _pageController = PageController();
   int currentPage = 0;
 
   bool _loading = true;
@@ -39,6 +39,21 @@ class _BottomNavState extends State<BottomNav> {
     });
   }
 
+  final MaterialColor primaryColor = const MaterialColor(
+    0xffb22f32,
+    const <int, Color>{
+      50: const Color(0xffb22f32),
+      100: const Color(0xffb22f32),
+      200: const Color(0xffb22f32),
+      300: const Color(0xffb22f32),
+      400: const Color(0xffb22f32),
+      500: const Color(0xffb22f32),
+      600: const Color(0xffb22f32),
+      700: const Color(0xffb22f32),
+      800: const Color(0xffb22f32),
+      900: const Color(0xffb22f32),
+    },
+  );
   var iconSizes = 0.05;
 
   @override
@@ -47,11 +62,30 @@ class _BottomNavState extends State<BottomNav> {
         ? Scaffold(
             body: jumpingDots(context),
           )
-        : CupertinoTabScaffold(
-            tabBar: CupertinoTabBar(
+        : Scaffold(
+            body: pageDecider(),
+            bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              onTap: (index) {
+                setState(() {
+                  currentPage = index;
+                  _pageController.animateToPage(currentPage,
+                      duration: const Duration(milliseconds: 600),
+                      curve: Curves.easeInOut);
+                });
+              },
+              currentIndex: currentPage,
+              showUnselectedLabels: true,
+              selectedItemColor: myWhite,
+              unselectedItemColor: myWhite,
+              unselectedLabelStyle:
+                  TextStyle(fontSize: dynamicWidth(context, 0.026)),
+              selectedLabelStyle:
+                  TextStyle(fontSize: dynamicWidth(context, 0.026)),
               backgroundColor: myRed,
               items: [
                 BottomNavigationBarItem(
+                  backgroundColor: myRed,
                   icon: Padding(
                     padding: EdgeInsets.only(
                       bottom: 0.0,
@@ -63,22 +97,10 @@ class _BottomNavState extends State<BottomNav> {
                       color: myWhite,
                     ),
                   ),
-                  // ignore: deprecated_member_use
-                  title: Padding(
-                    padding: EdgeInsets.only(
-                      top: 0.0,
-                      bottom: dynamicHeight(context, .002),
-                    ),
-                    child: Text(
-                      "Home",
-                      style: TextStyle(
-                        color: myWhite,
-                        fontSize: dynamicWidth(context, .026),
-                      ),
-                    ),
-                  ),
+                  label: "Home",
                 ),
                 BottomNavigationBarItem(
+                  backgroundColor: myRed,
                   icon: Padding(
                     padding: EdgeInsets.only(
                       bottom: 0.0,
@@ -90,22 +112,10 @@ class _BottomNavState extends State<BottomNav> {
                       color: myWhite,
                     ),
                   ),
-                  // ignore: deprecated_member_use
-                  title: Padding(
-                    padding: EdgeInsets.only(
-                      top: 0.0,
-                      bottom: dynamicHeight(context, .002),
-                    ),
-                    child: Text(
-                      "Search",
-                      style: TextStyle(
-                        color: myWhite,
-                        fontSize: dynamicWidth(context, .026),
-                      ),
-                    ),
-                  ),
+                  label: "Search",
                 ),
                 BottomNavigationBarItem(
+                  backgroundColor: myRed,
                   icon: Padding(
                     padding: EdgeInsets.only(
                       bottom: 0.0,
@@ -117,22 +127,10 @@ class _BottomNavState extends State<BottomNav> {
                       color: myWhite,
                     ),
                   ),
-                  // ignore: deprecated_member_use
-                  title: Padding(
-                    padding: EdgeInsets.only(
-                      top: 0.0,
-                      bottom: dynamicHeight(context, .002),
-                    ),
-                    child: Text(
-                      "Categories",
-                      style: TextStyle(
-                        color: myWhite,
-                        fontSize: dynamicWidth(context, .026),
-                      ),
-                    ),
-                  ),
+                  label: "Categories",
                 ),
                 BottomNavigationBarItem(
+                  backgroundColor: myRed,
                   icon: Padding(
                     padding: EdgeInsets.only(
                       bottom: 0.0,
@@ -144,22 +142,10 @@ class _BottomNavState extends State<BottomNav> {
                       color: myWhite,
                     ),
                   ),
-                  // ignore: deprecated_member_use
-                  title: Padding(
-                    padding: EdgeInsets.only(
-                      top: 0.0,
-                      bottom: dynamicHeight(context, .002),
-                    ),
-                    child: Text(
-                      "My Bag",
-                      style: TextStyle(
-                        color: myWhite,
-                        fontSize: dynamicWidth(context, .026),
-                      ),
-                    ),
-                  ),
+                  label: "My Bag",
                 ),
                 BottomNavigationBarItem(
+                  backgroundColor: myRed,
                   icon: Padding(
                     padding: EdgeInsets.only(
                       bottom: 0.0,
@@ -171,65 +157,74 @@ class _BottomNavState extends State<BottomNav> {
                       color: myWhite,
                     ),
                   ),
-                  // ignore: deprecated_member_use
-                  title: Padding(
-                    padding: EdgeInsets.only(
-                      top: 0.0,
-                      bottom: dynamicHeight(context, .002),
-                    ),
-                    child: Text(
-                      "Profile",
-                      style: TextStyle(
-                        color: myWhite,
-                        fontSize: dynamicWidth(context, .026),
-                      ),
-                    ),
-                  ),
+                  label: "Profile",
                 ),
               ],
             ),
-            tabBuilder: (context, index) {
-              switch (index) {
-                case 0:
-                  return CupertinoTabView(
-                    builder: (context) {
-                      return CupertinoPageScaffold(child: Home());
-                    },
-                  );
-                case 1:
-                  return CupertinoTabView(
-                    builder: (context) {
-                      return CupertinoPageScaffold(child: SearchPage());
-                    },
-                  );
-                case 2:
-                  return CupertinoTabView(
-                    builder: (context) {
-                      return CupertinoPageScaffold(child: CategoriesPage());
-                    },
-                  );
-                case 3:
-                  return CupertinoTabView(
-                    builder: (context) {
-                      return CupertinoPageScaffold(child: Cart());
-                    },
-                  );
-                case 4:
-                  return CupertinoTabView(
-                    builder: (context) {
-                      return CupertinoPageScaffold(child: Profile());
-                    },
-                  );
-                default:
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const <Widget>[
-                      Text(
-                        ('TabBar Index Error'),
-                      ),
-                    ],
-                  );
-              }
-            });
+          );
+  }
+
+  pageDecider() {
+    return PageView(
+      controller: _pageController,
+      onPageChanged: (index) {
+        setState(() {
+          currentPage = index;
+        });
+      },
+      children: [
+        MaterialApp(
+            title: 'Monark',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              fontFamily: 'Open Sans',
+              primarySwatch: primaryColor,
+              brightness: Brightness.light,
+            ),
+            home: Home()),
+        MaterialApp(
+            title: 'Monark',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              fontFamily: 'Open Sans',
+              primarySwatch: primaryColor,
+              brightness: Brightness.light,
+            ),
+            home: SearchPage()),
+        MaterialApp(
+            title: 'Monark',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              fontFamily: 'Open Sans',
+              primarySwatch: primaryColor,
+              brightness: Brightness.light,
+            ),
+            home: CategoriesPage(
+              controller: _pageController,
+            )),
+        MaterialApp(
+            title: 'Monark',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              fontFamily: 'Open Sans',
+              primarySwatch: primaryColor,
+              brightness: Brightness.light,
+            ),
+            home: Cart(
+              controller: _pageController,
+            )),
+        MaterialApp(
+            title: 'Monark',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              fontFamily: 'Open Sans',
+              primarySwatch: primaryColor,
+              brightness: Brightness.light,
+            ),
+            home: Profile(
+              controller: _pageController,
+            ))
+      ],
+    );
   }
 }

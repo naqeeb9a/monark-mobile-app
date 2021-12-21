@@ -81,12 +81,10 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
           child: TextField(
             controller: controller,
             enabled: enabled,
-            autofocus: enabled,
             style: TextStyle(
               color: darkTheme == true ? myWhite : myBlack,
               fontSize: dynamicWidth(context, .03),
             ),
-          
             cursorWidth: 1,
             cursorColor: darkTheme == true ? myWhite : myBlack,
             decoration: InputDecoration(

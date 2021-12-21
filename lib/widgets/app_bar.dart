@@ -5,17 +5,16 @@ import '../utils/config.dart';
 import 'home_widgets.dart';
 import 'media_query.dart';
 
-PreferredSizeWidget bar(
-  context, {
-  menuIcon = false,
-  leadingIcon = false,
-  bgColor,
-  title = false,
-  titleText = "",
-  function = "",
-  refreshFucnction = "",
-  iconColor = "",
-}) {
+PreferredSizeWidget bar(context,
+    {menuIcon = false,
+    leadingIcon = false,
+    bgColor,
+    title = false,
+    titleText = "",
+    function = "",
+    refreshFucnction = "",
+    iconColor = "",
+    functionIcon = ""}) {
   return PreferredSize(
     preferredSize: Size.fromHeight(
       dynamicHeight(context, .062),
@@ -77,7 +76,7 @@ PreferredSizeWidget bar(
       leading: leadingIcon == true
           ? IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                (functionIcon == "") ? Navigator.pop(context) : functionIcon();
               },
               icon: Image.asset(
                 "assets/icons/backIcon.png",

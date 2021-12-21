@@ -16,19 +16,23 @@ import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// ignore: must_be_immutable
 class Profile extends StatefulWidget {
+  final PageController controller;
   Profile({
-    Key? key,
+    Key? key,required this.controller
   }) : super(key: key);
 
   @override
   State<Profile> createState() => _ProfileState();
 }
 
-class _ProfileState extends State<Profile> {
+class _ProfileState extends State<Profile>
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     logoutUser(accessToken) async {
       SharedPreferences saveUser = await SharedPreferences.getInstance();
 
@@ -75,7 +79,11 @@ class _ProfileState extends State<Profile> {
         menuIcon: true,
         function: () {
           _scaffoldKey.currentState!.openEndDrawer();
-        },
+        },functionIcon: () {
+        widget.controller.animateTo(0,
+            duration: const Duration(milliseconds: 600),
+            curve: Curves.easeInOut);
+      }
       ),
       drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),

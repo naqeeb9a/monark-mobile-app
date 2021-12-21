@@ -10,13 +10,15 @@ import 'package:monark_app/widgets/media_query.dart';
 import 'SeeAll.dart';
 
 class CategoriesPage extends StatefulWidget {
-  const CategoriesPage({Key? key}) : super(key: key);
+  final PageController controller;
+  CategoriesPage({Key? key, required this.controller}) : super(key: key);
 
   @override
   State<CategoriesPage> createState() => _CategoriesPageState();
 }
 
-class _CategoriesPageState extends State<CategoriesPage> {
+class _CategoriesPageState extends State<CategoriesPage>
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   var isSelected = [];
   var categoryList;
@@ -41,19 +43,25 @@ class _CategoriesPageState extends State<CategoriesPage> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
-      appBar: bar(
-        context,
-        menuIcon: true,
-        bgColor: noColor,
-        function: () {
-          _scaffoldKey.currentState!.openEndDrawer();
-        },
-        leadingIcon: true,
-      ),
+      appBar: bar(context,
+          menuIcon: true,
+          bgColor: noColor,
+          function: () {
+            _scaffoldKey.currentState!.openEndDrawer();
+          },
+          leadingIcon: true,
+          functionIcon: () {
+            widget.controller.animateTo(0,
+                duration: const Duration(milliseconds: 600),
+                curve: Curves.easeInOut);
+          }),
       drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: SafeArea(
