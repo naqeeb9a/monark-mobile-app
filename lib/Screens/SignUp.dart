@@ -3,6 +3,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
 import 'package:monark_app/Screens/Login.dart';
+import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
@@ -10,6 +11,9 @@ import 'package:monark_app/widgets/form_fields.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/rich_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'bottomNav.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -322,12 +326,13 @@ class _SignUpState extends State<SignUp> {
                                           isLoading = false;
                                         });
                                         CoolAlert.show(
-                                            context: context,
-                                            type: CoolAlertType.error,
-                                            title:
-                                                "Creating Customer Limit exceeded. Please try again later.",
-                                            text:
-                                                "Check your internet as well");
+                                          context: context,
+                                          type: CoolAlertType.error,
+                                          title: "Network Error",
+                                          text: "Check your internet as well",
+                                          backgroundColor: myRed,
+                                          confirmBtnColor: myRed,
+                                        );
                                       } else if (response == null) {
                                         setState(() {
                                           isLoading = false;
@@ -337,35 +342,69 @@ class _SignUpState extends State<SignUp> {
                                           type: CoolAlertType.warning,
                                           title:
                                               "This email is already registered",
-                                        
                                           confirmBtnColor: myRed,
                                           backgroundColor: myRed,
                                           lottieAsset:
                                               'assets/icons/mailAlert.json',
                                         );
                                       } else if (response != null) {
-                                        sEmail.clear();
-                                        sPassword.clear();
-                                        fName.clear();
-                                        lName.clear();
-                                        cPassword.clear();
+                                        var accessToken = await loginUser(
+                                          sEmail.text.toString(),
+                                          sPassword.text.toString(),
+                                        );
+
                                         setState(() {
                                           isLoading = false;
                                         });
                                         CoolAlert.show(
-                                            context: context,
-                                            type: CoolAlertType.success,
-                                            title: "Successfully Created",
-                                            text: "please login in Now",
-                                            onConfirmBtnTap: () {
-                                              Navigator.popUntil(context,
-                                                  (route) => route.isFirst);
-                                            });
+                                          context: context,
+                                          type: CoolAlertType.success,
+                                          title: "Successfully Created",
+                                          text: "",
+                                          backgroundColor: myRed,
+                                          confirmBtnColor: myRed,
+                                          onConfirmBtnTap: () async {
+                                            if (accessToken == "Server Error") {
+                                              setState(() {
+                                                isLoading = false;
+                                              });
+                                              CoolAlert.show(
+                                                context: context,
+                                                type: CoolAlertType.warning,
+                                                title: "No Internet",
+                                                text:
+                                                    "Check your internet connection!!",
+                                                backgroundColor: myRed,
+                                                confirmBtnColor: myRed,
+                                                animType:
+                                                    CoolAlertAnimType.scale,
+                                              );
+                                            } else if (accessToken != null) {
+                                              SharedPreferences saveUser =
+                                                  await SharedPreferences
+                                                      .getInstance();
+
+                                              saveUser.setString("loginInfo",
+                                                  accessToken.toString());
+                                              pushAndRemoveUntil(
+                                                context,
+                                                BottomNav(),
+                                              );
+                                              sEmail.clear();
+                                              sPassword.clear();
+                                              fName.clear();
+                                              lName.clear();
+                                              cPassword.clear();
+                                            }
+                                          },
+                                        );
                                       } else {
                                         CoolAlert.show(
                                           context: context,
                                           type: CoolAlertType.info,
                                           title: "Unidentified Error",
+                                          backgroundColor: myRed,
+                                          confirmBtnColor: myRed,
                                         );
                                       }
                                     },

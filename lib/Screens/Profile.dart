@@ -146,6 +146,7 @@ class _ProfileState extends State<Profile>
                             context: context,
                             type: CoolAlertType.loading,
                             backgroundColor: noColor,
+
                           );
                           logoutUser(globalAccessToken);
                         }

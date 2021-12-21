@@ -29,57 +29,6 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   bool isLoading = false;
 
-  loginUser() async {
-    SharedPreferences saveUser = await SharedPreferences.getInstance();
-    const createUserAccessToken = r'''
-                mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
-                  customerAccessTokenCreate(input: $input) {
-                    customerAccessToken {
-                      accessToken
-                      expiresAt
-                    }
-                    customerUserErrors {
-                      code
-                      field
-                      message
-                    }
-                  }
-                }
-            ''';
-    var variables = {
-      "input": {
-        "email": email.text.toString(),
-        "password": password.text.toString()
-      }
-    };
-    final HttpLink httpLink = HttpLink(
-        "https://monark-clothings.myshopify.com/api/2021-10/graphql.json",
-        defaultHeaders: {
-          "X-Shopify-Storefront-Access-Token":
-              "fce9486a511f6a4f45939c2c6829cdaa"
-        });
-    GraphQLClient client = GraphQLClient(link: httpLink, cache: GraphQLCache());
-    final QueryOptions options = QueryOptions(
-        document: gql(createUserAccessToken), variables: variables);
-    final QueryResult result = await client.query(options);
-
-    if (result.hasException) {
-      return "Server Error";
-    } else {
-      if (result.data!["customerAccessTokenCreate"]["customerAccessToken"] !=
-          null) {
-        saveUser.setString(
-            "loginInfo",
-            result.data!["customerAccessTokenCreate"]["customerAccessToken"]
-                ["accessToken"]);
-        return result.data!["customerAccessTokenCreate"]["customerAccessToken"]
-            ["accessToken"];
-      } else {
-        return result.data!["customerAccessTokenCreate"]["customerAccessToken"];
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return isLoading == true
@@ -238,7 +187,10 @@ class _LoginState extends State<Login> {
                                       setState(() {
                                         isLoading = true;
                                       });
-                                      var accessToken = await loginUser();
+                                      var accessToken = await loginUser(
+                                        email.text.toString(),
+                                        password.text.toString(),
+                                      );
 
                                       if (accessToken == "Server Error") {
                                         setState(() {
@@ -325,5 +277,52 @@ class _LoginState extends State<Login> {
               ),
             ),
           );
+  }
+}
+
+loginUser(email, password) async {
+  SharedPreferences saveUser = await SharedPreferences.getInstance();
+  const createUserAccessToken = r'''
+                mutation customerAccessTokenCreate($input: CustomerAccessTokenCreateInput!) {
+                  customerAccessTokenCreate(input: $input) {
+                    customerAccessToken {
+                      accessToken
+                      expiresAt
+                    }
+                    customerUserErrors {
+                      code
+                      field
+                      message
+                    }
+                  }
+                }
+            ''';
+  var variables = {
+    "input": {"email": email, "password": password}
+  };
+  final HttpLink httpLink = HttpLink(
+      "https://monark-clothings.myshopify.com/api/2021-10/graphql.json",
+      defaultHeaders: {
+        "X-Shopify-Storefront-Access-Token": "fce9486a511f6a4f45939c2c6829cdaa"
+      });
+  GraphQLClient client = GraphQLClient(link: httpLink, cache: GraphQLCache());
+  final QueryOptions options =
+      QueryOptions(document: gql(createUserAccessToken), variables: variables);
+  final QueryResult result = await client.query(options);
+
+  if (result.hasException) {
+    return "Server Error";
+  } else {
+    if (result.data!["customerAccessTokenCreate"]["customerAccessToken"] !=
+        null) {
+      saveUser.setString(
+          "loginInfo",
+          result.data!["customerAccessTokenCreate"]["customerAccessToken"]
+              ["accessToken"]);
+      return result.data!["customerAccessTokenCreate"]["customerAccessToken"]
+          ["accessToken"];
+    } else {
+      return result.data!["customerAccessTokenCreate"]["customerAccessToken"];
+    }
   }
 }
