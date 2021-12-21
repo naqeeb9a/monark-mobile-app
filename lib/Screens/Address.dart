@@ -249,29 +249,34 @@ class _AddressPageState extends State<AddressPage> {
                       Obx(() {
                         return Theme(
                           data: Theme.of(context).copyWith(
-                            unselectedWidgetColor:
-                                darkTheme == true ? myWhite : myBlack,
+                            unselectedWidgetColor: darkTheme == true
+                                ? myWhite
+                                : myBlack.withOpacity(.3),
                           ),
                           child: Radio(
-                              value: index,
-                              activeColor: myRed,
-                              groupValue: int.parse(group.toString()),
-                              onChanged: (value) {
-                                setState(() {
-                                  group.value = value as int;
-                                });
-                              }),
+                            value: index,
+                            activeColor: myRed,
+                            groupValue: int.parse(group.toString()),
+                            onChanged: (value) {
+                              setState(() {
+                                group.value = value as int;
+                              });
+                            },
+                          ),
                         );
                       }),
                       Container(
                         width: dynamicWidth(context, 0.75),
                         decoration: BoxDecoration(
+                          color: myWhite,
                           border: Border.all(
-                            width: 1,
-                            color: darkTheme == true ? myWhite : myBlack,
+                            width: .3,
+                            color: darkTheme == true
+                                ? myWhite
+                                : myBlack.withOpacity(.3),
                           ),
                           borderRadius: BorderRadius.circular(
-                            dynamicWidth(context, 0.1),
+                            dynamicWidth(context, 0.03),
                           ),
                         ),
                         padding: EdgeInsets.symmetric(
@@ -279,10 +284,12 @@ class _AddressPageState extends State<AddressPage> {
                           vertical: dynamicHeight(context, .01),
                         ),
                         child: Text(
-                          addressList[index]["node"]["address1"].toString(),
+                          addressList[index]["node"]["address1"].toString() +
+                              ", " +
+                              addressList[index]["node"]["city"].toString(),
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            color: darkTheme == true ? myWhite : myBlack,
+                            color: myBlack,
                             fontSize: dynamicWidth(context, 0.04),
                             fontWeight: FontWeight.w400,
                           ),

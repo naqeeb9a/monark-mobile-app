@@ -64,102 +64,107 @@ class _BottomNavState extends State<BottomNav> {
           )
         : Scaffold(
             body: pageDecider(),
-            bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              onTap: (index) {
-                setState(() {
-                  currentPage = index;
-                  _pageController.animateToPage(currentPage,
-                      duration: const Duration(milliseconds: 600),
-                      curve: Curves.easeInOut);
-                });
-              },
-              currentIndex: currentPage,
-              showUnselectedLabels: true,
-              selectedItemColor: myWhite,
-              unselectedItemColor: myWhite,
-              unselectedLabelStyle:
-                  TextStyle(fontSize: dynamicWidth(context, 0.026)),
-              selectedLabelStyle:
-                  TextStyle(fontSize: dynamicWidth(context, 0.026)),
-              backgroundColor: myRed,
-              items: [
-                BottomNavigationBarItem(
-                  backgroundColor: myRed,
-                  icon: Padding(
-                    padding: EdgeInsets.only(
-                      bottom: 0.0,
-                      top: dynamicHeight(context, .002),
-                    ),
-                    child: Image.asset(
-                      "assets/icons/homeIcon.png",
-                      width: dynamicWidth(context, iconSizes),
-                      color: myWhite,
-                    ),
-                  ),
-                  label: "Home",
+            bottomNavigationBar: SizedBox(
+              height: dynamicHeight(context, .056),
+              child: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                onTap: (index) {
+                  setState(() {
+                    currentPage = index;
+                    _pageController.animateToPage(currentPage,
+                        duration: const Duration(milliseconds: 600),
+                        curve: Curves.easeInOut);
+                  });
+                },
+                currentIndex: currentPage,
+                showUnselectedLabels: true,
+                selectedItemColor: myWhite,
+                unselectedItemColor: myWhite,
+                unselectedLabelStyle: TextStyle(
+                  fontSize: dynamicWidth(context, 0.026),
                 ),
-                BottomNavigationBarItem(
-                  backgroundColor: myRed,
-                  icon: Padding(
-                    padding: EdgeInsets.only(
-                      bottom: 0.0,
-                      top: dynamicHeight(context, .002),
-                    ),
-                    child: Image.asset(
-                      "assets/icons/searchIcon.png",
-                      width: dynamicWidth(context, iconSizes),
-                      color: myWhite,
-                    ),
-                  ),
-                  label: "Search",
+                selectedLabelStyle: TextStyle(
+                  fontSize: dynamicWidth(context, 0.026),
                 ),
-                BottomNavigationBarItem(
-                  backgroundColor: myRed,
-                  icon: Padding(
-                    padding: EdgeInsets.only(
-                      bottom: 0.0,
-                      top: dynamicHeight(context, .002),
+                backgroundColor: myRed,
+                items: [
+                  BottomNavigationBarItem(
+                    backgroundColor: myRed,
+                    icon: Padding(
+                      padding: EdgeInsets.only(
+                        bottom: 0.0,
+                        top: dynamicHeight(context, .002),
+                      ),
+                      child: Image.asset(
+                        "assets/icons/homeIcon.png",
+                        width: dynamicWidth(context, iconSizes),
+                        color: myWhite,
+                      ),
                     ),
-                    child: Image.asset(
-                      "assets/icons/categoryIcon.png",
-                      width: dynamicWidth(context, iconSizes),
-                      color: myWhite,
-                    ),
+                    label: "Home",
                   ),
-                  label: "Categories",
-                ),
-                BottomNavigationBarItem(
-                  backgroundColor: myRed,
-                  icon: Padding(
-                    padding: EdgeInsets.only(
-                      bottom: 0.0,
-                      top: dynamicHeight(context, .002),
+                  BottomNavigationBarItem(
+                    backgroundColor: myRed,
+                    icon: Padding(
+                      padding: EdgeInsets.only(
+                        bottom: 0.0,
+                        top: dynamicHeight(context, .002),
+                      ),
+                      child: Image.asset(
+                        "assets/icons/searchIcon.png",
+                        width: dynamicWidth(context, iconSizes),
+                        color: myWhite,
+                      ),
                     ),
-                    child: Image.asset(
-                      "assets/icons/cartIcon.png",
-                      width: dynamicWidth(context, iconSizes),
-                      color: myWhite,
-                    ),
+                    label: "Search",
                   ),
-                  label: "My Bag",
-                ),
-                BottomNavigationBarItem(
-                  backgroundColor: myRed,
-                  icon: Padding(
-                    padding: EdgeInsets.only(
-                      bottom: 0.0,
-                      top: dynamicHeight(context, .002),
+                  BottomNavigationBarItem(
+                    backgroundColor: myRed,
+                    icon: Padding(
+                      padding: EdgeInsets.only(
+                        bottom: 0.0,
+                        top: dynamicHeight(context, .002),
+                      ),
+                      child: Image.asset(
+                        "assets/icons/categoryIcon.png",
+                        width: dynamicWidth(context, iconSizes),
+                        color: myWhite,
+                      ),
                     ),
-                    child: Image.asset(
-                      "assets/icons/profileIcon.png",
-                      width: dynamicWidth(context, iconSizes),
-                      color: myWhite,
-                    ),
+                    label: "Categories",
                   ),
-                  label: "Profile",
-                ),
-              ],
+                  BottomNavigationBarItem(
+                    backgroundColor: myRed,
+                    icon: Padding(
+                      padding: EdgeInsets.only(
+                        bottom: 0.0,
+                        top: dynamicHeight(context, .002),
+                      ),
+                      child: Image.asset(
+                        "assets/icons/cartIcon.png",
+                        width: dynamicWidth(context, iconSizes),
+                        color: myWhite,
+                      ),
+                    ),
+                    label: "My Bag",
+                  ),
+                  BottomNavigationBarItem(
+                    backgroundColor: myRed,
+                    icon: Padding(
+                      padding: EdgeInsets.only(
+                        bottom: 0.0,
+                        top: dynamicHeight(context, .002),
+                      ),
+                      child: Image.asset(
+                        "assets/icons/profileIcon.png",
+                        width: dynamicWidth(context, iconSizes),
+                        color: myWhite,
+                      ),
+                    ),
+                    label: "Profile",
+                  ),
+                ],
+              ),
             ),
           );
   }

@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
@@ -69,44 +68,25 @@ Widget bottomButton2(context, text, icon, {function, double bottom = 80}) {
     bottom: bottom,
     child: InkWell(
       onTap: function,
-      child: DottedBorder(
-        borderType: BorderType.RRect,
-        color: myRed,
-        radius: Radius.circular(
-          dynamicWidth(context, 0.8),
-        ),
-        child: ClipRRect(
+      child: Container(
+        height: dynamicHeight(context, .042),
+        width: dynamicWidth(context, .78),
+        decoration: BoxDecoration(
+          color: noColor,
           borderRadius: BorderRadius.circular(
-            dynamicWidth(context, 0.02),
+            dynamicWidth(context, 1),
           ),
-          child: Container(
-            height: dynamicHeight(context, .042),
-            width: dynamicWidth(context, .78),
-            decoration: BoxDecoration(
-              color: noColor,
-              borderRadius: BorderRadius.circular(
-                dynamicWidth(context, 0.02),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  icon,
-                  color: myRed,
-                  size: dynamicWidth(context, 0.06),
-                ),
-                SizedBox(
-                  width: dynamicWidth(context, 0.02),
-                ),
-                Text(
-                  text,
-                  style: TextStyle(
-                    color: myRed,
-                    fontSize: dynamicWidth(context, 0.032),
-                  ),
-                )
-              ],
+          border: Border.all(
+            color: darkTheme == true ? myWhite : myRed,
+          ),
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: darkTheme == true ? myWhite : myRed,
+              fontWeight: FontWeight.bold,
+              fontSize: dynamicWidth(context, 0.032),
             ),
           ),
         ),
