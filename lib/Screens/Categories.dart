@@ -69,7 +69,7 @@ class _CategoriesPageState extends State<CategoriesPage>
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: dynamicWidth(context, 0.04),
+                horizontal: dynamicWidth(context, 0.05),
               ),
               child: rowText(
                 "Categories",
@@ -77,7 +77,12 @@ class _CategoriesPageState extends State<CategoriesPage>
               ),
             ),
             heightBox(context, .02),
-            searchbar(context),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: dynamicWidth(context, 0.04),
+              ),
+              child: searchbar(context),
+            ),
             heightBox(context, .02),
             (loading == true)
                 ? Expanded(child: Center(child: jumpingDots(context)))
@@ -96,7 +101,7 @@ class _CategoriesPageState extends State<CategoriesPage>
                           )
                         : Padding(
                             padding: EdgeInsets.symmetric(
-                              horizontal: dynamicWidth(context, 0.02),
+                              horizontal: dynamicWidth(context, 0.04),
                               vertical: dynamicHeight(context, 0.02),
                             ),
                             child: Container(

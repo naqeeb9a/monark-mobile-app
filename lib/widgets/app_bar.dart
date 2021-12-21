@@ -25,7 +25,10 @@ PreferredSizeWidget bar(context,
       title: title == true
           ? Transform(
               transform: Matrix4.translationValues(
-                  -dynamicWidth(context, .1), 0.0, 0.0),
+                -dynamicWidth(context, .1),
+                0.0,
+                0.0,
+              ),
               child: (globalAccessToken == "guest")
                   ? Text(
                       "Hi, Guest",
@@ -41,11 +44,12 @@ PreferredSizeWidget bar(context,
                         if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.data == "Server Error") {
                             return InkWell(
-                                onTap: refreshFucnction,
-                                child: Icon(
-                                  Icons.refresh,
-                                  color: Colors.black,
-                                ));
+                              onTap: refreshFucnction,
+                              child: Icon(
+                                Icons.refresh,
+                                color: Colors.black,
+                              ),
+                            );
                           } else {
                             return Text(
                               titleCase(snapshot.data["firstName"]) +
