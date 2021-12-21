@@ -1,4 +1,6 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:monark_app/Screens/Cart.dart';
 import 'package:monark_app/Screens/Categories.dart';
 import 'package:monark_app/Screens/Home.dart';
@@ -39,21 +41,6 @@ class _BottomNavState extends State<BottomNav> {
     });
   }
 
-  final MaterialColor primaryColor = const MaterialColor(
-    0xffb22f32,
-    const <int, Color>{
-      50: const Color(0xffb22f32),
-      100: const Color(0xffb22f32),
-      200: const Color(0xffb22f32),
-      300: const Color(0xffb22f32),
-      400: const Color(0xffb22f32),
-      500: const Color(0xffb22f32),
-      600: const Color(0xffb22f32),
-      700: const Color(0xffb22f32),
-      800: const Color(0xffb22f32),
-      900: const Color(0xffb22f32),
-    },
-  );
   var iconSizes = 0.05;
 
   @override
@@ -64,109 +51,80 @@ class _BottomNavState extends State<BottomNav> {
           )
         : Scaffold(
             body: pageDecider(),
-            bottomNavigationBar: SizedBox(
-              height: dynamicHeight(context, .056),
-              child: BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                onTap: (index) {
-                  setState(() {
-                    currentPage = index;
-                    _pageController.animateToPage(currentPage,
-                        duration: const Duration(milliseconds: 600),
-                        curve: Curves.easeInOut);
-                  });
-                },
-                currentIndex: currentPage,
-                showUnselectedLabels: true,
-                selectedItemColor: myWhite,
-                unselectedItemColor: myWhite,
-                unselectedLabelStyle: TextStyle(
-                  fontSize: dynamicWidth(context, 0.026),
-                ),
-                selectedLabelStyle: TextStyle(
-                  fontSize: dynamicWidth(context, 0.026),
-                ),
-                backgroundColor: myRed,
-                items: [
-                  BottomNavigationBarItem(
-                    backgroundColor: myRed,
-                    icon: Padding(
-                      padding: EdgeInsets.only(
-                        bottom: 0.0,
-                        top: dynamicHeight(context, .002),
-                      ),
-                      child: Image.asset(
-                        "assets/icons/homeIcon.png",
-                        width: dynamicWidth(context, iconSizes),
-                        color: myWhite,
-                      ),
-                    ),
-                    label: "Home",
-                  ),
-                  BottomNavigationBarItem(
-                    backgroundColor: myRed,
-                    icon: Padding(
-                      padding: EdgeInsets.only(
-                        bottom: 0.0,
-                        top: dynamicHeight(context, .002),
-                      ),
-                      child: Image.asset(
-                        "assets/icons/searchIcon.png",
-                        width: dynamicWidth(context, iconSizes),
-                        color: myWhite,
-                      ),
-                    ),
-                    label: "Search",
-                  ),
-                  BottomNavigationBarItem(
-                    backgroundColor: myRed,
-                    icon: Padding(
-                      padding: EdgeInsets.only(
-                        bottom: 0.0,
-                        top: dynamicHeight(context, .002),
-                      ),
-                      child: Image.asset(
-                        "assets/icons/categoryIcon.png",
-                        width: dynamicWidth(context, iconSizes),
-                        color: myWhite,
-                      ),
-                    ),
-                    label: "Categories",
-                  ),
-                  BottomNavigationBarItem(
-                    backgroundColor: myRed,
-                    icon: Padding(
-                      padding: EdgeInsets.only(
-                        bottom: 0.0,
-                        top: dynamicHeight(context, .002),
-                      ),
-                      child: Image.asset(
-                        "assets/icons/cartIcon.png",
-                        width: dynamicWidth(context, iconSizes),
-                        color: myWhite,
-                      ),
-                    ),
-                    label: "My Bag",
-                  ),
-                  BottomNavigationBarItem(
-                    backgroundColor: myRed,
-                    icon: Padding(
-                      padding: EdgeInsets.only(
-                        bottom: 0.0,
-                        top: dynamicHeight(context, .002),
-                      ),
-                      child: Image.asset(
-                        "assets/icons/profileIcon.png",
-                        width: dynamicWidth(context, iconSizes),
-                        color: myWhite,
-                      ),
-                    ),
-                    label: "Profile",
-                  ),
-                ],
-              ),
+            bottomNavigationBar: BottomNavigationBar(
+              enableFeedback: true,
+              type: BottomNavigationBarType.fixed,
+              onTap: (index) {
+                if (currentPage == index && currentPage == 0) {
+                  Navigator.popUntil(
+                      globalContextHome, (route) => route.isFirst);
+                } else if (currentPage == index && currentPage == 1) {
+                  Navigator.popUntil(
+                      globalContextSearch, (route) => route.isFirst);
+                } else if (currentPage == index && currentPage == 2) {
+                  Navigator.popUntil(
+                      globalContextCategories, (route) => route.isFirst);
+                } else if (currentPage == index && currentPage == 3) {
+                  Navigator.popUntil(
+                      globalContextMyBag, (route) => route.isFirst);
+                } else if (currentPage == index && currentPage == 4) {
+                  Navigator.popUntil(
+                      globalContextProfile, (route) => route.isFirst);
+                } else {}
+                setState(() {
+                  currentPage = index;
+                  _pageController.animateToPage(currentPage,
+                      duration: const Duration(milliseconds: 600),
+                      curve: Curves.easeInOut);
+                });
+              },
+              currentIndex: currentPage,
+              showUnselectedLabels: true,
+              selectedItemColor: myWhite,
+              unselectedItemColor: myWhite,
+              unselectedLabelStyle:
+                  TextStyle(fontSize: dynamicWidth(context, 0.026)),
+              selectedLabelStyle:
+                  TextStyle(fontSize: dynamicWidth(context, 0.026)),
+              backgroundColor: myRed,
+              items: [
+                bottomItemModel("assets/icons/homeIcon.png", "Home"),
+                bottomItemModel("assets/icons/searchIcon.png", "Search"),
+                bottomItemModel("assets/icons/categoryIcon.png", "Categories"),
+                bottomItemModel("assets/icons/cartIcon.png", "My Bag",
+                    check: true),
+                bottomItemModel("assets/icons/profileIcon.png", "Profile")
+              ],
             ),
           );
+  }
+
+  bottomItemModel(icon, text, {check = false}) {
+    return BottomNavigationBarItem(
+      backgroundColor: myRed,
+      icon: (check == true)
+          ? Obx(() {
+              return Badge(
+                badgeColor: myWhite,
+                badgeContent: Text(
+                  cartItems.length.toString(),
+                  style: TextStyle(fontSize: dynamicWidth(context, 0.02)),
+                ),
+                showBadge: cartItems.length == 0 ? false : true,
+                child: Image.asset(
+                  icon,
+                  width: dynamicWidth(context, iconSizes),
+                  color: myWhite,
+                ),
+              );
+            })
+          : Image.asset(
+              icon,
+              width: dynamicWidth(context, iconSizes),
+              color: myWhite,
+            ),
+      label: text,
+    );
   }
 
   pageDecider() {
@@ -178,58 +136,30 @@ class _BottomNavState extends State<BottomNav> {
         });
       },
       children: [
-        MaterialApp(
-            title: 'Monark',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              fontFamily: 'Open Sans',
-              primarySwatch: primaryColor,
-              brightness: Brightness.light,
-            ),
-            home: Home()),
-        MaterialApp(
-            title: 'Monark',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              fontFamily: 'Open Sans',
-              primarySwatch: primaryColor,
-              brightness: Brightness.light,
-            ),
-            home: SearchPage()),
-        MaterialApp(
-            title: 'Monark',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              fontFamily: 'Open Sans',
-              primarySwatch: primaryColor,
-              brightness: Brightness.light,
-            ),
-            home: CategoriesPage(
-              controller: _pageController,
-            )),
-        MaterialApp(
-            title: 'Monark',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              fontFamily: 'Open Sans',
-              primarySwatch: primaryColor,
-              brightness: Brightness.light,
-            ),
-            home: Cart(
-              controller: _pageController,
-            )),
-        MaterialApp(
-            title: 'Monark',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              fontFamily: 'Open Sans',
-              primarySwatch: primaryColor,
-              brightness: Brightness.light,
-            ),
-            home: Profile(
-              controller: _pageController,
-            ))
+        pageModel(Home()),
+        pageModel(SearchPage()),
+        pageModel(CategoriesPage(
+          controller: _pageController,
+        )),
+        pageModel(Cart(
+          controller: _pageController,
+        )),
+        pageModel(Profile(
+          controller: _pageController,
+        ))
       ],
     );
+  }
+
+  pageModel(page) {
+    return MaterialApp(
+        title: 'Monark',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'Open Sans',
+          primarySwatch: primaryColor,
+          brightness: Brightness.light,
+        ),
+        home: page);
   }
 }

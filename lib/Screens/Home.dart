@@ -56,6 +56,7 @@ class _HomeState extends State<Home>
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
+    globalContextHome = context;
     super.build(context);
     return Scaffold(
       key: _scaffoldKey,

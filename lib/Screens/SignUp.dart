@@ -333,9 +333,16 @@ class _SignUpState extends State<SignUp> {
                                           isLoading = false;
                                         });
                                         CoolAlert.show(
-                                            context: context,
-                                            type: CoolAlertType.warning,
-                                            title: "Email already Taken");
+                                          context: context,
+                                          type: CoolAlertType.warning,
+                                          title:
+                                              "This email is already registered",
+                                        
+                                          confirmBtnColor: myRed,
+                                          backgroundColor: myRed,
+                                          lottieAsset:
+                                              'assets/icons/mailAlert.json',
+                                        );
                                       } else if (response != null) {
                                         sEmail.clear();
                                         sPassword.clear();

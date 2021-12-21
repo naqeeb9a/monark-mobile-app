@@ -23,6 +23,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    globalContextSearch = context;
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,

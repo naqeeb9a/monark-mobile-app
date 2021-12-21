@@ -46,6 +46,7 @@ class _CategoriesPageState extends State<CategoriesPage>
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
+    globalContextCategories = context;
     super.build(context);
     return Scaffold(
       key: _scaffoldKey,
@@ -81,7 +82,10 @@ class _CategoriesPageState extends State<CategoriesPage>
               padding: EdgeInsets.symmetric(
                 horizontal: dynamicWidth(context, 0.04),
               ),
-              child: searchbar(context),
+              child: searchbar(
+                context,
+                enabled: false,
+              ),
             ),
             heightBox(context, .02),
             (loading == true)

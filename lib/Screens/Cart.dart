@@ -32,6 +32,7 @@ class _CartState extends State<Cart> {
 
   @override
   Widget build(BuildContext context) {
+    globalContextMyBag = context;
     dynamic total = 0.obs;
     totalAmountCalculate(total);
     return Scaffold(

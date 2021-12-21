@@ -18,9 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   final PageController controller;
-  Profile({
-    Key? key,required this.controller
-  }) : super(key: key);
+  Profile({Key? key, required this.controller}) : super(key: key);
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -32,6 +30,7 @@ class _ProfileState extends State<Profile>
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
+    globalContextProfile = context;
     super.build(context);
     logoutUser(accessToken) async {
       SharedPreferences saveUser = await SharedPreferences.getInstance();
@@ -72,19 +71,16 @@ class _ProfileState extends State<Profile>
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
-      appBar: bar(
-        context,
-        bgColor: Colors.transparent,
-        leadingIcon: true,
-        menuIcon: true,
-        function: () {
-          _scaffoldKey.currentState!.openEndDrawer();
-        },functionIcon: () {
+      appBar: bar(context,
+          bgColor: Colors.transparent,
+          leadingIcon: true,
+          menuIcon: true, function: () {
+        _scaffoldKey.currentState!.openEndDrawer();
+      }, functionIcon: () {
         widget.controller.animateTo(0,
             duration: const Duration(milliseconds: 600),
             curve: Curves.easeInOut);
-      }
-      ),
+      }),
       drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: SafeArea(
