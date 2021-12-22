@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:monark_app/api/api.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
@@ -158,8 +159,6 @@ class _CategoriesPageState extends State<CategoriesPage>
                                       ),
                                       labelStyle: TextStyle(),
                                       onSelected: (value) {
-
-                                        print(" \n\n\n $value \n");
                                         globalIndex = index;
                                         if (isSelected[index] == true) {
                                           setState(() {

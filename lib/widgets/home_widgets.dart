@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons_ns/grouped_buttons_ns.dart';
+import 'package:intl/intl.dart';
 import 'package:monark_app/Screens/Categories.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
@@ -12,7 +13,6 @@ import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:recase/recase.dart';
-import 'package:intl/intl.dart';
 
 import '../utils/config.dart';
 import 'drawer_items.dart';
@@ -239,8 +239,8 @@ Widget internalWidgetCard(
                           )
                         : Text(
                             "PKR. " +
-                                numberFormat(double.parse(variantProduct[0]["node"]
-                                ["compareAtPrice"])
+                                numberFormat(double.parse(variantProduct[0]
+                                        ["node"]["compareAtPrice"])
                                     .toInt()
                                     .toString()),
                             style: TextStyle(
@@ -256,7 +256,8 @@ Widget internalWidgetCard(
                         ? Container()
                         : Text(
                             "PKR. " +
-                                numberFormat(double.parse(variantProduct[0]["node"]["price"])
+                                numberFormat(double.parse(
+                                        variantProduct[0]["node"]["price"])
                                     .toInt()
                                     .toString()),
                             style: TextStyle(
@@ -307,7 +308,9 @@ Widget rowText(text, context, {function = "", check = false}) {
                 ),
               ),
             )
-          : Container()
+          : SizedBox(
+              width: 0.0,
+            ),
     ],
   );
 }
@@ -421,7 +424,6 @@ Widget homeSlider(context, height, length, viewFraction, image, bool detail,
             }
           : null,
       enlargeStrategy: CenterPageEnlargeStrategy.height,
-      enlargeCenterPage: true,
       autoPlay: detail,
       autoPlayInterval: Duration(seconds: 6),
       viewportFraction: viewFraction,

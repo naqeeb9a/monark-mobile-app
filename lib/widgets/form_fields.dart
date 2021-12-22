@@ -4,7 +4,7 @@ import 'package:monark_app/widgets/media_query.dart';
 import '../utils/config.dart';
 
 Widget inputTextField(context, label, myController,
-    {function, function2, password = false}) {
+    {function, function2, password = false, hintText = ""}) {
   return Container(
     decoration: BoxDecoration(
       color: myWhite,
@@ -28,6 +28,10 @@ Widget inputTextField(context, label, myController,
       decoration: InputDecoration(
         fillColor: myWhite,
         isDense: true,
+        hintText: hintText,
+        hintStyle: TextStyle(
+          color: myBlack.withOpacity(.3),
+        ),
         contentPadding: EdgeInsets.symmetric(
           vertical: dynamicHeight(context, 0.01),
           horizontal: dynamicWidth(context, .05),

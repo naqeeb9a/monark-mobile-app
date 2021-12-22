@@ -14,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'SignUp.dart';
 import 'bottomNav.dart';
+import 'forgot_password.dart';
 
 final _formKey = GlobalKey<FormState>();
 final email = TextEditingController();
@@ -163,13 +164,27 @@ class _LoginState extends State<Login> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Text(
-                                        "Forgot Password ?",
-                                        style: TextStyle(
-                                          color: darkTheme == false
-                                              ? myBlack
-                                              : myWhite,
-                                          fontSize: dynamicWidth(context, .028),
+                                      InkWell(
+                                        onTap: () {
+                                          push(
+                                            context,
+                                            ForgotPassword(),
+                                          );
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.all(
+                                            dynamicWidth(context, .01),
+                                          ),
+                                          child: Text(
+                                            "Forgot Password ?",
+                                            style: TextStyle(
+                                              color: darkTheme == false
+                                                  ? myBlack
+                                                  : myWhite,
+                                              fontSize:
+                                                  dynamicWidth(context, .028),
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],

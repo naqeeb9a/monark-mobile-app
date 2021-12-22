@@ -9,7 +9,8 @@ import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
 class SearchPage extends StatefulWidget {
-  SearchPage({Key? key}) : super(key: key);
+  final PageController controller;
+  SearchPage({Key? key, required this.controller}) : super(key: key);
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -21,6 +22,7 @@ class _SearchPageState extends State<SearchPage> {
   TextEditingController searchText = TextEditingController();
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
+
   @override
   Widget build(BuildContext context) {
     globalContextSearch = context;
@@ -29,10 +31,16 @@ class _SearchPageState extends State<SearchPage> {
       backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
       appBar: bar(
         context,
+        leadingIcon: true,
         menuIcon: true,
         bgColor: noColor,
         function: () {
           _scaffoldKey.currentState!.openEndDrawer();
+        },
+        functionIcon: () {
+          widget.controller.animateTo(0,
+              duration: const Duration(milliseconds: 600),
+              curve: Curves.easeInOut);
         },
       ),
       resizeToAvoidBottomInset: false,

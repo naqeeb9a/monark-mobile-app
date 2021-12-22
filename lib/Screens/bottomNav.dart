@@ -143,7 +143,11 @@ class _BottomNavState extends State<BottomNav> {
       },
       children: [
         pageModel(Home()),
-        pageModel(SearchPage()),
+        pageModel(
+          SearchPage(
+            controller: _pageController,
+          ),
+        ),
         pageModel(
           CategoriesPage(
             controller: _pageController,
