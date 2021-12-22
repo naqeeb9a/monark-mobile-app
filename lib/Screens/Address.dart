@@ -288,7 +288,7 @@ class _AddressPageState extends State<AddressPage> {
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: myBlack,
-                            fontSize: dynamicWidth(context, 0.04),
+                            fontSize: dynamicWidth(context, 0.032),
                             fontWeight: FontWeight.w400,
                           ),
                           maxLines: 2,
