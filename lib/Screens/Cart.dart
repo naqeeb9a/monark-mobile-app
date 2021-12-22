@@ -105,7 +105,10 @@ class _CartState extends State<Cart> {
                                   "Continue Shopping",
                                   width: dynamicWidth(context, .6),
                                   function: () {
-                                    Phoenix.rebirth(context);
+                                    widget.controller.animateTo(2,
+                                        duration:
+                                            const Duration(milliseconds: 600),
+                                        curve: Curves.easeInOut);
                                   },
                                 ),
                               ],
