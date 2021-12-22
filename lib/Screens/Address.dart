@@ -258,9 +258,7 @@ class _AddressPageState extends State<AddressPage> {
                             activeColor: myRed,
                             groupValue: int.parse(group.toString()),
                             onChanged: (value) {
-                              setState(() {
-                                group.value = value as int;
-                              });
+                              group.value = value as int;
                             },
                           ),
                         );
