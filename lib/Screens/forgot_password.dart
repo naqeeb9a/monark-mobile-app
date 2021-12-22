@@ -60,8 +60,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 padding: EdgeInsets.only(
                   top: dynamicHeight(context, .1),
                 ),
-                child: coloredButton(context, "Send Verification Email",
-                    width: dynamicWidth(context, .6)),
+                child: coloredButton(
+                  context,
+                  "Send Verification Email",
+                  width: dynamicWidth(context, .6),
+                ),
               ),
             ],
           ),

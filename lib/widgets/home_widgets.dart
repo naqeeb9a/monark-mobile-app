@@ -179,9 +179,9 @@ Widget internalWidgetCard(
                           radius: dynamicWidth(context, 0.03),
                           backgroundColor: myWhite,
                           child: Icon(
-                            Icons.favorite,
+                            Icons.favorite_border_rounded,
                             size: dynamicWidth(context, 0.04),
-                            color: myRed,
+                            color: myBlack.withOpacity(.3),
                           ),
                         ),
                       ),
@@ -406,7 +406,10 @@ Widget homeSlider(context, height, length, viewFraction, image, bool detail,
                 : (image == false)
                     ? sliderContainer(context, image, detail)
                     : sliderContainer(
-                        context, image[itemIndex]["image_url"], detail)
+                        context,
+                        image[itemIndex]["image_url"],
+                        detail,
+                      )
             : InkWell(
                 onTap: page == "" ? () {} : page,
                 child: sliderContainer(
@@ -443,32 +446,51 @@ Widget sliderContainer(context, image, bool detail) {
         : (image == false)
             ? SizedBox(
                 height: dynamicHeight(context, 0.4),
-                child: Center(child: retryFunction(context, check: true)),
+                child: Center(
+                  child: retryFunction(context, check: true),
+                ),
               )
-            : Padding(
-                padding: detail == false
-                    ? EdgeInsets.all(0)
-                    : EdgeInsets.symmetric(
-                        horizontal: dynamicWidth(context, 0.02)),
-                child: ClipRRect(
-                  borderRadius: (detail == true)
-                      ? BorderRadius.circular(
-                          dynamicWidth(context, 0.08),
-                        )
-                      : BorderRadius.circular(0),
-                  child: CachedNetworkImage(
-                    imageUrl: image,
-                    fit: BoxFit.cover,
-                    width: dynamicWidth(context, 1),
-                    placeholder: (context, string) {
-                      return Image.asset(
-                        "assets/loader.gif",
-                        scale: 6,
-                      );
-                    },
+            : Stack(
+              children: [
+
+                SizedBox(
+                  width: dynamicWidth(context, 1),
+                  height: dynamicHeight(context, 1),
+                  child: Padding(
+                    padding: detail == false
+                        ? EdgeInsets.all(0)
+                        : EdgeInsets.symmetric(
+                            horizontal: dynamicWidth(context, 0.02),
+                          ),
+                    child: ClipRRect(
+                      borderRadius: (detail == true)
+                          ? BorderRadius.circular(
+                              dynamicWidth(context, 0.08),
+                            )
+                          : BorderRadius.circular(0),
+                      child: CachedNetworkImage(
+                        imageUrl: image,
+                        fit: BoxFit.cover,
+                        width: dynamicWidth(context, 1),
+                        placeholder: (context, string) {
+                          return Image.asset(
+                            "assets/loader.gif",
+                            scale: 6,
+                          );
+                        },
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                Center(
+                  child: Container(
+                    width: dynamicWidth(context, .9),
+                    height: 50.0,
+                    color: myRed,
+                  ),
+                ),
+              ],
+            ),
   );
 }
 

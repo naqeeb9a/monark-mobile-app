@@ -526,13 +526,13 @@ class _DetailPageState extends State<DetailPage> {
                     radius: dynamicWidth(context, 0.05),
                     backgroundColor: Colors.white,
                     child: Icon(
-                      Icons.favorite,
+                      Icons.favorite_border_rounded,
                       size: dynamicWidth(context, 0.06),
-                      color: myRed,
+                      color: myBlack.withOpacity(.3),
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
