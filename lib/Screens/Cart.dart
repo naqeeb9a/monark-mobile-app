@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:monark_app/Screens/Address.dart';
@@ -105,7 +104,7 @@ class _CartState extends State<Cart> {
                                   "Continue Shopping",
                                   width: dynamicWidth(context, .6),
                                   function: () {
-                                    widget.controller.animateTo(2,
+                                    widget.controller.animateTo(0,
                                         duration:
                                             const Duration(milliseconds: 600),
                                         curve: Curves.easeInOut);
