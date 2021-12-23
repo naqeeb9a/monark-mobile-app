@@ -484,53 +484,6 @@ Widget sliderContainer(context, image, bool detail) {
                       ),
                     ),
                   ),
-                  Center(
-                    child: Container(
-                      width: dynamicWidth(context, .9),
-                      height: dynamicHeight(context, .08),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              buttonCarouselController.previousPage(
-                                duration: Duration(milliseconds: 300),
-                                curve: Curves.linear,
-                              );
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.all(
-                                dynamicWidth(context, .014),
-                              ),
-                              child: Image.asset(
-                                "assets/icons/backIcon.png",
-                                color: myWhite,
-                                height: dynamicHeight(context, .034),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              buttonCarouselController.nextPage(
-                                duration: Duration(milliseconds: 300),
-                                curve: Curves.linear,
-                              );
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.all(
-                                dynamicWidth(context, .014),
-                              ),
-                              child: Image.asset(
-                                "assets/icons/backIcon2.png",
-                                color: myWhite,
-                                height: dynamicHeight(context, .034),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
                 ],
               ),
   );
