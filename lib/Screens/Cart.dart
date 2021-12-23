@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:monark_app/Screens/Address.dart';
+import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/form_fields.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
+
+import 'AddAddress.dart';
 
 class Cart extends StatefulWidget {
   final PageController controller;
@@ -131,12 +134,11 @@ class _CartState extends State<Cart> {
                   "Checkout",
                   () {
                     if (globalAccessToken == "guest") {
-                      var snackBar = SnackBar(
-                        content: Text('Please Sign In to Continue'),
-                        duration: const Duration(milliseconds: 1000),
-                      );
-
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      push(
+                          context,
+                          AddAddress(
+                            guestCheck: true,
+                          ));
                     } else {
                       Navigator.push(
                         context,

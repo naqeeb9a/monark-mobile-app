@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:monark_app/api/api.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';

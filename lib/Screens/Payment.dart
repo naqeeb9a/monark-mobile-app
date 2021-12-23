@@ -9,7 +9,8 @@ import '../utils/config.dart';
 import 'Confirmation.dart';
 
 class Payment extends StatefulWidget {
-  const Payment({Key? key}) : super(key: key);
+  final bool guestCheck;
+  const Payment({Key? key, this.guestCheck = false}) : super(key: key);
 
   @override
   State<Payment> createState() => _PaymentState();
@@ -21,6 +22,7 @@ class _PaymentState extends State<Payment> {
 
   @override
   Widget build(BuildContext context) {
+    print(guestAddressList);
     var subtotal = 0;
     for (var u in cartItems) {
       subtotal += int.parse(u["total"].toString());
@@ -52,13 +54,8 @@ class _PaymentState extends State<Payment> {
                       children: [
                         rowText("Payment", context),
                         heightBox(context, 0.07),
-                        FutureBuilder(
-                          future: getUserData(globalAccessToken),
-                          builder:
-                              (BuildContext context, AsyncSnapshot snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              return Container(
+                        (widget.guestCheck == true)
+                            ? Container(
                                 width: dynamicWidth(context, 0.9),
                                 height: dynamicHeight(context, .16),
                                 padding: EdgeInsets.symmetric(
@@ -90,9 +87,9 @@ class _PaymentState extends State<Payment> {
                                       ),
                                     ),
                                     Text(
-                                      snapshot.data["firstName"] +
+                                      guestAddressList[0] +
                                           " " +
-                                          snapshot.data["lastName"],
+                                          guestAddressList[1],
                                       style: TextStyle(
                                         color: darkTheme == true
                                             ? myWhite
@@ -101,10 +98,10 @@ class _PaymentState extends State<Payment> {
                                       ),
                                     ),
                                     Text(
-                                      snapshot.data["phone"] == null ||
-                                              snapshot.data["phone"] == ""
+                                      guestAddressList[9] == null ||
+                                              guestAddressList[9] == ""
                                           ? "No phone Number Provided"
-                                          : snapshot.data["phone"],
+                                          : guestAddressList[9],
                                       style: TextStyle(
                                         color: darkTheme == true
                                             ? myWhite
@@ -113,7 +110,7 @@ class _PaymentState extends State<Payment> {
                                       ),
                                     ),
                                     Text(
-                                      snapshot.data["email"],
+                                      guestAddressList[2],
                                       style: TextStyle(
                                         color: darkTheme == true
                                             ? myWhite
@@ -123,34 +120,103 @@ class _PaymentState extends State<Payment> {
                                     ),
                                   ],
                                 ),
-                              );
-                            } else {
-                              return jumpingDots(context);
-                            }
-                          },
-                        ),
+                              )
+                            : FutureBuilder(
+                                future: getUserData(globalAccessToken),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.done) {
+                                    return Container(
+                                      width: dynamicWidth(context, 0.9),
+                                      height: dynamicHeight(context, .16),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: dynamicWidth(context, 0.05),
+                                        vertical: dynamicHeight(context, .01),
+                                      ),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          width: 1,
+                                          color: darkTheme == true
+                                              ? myWhite
+                                              : myGrey,
+                                        ),
+                                        borderRadius: BorderRadius.circular(
+                                          dynamicWidth(context, .02),
+                                        ),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text(
+                                            "Information",
+                                            style: TextStyle(
+                                              color: darkTheme == true
+                                                  ? myWhite
+                                                  : myBlack,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize:
+                                                  dynamicWidth(context, .032),
+                                            ),
+                                          ),
+                                          Text(
+                                            snapshot.data["firstName"] +
+                                                " " +
+                                                snapshot.data["lastName"],
+                                            style: TextStyle(
+                                              color: darkTheme == true
+                                                  ? myWhite
+                                                  : myBlack,
+                                              fontSize:
+                                                  dynamicWidth(context, .032),
+                                            ),
+                                          ),
+                                          Text(
+                                            snapshot.data["phone"] == null ||
+                                                    snapshot.data["phone"] == ""
+                                                ? "No phone Number Provided"
+                                                : snapshot.data["phone"],
+                                            style: TextStyle(
+                                              color: darkTheme == true
+                                                  ? myWhite
+                                                  : myBlack,
+                                              fontSize:
+                                                  dynamicWidth(context, .032),
+                                            ),
+                                          ),
+                                          Text(
+                                            snapshot.data["email"],
+                                            style: TextStyle(
+                                              color: darkTheme == true
+                                                  ? myWhite
+                                                  : myBlack,
+                                              fontSize:
+                                                  dynamicWidth(context, .032),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  } else {
+                                    return jumpingDots(context);
+                                  }
+                                },
+                              ),
                         heightBox(context, 0.02),
-                        radioOptions(context, "Debit Card/Credit Card"),
                         radioOptions(context, "COD"),
                         SizedBox(
                           height: dynamicHeight(context, .01),
                         ),
                         rowText("Shipping Address", context),
                         heightBox(context, .03),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Flexible(
-                              child: Text(
-                                addressList[group.value]["node"]["address1"],
-                                style: TextStyle(
-                                  color: darkTheme == true ? myWhite : myBlack,
-                                  fontSize: dynamicWidth(context, .032),
-                                ),
-                                maxLines: 2,
-                              ),
-                            ),
-                          ],
+                        radioOptions(
+                          context,
+                          widget.guestCheck == true
+                              ? guestAddressList[2]
+                              : addressList[group.value]["node"]["address1"],
                         ),
                         heightBox(context, 0.03),
                         Column(
@@ -266,7 +332,8 @@ class _PaymentState extends State<Payment> {
                   setState(() {
                     isLoading = true;
                   });
-                  var response = await createDraftOrders(subtotal);
+                  var response = await createDraftOrders(subtotal,
+                      guestCheck: widget.guestCheck == true ? true : false);
                   if (response == null || response == "Server Error") {
                     setState(() {
                       isLoading = false;
@@ -327,14 +394,19 @@ Widget radioOptions(context, text) {
         padding: EdgeInsets.only(
           left: dynamicWidth(context, .01),
         ),
-        child: Flexible(
-          child: Text(
-            text,
-            style: TextStyle(
-              color: darkTheme == true ? myWhite : myBlack,
-              fontSize: dynamicWidth(context, .032),
+        child: Container(
+          width: dynamicWidth(context, 0.5),
+          height: dynamicHeight(context, 0.02),
+          alignment: Alignment.centerLeft,
+          child: FittedBox(
+            child: Text(
+              text,
+              style: TextStyle(
+                color: darkTheme == true ? myWhite : myBlack,
+                fontSize: dynamicWidth(context, .032),
+              ),
+              maxLines: 2,
             ),
-            maxLines: 2,
           ),
         ),
       ),

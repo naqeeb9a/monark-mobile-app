@@ -124,7 +124,7 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
   );
 }
 
-Widget addressInput(context, text, hintText, type,
+Widget addressInput(context, hintText, type,
     {localAddressList, function}) {
   return Padding(
     padding: EdgeInsets.symmetric(
@@ -149,12 +149,6 @@ Widget addressInput(context, text, hintText, type,
           fontSize: dynamicWidth(context, .04),
         ),
         decoration: InputDecoration(
-          label: Text(
-            text,
-            style: TextStyle(
-              color: myBlack,
-            ),
-          ),
           contentPadding: EdgeInsets.symmetric(
             vertical: dynamicHeight(context, .01),
             horizontal: dynamicWidth(context, .03),

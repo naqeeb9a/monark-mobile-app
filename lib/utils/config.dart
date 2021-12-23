@@ -18,6 +18,7 @@ var globalContextProfile;
 var cartItems = [].obs;
 var wishListItems = [];
 dynamic addressList = [];
+dynamic guestAddressList = [];
 var group = 0.obs;
 bool obscureText = true;
 

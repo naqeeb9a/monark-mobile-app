@@ -398,7 +398,7 @@ getUserOrders() async {
   }
 }
 
-createDraftOrders(subtotal) async {
+createDraftOrders(subtotal, {guestCheck = false}) async {
   var localOrderList = [];
   for (var i = 0; i < cartItems.length; i++) {
     localOrderList.add({
@@ -437,33 +437,64 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
   }
 }
  ''';
-  var orderVariables = {
-    "input": {
-      "customerId": utf8.decode(base64Decode(id)).toString(),
-      "note": "Test draft order",
-      "email": "$checkOutEmail",
-      "tags": ["Ordered via mobile application ANDROID"],
-      "shippingLine": {
-        "title": "Cash on Delivery",
-        "price": (subtotal < 2000) ? 200 : 0
-      },
-      "shippingAddress": {
-        "address1": addressList[group.value]["node"]["address1"].toString(),
-        "city": addressList[group.value]["node"]["city"].toString(),
-        "province": addressList[group.value]["node"]["province"].toString(),
-        "country": addressList[group.value]["node"]["country"].toString(),
-        "zip": addressList[group.value]["node"]["zip"].toString()
-      },
-      "billingAddress": {
-        "address1": addressList[group.value]["node"]["address1"].toString(),
-        "city": addressList[group.value]["node"]["city"].toString(),
-        "province": addressList[group.value]["node"]["province"].toString(),
-        "country": addressList[group.value]["node"]["country"].toString(),
-        "zip": addressList[group.value]["node"]["zip"].toString()
-      },
-      "lineItems": localOrderList
-    }
-  };
+  var orderVariables = guestCheck == true
+      ? {
+          "input": {
+            "note": "Test draft order",
+            "email": "${guestAddressList[2]}",
+            "tags": ["Ordered via mobile application ANDROID"],
+            "shippingLine": {
+              "title": "Cash on Delivery",
+              "price": (subtotal < 2000) ? 200 : 0
+            },
+            "shippingAddress": {
+              "address1": guestAddressList[3].toString(),
+              "city": guestAddressList[5].toString(),
+              "province": guestAddressList[6].toString(),
+              "country": guestAddressList[7].toString(),
+              "zip": guestAddressList[8].toString()
+            },
+            "billingAddress": {
+              "address1": guestAddressList[3].toString(),
+              "city": guestAddressList[5].toString(),
+              "province": guestAddressList[6].toString(),
+              "country": guestAddressList[7].toString(),
+              "zip": guestAddressList[8].toString()
+            },
+            "lineItems": localOrderList
+          }
+        }
+      : {
+          "input": {
+            "customerId": utf8.decode(base64Decode(id)).toString(),
+            "note": "Test draft order",
+            "email": "$checkOutEmail",
+            "tags": ["Ordered via mobile application ANDROID"],
+            "shippingLine": {
+              "title": "Cash on Delivery",
+              "price": (subtotal < 2000) ? 200 : 0
+            },
+            "shippingAddress": {
+              "address1":
+                  addressList[group.value]["node"]["address1"].toString(),
+              "city": addressList[group.value]["node"]["city"].toString(),
+              "province":
+                  addressList[group.value]["node"]["province"].toString(),
+              "country": addressList[group.value]["node"]["country"].toString(),
+              "zip": addressList[group.value]["node"]["zip"].toString()
+            },
+            "billingAddress": {
+              "address1":
+                  addressList[group.value]["node"]["address1"].toString(),
+              "city": addressList[group.value]["node"]["city"].toString(),
+              "province":
+                  addressList[group.value]["node"]["province"].toString(),
+              "country": addressList[group.value]["node"]["country"].toString(),
+              "zip": addressList[group.value]["node"]["zip"].toString()
+            },
+            "lineItems": localOrderList
+          }
+        };
   final HttpLink httpLink = HttpLink(
     "https://32a2c56e6eeee31171cc4cb4349c2329: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@monark-clothings.myshopify.com/admin/api/2021-10/graphql.json",
   );
@@ -473,6 +504,7 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
   final QueryResult result = await client.query(options);
 
   if (result.hasException) {
+    print(result);
     return "Server Error";
   } else {
     return result.data!["draftOrderCreate"]["draftOrder"]["id"];
