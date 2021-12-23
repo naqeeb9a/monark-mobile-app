@@ -395,10 +395,13 @@ dynamic imageAlert(context, image, assetImage) {
   );
 }
 
+CarouselController buttonCarouselController = CarouselController();
+
 Widget homeSlider(context, height, length, viewFraction, image, bool detail,
     {function = "", page = ""}) {
   return CarouselSlider.builder(
     itemCount: length,
+    carouselController: buttonCarouselController,
     itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
         detail == true
             ? (image == "loading")
@@ -451,46 +454,85 @@ Widget sliderContainer(context, image, bool detail) {
                 ),
               )
             : Stack(
-              children: [
-
-                SizedBox(
-                  width: dynamicWidth(context, 1),
-                  height: dynamicHeight(context, 1),
-                  child: Padding(
-                    padding: detail == false
-                        ? EdgeInsets.all(0)
-                        : EdgeInsets.symmetric(
-                            horizontal: dynamicWidth(context, 0.02),
-                          ),
-                    child: ClipRRect(
-                      borderRadius: (detail == true)
-                          ? BorderRadius.circular(
-                              dynamicWidth(context, 0.08),
-                            )
-                          : BorderRadius.circular(0),
-                      child: CachedNetworkImage(
-                        imageUrl: image,
-                        fit: BoxFit.cover,
-                        width: dynamicWidth(context, 1),
-                        placeholder: (context, string) {
-                          return Image.asset(
-                            "assets/loader.gif",
-                            scale: 6,
-                          );
-                        },
+                children: [
+                  SizedBox(
+                    width: dynamicWidth(context, 1),
+                    height: dynamicHeight(context, 1),
+                    child: Padding(
+                      padding: detail == false
+                          ? EdgeInsets.all(0)
+                          : EdgeInsets.symmetric(
+                              horizontal: dynamicWidth(context, 0.02),
+                            ),
+                      child: ClipRRect(
+                        borderRadius: (detail == true)
+                            ? BorderRadius.circular(
+                                dynamicWidth(context, 0.08),
+                              )
+                            : BorderRadius.circular(0),
+                        child: CachedNetworkImage(
+                          imageUrl: image,
+                          fit: BoxFit.cover,
+                          width: dynamicWidth(context, 1),
+                          placeholder: (context, string) {
+                            return Image.asset(
+                              "assets/loader.gif",
+                              scale: 6,
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Center(
-                  child: Container(
-                    width: dynamicWidth(context, .9),
-                    height: 50.0,
-                    color: myRed,
+                  Center(
+                    child: Container(
+                      width: dynamicWidth(context, .9),
+                      height: dynamicHeight(context, .08),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              buttonCarouselController.previousPage(
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.linear,
+                              );
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.all(
+                                dynamicWidth(context, .014),
+                              ),
+                              child: Image.asset(
+                                "assets/icons/backIcon.png",
+                                color: myWhite,
+                                height: dynamicHeight(context, .034),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              buttonCarouselController.nextPage(
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.linear,
+                              );
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.all(
+                                dynamicWidth(context, .014),
+                              ),
+                              child: Image.asset(
+                                "assets/icons/backIcon2.png",
+                                color: myWhite,
+                                height: dynamicHeight(context, .034),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
   );
 }
 
