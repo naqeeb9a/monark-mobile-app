@@ -442,7 +442,9 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
           "input": {
             "note": "Test draft order",
             "email": "${guestAddressList[2]}",
-            "tags": ["Ordered via mobile application ANDROID"],
+            "tags": [
+              "unregistered user"
+            ],
             "shippingLine": {
               "title": "Cash on Delivery",
               "price": (subtotal < 2000) ? 200 : 0
@@ -469,7 +471,7 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
             "customerId": utf8.decode(base64Decode(id)).toString(),
             "note": "Test draft order",
             "email": "$checkOutEmail",
-            "tags": ["Ordered via mobile application ANDROID"],
+            "tags": ["Registered User"],
             "shippingLine": {
               "title": "Cash on Delivery",
               "price": (subtotal < 2000) ? 200 : 0
