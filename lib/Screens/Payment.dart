@@ -49,282 +49,297 @@ class _PaymentState extends State<Payment> {
               children: [
                 Center(
                   child: Container(
-                    width: dynamicWidth(context, .9),
-                    child: Column(
-                      children: [
-                        rowText("Payment", context),
-                        heightBox(context, 0.07),
-                        (widget.guestCheck == true)
-                            ? Container(
-                                width: dynamicWidth(context, 0.9),
-                                height: dynamicHeight(context, .16),
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: dynamicWidth(context, 0.05),
-                                  vertical: dynamicHeight(context, .01),
-                                ),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 1,
-                                    color: darkTheme == true ? myWhite : myGrey,
+                    width: dynamicWidth(context, 0.9),
+                    height: dynamicHeight(context, 1),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          rowText("Payment", context),
+                          heightBox(context, 0.07),
+                          (widget.guestCheck == true)
+                              ? Container(
+                                  width: dynamicWidth(context, 0.9),
+                                  height: dynamicHeight(context, .16),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: dynamicWidth(context, 0.05),
+                                    vertical: dynamicHeight(context, .01),
                                   ),
-                                  borderRadius: BorderRadius.circular(
-                                    dynamicWidth(context, .02),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 1,
+                                      color:
+                                          darkTheme == true ? myWhite : myGrey,
+                                    ),
+                                    borderRadius: BorderRadius.circular(
+                                      dynamicWidth(context, .02),
+                                    ),
                                   ),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Text(
-                                      "Information",
-                                      style: TextStyle(
-                                        color: darkTheme == true
-                                            ? myWhite
-                                            : myBlack,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: dynamicWidth(context, .032),
-                                      ),
-                                    ),
-                                    Text(
-                                      guestAddressList[0] +
-                                          " " +
-                                          guestAddressList[1],
-                                      style: TextStyle(
-                                        color: darkTheme == true
-                                            ? myWhite
-                                            : myBlack,
-                                        fontSize: dynamicWidth(context, .032),
-                                      ),
-                                    ),
-                                    Text(
-                                      guestAddressList[9] == null ||
-                                              guestAddressList[9] == ""
-                                          ? "No phone Number Provided"
-                                          : guestAddressList[9],
-                                      style: TextStyle(
-                                        color: darkTheme == true
-                                            ? myWhite
-                                            : myBlack,
-                                        fontSize: dynamicWidth(context, .032),
-                                      ),
-                                    ),
-                                    Text(
-                                      guestAddressList[2],
-                                      style: TextStyle(
-                                        color: darkTheme == true
-                                            ? myWhite
-                                            : myBlack,
-                                        fontSize: dynamicWidth(context, .032),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            : FutureBuilder(
-                                future: getUserData(globalAccessToken),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.done) {
-                                    return Container(
-                                      width: dynamicWidth(context, 0.9),
-                                      height: dynamicHeight(context, .16),
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: dynamicWidth(context, 0.05),
-                                        vertical: dynamicHeight(context, .01),
-                                      ),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          width: 1,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(
+                                        "Information",
+                                        style: TextStyle(
                                           color: darkTheme == true
                                               ? myWhite
-                                              : myGrey,
-                                        ),
-                                        borderRadius: BorderRadius.circular(
-                                          dynamicWidth(context, .02),
+                                              : myBlack,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: dynamicWidth(context, .032),
                                         ),
                                       ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(
-                                            "Information",
-                                            style: TextStyle(
-                                              color: darkTheme == true
-                                                  ? myWhite
-                                                  : myBlack,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize:
-                                                  dynamicWidth(context, .032),
-                                            ),
-                                          ),
-                                          Text(
-                                            snapshot.data["firstName"] +
-                                                " " +
-                                                snapshot.data["lastName"],
-                                            style: TextStyle(
-                                              color: darkTheme == true
-                                                  ? myWhite
-                                                  : myBlack,
-                                              fontSize:
-                                                  dynamicWidth(context, .032),
-                                            ),
-                                          ),
-                                          Text(
-                                            snapshot.data["phone"] == null ||
-                                                    snapshot.data["phone"] == ""
-                                                ? "No phone Number Provided"
-                                                : snapshot.data["phone"],
-                                            style: TextStyle(
-                                              color: darkTheme == true
-                                                  ? myWhite
-                                                  : myBlack,
-                                              fontSize:
-                                                  dynamicWidth(context, .032),
-                                            ),
-                                          ),
-                                          Text(
-                                            snapshot.data["email"],
-                                            style: TextStyle(
-                                              color: darkTheme == true
-                                                  ? myWhite
-                                                  : myBlack,
-                                              fontSize:
-                                                  dynamicWidth(context, .032),
-                                            ),
-                                          ),
-                                        ],
+                                      Text(
+                                        guestAddressList[0] +
+                                            " " +
+                                            guestAddressList[1],
+                                        style: TextStyle(
+                                          color: darkTheme == true
+                                              ? myWhite
+                                              : myBlack,
+                                          fontSize: dynamicWidth(context, .032),
+                                        ),
                                       ),
-                                    );
-                                  } else {
-                                    return jumpingDots(context);
-                                  }
-                                },
+                                      Text(
+                                        guestAddressList[9] == null ||
+                                                guestAddressList[9] == ""
+                                            ? "No phone Number Provided"
+                                            : guestAddressList[9],
+                                        style: TextStyle(
+                                          color: darkTheme == true
+                                              ? myWhite
+                                              : myBlack,
+                                          fontSize: dynamicWidth(context, .032),
+                                        ),
+                                      ),
+                                      Text(
+                                        guestAddressList[2],
+                                        style: TextStyle(
+                                          color: darkTheme == true
+                                              ? myWhite
+                                              : myBlack,
+                                          fontSize: dynamicWidth(context, .032),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : FutureBuilder(
+                                  future: getUserData(globalAccessToken),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.done) {
+                                      return Container(
+                                        width: dynamicWidth(context, 0.9),
+                                        height: dynamicHeight(context, .16),
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal:
+                                              dynamicWidth(context, 0.05),
+                                          vertical: dynamicHeight(context, .01),
+                                        ),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            width: 1,
+                                            color: darkTheme == true
+                                                ? myWhite
+                                                : myGrey,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            dynamicWidth(context, .02),
+                                          ),
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                              "Information",
+                                              style: TextStyle(
+                                                color: darkTheme == true
+                                                    ? myWhite
+                                                    : myBlack,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize:
+                                                    dynamicWidth(context, .032),
+                                              ),
+                                            ),
+                                            Text(
+                                              snapshot.data["firstName"] +
+                                                  " " +
+                                                  snapshot.data["lastName"],
+                                              style: TextStyle(
+                                                color: darkTheme == true
+                                                    ? myWhite
+                                                    : myBlack,
+                                                fontSize:
+                                                    dynamicWidth(context, .032),
+                                              ),
+                                            ),
+                                            Text(
+                                              snapshot.data["phone"] == null ||
+                                                      snapshot.data["phone"] ==
+                                                          ""
+                                                  ? "No phone Number Provided"
+                                                  : snapshot.data["phone"],
+                                              style: TextStyle(
+                                                color: darkTheme == true
+                                                    ? myWhite
+                                                    : myBlack,
+                                                fontSize:
+                                                    dynamicWidth(context, .032),
+                                              ),
+                                            ),
+                                            Text(
+                                              snapshot.data["email"],
+                                              style: TextStyle(
+                                                color: darkTheme == true
+                                                    ? myWhite
+                                                    : myBlack,
+                                                fontSize:
+                                                    dynamicWidth(context, .032),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    } else {
+                                      return jumpingDots(context);
+                                    }
+                                  },
+                                ),
+                          heightBox(context, 0.02),
+                          radioOptions(context, "COD"),
+                          SizedBox(
+                            height: dynamicHeight(context, .01),
+                          ),
+                          rowText("Shipping Address", context),
+                          heightBox(context, .03),
+                          radioOptions(
+                            context,
+                            widget.guestCheck == true
+                                ? guestAddressList[2]
+                                : addressList[group.value]["node"]["address1"],
+                          ),
+                          heightBox(context, 0.03),
+                          Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Subtotal",
+                                    style: TextStyle(
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontSize: dynamicWidth(context, .032),
+                                    ),
+                                  ),
+                                  Text(
+                                    "PKR. " + numberFormat(subtotal.toString()),
+                                    style: TextStyle(
+                                      fontFamily: "Aeonik",
+                                      fontWeight: FontWeight.w700,
+                                      color:
+                                          darkTheme == true ? myWhite : myRed,
+                                      fontSize: dynamicWidth(context, .032),
+                                    ),
+                                  ),
+                                ],
                               ),
-                        heightBox(context, 0.02),
-                        radioOptions(context, "COD"),
-                        SizedBox(
-                          height: dynamicHeight(context, .01),
-                        ),
-                        rowText("Shipping Address", context),
-                        heightBox(context, .03),
-                        radioOptions(
-                          context,
-                          widget.guestCheck == true
-                              ? guestAddressList[2]
-                              : addressList[group.value]["node"]["address1"],
-                        ),
-                        heightBox(context, 0.03),
-                        Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Subtotal",
-                                  style: TextStyle(
-                                    color:
-                                        darkTheme == true ? myWhite : myBlack,
-                                    fontSize: dynamicWidth(context, .032),
+                              heightBox(context, 0.01),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Shipping",
+                                    style: TextStyle(
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontSize: dynamicWidth(context, .032),
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  "PKR. " + numberFormat(subtotal.toString()),
-                                  style: TextStyle(
-                                    fontFamily: "Aeonik",
-                                    fontWeight: FontWeight.w700,
-                                    color: darkTheme == true ? myWhite : myRed,
-                                    fontSize: dynamicWidth(context, .032),
+                                  subtotal < 2000
+                                      ? Text(
+                                          "PKR . 200",
+                                          style: TextStyle(
+                                            fontFamily: "Aeonik",
+                                            fontWeight: FontWeight.w700,
+                                            color: darkTheme == true
+                                                ? myWhite
+                                                : myRed,
+                                            fontSize:
+                                                dynamicWidth(context, .032),
+                                          ),
+                                        )
+                                      : Text(
+                                          "PKR . 0",
+                                          style: TextStyle(
+                                            fontFamily: "Aeonik",
+                                            fontWeight: FontWeight.w700,
+                                            color: darkTheme == true
+                                                ? myWhite
+                                                : myRed,
+                                            fontSize:
+                                                dynamicWidth(context, .032),
+                                          ),
+                                        ),
+                                ],
+                              ),
+                              heightBox(context, 0.05),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Total",
+                                    style: TextStyle(
+                                      fontFamily: "Aeonik",
+                                      fontWeight: FontWeight.w700,
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontSize: dynamicWidth(context, .032),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            heightBox(context, 0.01),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Shipping",
-                                  style: TextStyle(
-                                    color:
-                                        darkTheme == true ? myWhite : myBlack,
-                                    fontSize: dynamicWidth(context, .032),
-                                  ),
-                                ),
-                                subtotal < 2000
-                                    ? Text(
-                                        "PKR . 200",
-                                        style: TextStyle(
-                                          fontFamily: "Aeonik",
-                                          fontWeight: FontWeight.w700,
-                                          color: darkTheme == true
-                                              ? myWhite
-                                              : myRed,
-                                          fontSize: dynamicWidth(context, .032),
+                                  subtotal < 2000
+                                      ? Text(
+                                          "PKR. " +
+                                              numberFormat(
+                                                  (subtotal + 200).toString()),
+                                          style: TextStyle(
+                                            fontFamily: "Aeonik",
+                                            fontWeight: FontWeight.w700,
+                                            color: darkTheme == true
+                                                ? myWhite
+                                                : myRed,
+                                            fontSize:
+                                                dynamicWidth(context, .032),
+                                          ),
+                                        )
+                                      : Text(
+                                          "PKR. " +
+                                              numberFormat(subtotal.toString()),
+                                          style: TextStyle(
+                                            fontFamily: "Aeonik",
+                                            fontWeight: FontWeight.w700,
+                                            color: darkTheme == true
+                                                ? myWhite
+                                                : myRed,
+                                            fontSize:
+                                                dynamicWidth(context, .032),
+                                          ),
                                         ),
-                                      )
-                                    : Text(
-                                        "PKR . 0",
-                                        style: TextStyle(
-                                          fontFamily: "Aeonik",
-                                          fontWeight: FontWeight.w700,
-                                          color: darkTheme == true
-                                              ? myWhite
-                                              : myRed,
-                                          fontSize: dynamicWidth(context, .032),
-                                        ),
-                                      ),
-                              ],
-                            ),
-                            heightBox(context, 0.05),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Total",
-                                  style: TextStyle(
-                                    fontFamily: "Aeonik",
-                                    fontWeight: FontWeight.w700,
-                                    color:
-                                        darkTheme == true ? myWhite : myBlack,
-                                    fontSize: dynamicWidth(context, .032),
-                                  ),
-                                ),
-                                subtotal < 2000
-                                    ? Text(
-                                        "PKR. " +
-                                            numberFormat(
-                                                (subtotal + 200).toString()),
-                                        style: TextStyle(
-                                          fontFamily: "Aeonik",
-                                          fontWeight: FontWeight.w700,
-                                          color: darkTheme == true
-                                              ? myWhite
-                                              : myRed,
-                                          fontSize: dynamicWidth(context, .032),
-                                        ),
-                                      )
-                                    : Text(
-                                        "PKR. " +
-                                            numberFormat(subtotal.toString()),
-                                        style: TextStyle(
-                                          fontFamily: "Aeonik",
-                                          fontWeight: FontWeight.w700,
-                                          color: darkTheme == true
-                                              ? myWhite
-                                              : myRed,
-                                          fontSize: dynamicWidth(context, .032),
-                                        ),
-                                      ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
