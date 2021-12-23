@@ -29,7 +29,7 @@ class _WishlistPageState extends State<WishlistPage> {
       backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
       appBar: bar(
         context,
-        bgColor: Colors.transparent,
+        bgColor: noColor,
         menuIcon: true,
         leadingIcon: true,
         function: () {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monark_app/utils/config.dart';
 
 dynamic errorDialog(BuildContext context, String text) {
   return showDialog(
@@ -10,7 +11,7 @@ dynamic errorDialog(BuildContext context, String text) {
           "Error",
           style: TextStyle(
             fontSize: 22.0,
-            color: Colors.red,
+            color: myRed,
           ),
         ),
         elevation: 2.0,
@@ -18,7 +19,7 @@ dynamic errorDialog(BuildContext context, String text) {
           text,
           style: TextStyle(
             fontSize: 20.0,
-            color: Colors.black,
+            color: myBlack,
           ),
         ),
         actions: <Widget>[
@@ -26,7 +27,7 @@ dynamic errorDialog(BuildContext context, String text) {
             child: Text(
               "Ok",
               style: TextStyle(
-                color: Colors.green,
+                color: stockGreen,
                 fontSize: 20,
               ),
             ),
@@ -50,7 +51,7 @@ dynamic successDialog(BuildContext context, String text) {
           "Success",
           style: TextStyle(
             fontSize: 22.0,
-            color: Colors.green,
+            color: stockGreen,
           ),
         ),
         elevation: 2.0,
@@ -58,7 +59,7 @@ dynamic successDialog(BuildContext context, String text) {
           text,
           style: TextStyle(
             fontSize: 20.0,
-            color: Colors.black,
+            color: myBlack,
           ),
         ),
         actions: <Widget>[
@@ -66,7 +67,7 @@ dynamic successDialog(BuildContext context, String text) {
             child: Text(
               "Ok",
               style: TextStyle(
-                color: Colors.green,
+                color: stockGreen,
                 fontSize: 20,
               ),
             ),
@@ -90,7 +91,7 @@ dynamic errorDialogOnly(BuildContext context, String text) {
           "Error",
           style: TextStyle(
             fontSize: 22.0,
-            color: Colors.red,
+            color: myRed,
           ),
         ),
         elevation: 2.0,
@@ -98,7 +99,7 @@ dynamic errorDialogOnly(BuildContext context, String text) {
           text,
           style: TextStyle(
             fontSize: 20.0,
-            color: Colors.black,
+            color: myBlack,
           ),
         ),
       );
@@ -116,7 +117,7 @@ dynamic successDialogOnly(BuildContext context, String text) {
           "Success",
           style: TextStyle(
             fontSize: 22.0,
-            color: Colors.green,
+            color: stockGreen,
           ),
         ),
         elevation: 2.0,
@@ -124,7 +125,7 @@ dynamic successDialogOnly(BuildContext context, String text) {
           text,
           style: TextStyle(
             fontSize: 20.0,
-            color: Colors.black,
+            color: myBlack,
           ),
         ),
       );

@@ -47,7 +47,7 @@ PreferredSizeWidget bar(context,
                               onTap: refreshFucnction,
                               child: Icon(
                                 Icons.refresh,
-                                color: Colors.black,
+                                color: myBlack,
                               ),
                             );
                           } else {

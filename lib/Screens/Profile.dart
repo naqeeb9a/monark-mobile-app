@@ -72,7 +72,7 @@ class _ProfileState extends State<Profile>
       key: _scaffoldKey,
       backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
       appBar: bar(context,
-          bgColor: Colors.transparent,
+          bgColor: noColor,
           leadingIcon: true,
           menuIcon: true, function: () {
         _scaffoldKey.currentState!.openEndDrawer();

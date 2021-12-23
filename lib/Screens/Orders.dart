@@ -24,7 +24,7 @@ class _OrdersState extends State<Orders> {
       backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
       appBar: bar(
         context,
-        bgColor: Colors.transparent,
+        bgColor: noColor,
         menuIcon: true,
         leadingIcon: true,
         function: () {
