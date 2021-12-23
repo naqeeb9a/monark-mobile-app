@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
@@ -443,7 +444,9 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
             "note": "Test draft order",
             "email": "${guestAddressList[2]}",
             "tags": [
-              "unregistered user"
+              Platform.isAndroid
+                  ? "Unregistered User via Android App"
+                  : "Unregistered User via iOS App"
             ],
             "shippingLine": {
               "title": "Cash on Delivery",
@@ -471,7 +474,11 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
             "customerId": utf8.decode(base64Decode(id)).toString(),
             "note": "Test draft order",
             "email": "$checkOutEmail",
-            "tags": ["Registered User"],
+            "tags": [
+              Platform.isAndroid
+                  ? "Registered User via Android App"
+                  : "Registered User via iOS App"
+            ],
             "shippingLine": {
               "title": "Cash on Delivery",
               "price": (subtotal < 2000) ? 200 : 0

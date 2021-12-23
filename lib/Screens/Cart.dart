@@ -248,7 +248,12 @@ Widget cartList({check, setState}) {
             ),
           ],
         ),
-        child: cartCard(index, context, check: check, setState: setState),
+        child: cartCard(
+          index,
+          context,
+          check: check,
+          setState: setState,
+        ),
       );
     },
   );
@@ -257,7 +262,7 @@ Widget cartList({check, setState}) {
 Widget cartCard(index, context, {check, setState}) {
   return Container(
     padding: EdgeInsets.symmetric(
-      vertical: dynamicHeight(context, 0.04),
+      vertical: dynamicHeight(context, 0.036),
     ),
     decoration: BoxDecoration(
       color: noColor,
@@ -361,18 +366,25 @@ Widget cartCard(index, context, {check, setState}) {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(
-                        dynamicWidth(context, .02),
-                      ),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            "assets/icons/bin.png",
-                            height: dynamicHeight(context, .03),
-                            color: myBlack.withOpacity(.2),
-                          ),
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        Slidable.of(context)?.openCurrentActionPane();
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.all(
+                          dynamicWidth(context, .02),
+                        ),
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              "assets/icons/bin.png",
+                              height: dynamicHeight(context, .03),
+                              color: darkTheme == true
+                                  ? myWhite.withOpacity(.6)
+                                  : myBlack.withOpacity(.2),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
