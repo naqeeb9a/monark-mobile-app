@@ -204,7 +204,7 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
                   child: AnimatedSize(
                     curve: Curves.fastOutSlowIn,
                     duration: Duration(
-                      milliseconds: 1000,
+                      milliseconds: 600,
                     ),
                     child: Container(
                       width: dynamicWidth(context, 1),
