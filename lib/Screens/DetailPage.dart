@@ -34,7 +34,10 @@ class DetailPage extends StatefulWidget {
   State<DetailPage> createState() => _DetailPageState();
 }
 
-class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
+class _DetailPageState extends State<DetailPage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController fadeAnimation;
+  late Animation<double> controlAnimation;
   String selectedSize = "";
   int productIndex = 0;
   int currentPos = 0;
@@ -44,7 +47,6 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
   String sizeGuideImage = "";
   bool dragBool = false;
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   sizeList() {
     for (int i = 0; i < widget.array.length; i++) {
       if (widget.variantProduct[i]["node"]["availableForSale"] == true) {
@@ -110,7 +112,9 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
+    fadeAnimation =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 400));
+    controlAnimation = Tween(begin: 0.0, end: 1.0).animate(fadeAnimation);
     if (widget.variantProduct[productIndex]["node"]["compareAtPrice"] != null) {
       saleDifference = double.parse(
                   widget.variantProduct[productIndex]["node"]["compareAtPrice"])
@@ -169,10 +173,13 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
                         },
                       ),
                     ),
-                    Positioned(
+                    AnimatedPositioned(
                       bottom: dragBool == true
                           ? dynamicHeight(context, 0.166)
                           : dynamicHeight(context, 0.1),
+                      duration: Duration(
+                        milliseconds: 200,
+                      ),
                       child: DotsIndicator(
                         decorator: DotsDecorator(
                           color: myWhite,
@@ -194,269 +201,265 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
                     if (details.primaryDelta! > 0) {
                       setState(() {
                         dragBool = false;
+                        fadeAnimation.reset();
                       });
                     } else if (details.primaryDelta! < 0) {
                       setState(() {
                         dragBool = true;
+                        fadeAnimation.forward();
                       });
                     }
                   },
-                  child: AnimatedSize(
-                    curve: Curves.fastOutSlowIn,
-                    duration: Duration(
-                      milliseconds: 600,
-                    ),
-                    child: Container(
-                      width: dynamicWidth(context, 1),
-                      height: dragBool == true
-                          ? dynamicHeight(context, .48)
-                          : dynamicHeight(context, .4),
-                      decoration: BoxDecoration(
-                        color: darkTheme == false ? myWhite : darkThemeBlack,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(
-                            dynamicWidth(context, .08),
-                          ),
-                          topRight: Radius.circular(
-                            dynamicWidth(context, .08),
-                          ),
+                  child: AnimatedContainer(
+                    width: dynamicWidth(context, 1),
+                    height: dragBool == true
+                        ? dynamicHeight(context, .48)
+                        : dynamicHeight(context, .4),
+                    decoration: BoxDecoration(
+                      color: darkTheme == false ? myWhite : darkThemeBlack,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(
+                          dynamicWidth(context, .08),
+                        ),
+                        topRight: Radius.circular(
+                          dynamicWidth(context, .08),
                         ),
                       ),
-                      padding: EdgeInsets.symmetric(
-                        vertical: dynamicHeight(context, .02),
-                        horizontal: dynamicWidth(context, .05),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                width: dynamicWidth(context, .6),
-                                height: dynamicHeight(context, .05),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      widget.text.titleCase,
-                                      style: TextStyle(
-                                        fontFamily: "Aeonik",
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: dynamicWidth(context, .038),
-                                        color: darkTheme == true
-                                            ? myWhite
-                                            : myBlack,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: dynamicHeight(context, .05),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      (widget.variantProduct[productIndex]["node"]
-                                                      ["compareAtPrice"] ==
-                                                  widget.variantProduct[productIndex]
-                                                      ["node"]["price"] ||
-                                              widget.variantProduct[productIndex]
-                                                          ["node"]
-                                                      ["compareAtPrice"] ==
-                                                  null)
-                                          ? "PKR. " +
-                                              numberFormat(double.parse(widget
-                                                          .variantProduct[productIndex]
-                                                      ["node"]["price"])
-                                                  .toInt()
-                                                  .toString())
-                                          : "PKR. " + numberFormat(double.parse(widget.variantProduct[productIndex]["node"]["compareAtPrice"]).toInt().toString()),
-                                      style: TextStyle(
-                                        fontFamily: "Aeonik",
-                                        color:
-                                            darkTheme == true ? myWhite : myRed,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: dynamicWidth(context, .038),
-                                      ),
-                                    ),
-                                    Text(
-                                      (widget.variantProduct[productIndex]
-                                                          ["node"]
-                                                      ["compareAtPrice"] ==
-                                                  widget.variantProduct[
-                                                          productIndex]["node"]
-                                                      ["price"] ||
-                                              widget.variantProduct[
-                                                          productIndex]["node"]
-                                                      ["compareAtPrice"] ==
-                                                  null)
-                                          ? ""
-                                          : "You Save " +
-                                              numberFormat(
-                                                  saleDifference.toString()) +
-                                              " PKR",
-                                      style: TextStyle(
-                                        color: darkTheme == true
-                                            ? myWhite
-                                            : myBlack.withOpacity(.4),
-                                        fontSize: dynamicWidth(context, .03),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          heightBox(context, .004),
-                          (widget.array.toString().contains("Default") ||
-                                  widget.array == "")
-                              ? Container()
-                              : Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Size",
-                                      style: TextStyle(
-                                        color: darkTheme == true
-                                            ? myWhite
-                                            : myBlack,
-                                        fontSize: dynamicWidth(context, .035),
-                                      ),
-                                    ),
-                                    sizeGuideImage == ""
-                                        ? Container()
-                                        : InkWell(
-                                            onTap: () {
-                                              imageAlert(
-                                                context,
-                                                "$sizeGuideImage",
-                                                true,
-                                              );
-                                            },
-                                            child: Text(
-                                              "Size Guide",
-                                              style: TextStyle(
-                                                shadows: [
-                                                  Shadow(
-                                                      color: darkTheme == true
-                                                          ? myWhite
-                                                          : myBlack,
-                                                      offset: Offset(0, -5))
-                                                ],
-                                                color: noColor,
-                                                decoration:
-                                                    TextDecoration.underline,
-                                                decorationColor: myRed,
-                                                decorationThickness: 4,
-                                                decorationStyle:
-                                                    TextDecorationStyle.solid,
-                                              ),
-                                            ),
-                                          ),
-                                  ],
-                                ),
-                          (widget.array.toString().contains("Default") ||
-                                  widget.array == "")
-                              ? Container()
-                              : sizeOptions(
-                                  context,
-                                  sizeArray,
-                                  widget.variantProduct,
-                                ),
-                          heightBox(context, 0.01),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Qty",
-                              style: TextStyle(
-                                color: darkTheme == true ? myWhite : myBlack,
-                                fontSize: dynamicWidth(context, .035),
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                              width: dynamicWidth(context, .2),
-                              decoration: BoxDecoration(
-                                color: noColor,
-                                borderRadius: BorderRadius.circular(
-                                  dynamicWidth(context, .01),
-                                ),
-                                border: Border.all(
-                                  color: darkTheme == true
-                                      ? myWhite
-                                      : myBlack.withOpacity(.3),
-                                  width: .2,
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      vertical: dynamicHeight(context, .02),
+                      horizontal: dynamicWidth(context, .05),
+                    ),
+                    duration: Duration(
+                      milliseconds: 200,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: dynamicWidth(context, .6),
+                              height: dynamicHeight(context, .05),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  InkWell(
-                                    onTap: () {
-                                      if (quantity > 1) {
-                                        quantity--;
-                                      }
-                                    },
-                                    child: Container(
-                                      width: dynamicWidth(context, .03),
-                                      height: dynamicWidth(context, .07),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.remove,
-                                          size: dynamicWidth(context, .03),
-                                          color: darkTheme == true
-                                              ? myWhite
-                                              : myRed,
-                                        ),
-                                      ),
+                                  Text(
+                                    widget.text.titleCase,
+                                    style: TextStyle(
+                                      fontFamily: "Aeonik",
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: dynamicWidth(context, .038),
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
                                     ),
                                   ),
-                                  Obx(() {
-                                    return Text(
-                                      quantity.toString(),
-                                      style: TextStyle(
-                                        color: darkTheme == true
-                                            ? myWhite
-                                            : myBlack,
-                                        fontSize: dynamicWidth(context, .03),
-                                      ),
-                                    );
-                                  }),
-                                  InkWell(
-                                    onTap: () {
-                                      if (quantity < 3) {
-                                        quantity++;
-                                      }
-                                    },
-                                    child: Container(
-                                      width: dynamicWidth(context, .03),
-                                      height: dynamicWidth(context, .07),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: dynamicHeight(context, .05),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    (widget.variantProduct[productIndex]["node"]
+                                                    ["compareAtPrice"] ==
+                                                widget.variantProduct[productIndex]
+                                                    ["node"]["price"] ||
+                                            widget.variantProduct[productIndex]
+                                                        ["node"]
+                                                    ["compareAtPrice"] ==
+                                                null)
+                                        ? "PKR. " +
+                                            numberFormat(double.parse(widget
+                                                        .variantProduct[productIndex]
+                                                    ["node"]["price"])
+                                                .toInt()
+                                                .toString())
+                                        : "PKR. " + numberFormat(double.parse(widget.variantProduct[productIndex]["node"]["compareAtPrice"]).toInt().toString()),
+                                    style: TextStyle(
+                                      fontFamily: "Aeonik",
+                                      color:
+                                          darkTheme == true ? myWhite : myRed,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: dynamicWidth(context, .038),
+                                    ),
+                                  ),
+                                  Text(
+                                    (widget.variantProduct[productIndex]["node"]
+                                                    ["compareAtPrice"] ==
+                                                widget.variantProduct[
+                                                        productIndex]["node"]
+                                                    ["price"] ||
+                                            widget.variantProduct[productIndex]
+                                                        ["node"]
+                                                    ["compareAtPrice"] ==
+                                                null)
+                                        ? ""
+                                        : "You Save " +
+                                            numberFormat(
+                                                saleDifference.toString()) +
+                                            " PKR",
+                                    style: TextStyle(
+                                      color: darkTheme == true
+                                          ? myWhite
+                                          : myBlack.withOpacity(.4),
+                                      fontSize: dynamicWidth(context, .03),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        heightBox(context, .004),
+                        (widget.array.toString().contains("Default") ||
+                                widget.array == "")
+                            ? Container()
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Size",
+                                    style: TextStyle(
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontSize: dynamicWidth(context, .035),
+                                    ),
+                                  ),
+                                  sizeGuideImage == ""
+                                      ? Container()
+                                      : InkWell(
+                                          onTap: () {
+                                            imageAlert(
+                                              context,
+                                              "$sizeGuideImage",
+                                              true,
+                                            );
+                                          },
+                                          child: Text(
+                                            "Size Guide",
+                                            style: TextStyle(
+                                              shadows: [
+                                                Shadow(
+                                                    color: darkTheme == true
+                                                        ? myWhite
+                                                        : myBlack,
+                                                    offset: Offset(0, -5))
+                                              ],
+                                              color: noColor,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              decorationColor: myRed,
+                                              decorationThickness: 4,
+                                              decorationStyle:
+                                                  TextDecorationStyle.solid,
+                                            ),
+                                          ),
+                                        ),
+                                ],
+                              ),
+                        (widget.array.toString().contains("Default") ||
+                                widget.array == "")
+                            ? Container()
+                            : sizeOptions(
+                                context,
+                                sizeArray,
+                                widget.variantProduct,
+                              ),
+                        heightBox(context, 0.01),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Qty",
+                            style: TextStyle(
+                              color: darkTheme == true ? myWhite : myBlack,
+                              fontSize: dynamicWidth(context, .035),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            width: dynamicWidth(context, .2),
+                            decoration: BoxDecoration(
+                              color: noColor,
+                              borderRadius: BorderRadius.circular(
+                                dynamicWidth(context, .01),
+                              ),
+                              border: Border.all(
+                                color: darkTheme == true
+                                    ? myWhite
+                                    : myBlack.withOpacity(.3),
+                                width: .2,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    if (quantity > 1) {
+                                      quantity--;
+                                    }
+                                  },
+                                  child: Container(
+                                    width: dynamicWidth(context, .03),
+                                    height: dynamicWidth(context, .07),
+                                    child: Center(
                                       child: Icon(
-                                        Icons.add,
+                                        Icons.remove,
                                         size: dynamicWidth(context, .03),
                                         color:
                                             darkTheme == true ? myWhite : myRed,
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                                Obx(() {
+                                  return Text(
+                                    quantity.toString(),
+                                    style: TextStyle(
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontSize: dynamicWidth(context, .03),
+                                    ),
+                                  );
+                                }),
+                                InkWell(
+                                  onTap: () {
+                                    if (quantity < 3) {
+                                      quantity++;
+                                    }
+                                  },
+                                  child: Container(
+                                    width: dynamicWidth(context, .03),
+                                    height: dynamicWidth(context, .07),
+                                    child: Icon(
+                                      Icons.add,
+                                      size: dynamicWidth(context, .03),
+                                      color:
+                                          darkTheme == true ? myWhite : myRed,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          dragBool == true
-                              ? heightBox(context, .01)
-                              : heightBox(context, 0.0),
-                          dragBool == true
-                              ? Text(
+                        ),
+                        dragBool == true
+                            ? heightBox(context, .01)
+                            : heightBox(context, 0.0),
+                        dragBool == true
+                            ? FadeTransition(
+                                opacity: controlAnimation,
+                                child: Text(
                                   widget.description.toString(),
                                   style: TextStyle(
                                     color:
@@ -464,28 +467,28 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
                                     fontSize: dynamicWidth(context, .03),
                                   ),
                                   maxLines: 4,
-                                )
-                              : Container(
-                                  width: 0,
-                                  height: 0,
                                 ),
-                          heightBox(context, 0.018),
-                          bottomButton(
-                            context,
-                            widget.image[0]["node"]["src"],
-                            double.parse(widget.variantProduct[productIndex]
-                                    ["node"]["price"])
-                                .toInt()
-                                .toString(),
-                            widget.text,
-                            quantity,
-                            widget.variantProduct[productIndex]["node"]["sku"],
-                            widget.variantProduct[productIndex]["node"]["id"],
-                            selectedSize,
-                          ),
-                          heightBox(context, 0.01),
-                        ],
-                      ),
+                              )
+                            : Container(
+                                width: 0,
+                                height: 0,
+                              ),
+                        heightBox(context, 0.018),
+                        bottomButton(
+                          context,
+                          widget.image[0]["node"]["src"],
+                          double.parse(widget.variantProduct[productIndex]
+                                  ["node"]["price"])
+                              .toInt()
+                              .toString(),
+                          widget.text,
+                          quantity,
+                          widget.variantProduct[productIndex]["node"]["sku"],
+                          widget.variantProduct[productIndex]["node"]["id"],
+                          selectedSize,
+                        ),
+                        heightBox(context, 0.01),
+                      ],
                     ),
                   ),
                 ),
@@ -507,7 +510,10 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-              Positioned(
+              AnimatedPositioned(
+                duration: Duration(
+                  milliseconds: 200,
+                ),
                 top: dragBool == true
                     ? dynamicHeight(context, .35)
                     : dynamicHeight(context, .43),
