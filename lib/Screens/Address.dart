@@ -113,7 +113,7 @@ class _AddressPageState extends State<AddressPage> {
       drawerScrimColor: Colors.white54,
       endDrawer: drawer(context),
       body: (loading == true)
-          ? jumpingDots(context)
+          ? Center(child: jumpingDots(context))
           : Stack(
               alignment: Alignment.center,
               children: [

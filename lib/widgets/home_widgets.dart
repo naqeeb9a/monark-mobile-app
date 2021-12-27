@@ -763,7 +763,7 @@ filterContainer(context) {
 Widget jumpingDots(context) {
   return Image.asset(
     "assets/icons/loading.gif",
-    height: dynamicHeight(context, .12),
+    height: dynamicHeight(context, .16),
   );
   // return Center(
   //   child: JumpingText(

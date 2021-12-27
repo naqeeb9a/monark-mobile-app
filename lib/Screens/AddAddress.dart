@@ -166,7 +166,7 @@ class _AddAddressState extends State<AddAddress> {
                                 }),
                                 addressInput(
                                   context,
-                                  "Add Your Address",
+                                  "Add Your Second Address (Optional)",
                                   TextInputType.streetAddress,
                                   localAddressList: widget.guestCheck == true
                                       ? guestAddressList

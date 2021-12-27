@@ -249,7 +249,7 @@ class _ProfileState extends State<Profile>
                           );
                         }
                       } else {
-                        return jumpingDots(context);
+                        return Center(child: jumpingDots(context));
                       }
                     }),
           ),
