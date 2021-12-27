@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons_ns/grouped_buttons_ns.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:monark_app/Screens/Categories.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
@@ -760,16 +761,20 @@ filterContainer(context) {
 }
 
 Widget jumpingDots(context) {
-  return Center(
-    child: JumpingText(
-      ".....",
-      end: Offset(0.0, -0.1),
-      style: TextStyle(
-        color: darkTheme == true ? myWhite : myBlack,
-        fontSize: dynamicWidth(context, .08),
-      ),
-    ),
+  return Image.asset(
+    "assets/icons/loading.gif",
+    height: dynamicHeight(context, .12),
   );
+  // return Center(
+  //   child: JumpingText(
+  //     ".....",
+  //     end: Offset(0.0, -0.1),
+  //     style: TextStyle(
+  //       color: darkTheme == true ? myWhite : myBlack,
+  //       fontSize: dynamicWidth(context, .08),
+  //     ),
+  //   ),
+  // );
 }
 
 numberFormat(number) {
