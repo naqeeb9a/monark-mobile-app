@@ -47,6 +47,7 @@ class _DetailPageState extends State<DetailPage>
   String sizeGuideImage = "";
   bool dragBool = false;
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   sizeList() {
     for (int i = 0; i < widget.array.length; i++) {
       if (widget.variantProduct[i]["node"]["availableForSale"] == true) {
@@ -692,26 +693,29 @@ Widget bottomButton(
           "size": size,
         });
       } else {
-        if (text.toString() == cartItems[0]["title"].toString() &&
-            size.toString() == cartItems[0]["size"].toString()) {
-          cartItems[0]["quantity"] =
-              int.parse(cartItems[0]["quantity"].toString()) +
-                  int.parse(cartQuantity.toString());
-          cartItems[0]["total"] = int.parse(cartItems[0]["total"].toString()) +
-              (int.parse(price.toString()) *
-                  int.parse(cartQuantity.value.toString()));
-        } else {
-          cartItems.add({
-            "imageUrl": image,
-            "price": price,
-            "title": text,
-            "quantity": cartQuantity.value,
-            "total": int.parse(price.toString()) *
-                int.parse(cartQuantity.value.toString()),
-            "sku": sku,
-            "variantId": variantId,
-            "size": size,
-          });
+        for (int i = 0; i < cartItems.length; i++) {
+          if (text.toString() == cartItems[i]["title"].toString() &&
+              size.toString() == cartItems[i]["size"].toString()) {
+            cartItems[i]["quantity"] =
+                int.parse(cartItems[i]["quantity"].toString()) +
+                    int.parse(cartQuantity.toString());
+            cartItems[i]["total"] =
+                int.parse(cartItems[i]["total"].toString()) +
+                    (int.parse(price.toString()) *
+                        int.parse(cartQuantity.value.toString()));
+          } else {
+            cartItems.add({
+              "imageUrl": image,
+              "price": price,
+              "title": text,
+              "quantity": cartQuantity.value,
+              "total": int.parse(price.toString()) *
+                  int.parse(cartQuantity.value.toString()),
+              "sku": sku,
+              "variantId": variantId,
+              "size": size,
+            });
+          }
         }
       }
 
