@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
@@ -44,30 +45,14 @@ class _WishlistPageState extends State<WishlistPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                height: dynamicHeight(context, .18),
-                decoration: BoxDecoration(
-                  color: noColor,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color:
-                        darkTheme == true ? myWhite : myBlack.withOpacity(.4),
-                  ),
-                ),
-                child: Center(
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: dynamicHeight(context, .012),
-                    ),
-                    child: Icon(
-                      Icons.favorite,
-                      color: myRed,
-                      size: dynamicWidth(context, 0.26),
-                    ),
-                  ),
-                ),
+              LottieBuilder.asset(
+                darkTheme == true
+                    ? "assets/icons/heartDark.json"
+                    : "assets/icons/heartLite.json",
+                repeat: false,
+                height: dynamicHeight(context, .22),
               ),
-              heightBox(context, 0.04),
+              heightBox(context, 0.01),
               Text(
                 titleCase(widget.profileName) + "'s Wishlist",
                 style: TextStyle(
