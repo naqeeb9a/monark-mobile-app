@@ -124,7 +124,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                     });
                               }
 
-                              print(result);
+
                             }
                           },
                         ),

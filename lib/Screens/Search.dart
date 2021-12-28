@@ -102,7 +102,7 @@ class _SearchPageState extends State<SearchPage> {
                                   });
                                   futureSearchData =
                                       await getSearchResults(searchText.text);
-                                  print(futureSearchData);
+
                                   setState(() {
                                     loading = false;
                                   });

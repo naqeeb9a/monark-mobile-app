@@ -74,9 +74,7 @@ class _SeeAllState extends State<SeeAll> {
 }
 
 getFilteredGrid(handle, context, check) {
-  print(sortFilterCheck);
   if (sortFilterCheck == "Best Sellers") {
-    print(true);
     return detailGrid(
         getShopifyCollection(handle, sortKey: "BEST_SELLING"), context, check);
   } else if (sortFilterCheck == "Low - High") {

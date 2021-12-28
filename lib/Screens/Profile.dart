@@ -30,7 +30,6 @@ class _ProfileState extends State<Profile>
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
-    print(globalAccessToken);
     globalContextProfile = context;
     super.build(context);
     logoutUser(accessToken) async {

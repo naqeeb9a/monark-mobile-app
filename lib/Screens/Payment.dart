@@ -22,7 +22,6 @@ class _PaymentState extends State<Payment> {
 
   @override
   Widget build(BuildContext context) {
-    print(guestAddressList);
     var subtotal = 0;
     for (var u in cartItems) {
       subtotal += int.parse(u["total"].toString());

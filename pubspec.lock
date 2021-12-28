@@ -597,6 +597,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1+1"
+  radio_group_v2:
+    dependency: "direct main"
+    description:
+      name: radio_group_v2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   recase:
     dependency: "direct main"
     description:

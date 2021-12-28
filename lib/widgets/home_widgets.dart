@@ -3,7 +3,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:grouped_buttons_ns/grouped_buttons_ns.dart';
 import 'package:intl/intl.dart';
 import 'package:monark_app/Screens/Categories.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
@@ -11,6 +10,7 @@ import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
+import 'package:radio_group_v2/radio_group_v2.dart';
 import 'package:recase/recase.dart';
 
 import '../utils/config.dart';
@@ -499,6 +499,10 @@ Widget drawer(context) {
   );
 }
 
+int radioValue = 0;
+
+RadioGroupController myController = RadioGroupController();
+
 String titleCase(String text) {
   if (text.length <= 1) return text.toUpperCase();
   var words = text.split(' ');
@@ -596,67 +600,89 @@ filterContainer(context) {
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Container(
-                            width: dynamicWidth(context, .4),
-                            height: dynamicHeight(context, .24),
-                            child: Theme(
-                              data: Theme.of(context).copyWith(
-                                unselectedWidgetColor: darkTheme == true
-                                    ? myWhite
-                                    : myBlack.withOpacity(.3),
-                              ),
-                              child: RadioButtonGroup(
-                                labels: <String>[
-                                  "Best Sellers",
-                                  "Low - High",
-                                  "High - Low",
-                                ],
-                                labelStyle: TextStyle(
-                                  color: darkTheme == true ? myWhite : myBlack,
-                                  fontSize: dynamicWidth(context, .032),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: dynamicWidth(context, .06),
+                          right: dynamicWidth(context, .06),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: dynamicWidth(context, .34),
+                              height: dynamicHeight(context, .166),
+                              child: Theme(
+                                data: Theme.of(context).copyWith(
+                                  unselectedWidgetColor: darkTheme == true
+                                      ? myWhite
+                                      : myBlack.withOpacity(.3),
                                 ),
-                                margin: EdgeInsets.symmetric(
-                                  horizontal: 0.0,
+                                child: RadioGroup(
+                                  controller: myController,
+                                  values: [
+                                    "Best Sellers",
+                                    "Low - High",
+                                    "High - Low",
+                                  ],
+                                  orientation: RadioGroupOrientation.Vertical,
+                                  decoration: RadioGroupDecoration(
+                                    spacing: 10.0,
+                                    labelStyle: TextStyle(
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontSize: dynamicWidth(context, .032),
+                                    ),
+                                    activeColor:
+                                        darkTheme == true ? myWhite : myRed,
+                                  ),
+                                  onChanged: (selectedValue) => setState(
+                                    () {
+                                      sortFilterCheck =
+                                          selectedValue.toString();
+                                    },
+                                  ),
                                 ),
-                                activeColor:
-                                    darkTheme == true ? myWhite : myRed,
-                                onSelected: (String selected) =>
-                                    sortFilterCheck = selected,
                               ),
                             ),
-                          ),
-                          Container(
-                            width: dynamicWidth(context, .4),
-                            height: dynamicHeight(context, .24),
-                            child: Theme(
-                              data: Theme.of(context).copyWith(
-                                unselectedWidgetColor: darkTheme == true
-                                    ? myWhite
-                                    : myBlack.withOpacity(.3),
-                              ),
-                              child: RadioButtonGroup(
-                                labels: <String>[
-                                  "Small",
-                                  "Medium",
-                                  "Large",
-                                  "Extra Large",
-                                ],
-                                labelStyle: TextStyle(
-                                  color: darkTheme == true ? myWhite : myBlack,
-                                  fontSize: dynamicWidth(context, .032),
+                            Container(
+                              width: dynamicWidth(context, .34),
+                              height: dynamicHeight(context, .166),
+                              child: Theme(
+                                data: Theme.of(context).copyWith(
+                                  unselectedWidgetColor: darkTheme == true
+                                      ? myWhite
+                                      : myBlack.withOpacity(.3),
                                 ),
-                                margin: EdgeInsets.all(0.0),
-                                padding: EdgeInsets.all(0.0),
-                                activeColor:
-                                    darkTheme == true ? myWhite : myRed,
-                                onSelected: (String selected) =>
-                                    sizeFilterCheck = selected,
+                                child: RadioGroup(
+                                  controller: myController,
+                                  values: [
+                                    "Small",
+                                    "Medium",
+                                    "Large",
+                                    "Extra Large",
+                                  ],
+                                  orientation: RadioGroupOrientation.Vertical,
+                                  decoration: RadioGroupDecoration(
+                                    spacing: 10.0,
+                                    labelStyle: TextStyle(
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontSize: dynamicWidth(context, .032),
+                                    ),
+                                    activeColor:
+                                        darkTheme == true ? myWhite : myRed,
+                                  ),
+                                  onChanged: (selectedValue) => setState(
+                                    () {
+                                      sizeFilterCheck =
+                                          selectedValue.toString();
+                                    },
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Row(
                         children: [

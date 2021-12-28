@@ -489,7 +489,6 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
   final QueryResult result = await client.query(options);
 
   if (result.hasException) {
-    print(result);
     return "Server Error";
   } else {
     return result.data!["draftOrderCreate"]["draftOrder"]["id"];
