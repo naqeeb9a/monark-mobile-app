@@ -293,7 +293,7 @@ Widget rowText(text, context, {function = "", check = false}) {
       check == true
           ? InkWell(
               onTap: () {
-                filterContainer(context);
+                filterContainer(context, function);
               },
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -514,7 +514,7 @@ String titleCase(String text) {
   return capitalized.join(' ');
 }
 
-filterContainer(context) {
+filterContainer(context, function) {
   return showDialog(
     barrierDismissible: true,
     context: context,
@@ -548,7 +548,8 @@ filterContainer(context) {
                         children: [
                           InkWell(
                             onTap: () {
-                              pop(context);
+                              function();
+                              Navigator.pop(context);
                             },
                             child: Padding(
                               padding: EdgeInsets.symmetric(
@@ -774,6 +775,7 @@ filterContainer(context) {
                               "Apply Filters",
                               width: dynamicWidth(context, .3),
                               function: () {
+                                function();
                                 pop(context);
                               },
                             ),

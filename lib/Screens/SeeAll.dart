@@ -53,11 +53,9 @@ class _SeeAllState extends State<SeeAll> {
                 left: dynamicWidth(context, 0.04),
                 right: dynamicWidth(context, 0.012),
               ),
-              child: rowText(
-                widget.text,
-                context,
-                check: true,
-              ),
+              child: rowText(widget.text, context, check: true, function: () {
+                setState(() {});
+              }),
             ),
             heightBox(context, .04),
             sortFilterCheck != ""
@@ -173,7 +171,9 @@ Widget customGrid(context, expandedCheck, check, data) {
                     categoriesCheck: true,
                     handle: data[index]["handle"],
                   )
-                : basicCards(context, data[index]["node"]["images"]["edges"],
+                : basicCards(
+                    context,
+                    data[index]["node"]["images"]["edges"],
                     data[index]["node"]["title"].toString().titleCase,
                     variantProduct: data[index]["node"]["variants"]["edges"],
                     sizeOption: data[index]["node"]["options"][0]["values"],
