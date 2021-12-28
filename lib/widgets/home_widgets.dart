@@ -5,14 +5,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_buttons_ns/grouped_buttons_ns.dart';
 import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
 import 'package:monark_app/Screens/Categories.dart';
 import 'package:monark_app/Screens/DetailPage.dart';
 import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 import 'package:recase/recase.dart';
 
 import '../utils/config.dart';
@@ -556,7 +554,7 @@ filterContainer(context) {
                               child: Image.asset(
                                 "assets/icons/crossIcon.png",
                                 color: darkTheme == true ? myWhite : myRed,
-                                height: dynamicHeight(context, .026),
+                                height: dynamicHeight(context, .024),
                               ),
                             ),
                           ),
@@ -620,7 +618,7 @@ filterContainer(context) {
                                   fontSize: dynamicWidth(context, .032),
                                 ),
                                 margin: EdgeInsets.symmetric(
-                                  horizontal: 1.0,
+                                  horizontal: 0.0,
                                 ),
                                 activeColor:
                                     darkTheme == true ? myWhite : myRed,
@@ -649,9 +647,8 @@ filterContainer(context) {
                                   color: darkTheme == true ? myWhite : myBlack,
                                   fontSize: dynamicWidth(context, .032),
                                 ),
-                                margin: EdgeInsets.symmetric(
-                                  horizontal: 1.0,
-                                ),
+                                margin: EdgeInsets.all(0.0),
+                                padding: EdgeInsets.all(0.0),
                                 activeColor:
                                     darkTheme == true ? myWhite : myRed,
                                 onSelected: (String selected) =>
@@ -739,14 +736,23 @@ filterContainer(context) {
                         ),
                       ),
                       heightBox(context, .1),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          coloredButton(context, "Apply Filters",
-                              width: dynamicWidth(context, .46), function: () {
-                            pop(context);
-                          }),
-                        ],
+                      Padding(
+                        padding: EdgeInsets.only(
+                          right: dynamicWidth(context, .04),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            coloredButton(
+                              context,
+                              "Apply Filters",
+                              width: dynamicWidth(context, .3),
+                              function: () {
+                                pop(context);
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

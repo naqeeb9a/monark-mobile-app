@@ -68,7 +68,9 @@ PreferredSizeWidget bar(context,
                                 -dynamicWidth(context, .2),
                                 -dynamicWidth(context, 0.03),
                                 0.0),
-                            child: jumpingDots(context),
+                            child: Center(
+                              child: jumpingDots(context),
+                            ),
                           );
                         }
                       },
