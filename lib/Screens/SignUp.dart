@@ -94,7 +94,7 @@ class _SignUpState extends State<SignUp> {
                   children: [
                     Container(
                       width: dynamicWidth(context, 1),
-                      height: dynamicHeight(context, .26),
+                      height: dynamicHeight(context, .32),
                       color: myRed,
                       child: Center(
                         child: Padding(
@@ -117,7 +117,7 @@ class _SignUpState extends State<SignUp> {
                       bottom: 0.0,
                       child: Container(
                         width: dynamicWidth(context, 1),
-                        height: dynamicHeight(context, .74),
+                        height: dynamicHeight(context, .7),
                         decoration: BoxDecoration(
                           color: darkTheme == false ? myWhite : darkThemeBlack,
                           borderRadius: BorderRadius.only(
