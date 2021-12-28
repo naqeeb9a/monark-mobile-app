@@ -126,7 +126,8 @@ class _PaymentState extends State<Payment> {
                                   ),
                                 )
                               : FutureBuilder(
-                                  future: getUserData(globalAccessToken),
+                                  future:
+                                      getUserData(globalAccessToken, context),
                                   builder: (BuildContext context,
                                       AsyncSnapshot snapshot) {
                                     if (snapshot.connectionState ==

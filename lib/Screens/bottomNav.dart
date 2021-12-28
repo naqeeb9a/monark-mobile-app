@@ -47,7 +47,7 @@ class _BottomNavState extends State<BottomNav> {
   Widget build(BuildContext context) {
     return (_loading == true)
         ? Scaffold(
-            body: jumpingDots(context),
+            body: Center(child: jumpingDots(context)),
           )
         : Scaffold(
             body: pageDecider(),

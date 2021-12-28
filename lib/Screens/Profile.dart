@@ -30,6 +30,7 @@ class _ProfileState extends State<Profile>
   bool get wantKeepAlive => true;
   @override
   Widget build(BuildContext context) {
+    print(globalAccessToken);
     globalContextProfile = context;
     super.build(context);
     logoutUser(accessToken) async {
@@ -71,10 +72,8 @@ class _ProfileState extends State<Profile>
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
-      appBar: bar(context,
-          bgColor: noColor,
-          leadingIcon: true,
-          menuIcon: true, function: () {
+      appBar: bar(context, bgColor: noColor, leadingIcon: true, menuIcon: true,
+          function: () {
         _scaffoldKey.currentState!.openEndDrawer();
       }, functionIcon: () {
         widget.controller.animateTo(0,
@@ -146,7 +145,6 @@ class _ProfileState extends State<Profile>
                             context: context,
                             type: CoolAlertType.loading,
                             backgroundColor: noColor,
-
                           );
                           logoutUser(globalAccessToken);
                         }
@@ -157,7 +155,7 @@ class _ProfileState extends State<Profile>
                     ],
                   )
                 : FutureBuilder(
-                    future: getUserData(globalAccessToken),
+                    future: getUserData(globalAccessToken,context),
                     builder: (context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.data == "Server Error") {

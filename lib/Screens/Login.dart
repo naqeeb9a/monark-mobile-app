@@ -225,9 +225,18 @@ class _LoginState extends State<Login> {
                                         SharedPreferences saveUser =
                                             await SharedPreferences
                                                 .getInstance();
-
+                                        SharedPreferences saveUserEmail =
+                                            await SharedPreferences
+                                                .getInstance();
+                                        SharedPreferences saveUserPassword =
+                                            await SharedPreferences
+                                                .getInstance();
                                         saveUser.setString("loginInfo",
                                             accessToken.toString());
+                                        saveUserEmail.setString(
+                                            "email", email.text);
+                                        saveUserPassword.setString(
+                                            "password", password.text);
                                         pushAndRemoveUntil(
                                           context,
                                           BottomNav(),

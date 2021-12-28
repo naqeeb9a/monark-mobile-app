@@ -39,7 +39,7 @@ PreferredSizeWidget bar(context,
                       ),
                     )
                   : FutureBuilder(
-                      future: getUserData(globalAccessToken),
+                      future: getUserData(globalAccessToken,context),
                       builder: (context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.data == "Server Error") {

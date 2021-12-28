@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:graphql/client.dart';
+import 'package:monark_app/Screens/Login.dart';
 import 'package:monark_app/Screens/Welcome.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -494,7 +496,7 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
   }
 }
 
-getUserData(accessToken) async {
+getUserData(accessToken, context) async {
   globalAccessToken = accessToken;
   var createUserAccessToken = '''
 {
@@ -524,6 +526,12 @@ getUserData(accessToken) async {
 
   if (result.hasException) {
     return "Server Error";
+  } else if (result.data!["customer"] == null) {
+    SharedPreferences saveUserEmail = await SharedPreferences.getInstance();
+    SharedPreferences saveUserPassword = await SharedPreferences.getInstance();
+    await loginUser(saveUserEmail.getString("email"),
+        saveUserPassword.getString("password"));
+    Phoenix.rebirth(context);
   } else {
     id = result.data!["customer"]["id"];
     checkOutEmail = result.data!["customer"]["email"];

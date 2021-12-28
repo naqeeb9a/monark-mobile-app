@@ -237,68 +237,82 @@ class _AddressPageState extends State<AddressPage> {
           ? Center(
               child: retryFunction(context, function: function),
             )
-          : ListView.builder(
-              shrinkWrap: true,
-              itemCount: addressList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: dynamicHeight(context, 0.01)),
-                  child: Row(
+          : addressList.length == 0
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Obx(() {
-                        return Theme(
-                          data: Theme.of(context).copyWith(
-                            unselectedWidgetColor: darkTheme == true
-                                ? myWhite
-                                : myBlack.withOpacity(.3),
-                          ),
-                          child: Radio(
-                            value: index,
-                            activeColor: myRed,
-                            groupValue: int.parse(group.toString()),
-                            onChanged: (value) {
-                              group.value = value as int;
-                            },
-                          ),
-                        );
-                      }),
-                      Container(
-                        width: dynamicWidth(context, 0.75),
-                        decoration: BoxDecoration(
-                          color: myWhite,
-                          border: Border.all(
-                            width: .3,
-                            color: darkTheme == true
-                                ? myWhite
-                                : myBlack.withOpacity(.3),
-                          ),
-                          borderRadius: BorderRadius.circular(
-                            dynamicWidth(context, 0.03),
-                          ),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: dynamicWidth(context, 0.04),
-                          vertical: dynamicHeight(context, .01),
-                        ),
-                        child: Text(
-                          addressList[index]["node"]["address1"].toString() +
-                              ", " +
-                              addressList[index]["node"]["city"].toString(),
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: myBlack,
-                            fontSize: dynamicWidth(context, 0.032),
-                            fontWeight: FontWeight.w400,
-                          ),
-                          maxLines: 2,
-                        ),
+                      Image.asset(
+                        "assets/noAddress.png",
+                        scale: 5,
                       ),
+                      Text("no Addresses found")
                     ],
                   ),
-                );
-              },
-            ),
+                )
+              : ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: addressList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: dynamicHeight(context, 0.01)),
+                      child: Row(
+                        children: [
+                          Obx(() {
+                            return Theme(
+                              data: Theme.of(context).copyWith(
+                                unselectedWidgetColor: darkTheme == true
+                                    ? myWhite
+                                    : myBlack.withOpacity(.3),
+                              ),
+                              child: Radio(
+                                value: index,
+                                activeColor: myRed,
+                                groupValue: int.parse(group.toString()),
+                                onChanged: (value) {
+                                  group.value = value as int;
+                                },
+                              ),
+                            );
+                          }),
+                          Container(
+                            width: dynamicWidth(context, 0.75),
+                            decoration: BoxDecoration(
+                              color: myWhite,
+                              border: Border.all(
+                                width: .3,
+                                color: darkTheme == true
+                                    ? myWhite
+                                    : myBlack.withOpacity(.3),
+                              ),
+                              borderRadius: BorderRadius.circular(
+                                dynamicWidth(context, 0.03),
+                              ),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: dynamicWidth(context, 0.04),
+                              vertical: dynamicHeight(context, .01),
+                            ),
+                            child: Text(
+                              addressList[index]["node"]["address1"]
+                                      .toString() +
+                                  ", " +
+                                  addressList[index]["node"]["city"].toString(),
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: myBlack,
+                                fontSize: dynamicWidth(context, 0.032),
+                                fontWeight: FontWeight.w400,
+                              ),
+                              maxLines: 2,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
     );
   }
 }
