@@ -119,7 +119,9 @@ getShopifyCollection(handle, {sortKey = "", reverse = ""}) async {
   var shopifyCollection;
   var variables = {
     "product_filters": [
-      {"available": true}
+      {
+        "available": true,
+      }
     ]
   };
   if (sortKey == "") {
@@ -429,14 +431,14 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
               "price": (subtotal < 2000) ? 200 : 0
             },
             "shippingAddress": {
-              "address1": guestAddressList[3].toString(),
+              "address1": guestAddressList[4].toString(),
               "city": guestAddressList[5].toString(),
               "province": guestAddressList[6].toString(),
               "country": guestAddressList[7].toString(),
               "zip": guestAddressList[8].toString()
             },
             "billingAddress": {
-              "address1": guestAddressList[3].toString(),
+              "address1": guestAddressList[4].toString(),
               "city": guestAddressList[5].toString(),
               "province": guestAddressList[6].toString(),
               "country": guestAddressList[7].toString(),

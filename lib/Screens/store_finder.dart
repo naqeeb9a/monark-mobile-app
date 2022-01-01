@@ -20,7 +20,7 @@ class _StoreFinderState extends State<StoreFinder> {
   List locationData = [
     {
       'name': "Amanah Mall, Lahore",
-      'address': "Amanah Mall, Second Floor, Model Town Link Road, Lahore",
+      'address': "2nd Floor, Amanah Mall, Model Town Link Road, Lahore",
       'state': "Punjab",
       'city': "Lahore , 54000",
       'phone': "042-35131653",
@@ -31,7 +31,7 @@ class _StoreFinderState extends State<StoreFinder> {
     },
     {
       'name': "Fortress Square Mall, Lahore",
-      'address': "Fortress Stadium، Mian Mir Bridge, Lahore, 54000",
+      'address': "Fortress Stadium, Mian Mir Bridge, Lahore, 54000",
       'state': "Punjab",
       'city': "Lahore , 54000",
       'phone': "042-37341401",
@@ -42,7 +42,7 @@ class _StoreFinderState extends State<StoreFinder> {
     },
     {
       'name': "Gold Crest Mall, Lahore",
-      'address': "Sector DD Dha Phase 4, Lahore",
+      'address': "Sector DD, Dha Phase 4, Lahore",
       'state': "Punjab",
       'city': "Lahore , 54000",
       'phone': "042-332171186",
@@ -53,7 +53,7 @@ class _StoreFinderState extends State<StoreFinder> {
     },
     {
       'name': "Emporium Mall, Lahore",
-      'address': "Emporium Mall, First Floor, Johar Town, Lahore",
+      'address': "1st Floor, Emporium Mall, Johar Town, Lahore",
       'state': "Punjab",
       'city': "Lahore , 54000",
       'phone': "042-32592390",
@@ -75,7 +75,7 @@ class _StoreFinderState extends State<StoreFinder> {
     },
     {
       'name': "Packages Mall, Lahore",
-      'address': "Packages Mall, Second Floor, Walton Road, Lahore",
+      'address': "2nd Floor, Packages Mall, Walton Road, Lahore",
       'state': "Punjab",
       'city': "Lahore , 54000",
       'phone': "042-38915254",
@@ -86,7 +86,7 @@ class _StoreFinderState extends State<StoreFinder> {
     },
     {
       'name': "Mall of Multan, Multan",
-      'address': "Mall of Multan, Ground Floor",
+      'address': "Ground Floor, Mall of Multan",
       'state': "Punjab",
       'city': "Multan , 66000",
       'phone': "061-6521614",
@@ -96,8 +96,8 @@ class _StoreFinderState extends State<StoreFinder> {
       'holiday': "FRIDAY OFF",
     },
     {
-      'name': "Sattalite Town, Gujranwala, Gujranwala",
-      'address': "Sattalite Town , Gujranwala",
+      'name': "Satellite Town, Gujranwala",
+      'address': "Satellite Town, Gujranwala",
       'state': "Punjab",
       'city': "Gujranwala , 52250",
       'phone': "055-2061732",
@@ -109,7 +109,7 @@ class _StoreFinderState extends State<StoreFinder> {
     {
       'name': "Kings mall, Gujranwala",
       'address':
-          "Kings Mall, First Floor, GT Road By-Pass , Opposite to WAPDA TOWN, Gujranwala",
+          "1st Floor, Kings Mall, GT Road By-Pass, Opposite to Wapda Town, Gujranwala",
       'state': "Punjab",
       'city': "Gujranwala , 52250",
       'phone': "055-4283088",
@@ -131,7 +131,7 @@ class _StoreFinderState extends State<StoreFinder> {
     },
     {
       'name': "Giga Mall, Islamabad",
-      'address': "Giga Mall, Ground Floor, WTC, DHA Phase 2 Islamabad",
+      'address': "Ground Floor, Giga Mall, WTC, DHA Phase 2 Islamabad",
       'state': "Islamabad Capital Territory",
       'city': "Islamabad , 45710",
       'phone': "051-2725550",

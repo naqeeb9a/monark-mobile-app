@@ -69,7 +69,7 @@ Widget bottomButton2(context, text, icon, {function, double bottom = 80}) {
     child: InkWell(
       onTap: function,
       child: Container(
-        height: dynamicHeight(context, .042),
+        height: dynamicHeight(context, .047),
         width: dynamicWidth(context, .78),
         decoration: BoxDecoration(
           color: noColor,
@@ -86,7 +86,7 @@ Widget bottomButton2(context, text, icon, {function, double bottom = 80}) {
             style: TextStyle(
               color: darkTheme == true ? myWhite : myRed,
               fontWeight: FontWeight.bold,
-              fontSize: dynamicWidth(context, 0.032),
+              fontSize: dynamicWidth(context, 0.035),
             ),
           ),
         ),

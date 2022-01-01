@@ -12,7 +12,7 @@ PreferredSizeWidget bar(context,
     title = false,
     titleText = "",
     function = "",
-    refreshFucnction = "",
+    refreshFunction = "",
     iconColor = "",
     functionIcon = ""}) {
   return PreferredSize(
@@ -39,12 +39,12 @@ PreferredSizeWidget bar(context,
                       ),
                     )
                   : FutureBuilder(
-                      future: getUserData(globalAccessToken,context),
+                      future: getUserData(globalAccessToken, context),
                       builder: (context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.data == "Server Error") {
                             return InkWell(
-                              onTap: refreshFucnction,
+                              onTap: refreshFunction,
                               child: Icon(
                                 Icons.refresh,
                                 color: myBlack,
@@ -63,15 +63,7 @@ PreferredSizeWidget bar(context,
                             );
                           }
                         } else {
-                          return Transform(
-                            transform: Matrix4.translationValues(
-                                -dynamicWidth(context, .2),
-                                -dynamicWidth(context, 0.03),
-                                0.0),
-                            child: Center(
-                              child: jumpingDots(context),
-                            ),
-                          );
+                          return SizedBox();
                         }
                       },
                     ),

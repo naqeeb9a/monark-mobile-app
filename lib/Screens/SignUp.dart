@@ -337,16 +337,7 @@ class _SignUpState extends State<SignUp> {
                                         setState(() {
                                           isLoading = false;
                                         });
-                                        CoolAlert.show(
-                                          context: context,
-                                          type: CoolAlertType.warning,
-                                          title:
-                                              "This email is already registered",
-                                          confirmBtnColor: myRed,
-                                          backgroundColor: myRed,
-                                          lottieAsset:
-                                              'assets/icons/mailAlert.json',
-                                        );
+                                        customAlert(context);
                                       } else if (response != null) {
                                         var accessToken = await loginUser(
                                           sEmail.text.toString(),

@@ -83,12 +83,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           "Send Verification Email",
                           width: dynamicWidth(context, .6),
                           function: () async {
-                            setState(() {
-                              loading = true;
-                            });
+
                             if (!_formKey.currentState!.validate()) {
                               return;
                             } else {
+                              setState(() {
+                                loading = true;
+                              });
                               var result = await passwordReset(
                                   forgotPassword.text.toString());
 

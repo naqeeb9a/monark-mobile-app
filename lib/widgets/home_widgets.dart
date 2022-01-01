@@ -10,6 +10,7 @@ import 'package:monark_app/Screens/SeeAll.dart';
 import 'package:monark_app/utils/appRoutes.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 import 'package:radio_group_v2/radio_group_v2.dart';
 import 'package:recase/recase.dart';
 
@@ -546,31 +547,10 @@ filterContainer(context, function) {
                     children: [
                       Row(
                         children: [
-                          InkWell(
-                            onTap: () {
-                              function();
-                              Navigator.pop(context);
-                            },
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                vertical: dynamicHeight(context, .03),
-                                horizontal: dynamicWidth(context, .08),
-                              ),
-                              child: Image.asset(
-                                "assets/icons/crossIcon.png",
-                                color: darkTheme == true ? myWhite : myRed,
-                                height: dynamicHeight(context, .024),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
                           Padding(
                             padding: EdgeInsets.only(
                               left: dynamicWidth(context, .08),
-                              top: dynamicHeight(context, .01),
+                              top: dynamicHeight(context, .1),
                               bottom: dynamicHeight(context, .01),
                             ),
                             child: Text(
@@ -586,7 +566,7 @@ filterContainer(context, function) {
                           Padding(
                             padding: EdgeInsets.only(
                               left: dynamicWidth(context, .26),
-                              top: dynamicHeight(context, .01),
+                              top: dynamicHeight(context, .1),
                               bottom: dynamicHeight(context, .01),
                             ),
                             child: Text(
@@ -631,17 +611,14 @@ filterContainer(context, function) {
                                     labelStyle: TextStyle(
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
-                                      fontSize: dynamicWidth(context, .032),
+                                      fontSize: dynamicWidth(context, .03),
                                     ),
                                     activeColor:
                                         darkTheme == true ? myWhite : myRed,
                                   ),
-                                  onChanged: (selectedValue) => setState(
-                                    () {
+                                  onChanged: (selectedValue) =>
                                       sortFilterCheck =
-                                          selectedValue.toString();
-                                    },
-                                  ),
+                                          selectedValue.toString(),
                                 ),
                               ),
                             ),
@@ -664,21 +641,18 @@ filterContainer(context, function) {
                                   ],
                                   orientation: RadioGroupOrientation.Vertical,
                                   decoration: RadioGroupDecoration(
-                                    spacing: 10.0,
+                                    spacing: 0,
                                     labelStyle: TextStyle(
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
-                                      fontSize: dynamicWidth(context, .032),
+                                      fontSize: dynamicWidth(context, .03),
                                     ),
                                     activeColor:
                                         darkTheme == true ? myWhite : myRed,
                                   ),
-                                  onChanged: (selectedValue) => setState(
-                                    () {
+                                  onChanged: (selectedValue) =>
                                       sizeFilterCheck =
-                                          selectedValue.toString();
-                                    },
-                                  ),
+                                          selectedValue.toString(),
                                 ),
                               ),
                             ),
@@ -712,6 +686,46 @@ filterContainer(context, function) {
                           rangeSlider: true,
                           max: 50000,
                           min: 0,
+                          handler: FlutterSliderHandler(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100.0),
+                              border: Border.all(
+                                color: myBlack.withOpacity(.3),
+                                width: 1,
+                              ),
+                            ),
+                            child: Material(
+                              type: MaterialType.circle,
+                              color: Colors.white,
+                              elevation: 0,
+                              child: Center(
+                                child: Icon(
+                                  Icons.chevron_left,
+                                  size: 25,
+                                ),
+                              ),
+                            ),
+                          ),
+                          rightHandler: FlutterSliderHandler(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100.0),
+                              border: Border.all(
+                                color: myBlack.withOpacity(.3),
+                                width: 1,
+                              ),
+                            ),
+                            child: Material(
+                              type: MaterialType.circle,
+                              color: Colors.white,
+                              elevation: 0,
+                              child: Center(
+                                child: Icon(
+                                  Icons.chevron_right,
+                                  size: 25,
+                                ),
+                              ),
+                            ),
+                          ),
                           handlerAnimation: FlutterSliderHandlerAnimation(
                             curve: Curves.elasticOut,
                             reverseCurve: Curves.bounceIn,
@@ -719,8 +733,12 @@ filterContainer(context, function) {
                             scale: 1.5,
                           ),
                           trackBar: FlutterSliderTrackBar(
+                            activeTrackBarHeight: 1.5,
+                            inactiveTrackBarHeight: 1.0,
                             activeTrackBar: BoxDecoration(
-                              color: darkTheme == true ? myWhite : myBlack,
+                              color: darkTheme == true
+                                  ? myWhite
+                                  : myBlack.withOpacity(.3),
                             ),
                             inactiveTrackBar: BoxDecoration(
                               color: darkTheme == true
@@ -795,23 +813,188 @@ filterContainer(context, function) {
 }
 
 Widget jumpingDots(context) {
-  return Image.asset(
-    "assets/icons/loading.gif",
-    height: dynamicHeight(context, .16),
-  );
-  // return Center(
-  //   child: JumpingText(
-  //     ".....",
-  //     end: Offset(0.0, -0.1),
-  //     style: TextStyle(
-  //       color: darkTheme == true ? myWhite : myBlack,
-  //       fontSize: dynamicWidth(context, .08),
-  //     ),
-  //   ),
+  // return Image.asset(
+  //   "assets/icons/loading.gif",
+  //   height: dynamicHeight(context, .16),
   // );
+  return Center(
+    child: JumpingText(
+      ".....",
+      end: Offset(0.0, -0.1),
+      style: TextStyle(
+        color: darkTheme == true ? myWhite : myBlack,
+        fontSize: dynamicWidth(context, .08),
+      ),
+    ),
+  );
 }
 
 numberFormat(number) {
   final oCcy = new NumberFormat("#,##,##0", "en_US");
   return oCcy.format(int.parse(number.toString()));
+}
+
+dynamic logOutAlert(context) {
+  return showDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (BuildContext dialogContext) {
+      return Align(
+        alignment: Alignment.center,
+        child: Material(
+          color: noColor,
+          child: Container(
+            height: dynamicHeight(context, .14),
+            width: dynamicWidth(context, .8),
+            decoration: BoxDecoration(
+              color: myRed,
+              borderRadius: BorderRadius.circular(
+                dynamicWidth(context, .04),
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/icons/loading.gif",
+                  fit: BoxFit.fill,
+                  height: dynamicHeight(context, .014),
+                ),
+                heightBox(context, .012),
+                Text(
+                  'Loading',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: dynamicWidth(context, .032),
+                    color: myWhite,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}
+
+dynamic customAlert(context) {
+  return showDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (BuildContext dialogContext) {
+      return Align(
+        alignment: Alignment.center,
+        child: Material(
+          color: noColor,
+          child: Padding(
+            padding: EdgeInsets.only(
+              bottom: dynamicHeight(context, .2),
+            ),
+            child: Container(
+              height: dynamicHeight(context, .32),
+              width: dynamicWidth(context, .8),
+              decoration: BoxDecoration(
+                color: myRed,
+                borderRadius: BorderRadius.circular(
+                  dynamicWidth(context, .04),
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    height: dynamicHeight(context, .17),
+                    width: dynamicWidth(context, .8),
+                    child: Center(
+                      child: Icon(
+                        Icons.email_outlined,
+                        color: myWhite,
+                        size: dynamicWidth(context, .16),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: dynamicHeight(context, .15),
+                    width: dynamicWidth(context, .8),
+                    decoration: BoxDecoration(
+                      color: myWhite,
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(
+                          dynamicWidth(context, .04),
+                        ),
+                        bottomLeft: Radius.circular(
+                          dynamicWidth(context, .04),
+                        ),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'This email is already registered',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: dynamicWidth(context, .032),
+                            color: myBlack,
+                          ),
+                        ),
+                        coloredButton(
+                          context,
+                          "Ok",
+                          width: dynamicWidth(context, .16),
+                          heigth: dynamicHeight(context, .03),
+                          function: () {
+                            pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      // return Material(
+      //   color: noColor,
+      //   child: Container(
+      //     height: dynamicHeight(context, .12),
+      //
+      //     child: AlertDialog(
+      //       shape: RoundedRectangleBorder(
+      //         borderRadius: BorderRadius.circular(
+      //           dynamicWidth(context, .02),
+      //         ),
+      //       ),
+      //       content: Padding(
+      //         padding: const EdgeInsets.all(25.0),
+      //         child: Column(
+      //           crossAxisAlignment: CrossAxisAlignment.center,
+      //           mainAxisSize: MainAxisSize.min,
+      //           children: [
+      //             Image.asset(
+      //               "assets/icons/loading.gif",
+      //             ),
+      //             SizedBox(height: 40),
+      //             Text(
+      //               'OOPS!',
+      //               textAlign: TextAlign.center,
+      //               style: TextStyle(
+      //                 fontSize: 20,
+      //                 color: myRed,
+      //                 fontWeight: FontWeight.bold,
+      //               ),
+      //             ),
+      //           ],
+      //         ),
+      //       ),
+      //     ),
+      //   ),
+      // );
+    },
+  );
 }

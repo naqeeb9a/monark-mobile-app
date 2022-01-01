@@ -22,14 +22,22 @@ class Cart extends StatefulWidget {
   State<Cart> createState() => _CartState();
 }
 
-class _CartState extends State<Cart> {
+class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   final promoCode = TextEditingController();
+  SlidableController? slidableController;
 
   totalAmountCalculate(total) {
     for (int i = 0; i < cartItems.length; i++) {
       total = total + int.parse(cartItems[i]["total"].toString());
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    slidableController = SlidableController();
   }
 
   @override
@@ -115,9 +123,11 @@ class _CartState extends State<Cart> {
                                 ),
                               ],
                             )
-                          : cartList(setState: () {
-                              setState(() {});
-                            }),
+                          : cartList(
+                              setState: () {
+                                setState(() {});
+                              },
+                            ),
                     );
                   }),
                   SizedBox(
@@ -165,6 +175,7 @@ class _CartState extends State<Cart> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
                                   "Promo Code",
@@ -175,7 +186,8 @@ class _CartState extends State<Cart> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: dynamicWidth(context, .4),
+                                  width: dynamicWidth(context, .32),
+                                  height: dynamicHeight(context, .038),
                                   child: inputTextField(
                                     context,
                                     "Promo Code",
@@ -184,7 +196,7 @@ class _CartState extends State<Cart> {
                                 ),
                               ],
                             ),
-                            heightBox(context, .014),
+                            heightBox(context, .02),
                             Divider(
                               color: darkTheme == true
                                   ? myWhite
@@ -227,30 +239,30 @@ class _CartState extends State<Cart> {
   }
 }
 
+final SlidableController slidableController = SlidableController();
+
 Widget cartList({check, setState}) {
   return ListView.builder(
     itemCount: cartItems.length,
     itemBuilder: (context, index) {
       return Slidable(
-        key: const ValueKey(0),
-        endActionPane: ActionPane(
-          extentRatio: .25,
-          motion: BehindMotion(),
-          children: [
-            SlidableAction(
-              onPressed: (context) {
-                cartItems.remove(cartItems[index]);
-                setState();
-              },
-              backgroundColor: myRed,
-              foregroundColor: myWhite,
-              icon: Icons.delete,
-            ),
-          ],
-        ),
+        key: Key("value"),
+        controller: slidableController,
+        secondaryActions: [
+          IconSlideAction(
+            onTap: () {
+              cartItems.remove(cartItems[index]);
+              setState();
+            },
+            color: myRed,
+            foregroundColor: myWhite,
+            icon: Icons.delete,
+          ),
+        ],
+        actionPane: SlidableDrawerActionPane(),
         child: cartCard(
-          index,
           context,
+          index,
           check: check,
           setState: setState,
         ),
@@ -259,7 +271,7 @@ Widget cartList({check, setState}) {
   );
 }
 
-Widget cartCard(index, context, {check, setState}) {
+Widget cartCard(context, index, {check, setState}) {
   return Container(
     padding: EdgeInsets.symmetric(
       vertical: dynamicHeight(context, 0.036),
@@ -268,8 +280,8 @@ Widget cartCard(index, context, {check, setState}) {
       color: noColor,
       border: Border(
         bottom: BorderSide(
-          width: 1,
-          color: myGrey,
+          width: .3,
+          color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
         ),
       ),
     ),
@@ -368,11 +380,13 @@ Widget cartCard(index, context, {check, setState}) {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Slidable.of(context)?.openCurrentActionPane();
+                        Slidable.of(context)?.open(
+                          actionType: SlideActionType.secondary,
+                        );
                       },
                       child: Padding(
-                        padding: EdgeInsets.all(
-                          dynamicWidth(context, .02),
+                        padding: EdgeInsets.only(
+                          bottom: dynamicWidth(context, .024),
                         ),
                         child: Row(
                           children: [

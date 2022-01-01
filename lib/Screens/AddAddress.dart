@@ -121,8 +121,9 @@ class _AddAddressState extends State<AddAddress> {
                           Expanded(
                               child: SingleChildScrollView(
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                addressInput(context, "Enter Your Name",
+                                addressInput(context, "Name",
                                     TextInputType.name,
                                     localAddressList: widget.guestCheck == true
                                         ? guestAddressList
@@ -131,7 +132,7 @@ class _AddAddressState extends State<AddAddress> {
                                     return "Please complete this field";
                                   }
                                 }),
-                                addressInput(context, "Enter Your last Name",
+                                addressInput(context, "Last Name",
                                     TextInputType.name,
                                     localAddressList: widget.guestCheck == true
                                         ? guestAddressList
@@ -143,7 +144,7 @@ class _AddAddressState extends State<AddAddress> {
                                 Visibility(
                                   visible:
                                       widget.guestCheck == true ? true : false,
-                                  child: addressInput(context, "Add Your Email",
+                                  child: addressInput(context, "Email",
                                       TextInputType.emailAddress,
                                       localAddressList:
                                           widget.guestCheck == true
@@ -155,7 +156,16 @@ class _AddAddressState extends State<AddAddress> {
                                     }
                                   }),
                                 ),
-                                addressInput(context, "Add Your Address",
+                                addressInput(context, "Phone",
+                                    TextInputType.phone,
+                                    localAddressList: widget.guestCheck == true
+                                        ? guestAddressList
+                                        : localAddressList, function: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Please complete this field";
+                                      }
+                                    }),
+                                addressInput(context, "Address",
                                     TextInputType.streetAddress,
                                     localAddressList: widget.guestCheck == true
                                         ? guestAddressList
@@ -164,15 +174,15 @@ class _AddAddressState extends State<AddAddress> {
                                     return "Please complete this field";
                                   }
                                 }),
-                                addressInput(
-                                  context,
-                                  "Add Your Second Address (Optional)",
-                                  TextInputType.streetAddress,
-                                  localAddressList: widget.guestCheck == true
-                                      ? guestAddressList
-                                      : localAddressList,
-                                ),
-                                addressInput(context, "Enter your city name",
+                                // addressInput(
+                                //   context,
+                                //   "Address",
+                                //   TextInputType.streetAddress,
+                                //   localAddressList: widget.guestCheck == true
+                                //       ? guestAddressList
+                                //       : localAddressList,
+                                // ),
+                                addressInput(context, "City",
                                     TextInputType.text,
                                     localAddressList: widget.guestCheck == true
                                         ? guestAddressList
@@ -181,7 +191,7 @@ class _AddAddressState extends State<AddAddress> {
                                     return "Please complete this field";
                                   }
                                 }),
-                                addressInput(context, "Enter the Province Name",
+                                addressInput(context, "Province",
                                     TextInputType.text,
                                     localAddressList: widget.guestCheck == true
                                         ? guestAddressList
@@ -190,7 +200,7 @@ class _AddAddressState extends State<AddAddress> {
                                     return "Please complete this field";
                                   }
                                 }),
-                                addressInput(context, "Enter the country Name",
+                                addressInput(context, "Country",
                                     TextInputType.text,
                                     localAddressList: widget.guestCheck == true
                                         ? guestAddressList
@@ -199,7 +209,7 @@ class _AddAddressState extends State<AddAddress> {
                                     return "Please complete this field";
                                   }
                                 }),
-                                addressInput(context, "Enter your Postal Code",
+                                addressInput(context, "Postal Code",
                                     TextInputType.phone,
                                     localAddressList: widget.guestCheck == true
                                         ? guestAddressList
@@ -208,15 +218,7 @@ class _AddAddressState extends State<AddAddress> {
                                     return "Please complete this field";
                                   }
                                 }),
-                                addressInput(context, "Enter your Phone Number",
-                                    TextInputType.phone,
-                                    localAddressList: widget.guestCheck == true
-                                        ? guestAddressList
-                                        : localAddressList, function: (value) {
-                                  if (value!.isEmpty) {
-                                    return "Please complete this field";
-                                  }
-                                }),
+
                               ],
                             ),
                           )),

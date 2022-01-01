@@ -18,6 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
   final PageController controller;
+
   Profile({Key? key, required this.controller}) : super(key: key);
 
   @override
@@ -28,6 +29,7 @@ class _ProfileState extends State<Profile>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
     globalContextProfile = context;
@@ -86,7 +88,7 @@ class _ProfileState extends State<Profile>
           alignment: Alignment.topCenter,
           child: Container(
             width: dynamicWidth(context, .8),
-            height: dynamicHeight(context, .8),
+            height: dynamicHeight(context, .82),
             child: globalAccessToken == "guest"
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -127,10 +129,7 @@ class _ProfileState extends State<Profile>
                         },
                         child: profileText(context, "Addresses"),
                       ),
-                      SizedBox(
-                        height: dynamicHeight(context, 0.03),
-                      ),
-                      heightBox(context, .06),
+                      heightBox(context, .09),
                       coloredButton(context,
                           (globalAccessToken == "guest") ? "Sign In" : "logout",
                           function: () async {
@@ -148,13 +147,11 @@ class _ProfileState extends State<Profile>
                           logoutUser(globalAccessToken);
                         }
                       }),
-                      SizedBox(
-                        height: dynamicHeight(context, 0.03),
-                      ),
+                      heightBox(context, .026),
                     ],
                   )
                 : FutureBuilder(
-                    future: getUserData(globalAccessToken,context),
+                    future: getUserData(globalAccessToken, context),
                     builder: (context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.data == "Server Error") {
@@ -212,36 +209,32 @@ class _ProfileState extends State<Profile>
                               ),
                               heightBox(context, .06),
                               coloredButton(
-                                  context,
-                                  (globalAccessToken == "guest")
-                                      ? "Sign In"
-                                      : "logout", function: () async {
-                                if (globalAccessToken == "guest") {
-                                  SharedPreferences saveUser =
-                                      await SharedPreferences.getInstance();
-                                  saveUser.clear();
-                                  Phoenix.rebirth(context);
-                                } else {
-                                  CoolAlert.show(
-                                    barrierDismissible: false,
-                                    context: context,
-                                    type: CoolAlertType.loading,
-                                    backgroundColor: noColor,
-                                  );
-                                  dynamic response =
-                                      logoutUser(globalAccessToken);
-                                  if (response == "Server Error") {
-                                    CoolAlert.show(
+                                context,
+                                (globalAccessToken == "guest")
+                                    ? "Sign In"
+                                    : "logout",
+                                function: () async {
+                                  if (globalAccessToken == "guest") {
+                                    SharedPreferences saveUser =
+                                        await SharedPreferences.getInstance();
+                                    saveUser.clear();
+                                    Phoenix.rebirth(context);
+                                  } else {
+                                    logOutAlert(context);
+                                    dynamic response =
+                                        logoutUser(globalAccessToken);
+                                    if (response == "Server Error") {
+                                      CoolAlert.show(
                                         context: context,
                                         type: CoolAlertType.warning,
                                         text: "Check Your Internet ",
-                                        backgroundColor: noColor);
+                                        backgroundColor: noColor,
+                                      );
+                                    }
                                   }
-                                }
-                              }),
-                              SizedBox(
-                                height: dynamicHeight(context, 0.03),
+                                },
                               ),
+                              heightBox(context, .026),
                             ],
                           );
                         }
@@ -257,25 +250,30 @@ class _ProfileState extends State<Profile>
 }
 
 Widget profileText(context, text1) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Container(
-        width: dynamicWidth(context, 0.8),
-        padding: EdgeInsets.symmetric(
-          vertical: dynamicHeight(context, 0.014),
-        ),
-        child: Text(
-          text1,
-          style: TextStyle(
-            fontSize: dynamicWidth(context, .03),
-            color: darkTheme == true ? myWhite : myBlack,
+  return Padding(
+    padding: EdgeInsets.only(
+      bottom: 2.0,
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: dynamicWidth(context, 0.8),
+          padding: EdgeInsets.symmetric(
+            vertical: dynamicHeight(context, 0.014),
+          ),
+          child: Text(
+            text1,
+            style: TextStyle(
+              fontSize: dynamicWidth(context, .03),
+              color: darkTheme == true ? myWhite : myBlack,
+            ),
           ),
         ),
-      ),
-      Divider(
-        color: darkTheme == true ? myWhite : myBlack,
-      ),
-    ],
+        Divider(
+          color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
+        ),
+      ],
+    ),
   );
 }

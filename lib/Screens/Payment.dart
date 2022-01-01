@@ -54,7 +54,7 @@ class _PaymentState extends State<Payment> {
                       child: Column(
                         children: [
                           rowText("Payment", context),
-                          heightBox(context, 0.07),
+                          heightBox(context, 0.03),
                           (widget.guestCheck == true)
                               ? Container(
                                   width: dynamicWidth(context, 0.9),
@@ -101,10 +101,10 @@ class _PaymentState extends State<Payment> {
                                         ),
                                       ),
                                       Text(
-                                        guestAddressList[9] == null ||
-                                                guestAddressList[9] == ""
+                                        guestAddressList[8] == null ||
+                                                guestAddressList[8] == ""
                                             ? "No phone Number Provided"
-                                            : guestAddressList[9],
+                                            : guestAddressList[8],
                                         style: TextStyle(
                                           color: darkTheme == true
                                               ? myWhite
@@ -213,9 +213,7 @@ class _PaymentState extends State<Payment> {
                                 ),
                           heightBox(context, 0.02),
                           radioOptions(context, "COD"),
-                          SizedBox(
-                            height: dynamicHeight(context, .01),
-                          ),
+                          heightBox(context, .016),
                           rowText("Shipping Address", context),
                           heightBox(context, .03),
                           radioOptions(
@@ -303,7 +301,7 @@ class _PaymentState extends State<Payment> {
                                       fontWeight: FontWeight.w700,
                                       color:
                                           darkTheme == true ? myWhite : myBlack,
-                                      fontSize: dynamicWidth(context, .032),
+                                      fontSize: dynamicWidth(context, .04),
                                     ),
                                   ),
                                   subtotal < 2000
@@ -318,7 +316,7 @@ class _PaymentState extends State<Payment> {
                                                 ? myWhite
                                                 : myRed,
                                             fontSize:
-                                                dynamicWidth(context, .032),
+                                                dynamicWidth(context, .04),
                                           ),
                                         )
                                       : Text(
@@ -331,7 +329,7 @@ class _PaymentState extends State<Payment> {
                                                 ? myWhite
                                                 : myRed,
                                             fontSize:
-                                                dynamicWidth(context, .032),
+                                                dynamicWidth(context, .04),
                                           ),
                                         ),
                                 ],
@@ -410,18 +408,17 @@ Widget radioOptions(context, text) {
           left: dynamicWidth(context, .01),
         ),
         child: Container(
-          width: dynamicWidth(context, 0.5),
+          width: dynamicWidth(context, .8),
           height: dynamicHeight(context, 0.02),
           alignment: Alignment.centerLeft,
-          child: FittedBox(
-            child: Text(
-              text,
-              style: TextStyle(
-                color: darkTheme == true ? myWhite : myBlack,
-                fontSize: dynamicWidth(context, .032),
-              ),
-              maxLines: 2,
+          child: Text(
+            text,
+            style: TextStyle(
+              color: darkTheme == true ? myWhite : myBlack,
+              fontSize: dynamicWidth(context, .032),
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ),

@@ -57,7 +57,7 @@ class _AboutUsState extends State<AboutUs> {
                         "side of the spectrum, so tuck in that shirt, revamp your wardrobe and let’s begin this "
                         "journey with us.",
                         style: TextStyle(
-                          fontSize: dynamicWidth(context, 0.027),
+                          fontSize: dynamicWidth(context, 0.024),
                           color: darkTheme == true ? myWhite : myBlack,
                         ),
                         textAlign: TextAlign.justify,

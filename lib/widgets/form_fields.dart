@@ -23,7 +23,7 @@ Widget inputTextField(context, label, myController,
       cursorWidth: 1.0,
       style: TextStyle(
         color: myBlack,
-        fontSize: dynamicWidth(context, .04),
+        fontSize: dynamicWidth(context, .03),
       ),
       decoration: InputDecoration(
         fillColor: myWhite,
@@ -124,31 +124,26 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
   );
 }
 
-Widget addressInput(context, hintText, type,
-    {localAddressList, function}) {
-  return Padding(
-    padding: EdgeInsets.symmetric(
-      vertical: dynamicHeight(context, .01),
-    ),
-    child: Container(
-      height: dynamicHeight(context, .052),
-      decoration: BoxDecoration(
-        color: myWhite,
-        borderRadius: BorderRadius.circular(
-          dynamicWidth(context, .4),
-        ),
+Widget addressInput(context, hintText, type, {localAddressList, function}) {
+  return Container(
+    height: dynamicHeight(context, .052),
+    decoration: BoxDecoration(
+      color: myWhite,
+      borderRadius: BorderRadius.circular(
+        dynamicWidth(context, .4),
       ),
-      child: TextFormField(
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        textInputAction: TextInputAction.next,
-        keyboardType: type,
-        cursorWidth: 2.0,
-        cursorHeight: dynamicHeight(context, .03),
-        style: TextStyle(
-          color: myBlack,
-          fontSize: dynamicWidth(context, .04),
-        ),
-        decoration: InputDecoration(
+    ),
+    child: TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      textInputAction: TextInputAction.next,
+      keyboardType: type,
+      cursorWidth: 1.0,
+      style: TextStyle(
+        color: myBlack,
+        fontSize: dynamicWidth(context, .03),
+      ),
+      decoration: InputDecoration(
+          isDense: true,
           contentPadding: EdgeInsets.symmetric(
             vertical: dynamicHeight(context, .01),
             horizontal: dynamicWidth(context, .03),
@@ -167,15 +162,18 @@ Widget addressInput(context, hintText, type,
             ),
             borderSide: BorderSide(
               color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
+              width: .5,
             ),
           ),
           hintText: hintText,
-        ),
-        validator: function == "" ? () {} : function,
-        onSaved: (value) {
-          localAddressList.add(value);
-        },
-      ),
+          hintStyle: TextStyle(
+            color: myBlack.withOpacity(.3),
+            fontSize: dynamicWidth(context, .03),
+          )),
+      validator: function == "" ? () {} : function,
+      onSaved: (value) {
+        localAddressList.add(value);
+      },
     ),
   );
 }

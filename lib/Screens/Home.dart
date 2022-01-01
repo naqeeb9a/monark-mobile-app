@@ -67,7 +67,7 @@ class _HomeState extends State<Home>
         function: () {
           _scaffoldKey.currentState!.openEndDrawer();
         },
-        refreshFucnction: () {
+        refreshFunction: () {
           setState(() {});
         },
       ),

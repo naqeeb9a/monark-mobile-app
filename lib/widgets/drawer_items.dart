@@ -47,29 +47,9 @@ Widget drawerItems(context) {
       color: darkTheme == true ? darkThemeBlack : myWhite,
       child: Column(
         children: [
-          Row(
-            children: [
-              InkWell(
-                onTap: () {
-                  pop(context);
-                },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: dynamicHeight(context, .02),
-                    horizontal: dynamicWidth(context, .08),
-                  ),
-                  child: Image.asset(
-                    "assets/icons/crossIcon.png",
-                    color: darkTheme == true ? myWhite : myRed,
-                    height: dynamicHeight(context, .024),
-                  ),
-                ),
-              ),
-            ],
-          ),
           Padding(
             padding: EdgeInsets.only(
-              top: dynamicHeight(context, .06),
+              top: dynamicHeight(context, .14),
               left: dynamicWidth(context, .08),
             ),
             child: Container(
