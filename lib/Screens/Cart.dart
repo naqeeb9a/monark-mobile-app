@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:monark_app/Screens/Address.dart';
 import 'package:monark_app/utils/appRoutes.dart';
@@ -22,10 +21,9 @@ class Cart extends StatefulWidget {
   State<Cart> createState() => _CartState();
 }
 
-class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
+class _CartState extends State<Cart> with TickerProviderStateMixin {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   final promoCode = TextEditingController();
-  SlidableController? slidableController;
 
   totalAmountCalculate(total) {
     for (int i = 0; i < cartItems.length; i++) {
@@ -33,12 +31,7 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
     }
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    slidableController = SlidableController();
-  }
+  var offset = [];
 
   @override
   Widget build(BuildContext context) {
@@ -237,177 +230,217 @@ class _CartState extends State<Cart> with SingleTickerProviderStateMixin {
       ),
     );
   }
-}
 
-final SlidableController slidableController = SlidableController();
+  Widget cartList({check, setState}) {
+    var controller = [];
 
-Widget cartList({check, setState}) {
-  return ListView.builder(
-    itemCount: cartItems.length,
-    itemBuilder: (context, index) {
-      return Slidable(
-        key: Key("value"),
-        controller: slidableController,
-        secondaryActions: [
-          IconSlideAction(
-            onTap: () {
-              cartItems.remove(cartItems[index]);
-              setState();
-            },
-            color: myRed,
-            foregroundColor: myWhite,
-            icon: Icons.delete,
-          ),
-        ],
-        actionPane: SlidableDrawerActionPane(),
-        child: cartCard(
-          context,
-          index,
-          check: check,
-          setState: setState,
-        ),
-      );
-    },
-  );
-}
+    dynamic offset = [];
 
-Widget cartCard(context, index, {check, setState}) {
-  return Container(
-    padding: EdgeInsets.symmetric(
-      vertical: dynamicHeight(context, 0.036),
-    ),
-    decoration: BoxDecoration(
-      color: noColor,
-      border: Border(
-        bottom: BorderSide(
-          width: .3,
-          color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
-        ),
-      ),
-    ),
-    child: IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(
-              dynamicWidth(context, .03),
-            ),
-            child: CachedNetworkImage(
-              imageUrl: cartItems[index]["imageUrl"],
-              height: dynamicHeight(context, .14),
-              width: dynamicWidth(context, .22),
-              fit: BoxFit.fill,
-            ),
-          ),
-          SizedBox(
-            width: dynamicWidth(context, .04),
-          ),
-          Container(
-            width: (check == true)
-                ? dynamicWidth(context, 0.5)
-                : dynamicWidth(context, .6),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      cartItems[index]["title"],
-                      style: TextStyle(
-                        color: darkTheme == true ? myWhite : myBlack,
-                        fontSize: dynamicWidth(context, 0.034),
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                    ),
-                    Text(
-                      "PKR. " +
-                          numberFormat(
-                            cartItems[index]["total"].toString(),
-                          ),
-                      style: TextStyle(
-                        fontFamily: "Aeonik",
-                        fontSize: dynamicWidth(context, .032),
-                        color: darkTheme == true ? myWhite : myRed,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                  ],
+    return ListView.builder(
+      itemCount: cartItems.length,
+      itemBuilder: (context, index) {
+        controller.add(AnimationController(
+            vsync: this, duration: Duration(milliseconds: 400)));
+        offset.add(Tween<Offset>(begin: Offset.zero, end: Offset(-0.25, 0.0))
+            .animate(controller[index]));
+        return Container(
+          height: dynamicHeight(context, 0.212),
+          width: dynamicWidth(context, 1),
+          child: Stack(
+            alignment: Alignment.centerRight,
+            children: [
+              InkWell(
+                onTap: () {
+                  cartItems.remove(cartItems[index]);
+                  controller[index].dispose();
+                  print(controller[index]);
+                  controller.remove(controller[index]);
+                  print(controller);
+
+                  setState();
+                },
+                child: Container(
+                  color: myRed,
+                  alignment: Alignment.center,
+                  height: dynamicHeight(context, 0.212),
+                  width: dynamicWidth(context, 0.22),
+                  child: Image.asset(
+                    "assets/icons/bin.png",
+                    height: dynamicHeight(context, 0.024),
+                    color: myWhite,
+                  ),
                 ),
-                Row(
+              ),
+              GestureDetector(
+                onHorizontalDragStart: (value) {
+                  if (controller[index].status == AnimationStatus.dismissed)
+                    controller[index].forward();
+                },
+                onHorizontalDragEnd: (value) {
+                  if (controller[index].status == AnimationStatus.completed)
+                    controller[index].reverse();
+                },
+                child: cartCard(context, index,
+                    check: check,
+                    setState: setState,
+                    slidable: offset,
+                    controller: controller),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget cartCard(context, index,
+      {check, setState, required slidable, required controller}) {
+    return SlideTransition(
+      position: slidable[index],
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          vertical: dynamicHeight(context, 0.036),
+        ),
+        decoration: BoxDecoration(
+          color: myWhite,
+          border: Border(
+            bottom: BorderSide(
+              width: .3,
+              color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
+            ),
+          ),
+        ),
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(
+                  dynamicWidth(context, .03),
+                ),
+                child: CachedNetworkImage(
+                  imageUrl: cartItems[index]["imageUrl"],
+                  height: dynamicHeight(context, .14),
+                  width: dynamicWidth(context, .22),
+                  fit: BoxFit.fill,
+                ),
+              ),
+              SizedBox(
+                width: dynamicWidth(context, .04),
+              ),
+              Container(
+                width: (check == true)
+                    ? dynamicWidth(context, 0.5)
+                    : dynamicWidth(context, .6),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Size: " + cartItems[index]["size"].toString(),
+                          cartItems[index]["title"],
                           style: TextStyle(
-                            fontSize: dynamicWidth(context, .032),
                             color: darkTheme == true ? myWhite : myBlack,
+                            fontSize: dynamicWidth(context, 0.034),
                           ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
                         ),
-                        widthBox(context, 0.014),
                         Text(
-                          "|",
-                          style: TextStyle(color: myGrey),
-                        ),
-                        widthBox(context, 0.014),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "Qty: ",
-                                style: TextStyle(
-                                  fontSize: dynamicWidth(context, .032),
-                                  color: darkTheme == true ? myWhite : myBlack,
-                                ),
+                          "PKR. " +
+                              numberFormat(
+                                cartItems[index]["total"].toString(),
                               ),
-                              TextSpan(
-                                text: cartItems[index]["quantity"].toString(),
-                                style: TextStyle(
-                                  fontSize: dynamicWidth(context, .032),
-                                  color: darkTheme == true ? myWhite : myBlack,
-                                ),
-                              )
-                            ],
+                          style: TextStyle(
+                            fontFamily: "Aeonik",
+                            fontSize: dynamicWidth(context, .032),
+                            color: darkTheme == true ? myWhite : myRed,
+                            fontWeight: FontWeight.w900,
                           ),
                         ),
                       ],
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Slidable.of(context)?.open(
-                          actionType: SlideActionType.secondary,
-                        );
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          bottom: dynamicWidth(context, .024),
-                        ),
-                        child: Row(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
                           children: [
-                            Image.asset(
+                            Text(
+                              "Size: " + cartItems[index]["size"].toString(),
+                              style: TextStyle(
+                                fontSize: dynamicWidth(context, .032),
+                                color: darkTheme == true ? myWhite : myBlack,
+                              ),
+                            ),
+                            widthBox(context, 0.014),
+                            Text(
+                              "|",
+                              style: TextStyle(color: myGrey),
+                            ),
+                            widthBox(context, 0.014),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Qty: ",
+                                    style: TextStyle(
+                                      fontSize: dynamicWidth(context, .032),
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        cartItems[index]["quantity"].toString(),
+                                    style: TextStyle(
+                                      fontSize: dynamicWidth(context, .032),
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        InkWell(
+                          onTap: () {
+                            print(controller);
+                            switch (controller[index].status) {
+                              case AnimationStatus.completed:
+                                controller[index].reverse();
+                                break;
+                              case AnimationStatus.dismissed:
+                                controller[index].forward();
+                                break;
+                              default:
+                            }
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              bottom: dynamicWidth(context, .024),
+                            ),
+                            child: Image.asset(
                               "assets/icons/bin.png",
                               height: dynamicHeight(context, .03),
                               color: darkTheme == true
                                   ? myWhite.withOpacity(.6)
                                   : myBlack.withOpacity(.2),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
