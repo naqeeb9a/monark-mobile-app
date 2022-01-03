@@ -524,6 +524,7 @@ class _DetailPageState extends State<DetailPage>
                     var check = "";
                     if (wishListItems.length == 0) {
                       wishListItems.add(widget.wishList);
+                      wishListItemsCheck.add(widget.wishList["node"]["id"]);
                       var snackBar = SnackBar(
                         content: Text(
                           'Item Added to Wish List',
@@ -541,6 +542,7 @@ class _DetailPageState extends State<DetailPage>
                         if (wishListItems[i]["node"]["id"] ==
                             widget.wishList["node"]["id"]) {
                           wishListItems.removeAt(i);
+                          wishListItemsCheck.removeAt(i);
                           var snackBar = SnackBar(
                             content: Text(
                               'Item Removed from Wish List',
@@ -564,6 +566,7 @@ class _DetailPageState extends State<DetailPage>
 
                       if (check == "no" && check != "yes") {
                         wishListItems.add(widget.wishList);
+                        wishListItemsCheck.add(widget.wishList["node"]["id"]);
                         var snackBar = SnackBar(
                           content: Text(
                             'Item Added to Wish List',
@@ -584,9 +587,14 @@ class _DetailPageState extends State<DetailPage>
                     radius: dynamicWidth(context, 0.05),
                     backgroundColor: myWhite,
                     child: Icon(
-                      Icons.favorite_border_rounded,
+                      wishListItemsCheck.contains(widget.wishList["node"]["id"])
+                          ? Icons.favorite
+                          : Icons.favorite_border_rounded,
                       size: dynamicWidth(context, 0.06),
-                      color: myBlack.withOpacity(.3),
+                      color: wishListItemsCheck
+                              .contains(widget.wishList["node"]["id"])
+                          ? myRed
+                          : myBlack.withOpacity(.3),
                     ),
                   ),
                 ),

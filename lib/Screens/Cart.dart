@@ -239,10 +239,18 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
     return ListView.builder(
       itemCount: cartItems.length,
       itemBuilder: (context, index) {
-        controller.add(AnimationController(
-            vsync: this, duration: Duration(milliseconds: 400)));
-        offset.add(Tween<Offset>(begin: Offset.zero, end: Offset(-0.25, 0.0))
-            .animate(controller[index]));
+        controller.add(
+          AnimationController(
+            vsync: this,
+            duration: Duration(milliseconds: 400),
+          ),
+        );
+        offset.add(
+          Tween<Offset>(
+            begin: Offset.zero,
+            end: Offset(-0.25, 0.0),
+          ).animate(controller[index]),
+        );
         return Container(
           height: dynamicHeight(context, 0.212),
           width: dynamicWidth(context, 1),
@@ -253,10 +261,7 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                 onTap: () {
                   cartItems.remove(cartItems[index]);
                   controller[index].dispose();
-                  print(controller[index]);
                   controller.remove(controller[index]);
-                  print(controller);
-
                   setState();
                 },
                 child: Container(
@@ -408,7 +413,6 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                         ),
                         InkWell(
                           onTap: () {
-                            print(controller);
                             switch (controller[index].status) {
                               case AnimationStatus.completed:
                                 controller[index].reverse();

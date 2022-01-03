@@ -77,10 +77,16 @@ class _CategoriesPageState extends State<CategoriesPage>
               padding: EdgeInsets.symmetric(
                 horizontal: dynamicWidth(context, 0.05),
               ),
-              child: rowText(
-                "Categories",
-                context,
-              ),
+              child: filterCheck == true
+                  ? rowText(
+                      "Categories",
+                      context,
+                      check: true,
+                    )
+                  : rowText(
+                      "Categories",
+                      context,
+                    ),
             ),
             heightBox(context, .02),
             Padding(
@@ -94,10 +100,15 @@ class _CategoriesPageState extends State<CategoriesPage>
             ),
             heightBox(context, .02),
             (loading == true)
-                ? Expanded(child: Center(child: jumpingDots(context)))
+                ? Expanded(
+                    child: Center(
+                      child: jumpingDots(context),
+                    ),
+                  )
                 : (categoryList == false)
                     ? Expanded(
-                        child: retryFunction(context, function: addCategory))
+                        child: retryFunction(context, function: addCategory),
+                      )
                     : categoryList.length == 0
                         ? Center(
                             child: Text(
@@ -196,9 +207,12 @@ class _CategoriesPageState extends State<CategoriesPage>
                     : detailGrid(
                         ApiData().getInfo("categories/$settedCategory"),
                         context,
-                        true, function1: () {
-                        setState(() {});
-                      }, handle: categoryList[globalIndex]["handle"]),
+                        true,
+                        function1: () {
+                          setState(() {});
+                        },
+                        handle: categoryList[globalIndex]["handle"],
+                      ),
           ],
         ),
       ),

@@ -17,10 +17,12 @@ var globalContextProfile;
 
 var cartItems = [].obs;
 var wishListItems = [];
+var wishListItemsCheck = [];
 dynamic addressList = [];
 dynamic guestAddressList = [];
 var group = 0.obs;
 bool obscureText = true;
+bool filterCheck = true;
 
 var sizeColor = myBlack;
 var globalAccessToken = "";
