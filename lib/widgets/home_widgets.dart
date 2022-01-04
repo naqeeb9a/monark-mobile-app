@@ -728,7 +728,9 @@ filterContainer(context, function) {
                                                 MaterialTapTargetSize
                                                     .shrinkWrap,
                                             visualDensity: VisualDensity(
-                                                horizontal: -4, vertical: -4),
+                                              horizontal: -4,
+                                              vertical: -4,
+                                            ),
                                             onChanged: (value) {
                                               setState(() {
                                                 sizeArray[1] = value!;
