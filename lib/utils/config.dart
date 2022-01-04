@@ -22,7 +22,7 @@ dynamic addressList = [];
 dynamic guestAddressList = [];
 var group = 0.obs;
 bool obscureText = true;
-bool filterCheck = true;
+bool filterCheck = false;
 
 var sizeColor = myBlack;
 var globalAccessToken = "";

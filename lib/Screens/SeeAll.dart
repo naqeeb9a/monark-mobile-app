@@ -71,18 +71,25 @@ class _SeeAllState extends State<SeeAll> {
   }
 }
 
-getFilteredGrid(handle, context, check) {
+getFilteredGrid(handle, context, check, {expandedCheck = true}) {
   if (sortFilterCheck == "Best Sellers") {
     return detailGrid(
-        getShopifyCollection(handle, sortKey: "BEST_SELLING"), context, check);
+        getShopifyCollection(handle, sortKey: "BEST_SELLING"), context, check,
+        expandedCheck: expandedCheck);
   } else if (sortFilterCheck == "Low - High") {
     return detailGrid(
-        getShopifyCollection(handle, sortKey: "PRICE"), context, check);
+        getShopifyCollection(handle, sortKey: "PRICE"), context, check,
+        expandedCheck: expandedCheck);
   } else {
     return detailGrid(
-        getShopifyCollection(handle, sortKey: "PRICE", reverse: true),
+        getShopifyCollection(
+          handle,
+          sortKey: "PRICE",
+          reverse: true,
+        ),
         context,
-        check);
+        check,
+        expandedCheck: expandedCheck);
   }
 }
 
@@ -111,9 +118,11 @@ Widget detailGridExtension(
         } else {
           return check == true
               ? SingleChildScrollView(
-                  child: detailGrid(
-                      getShopifyCollection(handle), context, false,
-                      expandedCheck: false),
+                  child: sortFilterCheck != ""
+                      ? getFilteredGrid(handle, context, false,
+                          expandedCheck: false)
+                      : detailGrid(getShopifyCollection(handle), context, false,
+                          expandedCheck: false),
                 )
               : Center(
                   child: Text(

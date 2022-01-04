@@ -77,8 +77,8 @@ class _CategoriesPageState extends State<CategoriesPage>
                 padding: EdgeInsets.symmetric(
                   horizontal: dynamicWidth(context, 0.05),
                 ),
-                child: rowText("Categories", context, check: filterCheck,
-                    function: () {
+                child:
+                    rowText("Categories", context, check: true, function: () {
                   setState(() {});
                 })),
             heightBox(context, .02),
@@ -125,7 +125,7 @@ class _CategoriesPageState extends State<CategoriesPage>
                                 itemCount: categoryList.length,
                                 shrinkWrap: true,
                                 itemBuilder: (BuildContext context, int index) {
-                                  if (index <= 0) {
+                                  if (isSelected.length <= 0) {
                                     selectedIndex = categoryList[0];
                                     isSelected.add(true);
                                     globalIndex = 0;
