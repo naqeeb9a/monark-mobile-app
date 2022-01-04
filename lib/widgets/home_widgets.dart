@@ -534,10 +534,6 @@ Widget drawer(context) {
   );
 }
 
-int radioValue = 0;
-
-RadioGroupController myController = RadioGroupController();
-
 String titleCase(String text) {
   if (text.length <= 1) return text.toUpperCase();
   var words = text.split(' ');
@@ -633,12 +629,19 @@ filterContainer(context, function) {
                                       : myBlack.withOpacity(.3),
                                 ),
                                 child: RadioGroup(
-                                  controller: myController,
                                   values: [
                                     "Best Sellers",
                                     "Low - High",
                                     "High - Low",
                                   ],
+                                  indexOfDefault:
+                                      sortFilterCheck == "Best Sellers"
+                                          ? 0
+                                          : sortFilterCheck == "Low - High"
+                                              ? 1
+                                              : sortFilterCheck == "High - Low"
+                                                  ? 2
+                                                  : -1,
                                   orientation: RadioGroupOrientation.Vertical,
                                   decoration: RadioGroupDecoration(
                                     spacing: 0.0,
@@ -969,7 +972,6 @@ filterContainer(context, function) {
                               "Apply Filters",
                               width: dynamicWidth(context, .3),
                               function: () {
-                                
                                 pop(context);
                                 function();
                               },
