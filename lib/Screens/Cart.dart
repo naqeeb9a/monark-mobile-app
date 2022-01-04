@@ -74,53 +74,53 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                     return Flexible(
                       child: cartItems.length == 0
                           ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  "assets/icons/cartIcon.png",
-                                  color: darkTheme == true ? myRed : myBlack,
-                                  scale: 2.6,
-                                ),
-                                SizedBox(
-                                  height: dynamicHeight(context, .02),
-                                ),
-                                Text(
-                                  "Empty Bag",
-                                  style: TextStyle(
-                                    color: darkTheme == true ? myWhite : myRed,
-                                    fontSize: dynamicWidth(context, .04),
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                heightBox(context, .014),
-                                Text(
-                                  "Looks like you haven't made\nyour choice yet",
-                                  style: TextStyle(
-                                    color:
-                                        darkTheme == true ? myWhite : myBlack,
-                                    fontSize: dynamicWidth(context, .03),
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                heightBox(context, .06),
-                                coloredButton(
-                                  context,
-                                  "Continue Shopping",
-                                  width: dynamicWidth(context, .6),
-                                  function: () {
-                                    widget.controller.animateTo(0,
-                                        duration:
-                                            const Duration(milliseconds: 600),
-                                        curve: Curves.easeInOut);
-                                  },
-                                ),
-                              ],
-                            )
-                          : cartList(
-                              setState: () {
-                                setState(() {});
-                              },
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/icons/cartIcon.png",
+                            color: darkTheme == true ? myRed : myBlack,
+                            scale: 2.6,
+                          ),
+                          SizedBox(
+                            height: dynamicHeight(context, .02),
+                          ),
+                          Text(
+                            "Empty Bag",
+                            style: TextStyle(
+                              color: darkTheme == true ? myWhite : myRed,
+                              fontSize: dynamicWidth(context, .04),
+                              fontWeight: FontWeight.bold,
                             ),
+                          ),
+                          heightBox(context, .014),
+                          Text(
+                            "Looks like you haven't made\nyour choice yet",
+                            style: TextStyle(
+                              color:
+                              darkTheme == true ? myWhite : myBlack,
+                              fontSize: dynamicWidth(context, .03),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          heightBox(context, .06),
+                          coloredButton(
+                            context,
+                            "Continue Shopping",
+                            width: dynamicWidth(context, .6),
+                            function: () {
+                              widget.controller.animateTo(0,
+                                  duration:
+                                  const Duration(milliseconds: 600),
+                                  curve: Curves.easeInOut);
+                            },
+                          ),
+                        ],
+                      )
+                          : cartList(
+                        setState: () {
+                          setState(() {});
+                        },
+                      ),
                     );
                   }),
                   SizedBox(
@@ -133,97 +133,97 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
           cartItems.length == 0
               ? Container()
               : bottomButton1(
+            context,
+            "Checkout",
+                () {
+              if (globalAccessToken == "guest") {
+                push(
+                    context,
+                    AddAddress(
+                      guestCheck: true,
+                    ));
+              } else {
+                Navigator.push(
                   context,
-                  "Checkout",
-                  () {
-                    if (globalAccessToken == "guest") {
-                      push(
-                          context,
-                          AddAddress(
-                            guestCheck: true,
-                          ));
-                    } else {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AddressPage(),
-                        ),
-                      );
-                    }
-                  },
-                ),
+                  MaterialPageRoute(
+                    builder: (context) => AddressPage(),
+                  ),
+                );
+              }
+            },
+          ),
           Obx(
-            () {
+                () {
               return cartItems.length == 0
                   ? Container()
                   : Positioned(
-                      left: 0.0,
-                      right: 0.0,
-                      bottom: dynamicHeight(context, .15),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: dynamicWidth(context, .05),
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "Promo Code",
-                                  style: TextStyle(
-                                    color:
-                                        darkTheme == true ? myWhite : myBlack,
-                                    fontSize: dynamicWidth(context, .035),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: dynamicWidth(context, .32),
-                                  height: dynamicHeight(context, .038),
-                                  child: inputTextField(
-                                    context,
-                                    "Promo Code",
-                                    promoCode,
-                                  ),
-                                ),
-                              ],
+                left: 0.0,
+                right: 0.0,
+                bottom: dynamicHeight(context, .15),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: dynamicWidth(context, .05),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Promo Code",
+                            style: TextStyle(
+                              color:
+                              darkTheme == true ? myWhite : myBlack,
+                              fontSize: dynamicWidth(context, .035),
                             ),
-                            heightBox(context, .02),
-                            Divider(
-                              color: darkTheme == true
-                                  ? myWhite
-                                  : myBlack.withOpacity(.3),
-                              thickness: .3,
+                          ),
+                          SizedBox(
+                            width: dynamicWidth(context, .32),
+                            height: dynamicHeight(context, .038),
+                            child: inputTextField(
+                              context,
+                              "Promo Code",
+                              promoCode,
                             ),
-                            heightBox(context, .014),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Total Amount",
-                                  style: TextStyle(
-                                    color:
-                                        darkTheme == true ? myWhite : myBlack,
-                                    fontSize: dynamicWidth(context, .035),
-                                  ),
-                                ),
-                                Text(
-                                  "PKR. " + numberFormat(total),
-                                  style: TextStyle(
-                                    fontFamily: "Aeonik",
-                                    color:
-                                        darkTheme == true ? myWhite : myBlack,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: dynamicWidth(context, .035),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    );
+                      heightBox(context, .02),
+                      Divider(
+                        color: darkTheme == true
+                            ? myWhite
+                            : myBlack.withOpacity(.3),
+                        thickness: .3,
+                      ),
+                      heightBox(context, .014),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Total Amount",
+                            style: TextStyle(
+                              color:
+                              darkTheme == true ? myWhite : myBlack,
+                              fontSize: dynamicWidth(context, .035),
+                            ),
+                          ),
+                          Text(
+                            "PKR. " + numberFormat(total),
+                            style: TextStyle(
+                              fontFamily: "Aeonik",
+                              color:
+                              darkTheme == true ? myWhite : myBlack,
+                              fontWeight: FontWeight.bold,
+                              fontSize: dynamicWidth(context, .035),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
             },
           )
         ],
@@ -394,16 +394,16 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                                     style: TextStyle(
                                       fontSize: dynamicWidth(context, .032),
                                       color:
-                                          darkTheme == true ? myWhite : myBlack,
+                                      darkTheme == true ? myWhite : myBlack,
                                     ),
                                   ),
                                   TextSpan(
                                     text:
-                                        cartItems[index]["quantity"].toString(),
+                                    cartItems[index]["quantity"].toString(),
                                     style: TextStyle(
                                       fontSize: dynamicWidth(context, .032),
                                       color:
-                                          darkTheme == true ? myWhite : myBlack,
+                                      darkTheme == true ? myWhite : myBlack,
                                     ),
                                   )
                                 ],

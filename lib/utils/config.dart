@@ -34,6 +34,12 @@ dynamic sizeFilterCheck = "";
 
 dynamic lowerPriceFilter = 0.0;
 dynamic upperPriceFilter = 50000.0;
+
+bool small = false;
+bool medium = false;
+bool large = false;
+bool xLarge = false;
+
 final MaterialColor primaryColor = const MaterialColor(
   0xffb22f32,
   const <int, Color>{

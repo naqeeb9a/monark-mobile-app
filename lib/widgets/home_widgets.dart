@@ -314,21 +314,7 @@ Widget rowText(text, context, {function = "", check = false}) {
       check == true
           ? InkWell(
               onTap: () {
-                if (filterCheck == true)
-                  filterContainer(context, function);
-                else {
-                  var snackBar = SnackBar(
-                    content: Text(
-                      'Nothing to filter Yet!',
-                      style: TextStyle(
-                        color: darkTheme == false ? myWhite : myBlack,
-                      ),
-                    ),
-                    duration: const Duration(seconds: 1),
-                    backgroundColor: darkTheme == true ? myWhite : myBlack,
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }
+                filterContainer(context, function);
               },
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -680,9 +666,7 @@ filterContainer(context, function) {
                                             activeColor: Colors.red,
                                             value: true,
                                             splashRadius: .4,
-                                            materialTapTargetSize:
-                                                MaterialTapTargetSize
-                                                    .shrinkWrap,
+                                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                             visualDensity: VisualDensity(
                                                 horizontal: -4, vertical: -4),
                                             onChanged: (bool? value) {},
@@ -702,9 +686,7 @@ filterContainer(context, function) {
                                             activeColor: Colors.red,
                                             value: true,
                                             splashRadius: .4,
-                                            materialTapTargetSize:
-                                                MaterialTapTargetSize
-                                                    .shrinkWrap,
+                                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                             visualDensity: VisualDensity(
                                                 horizontal: -4, vertical: -4),
                                             onChanged: (bool? value) {},
@@ -724,9 +706,7 @@ filterContainer(context, function) {
                                             activeColor: Colors.red,
                                             value: true,
                                             splashRadius: .4,
-                                            materialTapTargetSize:
-                                                MaterialTapTargetSize
-                                                    .shrinkWrap,
+                                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                             visualDensity: VisualDensity(
                                                 horizontal: -4, vertical: -4),
                                             onChanged: (bool? value) {},
@@ -746,9 +726,7 @@ filterContainer(context, function) {
                                             activeColor: Colors.red,
                                             value: true,
                                             splashRadius: .4,
-                                            materialTapTargetSize:
-                                                MaterialTapTargetSize
-                                                    .shrinkWrap,
+                                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                             visualDensity: VisualDensity(
                                                 horizontal: -4, vertical: -4),
                                             onChanged: (bool? value) {},
