@@ -106,6 +106,7 @@ Widget detailGridExtension(
         if (snapshot.data == "Server Error" || snapshot.data == false) {
           return Center(child: retryFunction(context, function: function1));
         } else if ((snapshot.data as List).length != 0) {
+          check == true ? filterCheck = false : filterCheck = true;
           return customGrid(context, expandedCheck, check, snapshot.data);
         } else {
           return check == true

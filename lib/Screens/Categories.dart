@@ -74,17 +74,13 @@ class _CategoriesPageState extends State<CategoriesPage>
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: dynamicWidth(context, 0.05),
-              ),
-              child: filterCheck == true
-                  ? rowText("Categories", context, check: true, function: () {
-                      setState(() {});
-                    })
-                  : rowText("Categories", context, function: () {
-                      setState(() {});
-                    }),
-            ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: dynamicWidth(context, 0.05),
+                ),
+                child: rowText("Categories", context, check: filterCheck,
+                    function: () {
+                  setState(() {});
+                })),
             heightBox(context, .02),
             Padding(
               padding: EdgeInsets.symmetric(
