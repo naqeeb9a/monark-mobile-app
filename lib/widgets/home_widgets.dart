@@ -662,17 +662,36 @@ filterContainer(context, function) {
                                         Transform.scale(
                                           scale: .8,
                                           child: Checkbox(
-                                            checkColor: Colors.greenAccent,
-                                            activeColor: Colors.red,
-                                            value: true,
+                                            value: small,
                                             splashRadius: .4,
-                                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                            checkColor: darkTheme == true
+                                                ? myRed
+                                                : myWhite,
+                                            activeColor: darkTheme == true
+                                                ? myWhite
+                                                : myRed,
+                                            materialTapTargetSize:
+                                                MaterialTapTargetSize
+                                                    .shrinkWrap,
                                             visualDensity: VisualDensity(
                                                 horizontal: -4, vertical: -4),
-                                            onChanged: (bool? value) {},
+                                            onChanged: (bool? value) {
+                                              setState(() {
+                                                small = !small;
+                                              });
+                                            },
                                           ),
                                         ),
-                                        Text("Small"),
+                                        Text(
+                                          "Small",
+                                          style: TextStyle(
+                                            color: darkTheme == true
+                                                ? myWhite
+                                                : myBlack,
+                                            fontSize:
+                                                dynamicWidth(context, .03),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                     Row(
@@ -682,17 +701,36 @@ filterContainer(context, function) {
                                         Transform.scale(
                                           scale: .8,
                                           child: Checkbox(
-                                            checkColor: Colors.greenAccent,
-                                            activeColor: Colors.red,
-                                            value: true,
+                                            value: medium,
                                             splashRadius: .4,
-                                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                            checkColor: darkTheme == true
+                                                ? myRed
+                                                : myWhite,
+                                            activeColor: darkTheme == true
+                                                ? myWhite
+                                                : myRed,
+                                            materialTapTargetSize:
+                                                MaterialTapTargetSize
+                                                    .shrinkWrap,
                                             visualDensity: VisualDensity(
                                                 horizontal: -4, vertical: -4),
-                                            onChanged: (bool? value) {},
+                                            onChanged: (bool? value) {
+                                              setState(() {
+                                                medium = !medium;
+                                              });
+                                            },
                                           ),
                                         ),
-                                        Text("Medium"),
+                                        Text(
+                                          "Medium",
+                                          style: TextStyle(
+                                            color: darkTheme == true
+                                                ? myWhite
+                                                : myBlack,
+                                            fontSize:
+                                                dynamicWidth(context, .03),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                     Row(
@@ -702,17 +740,36 @@ filterContainer(context, function) {
                                         Transform.scale(
                                           scale: .8,
                                           child: Checkbox(
-                                            checkColor: Colors.greenAccent,
-                                            activeColor: Colors.red,
-                                            value: true,
+                                            value: large,
                                             splashRadius: .4,
-                                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                            checkColor: darkTheme == true
+                                                ? myRed
+                                                : myWhite,
+                                            activeColor: darkTheme == true
+                                                ? myWhite
+                                                : myRed,
+                                            materialTapTargetSize:
+                                                MaterialTapTargetSize
+                                                    .shrinkWrap,
                                             visualDensity: VisualDensity(
                                                 horizontal: -4, vertical: -4),
-                                            onChanged: (bool? value) {},
+                                            onChanged: (bool? value) {
+                                              setState(() {
+                                                large = !large;
+                                              });
+                                            },
                                           ),
                                         ),
-                                        Text("Large"),
+                                        Text(
+                                          "Large",
+                                          style: TextStyle(
+                                            color: darkTheme == true
+                                                ? myWhite
+                                                : myBlack,
+                                            fontSize:
+                                                dynamicWidth(context, .03),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                     Row(
@@ -722,45 +779,40 @@ filterContainer(context, function) {
                                         Transform.scale(
                                           scale: .8,
                                           child: Checkbox(
-                                            checkColor: Colors.greenAccent,
-                                            activeColor: Colors.red,
-                                            value: true,
+                                            value: xLarge,
                                             splashRadius: .4,
-                                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                            checkColor: darkTheme == true
+                                                ? myRed
+                                                : myWhite,
+                                            activeColor: darkTheme == true
+                                                ? myWhite
+                                                : myRed,
+                                            materialTapTargetSize:
+                                                MaterialTapTargetSize
+                                                    .shrinkWrap,
                                             visualDensity: VisualDensity(
                                                 horizontal: -4, vertical: -4),
-                                            onChanged: (bool? value) {},
+                                            onChanged: (bool? value) {
+                                              setState(() {
+                                                xLarge = !xLarge;
+                                              });
+                                            },
                                           ),
                                         ),
-                                        Text("Extra Large"),
+                                        Text(
+                                          "Extra Large",
+                                          style: TextStyle(
+                                            color: darkTheme == true
+                                                ? myWhite
+                                                : myBlack,
+                                            fontSize:
+                                                dynamicWidth(context, .03),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ],
                                 ),
-
-                                // RadioGroup(
-                                //   controller: myController,
-                                //   values: [
-                                //     "Small",
-                                //     "Medium",
-                                //     "Large",
-                                //     "Extra Large",
-                                //   ],
-                                //   orientation: RadioGroupOrientation.Vertical,
-                                //   decoration: RadioGroupDecoration(
-                                //     spacing: 0,
-                                //     labelStyle: TextStyle(
-                                //       color:
-                                //           darkTheme == true ? myWhite : myBlack,
-                                //       fontSize: dynamicWidth(context, .03),
-                                //     ),
-                                //     activeColor:
-                                //         darkTheme == true ? myWhite : myRed,
-                                //   ),
-                                //   onChanged: (selectedValue) =>
-                                //       sizeFilterCheck =
-                                //           selectedValue.toString(),
-                                // ),
                               ),
                             ),
                           ],
@@ -871,7 +923,7 @@ filterContainer(context, function) {
                             Text(
                               "From : " + lowerPriceFilter.toString(),
                               style: TextStyle(
-                                fontSize: dynamicWidth(context, .04),
+                                fontSize: dynamicWidth(context, .03),
                                 fontWeight: FontWeight.w600,
                                 color: darkTheme == true ? myWhite : myBlack,
                               ),
@@ -879,7 +931,7 @@ filterContainer(context, function) {
                             Text(
                               "To : " + upperPriceFilter.toString(),
                               style: TextStyle(
-                                fontSize: dynamicWidth(context, .04),
+                                fontSize: dynamicWidth(context, .03),
                                 fontWeight: FontWeight.w600,
                                 color: darkTheme == true ? myWhite : myBlack,
                               ),
