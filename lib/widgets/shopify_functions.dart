@@ -121,6 +121,9 @@ getShopifyCollection(handle, {sortKey = "", reverse = ""}) async {
     "product_filters": [
       {
         "available": true,
+      },
+      {
+        "price": {"min": lowerPriceFilter, "max": upperPriceFilter}
       }
     ]
   };

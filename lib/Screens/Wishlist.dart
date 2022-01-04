@@ -106,15 +106,16 @@ wishListGrid(context, refreshScreen) {
         itemBuilder: (context, index) {
           return Center(
             child: basicCards(
-              context,
-              wishListItems[index]["node"]["images"]["edges"],
-              wishListItems[index]["node"]["title"],
-              variantProduct: wishListItems[index]["node"]["variants"]["edges"],
-              sizeOption: wishListItems[index]["node"]["options"][0]["values"],
-              description: wishListItems[index]["node"]["description"],
-              wishList: wishListItems[index],
-              refreshScreen: refreshScreen,
-            ),
+                context,
+                wishListItems[index]["node"]["images"]["edges"],
+                wishListItems[index]["node"]["title"],
+                variantProduct: wishListItems[index]["node"]["variants"]
+                    ["edges"],
+                sizeOption: wishListItems[index]["node"]["options"][0]
+                    ["values"],
+                description: wishListItems[index]["node"]["description"],
+                wishList: wishListItems[index],
+                refreshScreen: refreshScreen),
           );
         },
       ),

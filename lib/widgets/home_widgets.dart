@@ -2,7 +2,6 @@ import 'package:another_xlider/another_xlider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:check_radio_group/model/item_group.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:monark_app/Screens/Categories.dart';
@@ -108,57 +107,11 @@ Widget internalWidgetCard(
                   : Positioned(
                       bottom: dynamicHeight(context, 0.02),
                       right: dynamicWidth(context, 0.04),
-                      child: GestureDetector(
-                        onTap: () {
-                          var check = "";
-                          if (wishListItems.length == 0) {
-                            wishListItems.add(wishList);
-                            wishListItemsCheck.add(wishList["node"]["id"]);
-                            var snackBar = SnackBar(
-                              content: Text(
-                                'Item Added to Wish List',
-                                style: TextStyle(
-                                  color: darkTheme == false ? myWhite : myBlack,
-                                ),
-                              ),
-                              duration: const Duration(seconds: 1),
-                              backgroundColor:
-                                  darkTheme == true ? myWhite : myBlack,
-                            );
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                            // refreshScreen();
-                          } else {
-                            for (int i = 0; i < wishListItems.length; i++) {
-                              if (wishListItems[i]["node"]["id"] ==
-                                  wishList["node"]["id"]) {
-                                wishListItems.removeAt(i);
-                                wishListItemsCheck.removeAt(i);
-                                var snackBar = SnackBar(
-                                  content: Text(
-                                    'Item Removed from Wish List',
-                                    style: TextStyle(
-                                      color: darkTheme == false
-                                          ? myWhite
-                                          : myBlack,
-                                    ),
-                                  ),
-                                  duration: const Duration(seconds: 1),
-                                  backgroundColor:
-                                      darkTheme == true ? myWhite : myBlack,
-                                );
-
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                                refreshScreen();
-                                check = "yes";
-                                break;
-                              } else {
-                                check = "no";
-                              }
-                            }
-
-                            if (check == "no" && check != "yes") {
+                      child: StatefulBuilder(builder: (context, changeState) {
+                        return GestureDetector(
+                          onTap: () {
+                            var check = "";
+                            if (wishListItems.length == 0) {
                               wishListItems.add(wishList);
                               wishListItemsCheck.add(wishList["node"]["id"]);
                               var snackBar = SnackBar(
@@ -175,25 +128,83 @@ Widget internalWidgetCard(
                               );
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
-                              refreshScreen();
+                              changeState(() {});
+                            } else {
+                              for (int i = 0; i < wishListItems.length; i++) {
+                                if (wishListItems[i]["node"]["id"] ==
+                                    wishList["node"]["id"]) {
+                                  wishListItems.removeAt(i);
+                                  wishListItemsCheck.removeAt(i);
+                                  var snackBar = SnackBar(
+                                    content: Text(
+                                      'Item Removed from Wish List',
+                                      style: TextStyle(
+                                        color: darkTheme == false
+                                            ? myWhite
+                                            : myBlack,
+                                      ),
+                                    ),
+                                    duration: const Duration(seconds: 1),
+                                    backgroundColor:
+                                        darkTheme == true ? myWhite : myBlack,
+                                  );
+
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                  if (refreshScreen != "") {
+                                    refreshScreen();
+                                  }
+                                  changeState(() {});
+                                  check = "yes";
+                                  break;
+                                } else {
+                                  check = "no";
+                                  changeState(() {});
+                                }
+                              }
+
+                              if (check == "no" && check != "yes") {
+                                wishListItems.add(wishList);
+                                wishListItemsCheck.add(wishList["node"]["id"]);
+                                var snackBar = SnackBar(
+                                  content: Text(
+                                    'Item Added to Wish List',
+                                    style: TextStyle(
+                                      color: darkTheme == false
+                                          ? myWhite
+                                          : myBlack,
+                                    ),
+                                  ),
+                                  duration: const Duration(seconds: 1),
+                                  backgroundColor:
+                                      darkTheme == true ? myWhite : myBlack,
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                                if (refreshScreen != "") {
+                                  refreshScreen();
+                                }
+                                changeState(() {});
+                              }
                             }
-                          }
-                        },
-                        child: CircleAvatar(
-                          radius: dynamicWidth(context, 0.03),
-                          backgroundColor: myWhite,
-                          child: Icon(
-                            wishListItemsCheck.contains(wishList["node"]["id"])
-                                ? Icons.favorite
-                                : Icons.favorite_border_rounded,
-                            size: dynamicWidth(context, 0.04),
-                            color: wishListItemsCheck
-                                    .contains(wishList["node"]["id"])
-                                ? myRed
-                                : myBlack.withOpacity(.3),
+                          },
+                          child: CircleAvatar(
+                            radius: dynamicWidth(context, 0.03),
+                            backgroundColor: myWhite,
+                            child: Icon(
+                              wishListItemsCheck
+                                      .contains(wishList["node"]["id"])
+                                  ? Icons.favorite
+                                  : Icons.favorite_border_rounded,
+                              size: dynamicWidth(context, 0.04),
+                              color: wishListItemsCheck
+                                      .contains(wishList["node"]["id"])
+                                  ? myRed
+                                  : myBlack.withOpacity(.3),
+                            ),
                           ),
-                        ),
-                      ),
+                        );
+                      }),
                     ),
             ],
           ),
@@ -524,12 +535,6 @@ String titleCase(String text) {
   return capitalized.join(' ');
 }
 
-final List<GroupItem> checkItems = [
-  GroupItem(title: 'Check One'),
-  GroupItem(title: 'Check Two'),
-  GroupItem(title: 'Check Three'),
-];
-
 filterContainer(context, function) {
   return showDialog(
     barrierDismissible: true,
@@ -808,8 +813,8 @@ filterContainer(context, function) {
                               "Apply Filters",
                               width: dynamicWidth(context, .3),
                               function: () {
-                                function();
                                 pop(context);
+                                function();
                               },
                             ),
                           ],

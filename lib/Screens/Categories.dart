@@ -78,15 +78,12 @@ class _CategoriesPageState extends State<CategoriesPage>
                 horizontal: dynamicWidth(context, 0.05),
               ),
               child: filterCheck == true
-                  ? rowText(
-                      "Categories",
-                      context,
-                      check: true,
-                    )
-                  : rowText(
-                      "Categories",
-                      context,
-                    ),
+                  ? rowText("Categories", context, check: true, function: () {
+                      setState(() {});
+                    })
+                  : rowText("Categories", context, function: () {
+                      setState(() {});
+                    }),
             ),
             heightBox(context, .02),
             Padding(
