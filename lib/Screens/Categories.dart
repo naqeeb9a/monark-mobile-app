@@ -126,6 +126,7 @@ class _CategoriesPageState extends State<CategoriesPage>
                                 shrinkWrap: true,
                                 itemBuilder: (BuildContext context, int index) {
                                   if (index <= 0) {
+                                    selectedIndex = categoryList[0];
                                     isSelected.add(true);
                                     globalIndex = 0;
                                   } else {
@@ -174,12 +175,18 @@ class _CategoriesPageState extends State<CategoriesPage>
                                             isSelected[i] = false;
                                           }
                                           setState(() {
+                                            selectedIndex =
+                                                categoryList[index]["title"];
+                                            print(selectedIndex + "Set");
                                             settedCategory =
                                                 categoryList[index]["id"];
                                             isSelected[index] = value;
                                           });
                                         } else {
                                           setState(() {
+                                            selectedIndex =
+                                                categoryList[index]["title"];
+                                            print(selectedIndex + "No");
                                             settedCategory =
                                                 categoryList[index]["id"];
                                             isSelected[index] = value;

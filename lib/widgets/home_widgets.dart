@@ -662,7 +662,7 @@ filterContainer(context, function) {
                                         Transform.scale(
                                           scale: .8,
                                           child: Checkbox(
-                                            value: small,
+                                            value: sizeArray[0],
                                             splashRadius: .4,
                                             checkColor: darkTheme == true
                                                 ? myRed
@@ -675,9 +675,10 @@ filterContainer(context, function) {
                                                     .shrinkWrap,
                                             visualDensity: VisualDensity(
                                                 horizontal: -4, vertical: -4),
-                                            onChanged: (bool? value) {
+                                            onChanged: (value) {
+                                              print(value);
                                               setState(() {
-                                                small = !small;
+                                                sizeArray[0] = value!;
                                               });
                                             },
                                           ),
@@ -701,7 +702,7 @@ filterContainer(context, function) {
                                         Transform.scale(
                                           scale: .8,
                                           child: Checkbox(
-                                            value: medium,
+                                            value: sizeArray[1],
                                             splashRadius: .4,
                                             checkColor: darkTheme == true
                                                 ? myRed
@@ -714,9 +715,9 @@ filterContainer(context, function) {
                                                     .shrinkWrap,
                                             visualDensity: VisualDensity(
                                                 horizontal: -4, vertical: -4),
-                                            onChanged: (bool? value) {
+                                            onChanged: (value) {
                                               setState(() {
-                                                medium = !medium;
+                                                sizeArray[1] = value!;
                                               });
                                             },
                                           ),
@@ -740,7 +741,7 @@ filterContainer(context, function) {
                                         Transform.scale(
                                           scale: .8,
                                           child: Checkbox(
-                                            value: large,
+                                            value: sizeArray[2],
                                             splashRadius: .4,
                                             checkColor: darkTheme == true
                                                 ? myRed
@@ -753,9 +754,9 @@ filterContainer(context, function) {
                                                     .shrinkWrap,
                                             visualDensity: VisualDensity(
                                                 horizontal: -4, vertical: -4),
-                                            onChanged: (bool? value) {
+                                            onChanged: (value) {
                                               setState(() {
-                                                large = !large;
+                                                sizeArray[2] = value!;
                                               });
                                             },
                                           ),
@@ -779,7 +780,7 @@ filterContainer(context, function) {
                                         Transform.scale(
                                           scale: .8,
                                           child: Checkbox(
-                                            value: xLarge,
+                                            value: sizeArray[3],
                                             splashRadius: .4,
                                             checkColor: darkTheme == true
                                                 ? myRed
@@ -792,9 +793,9 @@ filterContainer(context, function) {
                                                     .shrinkWrap,
                                             visualDensity: VisualDensity(
                                                 horizontal: -4, vertical: -4),
-                                            onChanged: (bool? value) {
+                                            onChanged: (value) {
                                               setState(() {
-                                                xLarge = !xLarge;
+                                                sizeArray[3] = value!;
                                               });
                                             },
                                           ),
