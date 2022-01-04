@@ -651,29 +651,116 @@ filterContainer(context, function) {
                                       ? myWhite
                                       : myBlack.withOpacity(.3),
                                 ),
-                                child: RadioGroup(
-                                  controller: myController,
-                                  values: [
-                                    "Small",
-                                    "Medium",
-                                    "Large",
-                                    "Extra Large",
-                                  ],
-                                  orientation: RadioGroupOrientation.Vertical,
-                                  decoration: RadioGroupDecoration(
-                                    spacing: 0,
-                                    labelStyle: TextStyle(
-                                      color:
-                                          darkTheme == true ? myWhite : myBlack,
-                                      fontSize: dynamicWidth(context, .03),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Transform.scale(
+                                          scale: .8,
+                                          child: Checkbox(
+                                            checkColor: Colors.greenAccent,
+                                            activeColor: Colors.red,
+                                            value: true,
+                                            splashRadius: .4,
+                                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                            visualDensity: VisualDensity(
+                                                horizontal: -4, vertical: -4),
+                                            onChanged: (bool? value) {},
+                                          ),
+                                        ),
+                                        Text("Small"),
+                                      ],
                                     ),
-                                    activeColor:
-                                        darkTheme == true ? myWhite : myRed,
-                                  ),
-                                  onChanged: (selectedValue) =>
-                                      sizeFilterCheck =
-                                          selectedValue.toString(),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Transform.scale(
+                                          scale: .8,
+                                          child: Checkbox(
+                                            checkColor: Colors.greenAccent,
+                                            activeColor: Colors.red,
+                                            value: true,
+                                            splashRadius: .4,
+                                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                            visualDensity: VisualDensity(
+                                                horizontal: -4, vertical: -4),
+                                            onChanged: (bool? value) {},
+                                          ),
+                                        ),
+                                        Text("Medium"),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Transform.scale(
+                                          scale: .8,
+                                          child: Checkbox(
+                                            checkColor: Colors.greenAccent,
+                                            activeColor: Colors.red,
+                                            value: true,
+                                            splashRadius: .4,
+                                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                            visualDensity: VisualDensity(
+                                                horizontal: -4, vertical: -4),
+                                            onChanged: (bool? value) {},
+                                          ),
+                                        ),
+                                        Text("Large"),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Transform.scale(
+                                          scale: .8,
+                                          child: Checkbox(
+                                            checkColor: Colors.greenAccent,
+                                            activeColor: Colors.red,
+                                            value: true,
+                                            splashRadius: .4,
+                                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                            visualDensity: VisualDensity(
+                                                horizontal: -4, vertical: -4),
+                                            onChanged: (bool? value) {},
+                                          ),
+                                        ),
+                                        Text("Extra Large"),
+                                      ],
+                                    ),
+                                  ],
                                 ),
+
+                                // RadioGroup(
+                                //   controller: myController,
+                                //   values: [
+                                //     "Small",
+                                //     "Medium",
+                                //     "Large",
+                                //     "Extra Large",
+                                //   ],
+                                //   orientation: RadioGroupOrientation.Vertical,
+                                //   decoration: RadioGroupDecoration(
+                                //     spacing: 0,
+                                //     labelStyle: TextStyle(
+                                //       color:
+                                //           darkTheme == true ? myWhite : myBlack,
+                                //       fontSize: dynamicWidth(context, .03),
+                                //     ),
+                                //     activeColor:
+                                //         darkTheme == true ? myWhite : myRed,
+                                //   ),
+                                //   onChanged: (selectedValue) =>
+                                //       sizeFilterCheck =
+                                //           selectedValue.toString(),
+                                // ),
                               ),
                             ),
                           ],
