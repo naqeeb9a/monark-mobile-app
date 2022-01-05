@@ -5,6 +5,9 @@ import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
+import 'dart:core';
+
+
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -15,6 +18,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+  
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   dynamic futureHomeData = "";
   bool loading = true;
@@ -27,11 +31,12 @@ class _HomeState extends State<Home>
       sLoading = true;
     });
     sliderImage = await ApiData().getInfo("banners");
-
     setState(() {
       sLoading = false;
     });
   }
+
+  
 
   getHomeData() async {
     setState(() {

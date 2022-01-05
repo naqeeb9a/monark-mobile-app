@@ -13,7 +13,7 @@ import 'package:monark_app/widgets/shopify_functions.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:radio_group_v2/radio_group_v2.dart';
 import 'package:recase/recase.dart';
-
+import 'package:video_player/video_player.dart';
 import '../utils/config.dart';
 import 'drawer_items.dart';
 import 'media_query.dart';
@@ -473,7 +473,26 @@ Widget homeSlider(context, height, length, viewFraction, image, bool detail,
   );
 }
 
+enum UrlType { IMAGE, VIDEO, UNKNOWN }
+UrlType getUrlType(String url) {
+  Uri uri = Uri.parse(url);
+  String typeString = uri.path.substring(uri.path.length - 3).toLowerCase();
+  if (typeString == "jpg") {
+    return UrlType.IMAGE;
+  }
+  if (typeString == "mp4") {
+    return UrlType.VIDEO;
+  } else {
+    return UrlType.UNKNOWN;
+  }
+}
+
 Widget sliderContainer(context, image, bool detail) {
+  late VideoPlayerController _controller;
+  var type = getUrlType(image);
+  if (type == UrlType.VIDEO) {
+    _controller = VideoPlayerController.network(image)..initialize();
+  }
   return InteractiveViewer(
     child: (image == "loading")
         ? Image.asset(
@@ -504,17 +523,24 @@ Widget sliderContainer(context, image, bool detail) {
                                 dynamicWidth(context, 0.08),
                               )
                             : BorderRadius.circular(0),
-                        child: CachedNetworkImage(
-                          imageUrl: image,
-                          fit: BoxFit.cover,
-                          width: dynamicWidth(context, 1),
-                          placeholder: (context, string) {
-                            return Image.asset(
-                              "assets/loader.gif",
-                              scale: 6,
-                            );
-                          },
-                        ),
+                        child: type == UrlType.IMAGE
+                            ? CachedNetworkImage(
+                                imageUrl: image,
+                                fit: BoxFit.cover,
+                                width: dynamicWidth(context, 1),
+                                placeholder: (context, string) {
+                                  return Image.asset(
+                                    "assets/loader.gif",
+                                    scale: 6,
+                                  );
+                                },
+                              )
+                            : _controller.value.isInitialized
+                                ? AspectRatio(
+                                    aspectRatio: _controller.value.aspectRatio,
+                                    child: VideoPlayer(_controller),
+                                  )
+                                : Text("loading Video"),
                       ),
                     ),
                   ),
