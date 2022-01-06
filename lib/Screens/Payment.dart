@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monark_app/api/api.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/coloredButton.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
@@ -10,6 +11,7 @@ import 'Confirmation.dart';
 
 class Payment extends StatefulWidget {
   final bool guestCheck;
+
   const Payment({Key? key, this.guestCheck = false}) : super(key: key);
 
   @override
@@ -18,14 +20,41 @@ class Payment extends StatefulWidget {
 
 class _PaymentState extends State<Payment> {
   bool isLoading = false;
+
+  dynamic discountPercentage = 0,
+      discountStatus = 0,
+      subtotal = 0,
+      discountValue = 0,
+      total = 0;
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
-  Widget build(BuildContext context) {
-    var subtotal = 0;
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    discount();
+  }
+
+  discount() {
     for (var u in cartItems) {
       subtotal += int.parse(u["total"].toString());
     }
+
+    ApiData().getInfo("discounts").then((value) {
+      discountStatus = value["status"];
+      if (discountStatus == 1) {
+        setState(() {
+          discountPercentage = 0;
+          discountPercentage = value["discount_percentage"];
+          discountValue = ((subtotal / 100) * discountPercentage);
+          total = subtotal - discountValue;
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return (isLoading == true)
         ? Scaffold(
             body: jumpingDots(context),
@@ -289,6 +318,64 @@ class _PaymentState extends State<Payment> {
                                         ),
                                 ],
                               ),
+                              heightBox(context, 0.01),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Discount",
+                                    style: TextStyle(
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
+                                      fontSize: dynamicWidth(context, .032),
+                                    ),
+                                  ),
+                                  discountStatus == 0
+                                      ? Text(
+                                          "PKR . 0",
+                                          style: TextStyle(
+                                            fontFamily: "Aeonik",
+                                            fontWeight: FontWeight.w700,
+                                            color: darkTheme == true
+                                                ? myWhite
+                                                : myRed,
+                                            fontSize:
+                                                dynamicWidth(context, .032),
+                                          ),
+                                        )
+                                      : Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              "PKR . ${numberFormat(discountValue.toStringAsFixed(0))}",
+                                              style: TextStyle(
+                                                fontFamily: "Aeonik",
+                                                fontWeight: FontWeight.w700,
+                                                color: darkTheme == true
+                                                    ? myWhite
+                                                    : myRed,
+                                                fontSize:
+                                                    dynamicWidth(context, .032),
+                                              ),
+                                            ),
+                                            Text(
+                                              "Mobile App user Discount of $discountPercentage%",
+                                              style: TextStyle(
+                                                fontFamily: "Aeonik",
+                                                fontWeight: FontWeight.w700,
+                                                color: darkTheme == true
+                                                    ? myWhite
+                                                    : myRed,
+                                                fontSize:
+                                                    dynamicWidth(context, .024),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                ],
+                              ),
                               heightBox(context, 0.05),
                               Row(
                                 mainAxisAlignment:
@@ -307,8 +394,8 @@ class _PaymentState extends State<Payment> {
                                   subtotal < 2000
                                       ? Text(
                                           "PKR. " +
-                                              numberFormat(
-                                                  (subtotal + 200).toString()),
+                                              numberFormat((total + 200)
+                                                  .toStringAsFixed(0)),
                                           style: TextStyle(
                                             fontFamily: "Aeonik",
                                             fontWeight: FontWeight.w700,
@@ -321,7 +408,8 @@ class _PaymentState extends State<Payment> {
                                         )
                                       : Text(
                                           "PKR. " +
-                                              numberFormat(subtotal.toString()),
+                                              numberFormat(
+                                                  total.toStringAsFixed(0)),
                                           style: TextStyle(
                                             fontFamily: "Aeonik",
                                             fontWeight: FontWeight.w700,
@@ -345,7 +433,8 @@ class _PaymentState extends State<Payment> {
                   setState(() {
                     isLoading = true;
                   });
-                  var response = await createDraftOrders(subtotal,
+                  var response = await createDraftOrders(
+                      total, discountValue, discountPercentage,
                       guestCheck: widget.guestCheck == true ? true : false);
                   if (response == null || response == "Server Error") {
                     setState(() {

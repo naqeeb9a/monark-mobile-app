@@ -380,14 +380,17 @@ mutation customerRecover($email: String!) {
   }
 }
 
-createDraftOrders(subtotal, {guestCheck = false}) async {
+createDraftOrders(total, discountValue, discountPercentage,
+    {guestCheck = false}) async {
   var localOrderList = [];
   for (var i = 0; i < cartItems.length; i++) {
-    localOrderList.add({
-      "variantId":
-          utf8.decode(base64Decode(cartItems[i]["variantId"])).toString(),
-      "quantity": (cartItems[i]["quantity"])
-    });
+    localOrderList.add(
+      {
+        "variantId":
+            utf8.decode(base64Decode(cartItems[i]["variantId"])).toString(),
+        "quantity": (cartItems[i]["quantity"])
+      },
+    );
   }
   var createUserAccessToken = r'''
 mutation draftOrderCreate($input: DraftOrderInput!) {
@@ -422,7 +425,7 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
   var orderVariables = guestCheck == true
       ? {
           "input": {
-            "note": "Test draft order",
+            "note": "Live App Order",
             "email": "${guestAddressList[2]}",
             "tags": [
               Platform.isAndroid
@@ -431,7 +434,7 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
             ],
             "shippingLine": {
               "title": "Cash on Delivery",
-              "price": (subtotal < 2000) ? 200 : 0
+              "price": (total < 2000) ? 200 : 0
             },
             "shippingAddress": {
               "address1": guestAddressList[4].toString(),
@@ -447,13 +450,20 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
               "country": guestAddressList[7].toString(),
               "zip": guestAddressList[8].toString()
             },
+            "appliedDiscount": {
+              "description": "Mobile App User",
+              "value": discountPercentage,
+              "amount": discountValue,
+              "valueType": "PERCENTAGE",
+              "title": "Mobile App User Discount",
+            },
             "lineItems": localOrderList
           }
         }
       : {
           "input": {
             "customerId": utf8.decode(base64Decode(id)).toString(),
-            "note": "Test draft order",
+            "note": "Live App Order",
             "email": "$checkOutEmail",
             "tags": [
               Platform.isAndroid
@@ -462,7 +472,7 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
             ],
             "shippingLine": {
               "title": "Cash on Delivery",
-              "price": (subtotal < 2000) ? 200 : 0
+              "price": (total < 2000) ? 200 : 0
             },
             "shippingAddress": {
               "address1":
@@ -481,6 +491,13 @@ mutation draftOrderCreate($input: DraftOrderInput!) {
                   addressList[group.value]["node"]["province"].toString(),
               "country": addressList[group.value]["node"]["country"].toString(),
               "zip": addressList[group.value]["node"]["zip"].toString()
+            },
+            "appliedDiscount": {
+              "description": "Mobile App User",
+              "value": discountPercentage,
+              "amount": discountValue,
+              "valueType": "PERCENTAGE",
+              "title": "Mobile App User Discount",
             },
             "lineItems": localOrderList
           }

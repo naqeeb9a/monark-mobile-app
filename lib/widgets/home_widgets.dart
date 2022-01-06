@@ -2,6 +2,7 @@ import 'package:another_xlider/another_xlider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:monark_app/Screens/Categories.dart';
@@ -14,6 +15,7 @@ import 'package:progress_indicators/progress_indicators.dart';
 import 'package:radio_group_v2/radio_group_v2.dart';
 import 'package:recase/recase.dart';
 import 'package:video_player/video_player.dart';
+
 import '../utils/config.dart';
 import 'drawer_items.dart';
 import 'media_query.dart';
@@ -474,6 +476,7 @@ Widget homeSlider(context, height, length, viewFraction, image, bool detail,
 }
 
 enum UrlType { IMAGE, VIDEO, UNKNOWN }
+
 UrlType getUrlType(String url) {
   Uri uri = Uri.parse(url);
   String typeString = uri.path.substring(uri.path.length - 3).toLowerCase();
@@ -488,11 +491,38 @@ UrlType getUrlType(String url) {
 }
 
 Widget sliderContainer(context, image, bool detail) {
-  late VideoPlayerController _controller;
+  // VideoPlayerController videoPlayerController;
+  // ChewieController chewieController;
   var type = getUrlType(image);
-  if (type == UrlType.VIDEO) {
-    _controller = VideoPlayerController.network(image)..initialize();
-  }
+
+  print("image $image");
+  // if (type == UrlType.VIDEO) {
+  //   videoPlayerController = VideoPlayerController.network(image);
+  //   videoPlayerController.initialize();
+  //
+  //   // chewieController = ChewieController(
+  //   //   videoPlayerController: videoPlayerController,
+  //   //   autoInitialize: true,
+  //   //   autoPlay: true,
+  //   //   looping: true,
+  //   //   showControls: true,
+  //   //   showOptions: false,
+  //   //   aspectRatio: 1.0,
+  //   //   allowMuting: true,
+  //   // );
+  // }
+
+  //
+  //
+  // final chewieController = ChewieController(
+  //   videoPlayerController: _controller,
+  //   autoPlay: true,
+  //   looping: true,
+  // );
+  final videoPlayerController = VideoPlayerController.network(image);
+
+  videoPlayerController.initialize();
+
   return InteractiveViewer(
     child: (image == "loading")
         ? Image.asset(
@@ -518,30 +548,45 @@ Widget sliderContainer(context, image, bool detail) {
                               horizontal: dynamicWidth(context, 0.02),
                             ),
                       child: ClipRRect(
-                        borderRadius: (detail == true)
-                            ? BorderRadius.circular(
-                                dynamicWidth(context, 0.08),
-                              )
-                            : BorderRadius.circular(0),
-                        child: type == UrlType.IMAGE
-                            ? CachedNetworkImage(
-                                imageUrl: image,
-                                fit: BoxFit.cover,
-                                width: dynamicWidth(context, 1),
-                                placeholder: (context, string) {
-                                  return Image.asset(
-                                    "assets/loader.gif",
-                                    scale: 6,
-                                  );
-                                },
-                              )
-                            : _controller.value.isInitialized
-                                ? AspectRatio(
-                                    aspectRatio: _controller.value.aspectRatio,
-                                    child: VideoPlayer(_controller),
-                                  )
-                                : Text("loading Video"),
-                      ),
+                          borderRadius: (detail == true)
+                              ? BorderRadius.circular(
+                                  dynamicWidth(context, 0.08),
+                                )
+                              : BorderRadius.circular(0),
+                          child: type == UrlType.IMAGE
+                              ? CachedNetworkImage(
+                                  imageUrl: image,
+                                  fit: BoxFit.cover,
+                                  width: dynamicWidth(context, 1),
+                                  placeholder: (context, string) {
+                                    return Image.asset(
+                                      "assets/loader.gif",
+                                      scale: 6,
+                                    );
+                                  },
+                                )
+                              : Chewie(
+                                  controller: ChewieController(
+                                    videoPlayerController:
+                                        videoPlayerController,
+                                    autoInitialize: true,
+                                    autoPlay: true,
+                                    looping: true,
+                                    showControls: true,
+                                    showOptions: false,
+                                    aspectRatio: 1.0,
+                                    allowMuting: true,
+                                  ),
+                                )
+                          // _controller.value.isInitialized
+                          //         ? AspectRatio(
+                          //             aspectRatio: _controller.value.aspectRatio,
+                          //             child: Chewie(
+                          //               controller: chewieController,
+                          //             ),
+                          //           )
+                          //     : Text("loading Video"),
+                          ),
                     ),
                   ),
                 ],
