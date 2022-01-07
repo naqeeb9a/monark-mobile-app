@@ -30,7 +30,7 @@ class _PaymentState extends State<Payment> {
 
   @override
   void initState() {
-    // TODO: implement initState
+   
     super.initState();
     discount();
   }

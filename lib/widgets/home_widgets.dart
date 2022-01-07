@@ -2,7 +2,6 @@ import 'package:another_xlider/another_xlider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:monark_app/Screens/Categories.dart';
@@ -466,8 +465,8 @@ Widget homeSlider(context, height, length, viewFraction, image, bool detail,
             }
           : null,
       enlargeStrategy: CenterPageEnlargeStrategy.height,
-      autoPlay: detail,
-      autoPlayInterval: Duration(seconds: 6),
+      // autoPlay: detail,
+      // autoPlayInterval: Duration(seconds: 6),
       viewportFraction: viewFraction,
       autoPlayAnimationDuration: Duration(seconds: 2),
       autoPlayCurve: Curves.fastLinearToSlowEaseIn,
@@ -486,43 +485,25 @@ UrlType getUrlType(String url) {
   if (typeString == "mp4") {
     return UrlType.VIDEO;
   } else {
-    return UrlType.UNKNOWN;
+    return UrlType.IMAGE;
   }
 }
 
 Widget sliderContainer(context, image, bool detail) {
-  // VideoPlayerController videoPlayerController;
-  // ChewieController chewieController;
+  late VideoPlayerController _controller;
+  Future<void> _initializeVideoPlayerFuture;
   var type = getUrlType(image);
 
-  print("image $image");
-  // if (type == UrlType.VIDEO) {
-  //   videoPlayerController = VideoPlayerController.network(image);
-  //   videoPlayerController.initialize();
-  //
-  //   // chewieController = ChewieController(
-  //   //   videoPlayerController: videoPlayerController,
-  //   //   autoInitialize: true,
-  //   //   autoPlay: true,
-  //   //   looping: true,
-  //   //   showControls: true,
-  //   //   showOptions: false,
-  //   //   aspectRatio: 1.0,
-  //   //   allowMuting: true,
-  //   // );
-  // }
-
-  //
-  //
-  // final chewieController = ChewieController(
-  //   videoPlayerController: _controller,
-  //   autoPlay: true,
-  //   looping: true,
-  // );
-  final videoPlayerController = VideoPlayerController.network(image);
-
-  videoPlayerController.initialize();
-
+  // type = UrlType.VIDEO;
+  print(type);
+  print(image);
+  if (type == UrlType.VIDEO) {
+    _controller = VideoPlayerController.network(
+        "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4");
+    _initializeVideoPlayerFuture = _controller.initialize();
+    _controller.setLooping(true);
+    _controller.setVolume(0);
+  }
   return InteractiveViewer(
     child: (image == "loading")
         ? Image.asset(
@@ -548,45 +529,47 @@ Widget sliderContainer(context, image, bool detail) {
                               horizontal: dynamicWidth(context, 0.02),
                             ),
                       child: ClipRRect(
-                          borderRadius: (detail == true)
-                              ? BorderRadius.circular(
-                                  dynamicWidth(context, 0.08),
-                                )
-                              : BorderRadius.circular(0),
-                          child: type == UrlType.IMAGE
-                              ? CachedNetworkImage(
-                                  imageUrl: image,
-                                  fit: BoxFit.cover,
-                                  width: dynamicWidth(context, 1),
-                                  placeholder: (context, string) {
-                                    return Image.asset(
+                        borderRadius: (detail == true)
+                            ? BorderRadius.circular(
+                                dynamicWidth(context, 0.08),
+                              )
+                            : BorderRadius.circular(0),
+                        child: type == UrlType.IMAGE
+                            ? CachedNetworkImage(
+                                imageUrl: image,
+                                fit: BoxFit.cover,
+                                width: dynamicWidth(context, 1),
+                                placeholder: (context, string) {
+                                  return Image.asset(
+                                    "assets/loader.gif",
+                                    scale: 6,
+                                  );
+                                },
+                              )
+                            : FutureBuilder(
+                                future: _initializeVideoPlayerFuture =
+                                    Future.error(""),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.done) {
+                                    _controller.play();
+                                    return Center(
+                                      child: AspectRatio(
+                                        aspectRatio:
+                                            _controller.value.aspectRatio,
+                                        child: VideoPlayer(_controller),
+                                      ),
+                                    );
+                                  } else {
+                                    return Center(
+                                        child: Image.asset(
                                       "assets/loader.gif",
                                       scale: 6,
-                                    );
-                                  },
-                                )
-                              : Chewie(
-                                  controller: ChewieController(
-                                    videoPlayerController:
-                                        videoPlayerController,
-                                    autoInitialize: true,
-                                    autoPlay: true,
-                                    looping: true,
-                                    showControls: true,
-                                    showOptions: false,
-                                    aspectRatio: 1.0,
-                                    allowMuting: true,
-                                  ),
-                                )
-                          // _controller.value.isInitialized
-                          //         ? AspectRatio(
-                          //             aspectRatio: _controller.value.aspectRatio,
-                          //             child: Chewie(
-                          //               controller: chewieController,
-                          //             ),
-                          //           )
-                          //     : Text("loading Video"),
-                          ),
+                                    ));
+                                  }
+                                },
+                              ),
+                      ),
                     ),
                   ),
                 ],
