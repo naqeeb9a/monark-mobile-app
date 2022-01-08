@@ -491,16 +491,9 @@ UrlType getUrlType(String url) {
 
 Widget sliderContainer(context, image, bool detail) {
   late VideoPlayerController _controller;
-  Future<void> _initializeVideoPlayerFuture;
   var type = getUrlType(image);
-
-  // type = UrlType.VIDEO;
-  print(type);
-  print(image);
   if (type == UrlType.VIDEO) {
-    _controller = VideoPlayerController.network(
-        "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4");
-    _initializeVideoPlayerFuture = _controller.initialize();
+    _controller = VideoPlayerController.network(image);
     _controller.setLooping(true);
     _controller.setVolume(0);
   }
@@ -547,8 +540,6 @@ Widget sliderContainer(context, image, bool detail) {
                                 },
                               )
                             : FutureBuilder(
-                                future: _initializeVideoPlayerFuture =
-                                    Future.error(""),
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState ==
                                       ConnectionState.done) {
@@ -747,7 +738,6 @@ filterContainer(context, function) {
                                             visualDensity: VisualDensity(
                                                 horizontal: -4, vertical: -4),
                                             onChanged: (value) {
-                                              print(value);
                                               setState(() {
                                                 sizeArray[0] = value!;
                                               });

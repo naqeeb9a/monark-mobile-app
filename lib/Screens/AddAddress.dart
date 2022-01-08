@@ -12,6 +12,7 @@ import '../utils/config.dart';
 
 class AddAddress extends StatefulWidget {
   final bool guestCheck;
+
   const AddAddress({Key? key, this.guestCheck = false}) : super(key: key);
 
   @override
@@ -123,8 +124,8 @@ class _AddAddressState extends State<AddAddress> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                addressInput(context, "Name",
-                                    TextInputType.name,
+                                addressInput(
+                                    context, "Name", TextInputType.name,
                                     localAddressList: widget.guestCheck == true
                                         ? guestAddressList
                                         : localAddressList, function: (value) {
@@ -132,8 +133,9 @@ class _AddAddressState extends State<AddAddress> {
                                     return "Please complete this field";
                                   }
                                 }),
-                                addressInput(context, "Last Name",
-                                    TextInputType.name,
+                                heightBox(context, .012),
+                                addressInput(
+                                    context, "Last Name", TextInputType.name,
                                     localAddressList: widget.guestCheck == true
                                         ? guestAddressList
                                         : localAddressList, function: (value) {
@@ -141,6 +143,9 @@ class _AddAddressState extends State<AddAddress> {
                                     return "Please complete this field";
                                   }
                                 }),
+                                widget.guestCheck == true
+                                    ? heightBox(context, .012)
+                                    : heightBox(context, 0),
                                 Visibility(
                                   visible:
                                       widget.guestCheck == true ? true : false,
@@ -156,15 +161,17 @@ class _AddAddressState extends State<AddAddress> {
                                     }
                                   }),
                                 ),
-                                addressInput(context, "Phone",
-                                    TextInputType.phone,
+                                heightBox(context, .012),
+                                addressInput(
+                                    context, "Phone", TextInputType.phone,
                                     localAddressList: widget.guestCheck == true
                                         ? guestAddressList
                                         : localAddressList, function: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Please complete this field";
-                                      }
-                                    }),
+                                  if (value!.isEmpty) {
+                                    return "Please complete this field";
+                                  }
+                                }),
+                                heightBox(context, .012),
                                 addressInput(context, "Address",
                                     TextInputType.streetAddress,
                                     localAddressList: widget.guestCheck == true
@@ -174,16 +181,9 @@ class _AddAddressState extends State<AddAddress> {
                                     return "Please complete this field";
                                   }
                                 }),
-                                // addressInput(
-                                //   context,
-                                //   "Address",
-                                //   TextInputType.streetAddress,
-                                //   localAddressList: widget.guestCheck == true
-                                //       ? guestAddressList
-                                //       : localAddressList,
-                                // ),
-                                addressInput(context, "City",
-                                    TextInputType.text,
+                                heightBox(context, .012),
+                                addressInput(
+                                    context, "City", TextInputType.text,
                                     localAddressList: widget.guestCheck == true
                                         ? guestAddressList
                                         : localAddressList, function: (value) {
@@ -191,8 +191,9 @@ class _AddAddressState extends State<AddAddress> {
                                     return "Please complete this field";
                                   }
                                 }),
-                                addressInput(context, "Province",
-                                    TextInputType.text,
+                                heightBox(context, .012),
+                                addressInput(
+                                    context, "Province", TextInputType.text,
                                     localAddressList: widget.guestCheck == true
                                         ? guestAddressList
                                         : localAddressList, function: (value) {
@@ -200,8 +201,9 @@ class _AddAddressState extends State<AddAddress> {
                                     return "Please complete this field";
                                   }
                                 }),
-                                addressInput(context, "Country",
-                                    TextInputType.text,
+                                heightBox(context, .012),
+                                addressInput(
+                                    context, "Country", TextInputType.text,
                                     localAddressList: widget.guestCheck == true
                                         ? guestAddressList
                                         : localAddressList, function: (value) {
@@ -209,8 +211,9 @@ class _AddAddressState extends State<AddAddress> {
                                     return "Please complete this field";
                                   }
                                 }),
-                                addressInput(context, "Postal Code",
-                                    TextInputType.phone,
+                                heightBox(context, .012),
+                                addressInput(
+                                    context, "Postal Code", TextInputType.phone,
                                     localAddressList: widget.guestCheck == true
                                         ? guestAddressList
                                         : localAddressList, function: (value) {
@@ -218,7 +221,6 @@ class _AddAddressState extends State<AddAddress> {
                                     return "Please complete this field";
                                   }
                                 }),
-
                               ],
                             ),
                           )),

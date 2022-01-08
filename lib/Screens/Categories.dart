@@ -177,7 +177,7 @@ class _CategoriesPageState extends State<CategoriesPage>
                                           setState(() {
                                             selectedIndex =
                                                 categoryList[index]["title"];
-                                            print(selectedIndex + "Set");
+
                                             settedCategory =
                                                 categoryList[index]["id"];
                                             isSelected[index] = value;
@@ -186,7 +186,7 @@ class _CategoriesPageState extends State<CategoriesPage>
                                           setState(() {
                                             selectedIndex =
                                                 categoryList[index]["title"];
-                                            print(selectedIndex + "No");
+
                                             settedCategory =
                                                 categoryList[index]["id"];
                                             isSelected[index] = value;
