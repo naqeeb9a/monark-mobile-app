@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monark_app/api/api.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
@@ -15,6 +16,14 @@ class TrackOrder extends StatefulWidget {
 
 class _TrackOrderState extends State<TrackOrder> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
+  dynamic apiData;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    apiData = ApiData().getInfo("trackorder/${widget.orderNumber}");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,30 +64,66 @@ class _TrackOrderState extends State<TrackOrder> {
                 ),
               ),
             ),
-            heightBox(context, 0.05),
-            radioRow(context, "1. Confirmed", true),
-            radioRow(context, "2. Dispatched", true),
-            radioRow(context, "3. Delivered", false),
-            heightBox(context, 0.1),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Estimated Delivery Date",
-                  style: TextStyle(
-                    color: darkTheme == true ? myWhite : myBlack,
-                    fontSize: dynamicWidth(context, .032),
-                  ),
-                ),
-                Text(
-                  "12-Dec-2021",
-                  style: TextStyle(
-                    color: darkTheme == true ? myWhite : myBlack,
-                    fontSize: dynamicWidth(context, .032),
-                  ),
-                ),
-              ],
-            )
+            FutureBuilder(
+              future: apiData,
+              builder: (context, snapshot) {
+                print("object = ${(snapshot.data as List)[0]}");
+                if (snapshot.hasData) {
+                  return Column(
+                    children: [
+                      heightBox(context, 0.05),
+                      radioRow(
+                        context,
+                        "1. Confirmed",
+                        (snapshot.data as List)[0]["confirmed"],
+                      ),
+                      radioRow(
+                        context,
+                        "2. Dispatched",
+                        (snapshot.data as List)[0]["dispached"],
+                      ),
+                      radioRow(
+                        context,
+                        "3. Delivered",
+                        (snapshot.data as List)[0]["delivered"],
+                      ),
+                      heightBox(context, 0.1),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Estimated Delivery Date",
+                            style: TextStyle(
+                              color: darkTheme == true ? myWhite : myBlack,
+                              fontSize: dynamicWidth(context, .032),
+                            ),
+                          ),
+                          Text(
+                            (snapshot.data as List)[0]["delivery_date"]
+                                .toString(),
+                            style: TextStyle(
+                              color: darkTheme == true ? myWhite : myBlack,
+                              fontSize: dynamicWidth(context, .032),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                } else if (snapshot.data == false) {
+                  return Text(
+                    "Something Went Wrong!!",
+                    style: TextStyle(
+                      color: darkTheme == true ? myWhite : myBlack,
+                      fontSize: dynamicWidth(context, .028),
+                    ),
+                  );
+                }
+                return Center(
+                  child: jumpingDots(context),
+                );
+              },
+            ),
           ],
         ),
       ),
