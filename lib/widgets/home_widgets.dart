@@ -28,91 +28,145 @@ Widget basicCards(context, imageUrl, text,
     categoriesCheck = false,
     wishList = "",
     refreshScreen = ""}) {
-  return InkWell(
-    onTap: (categoriesCheck == true)
-        ? () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SeeAll(
-                  text: text,
-                  function: getShopifyCollection(handle),
-                  handle: handle,
-                  check: false,
+  return StatefulBuilder(builder: (context, chnageState) {
+    return InkWell(
+      onTap: (categoriesCheck == true)
+          ? () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SeeAll(
+                    text: text,
+                    function: getShopifyCollection(handle),
+                    handle: handle,
+                    check: false,
+                  ),
                 ),
-              ),
-            );
-          }
-        : () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DetailPage(
-                  image: imageUrl,
-                  variantProduct: variantProduct,
-                  text: text,
-                  array: sizeOption,
-                  description: description,
-                  productType: productType,
-                  wishList: wishList,
+              );
+            }
+          : () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailPage(
+                    image: imageUrl,
+                    variantProduct: variantProduct,
+                    text: text,
+                    array: sizeOption,
+                    description: description,
+                    productType: productType,
+                    wishList: wishList,
+                  ),
                 ),
-              ),
-            );
-          },
-    child: internalWidgetCard(
-        context, imageUrl, variantProduct, text, categoriesCheck,
-        wishList: wishList, refreshScreen: refreshScreen),
-  );
+              ).then((value) {
+                chnageState(() {});
+              });
+            },
+      child: internalWidgetCard(
+          context, imageUrl, variantProduct, text, categoriesCheck,
+          wishList: wishList, refreshScreen: refreshScreen),
+    );
+  });
 }
 
 Widget internalWidgetCard(
     context, imageUrl, variantProduct, text, categoriesCheck,
     {outOfStock = false, wishList = "", refreshScreen = ""}) {
-  return StatefulBuilder(builder: (context, stateful) {
-    return Container(
-      width: dynamicWidth(context, 0.47),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(
-                  dynamicWidth(context, .06),
-                ),
-                child: Container(
-                  height: dynamicWidth(context, .61),
-                  width: dynamicWidth(context, .47),
-                  color: myWhite,
-                  child: CachedNetworkImage(
-                    imageUrl: categoriesCheck == true
-                        ? imageUrl
-                        : imageUrl[0]["node"]["src"],
-                    fit: BoxFit.cover,
-                    errorWidget: (context, url, error) => SizedBox(
-                      height: dynamicHeight(context, 0.4),
-                      child: Center(child: retryFunction(context, check: true)),
-                    ),
-                    placeholder: (context, string) {
-                      return Image.asset(
-                        "assets/loader.gif",
-                        scale: 6,
-                      );
-                    },
+  return Container(
+    width: dynamicWidth(context, 0.47),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(
+                dynamicWidth(context, .06),
+              ),
+              child: Container(
+                height: dynamicWidth(context, .61),
+                width: dynamicWidth(context, .47),
+                color: myWhite,
+                child: CachedNetworkImage(
+                  imageUrl: categoriesCheck == true
+                      ? imageUrl
+                      : imageUrl[0]["node"]["src"],
+                  fit: BoxFit.cover,
+                  errorWidget: (context, url, error) => SizedBox(
+                    height: dynamicHeight(context, 0.4),
+                    child: Center(child: retryFunction(context, check: true)),
                   ),
+                  placeholder: (context, string) {
+                    return Image.asset(
+                      "assets/loader.gif",
+                      scale: 6,
+                    );
+                  },
                 ),
               ),
-              categoriesCheck == true
-                  ? Container()
-                  : Positioned(
-                      bottom: dynamicHeight(context, 0.02),
-                      right: dynamicWidth(context, 0.04),
-                      child: StatefulBuilder(builder: (context, changeState) {
-                        return GestureDetector(
-                          onTap: () {
-                            var check = "";
-                            if (wishListItems.length == 0) {
+            ),
+            categoriesCheck == true
+                ? Container()
+                : Positioned(
+                    bottom: dynamicHeight(context, 0.02),
+                    right: dynamicWidth(context, 0.04),
+                    child: StatefulBuilder(builder: (context, changeState) {
+                      return GestureDetector(
+                        onTap: () {
+                          var check = "";
+                          if (wishListItems.length == 0) {
+                            wishListItems.add(wishList);
+                            wishListItemsCheck.add(wishList["node"]["id"]);
+                            var snackBar = SnackBar(
+                              content: Text(
+                                'Item Added to Wish List',
+                                style: TextStyle(
+                                  color: darkTheme == false ? myWhite : myBlack,
+                                ),
+                              ),
+                              duration: const Duration(seconds: 1),
+                              backgroundColor:
+                                  darkTheme == true ? myWhite : myBlack,
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                            changeState(() {});
+                          } else {
+                            for (int i = 0; i < wishListItems.length; i++) {
+                              if (wishListItems[i]["node"]["id"] ==
+                                  wishList["node"]["id"]) {
+                                wishListItems.removeAt(i);
+                                wishListItemsCheck.removeAt(i);
+                                var snackBar = SnackBar(
+                                  content: Text(
+                                    'Item Removed from Wish List',
+                                    style: TextStyle(
+                                      color: darkTheme == false
+                                          ? myWhite
+                                          : myBlack,
+                                    ),
+                                  ),
+                                  duration: const Duration(seconds: 1),
+                                  backgroundColor:
+                                      darkTheme == true ? myWhite : myBlack,
+                                );
+
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                                if (refreshScreen != "") {
+                                  refreshScreen();
+                                }
+                                changeState(() {});
+                                check = "yes";
+                                break;
+                              } else {
+                                check = "no";
+                                changeState(() {});
+                              }
+                            }
+
+                            if (check == "no" && check != "yes") {
                               wishListItems.add(wishList);
                               wishListItemsCheck.add(wishList["node"]["id"]);
                               var snackBar = SnackBar(
@@ -129,170 +183,115 @@ Widget internalWidgetCard(
                               );
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
+                              if (refreshScreen != "") {
+                                refreshScreen();
+                              }
                               changeState(() {});
-                            } else {
-                              for (int i = 0; i < wishListItems.length; i++) {
-                                if (wishListItems[i]["node"]["id"] ==
-                                    wishList["node"]["id"]) {
-                                  wishListItems.removeAt(i);
-                                  wishListItemsCheck.removeAt(i);
-                                  var snackBar = SnackBar(
-                                    content: Text(
-                                      'Item Removed from Wish List',
-                                      style: TextStyle(
-                                        color: darkTheme == false
-                                            ? myWhite
-                                            : myBlack,
-                                      ),
-                                    ),
-                                    duration: const Duration(seconds: 1),
-                                    backgroundColor:
-                                        darkTheme == true ? myWhite : myBlack,
-                                  );
-
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
-                                  if (refreshScreen != "") {
-                                    refreshScreen();
-                                  }
-                                  changeState(() {});
-                                  check = "yes";
-                                  break;
-                                } else {
-                                  check = "no";
-                                  changeState(() {});
-                                }
-                              }
-
-                              if (check == "no" && check != "yes") {
-                                wishListItems.add(wishList);
-                                wishListItemsCheck.add(wishList["node"]["id"]);
-                                var snackBar = SnackBar(
-                                  content: Text(
-                                    'Item Added to Wish List',
-                                    style: TextStyle(
-                                      color: darkTheme == false
-                                          ? myWhite
-                                          : myBlack,
-                                    ),
-                                  ),
-                                  duration: const Duration(seconds: 1),
-                                  backgroundColor:
-                                      darkTheme == true ? myWhite : myBlack,
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                                if (refreshScreen != "") {
-                                  refreshScreen();
-                                }
-                                changeState(() {});
-                              }
                             }
-                          },
-                          child: CircleAvatar(
-                            radius: dynamicWidth(context, 0.03),
-                            backgroundColor: myWhite,
-                            child: Icon(
-                              wishListItemsCheck
-                                      .contains(wishList["node"]["id"])
-                                  ? Icons.favorite
-                                  : Icons.favorite_border_rounded,
-                              size: dynamicWidth(context, 0.04),
-                              color: wishListItemsCheck
-                                      .contains(wishList["node"]["id"])
-                                  ? myRed
-                                  : myBlack.withOpacity(.3),
-                            ),
+                          }
+                        },
+                        child: CircleAvatar(
+                          radius: dynamicWidth(context, 0.03),
+                          backgroundColor: myWhite,
+                          child: Icon(
+                            wishListItemsCheck.contains(wishList["node"]["id"])
+                                ? Icons.favorite
+                                : Icons.favorite_border_rounded,
+                            size: dynamicWidth(context, 0.04),
+                            color: wishListItemsCheck
+                                    .contains(wishList["node"]["id"])
+                                ? myRed
+                                : myBlack.withOpacity(.3),
                           ),
-                        );
-                      }),
-                    ),
-            ],
-          ),
-          heightBox(context, 0.01),
-          categoriesCheck == true
-              ? Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    text,
-                    style: TextStyle(
-                      fontFamily: "Aeonik",
-                      color: darkTheme == true ? myWhite : myBlack,
-                      fontSize: dynamicWidth(context, .03),
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                        ),
+                      );
+                    }),
                   ),
-                )
-              : Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    text.toString().titleCase,
-                    style: TextStyle(
-                      color: darkTheme == true ? myWhite : myBlack,
-                      fontSize: dynamicWidth(context, .028),
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+          ],
+        ),
+        heightBox(context, 0.01),
+        categoriesCheck == true
+            ? Align(
+                alignment: Alignment.center,
+                child: Text(
+                  text,
+                  style: TextStyle(
+                    fontFamily: "Aeonik",
+                    color: darkTheme == true ? myWhite : myBlack,
+                    fontSize: dynamicWidth(context, .03),
+                    fontWeight: FontWeight.bold,
                   ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-          categoriesCheck == true
-              ? Container()
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    (variantProduct[0]["node"]["compareAtPrice"] ==
-                                variantProduct[0]["node"]["price"] ||
-                            variantProduct[0]["node"]["compareAtPrice"] == null)
-                        ? Text(
-                            "PKR. " +
-                                numberFormat(double.parse(
-                                        variantProduct[0]["node"]["price"])
-                                    .toInt()
-                                    .toString()),
-                            style: TextStyle(
-                              fontFamily: "Aeonik",
-                              color: darkTheme == true ? myWhite : myBlack,
-                              fontWeight: FontWeight.w900,
-                              fontSize: dynamicWidth(context, .028),
-                            ),
-                          )
-                        : Text(
-                            "PKR. " +
-                                numberFormat(double.parse(variantProduct[0]
-                                        ["node"]["compareAtPrice"])
-                                    .toInt()
-                                    .toString()),
-                            style: TextStyle(
-                              fontFamily: "Aeonik",
-                              color: darkTheme == true ? myWhite : myBlack,
-                              decoration: TextDecoration.lineThrough,
-                              fontSize: dynamicWidth(context, .028),
-                            ),
+              )
+            : Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  text.toString().titleCase,
+                  style: TextStyle(
+                    color: darkTheme == true ? myWhite : myBlack,
+                    fontSize: dynamicWidth(context, .028),
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+        categoriesCheck == true
+            ? Container()
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  (variantProduct[0]["node"]["compareAtPrice"] ==
+                              variantProduct[0]["node"]["price"] ||
+                          variantProduct[0]["node"]["compareAtPrice"] == null)
+                      ? Text(
+                          "PKR. " +
+                              numberFormat(double.parse(
+                                      variantProduct[0]["node"]["price"])
+                                  .toInt()
+                                  .toString()),
+                          style: TextStyle(
+                            fontFamily: "Aeonik",
+                            color: darkTheme == true ? myWhite : myBlack,
+                            fontWeight: FontWeight.w900,
+                            fontSize: dynamicWidth(context, .028),
                           ),
-                    (variantProduct[0]["node"]["compareAtPrice"] ==
-                                variantProduct[0]["node"]["price"] ||
-                            variantProduct[0]["node"]["compareAtPrice"] == null)
-                        ? Container()
-                        : Text(
-                            "PKR. " +
-                                numberFormat(double.parse(
-                                        variantProduct[0]["node"]["price"])
-                                    .toInt()
-                                    .toString()),
-                            style: TextStyle(
-                              fontWeight: FontWeight.w900,
-                              fontSize: dynamicWidth(context, .028),
-                              color: darkTheme == true ? myWhite : myRed,
-                            ),
-                          )
-                  ],
-                ),
-        ],
-      ),
-    );
-  });
+                        )
+                      : Text(
+                          "PKR. " +
+                              numberFormat(double.parse(variantProduct[0]
+                                      ["node"]["compareAtPrice"])
+                                  .toInt()
+                                  .toString()),
+                          style: TextStyle(
+                            fontFamily: "Aeonik",
+                            color: darkTheme == true ? myWhite : myBlack,
+                            decoration: TextDecoration.lineThrough,
+                            fontSize: dynamicWidth(context, .028),
+                          ),
+                        ),
+                  (variantProduct[0]["node"]["compareAtPrice"] ==
+                              variantProduct[0]["node"]["price"] ||
+                          variantProduct[0]["node"]["compareAtPrice"] == null)
+                      ? Container()
+                      : Text(
+                          "PKR. " +
+                              numberFormat(double.parse(
+                                      variantProduct[0]["node"]["price"])
+                                  .toInt()
+                                  .toString()),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: dynamicWidth(context, .028),
+                            color: darkTheme == true ? myWhite : myRed,
+                          ),
+                        )
+                ],
+              ),
+      ],
+    ),
+  );
 }
 
 Widget rowText(text, context, {function = "", check = false}) {
@@ -465,8 +464,8 @@ Widget homeSlider(context, height, length, viewFraction, image, bool detail,
             }
           : null,
       enlargeStrategy: CenterPageEnlargeStrategy.height,
-      // autoPlay: detail,
-      // autoPlayInterval: Duration(seconds: 6),
+      autoPlay: detail,
+      autoPlayInterval: Duration(seconds: 6),
       viewportFraction: viewFraction,
       autoPlayAnimationDuration: Duration(seconds: 2),
       autoPlayCurve: Curves.fastLinearToSlowEaseIn,
@@ -490,12 +489,17 @@ UrlType getUrlType(String url) {
 }
 
 Widget sliderContainer(context, image, bool detail) {
+  dynamic intializeVideoPlayer;
   late VideoPlayerController _controller;
-  var type = getUrlType(image);
-  if (type == UrlType.VIDEO) {
-    _controller = VideoPlayerController.network(image);
-    _controller.setLooping(true);
-    _controller.setVolume(0);
+  var type;
+  if (image != false) {
+    type = getUrlType(image);
+    if (type == UrlType.VIDEO) {
+      _controller = VideoPlayerController.network(image);
+      intializeVideoPlayer = _controller.initialize();
+      _controller.setLooping(true);
+      _controller.setVolume(0);
+    }
   }
   return InteractiveViewer(
     child: (image == "loading")
@@ -540,15 +544,25 @@ Widget sliderContainer(context, image, bool detail) {
                                 },
                               )
                             : FutureBuilder(
+                                future: intializeVideoPlayer,
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState ==
                                       ConnectionState.done) {
                                     _controller.play();
-                                    return Center(
-                                      child: AspectRatio(
-                                        aspectRatio:
-                                            _controller.value.aspectRatio,
-                                        child: VideoPlayer(_controller),
+                                    return InkWell(
+                                      onTap: () {
+                                        if (_controller.value.isPlaying)
+                                          _controller.pause();
+                                        else {
+                                          _controller.play();
+                                        }
+                                      },
+                                      child: Center(
+                                        child: AspectRatio(
+                                          aspectRatio:
+                                              _controller.value.aspectRatio,
+                                          child: VideoPlayer(_controller),
+                                        ),
                                       ),
                                     );
                                   } else {

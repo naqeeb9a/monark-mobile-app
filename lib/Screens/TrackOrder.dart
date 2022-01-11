@@ -20,7 +20,6 @@ class _TrackOrderState extends State<TrackOrder> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     apiData = ApiData().getInfo("trackorder/${widget.orderNumber}");
   }
