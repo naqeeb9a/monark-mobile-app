@@ -183,6 +183,7 @@ class _LoginState extends State<Login> {
                                                   : myWhite,
                                               fontSize:
                                                   dynamicWidth(context, .028),
+                                              fontWeight: FontWeight.w500,
                                             ),
                                           ),
                                         ),

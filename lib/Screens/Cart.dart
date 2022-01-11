@@ -324,26 +324,33 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                 borderRadius: BorderRadius.circular(
                   dynamicWidth(context, .03),
                 ),
-                child: CachedNetworkImage(
-                  imageUrl: cartItems[index]["imageUrl"],
-                  height: dynamicHeight(context, .14),
-                  width: dynamicWidth(context, .22),
-                  fit: BoxFit.fill,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: dynamicHeight(context, .002),
+                  ),
+                  child: Center(
+                    child: CachedNetworkImage(
+                      imageUrl: cartItems[index]["imageUrl"],
+                      height: dynamicHeight(context, .14),
+                      width: dynamicWidth(context, .22),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
                 ),
               ),
-              SizedBox(
-                width: dynamicWidth(context, .04),
-              ),
+              widthBox(context, .04),
               Container(
                 width: (check == true)
                     ? dynamicWidth(context, 0.5)
                     : dynamicWidth(context, .6),
+                padding: EdgeInsets.zero,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
                           cartItems[index]["title"],
@@ -370,14 +377,33 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text(
-                              "Size: " + cartItems[index]["size"].toString(),
-                              style: TextStyle(
-                                fontSize: dynamicWidth(context, .032),
-                                color: darkTheme == true ? myWhite : myBlack,
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "Size: ",
+                                    style: TextStyle(
+                                      fontSize: dynamicWidth(context, .032),
+                                      color: darkTheme == true
+                                          ? myWhite
+                                          : myBlack,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: cartItems[index]["size"].toString(),
+                                    style: TextStyle(
+                                      fontSize: dynamicWidth(context, .032),
+                                      color: darkTheme == true
+                                          ? myWhite
+                                          : myBlack,
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                             widthBox(context, 0.014),
@@ -393,17 +419,19 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                                     text: "Qty: ",
                                     style: TextStyle(
                                       fontSize: dynamicWidth(context, .032),
-                                      color:
-                                          darkTheme == true ? myWhite : myBlack,
+                                      color: darkTheme == true
+                                          ? myWhite
+                                          : myBlack,
                                     ),
                                   ),
                                   TextSpan(
-                                    text:
-                                        cartItems[index]["quantity"].toString(),
+                                    text: cartItems[index]["quantity"]
+                                        .toString(),
                                     style: TextStyle(
                                       fontSize: dynamicWidth(context, .032),
-                                      color:
-                                          darkTheme == true ? myWhite : myBlack,
+                                      color: darkTheme == true
+                                          ? myWhite
+                                          : myBlack,
                                     ),
                                   )
                                 ],
@@ -423,17 +451,12 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                               default:
                             }
                           },
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              bottom: dynamicWidth(context, .024),
-                            ),
-                            child: Image.asset(
-                              "assets/icons/bin.png",
-                              height: dynamicHeight(context, .03),
-                              color: darkTheme == true
-                                  ? myWhite.withOpacity(.6)
-                                  : myBlack.withOpacity(.2),
-                            ),
+                          child: Image.asset(
+                            "assets/icons/bin.png",
+                            height: dynamicHeight(context, 0.024),
+                            color: darkTheme == true
+                                ? myWhite.withOpacity(.6)
+                                : myBlack.withOpacity(.2),
                           ),
                         ),
                       ],

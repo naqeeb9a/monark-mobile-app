@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:monark_app/api/api.dart';
 import 'package:monark_app/utils/config.dart';
@@ -5,9 +7,6 @@ import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
-import 'dart:core';
-
-
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -16,9 +15,7 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home>
-    with SingleTickerProviderStateMixin {
-  
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   dynamic futureHomeData = "";
   bool loading = true;
@@ -36,8 +33,6 @@ class _HomeState extends State<Home>
     });
   }
 
-  
-
   getHomeData() async {
     setState(() {
       loading = true;
@@ -54,7 +49,6 @@ class _HomeState extends State<Home>
     sliderImageApi();
     getHomeData();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +68,7 @@ class _HomeState extends State<Home>
         },
       ),
       resizeToAvoidBottomInset: false,
-      drawerScrimColor: Colors.white54,
+      drawerScrimColor: darkTheme == true ? Colors.black54 : Colors.white54,
       endDrawer: drawer(context),
       backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
       body: Container(

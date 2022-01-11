@@ -7,7 +7,7 @@ Widget inputTextField(context, label, myController,
     {function, function2, password = false, hintText = ""}) {
   return Container(
     decoration: BoxDecoration(
-      color: myWhite,
+      color: noColor,
       borderRadius: BorderRadius.circular(
         dynamicWidth(context, .4),
       ),
@@ -27,16 +27,41 @@ Widget inputTextField(context, label, myController,
       ),
       decoration: InputDecoration(
         fillColor: myWhite,
+        focusColor: myWhite,
+        hoverColor: myWhite,
+        filled: true,
         isDense: true,
+        border: InputBorder.none,
         hintText: hintText,
         hintStyle: TextStyle(
           color: myBlack.withOpacity(.3),
+        ),
+        errorStyle: TextStyle(
+          fontSize: dynamicWidth(context, .028),
+          color: darkTheme == true ? myWhite : myBlack,
+          fontWeight: FontWeight.w500,
         ),
         contentPadding: EdgeInsets.symmetric(
           vertical: dynamicHeight(context, 0.01),
           horizontal: dynamicWidth(context, .05),
         ),
         focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .4),
+          ),
+          borderSide: BorderSide(
+            color: darkTheme == true ? myWhite : myBlack.withOpacity(.1),
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .4),
+          ),
+          borderSide: BorderSide(
+            color: darkTheme == true ? myWhite : myBlack.withOpacity(.1),
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
             dynamicWidth(context, .4),
           ),
@@ -142,33 +167,62 @@ Widget addressInput(context, hintText, type, {localAddressList, function}) {
         fontSize: dynamicWidth(context, .03),
       ),
       decoration: InputDecoration(
-          isDense: true,
-          contentPadding: EdgeInsets.symmetric(
-            vertical: dynamicHeight(context, .01),
-            horizontal: dynamicWidth(context, .03),
+        fillColor: myWhite,
+        focusColor: myWhite,
+        hoverColor: myWhite,
+        filled: true,
+        isDense: true,
+        border: InputBorder.none,
+        hintText: hintText,
+        hintStyle: TextStyle(
+          color: myBlack.withOpacity(.3),
+          fontSize: dynamicWidth(context, .03),
+        ),
+        errorStyle: TextStyle(
+          fontSize: dynamicWidth(context, .028),
+          color: darkTheme == true ? myWhite : myBlack,
+          fontWeight: FontWeight.w500,
+        ),
+        contentPadding: EdgeInsets.symmetric(
+          vertical: dynamicHeight(context, .01),
+          horizontal: dynamicWidth(context, .03),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .4),
           ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(
-              dynamicWidth(context, .4),
-            ),
-            borderSide: BorderSide(
-              color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
-            ),
+          borderSide: BorderSide(
+            color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
           ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(
-              dynamicWidth(context, .4),
-            ),
-            borderSide: BorderSide(
-              color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
-              width: .5,
-            ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .4),
           ),
-          hintText: hintText,
-          hintStyle: TextStyle(
-            color: myBlack.withOpacity(.3),
-            fontSize: dynamicWidth(context, .03),
-          )),
+          borderSide: BorderSide(
+            color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
+            width: .5,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .4),
+          ),
+          borderSide: BorderSide(
+            color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
+            width: .5,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            dynamicWidth(context, .4),
+          ),
+          borderSide: BorderSide(
+            color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
+            width: .5,
+          ),
+        ),
+      ),
       validator: function == "" ? () {} : function,
       onSaved: (value) {
         localAddressList.add(value);
