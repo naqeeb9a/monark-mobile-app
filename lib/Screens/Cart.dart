@@ -56,7 +56,7 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
               curve: Curves.easeInOut);
         },
       ),
-      drawerScrimColor: Colors.white54,
+      drawerScrimColor: darkTheme == true ? Colors.black54 : Colors.white54,
       endDrawer: drawer(context),
       body: Stack(
         alignment: Alignment.center,
@@ -389,18 +389,16 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                                     text: "Size: ",
                                     style: TextStyle(
                                       fontSize: dynamicWidth(context, .032),
-                                      color: darkTheme == true
-                                          ? myWhite
-                                          : myBlack,
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
                                     ),
                                   ),
                                   TextSpan(
                                     text: cartItems[index]["size"].toString(),
                                     style: TextStyle(
                                       fontSize: dynamicWidth(context, .032),
-                                      color: darkTheme == true
-                                          ? myWhite
-                                          : myBlack,
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
                                     ),
                                   )
                                 ],
@@ -419,19 +417,17 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                                     text: "Qty: ",
                                     style: TextStyle(
                                       fontSize: dynamicWidth(context, .032),
-                                      color: darkTheme == true
-                                          ? myWhite
-                                          : myBlack,
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
                                     ),
                                   ),
                                   TextSpan(
-                                    text: cartItems[index]["quantity"]
-                                        .toString(),
+                                    text:
+                                        cartItems[index]["quantity"].toString(),
                                     style: TextStyle(
                                       fontSize: dynamicWidth(context, .032),
-                                      color: darkTheme == true
-                                          ? myWhite
-                                          : myBlack,
+                                      color:
+                                          darkTheme == true ? myWhite : myBlack,
                                     ),
                                   )
                                 ],

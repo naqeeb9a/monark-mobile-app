@@ -83,7 +83,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           "Send Verification Email",
                           width: dynamicWidth(context, .6),
                           function: () async {
-
                             if (!_formKey.currentState!.validate()) {
                               return;
                             } else {
@@ -124,8 +123,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                       pop(context);
                                     });
                               }
-
-
                             }
                           },
                         ),

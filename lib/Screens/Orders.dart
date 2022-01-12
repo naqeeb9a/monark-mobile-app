@@ -31,7 +31,7 @@ class _OrdersState extends State<Orders> {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
-      drawerScrimColor: Colors.white54,
+      drawerScrimColor: darkTheme == true ? Colors.black54 : Colors.white54,
       endDrawer: drawer(context),
       body: Center(
         child: Container(

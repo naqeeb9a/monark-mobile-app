@@ -19,6 +19,7 @@ void pushAndRemoveUntil(context, Widget page) {
       ),
       (Route<dynamic> route) => false);
 }
+
 void popUntil(context) {
   Navigator.popUntil(context, (route) => route.isFirst);
 }

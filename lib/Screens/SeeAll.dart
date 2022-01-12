@@ -41,7 +41,7 @@ class _SeeAllState extends State<SeeAll> {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
-      drawerScrimColor: Colors.white54,
+      drawerScrimColor: darkTheme == true ? Colors.black54 : Colors.white54,
       endDrawer: drawer(context),
       backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
       body: Center(

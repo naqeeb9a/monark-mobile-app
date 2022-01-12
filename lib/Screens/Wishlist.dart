@@ -37,7 +37,7 @@ class _WishlistPageState extends State<WishlistPage> {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
-      drawerScrimColor: Colors.white54,
+      drawerScrimColor: darkTheme == true ? Colors.black54 : Colors.white54,
       endDrawer: drawer(context),
       body: Center(
         child: Container(

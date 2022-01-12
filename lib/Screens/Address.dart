@@ -110,7 +110,7 @@ class _AddressPageState extends State<AddressPage> {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
-      drawerScrimColor: Colors.white54,
+      drawerScrimColor: darkTheme == true ? Colors.black54 : Colors.white54,
       endDrawer: drawer(context),
       body: (loading == true)
           ? Center(child: jumpingDots(context))
@@ -292,8 +292,7 @@ class _AddressPageState extends State<AddressPage> {
                             vertical: dynamicHeight(context, .01),
                           ),
                           child: Text(
-                            addressList[index]["node"]["address1"]
-                                    .toString() +
+                            addressList[index]["node"]["address1"].toString() +
                                 ", " +
                                 addressList[index]["node"]["city"].toString(),
                             overflow: TextOverflow.ellipsis,

@@ -81,7 +81,7 @@ class _ProfileState extends State<Profile>
             duration: const Duration(milliseconds: 600),
             curve: Curves.easeInOut);
       }),
-      drawerScrimColor: Colors.white54,
+      drawerScrimColor: darkTheme == true ? Colors.black54 : Colors.white54,
       endDrawer: drawer(context),
       body: SafeArea(
         child: Align(

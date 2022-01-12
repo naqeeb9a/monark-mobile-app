@@ -29,7 +29,7 @@ class _ContactPageState extends State<ContactPage> {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
-      drawerScrimColor: Colors.white54,
+      drawerScrimColor: darkTheme == true ? Colors.black54 : Colors.white54,
       endDrawer: drawer(context),
       body: SafeArea(
         child: SingleChildScrollView(

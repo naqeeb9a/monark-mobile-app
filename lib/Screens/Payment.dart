@@ -30,7 +30,6 @@ class _PaymentState extends State<Payment> {
 
   @override
   void initState() {
-   
     super.initState();
     discount();
   }
@@ -72,6 +71,8 @@ class _PaymentState extends State<Payment> {
               },
             ),
             endDrawer: drawer(context),
+            drawerScrimColor:
+                darkTheme == true ? Colors.black54 : Colors.white54,
             body: Stack(
               alignment: Alignment.center,
               children: [

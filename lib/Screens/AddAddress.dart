@@ -96,7 +96,7 @@ class _AddAddressState extends State<AddAddress> {
           _scaffoldKey.currentState!.openEndDrawer();
         },
       ),
-      drawerScrimColor: Colors.white54,
+      drawerScrimColor: darkTheme == true ? Colors.black54 : Colors.white54,
       endDrawer: drawer(context),
       body: (isloading == true)
           ? jumpingDots(context)

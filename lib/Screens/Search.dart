@@ -10,6 +10,7 @@ import 'package:monark_app/widgets/media_query.dart';
 
 class SearchPage extends StatefulWidget {
   final PageController controller;
+
   SearchPage({Key? key, required this.controller}) : super(key: key);
 
   @override
@@ -21,7 +22,6 @@ class _SearchPageState extends State<SearchPage> {
   dynamic futureSearchData = "";
   TextEditingController searchText = TextEditingController();
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
-
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _SearchPageState extends State<SearchPage> {
         },
       ),
       resizeToAvoidBottomInset: false,
-      drawerScrimColor: Colors.white54,
+      drawerScrimColor: darkTheme == true ? Colors.black54 : Colors.white54,
       endDrawer: drawer(context),
       body: SafeArea(
         child: Column(
