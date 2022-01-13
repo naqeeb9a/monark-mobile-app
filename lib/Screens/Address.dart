@@ -12,9 +12,10 @@ import 'package:monark_app/widgets/media_query.dart';
 import 'Payment.dart';
 
 class AddressPage extends StatefulWidget {
-  final bool check;
+  final bool check, profileCheck;
 
-  const AddressPage({Key? key, this.check = false}) : super(key: key);
+  const AddressPage({Key? key, this.check = false, this.profileCheck = false})
+      : super(key: key);
 
   @override
   State<AddressPage> createState() => _AddressPageState();
@@ -129,7 +130,7 @@ class _AddressPageState extends State<AddressPage> {
                         SizedBox(
                           height: dynamicHeight(context, .04),
                         ),
-                        (globalAccessToken == "")
+                        globalAccessToken == ""
                             ? SizedBox(
                                 height: dynamicHeight(context, 0.6),
                                 child: Center(
@@ -254,58 +255,108 @@ class _AddressPageState extends State<AddressPage> {
                   shrinkWrap: true,
                   itemCount: addressList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Row(
-                      children: [
-                        Obx(() {
-                          return Theme(
-                            data: Theme.of(context).copyWith(
-                              unselectedWidgetColor: darkTheme == true
-                                  ? myWhite
-                                  : myBlack.withOpacity(.3),
+                    return widget.profileCheck == false
+                        ? Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: dynamicHeight(context, .006),
                             ),
-                            child: Radio(
-                              value: index,
-                              activeColor: myRed,
-                              groupValue: int.parse(group.toString()),
-                              onChanged: (value) {
-                                group.value = value as int;
-                              },
+                            child: Row(
+                              children: [
+                                Obx(() {
+                                  return Theme(
+                                    data: Theme.of(context).copyWith(
+                                      unselectedWidgetColor: darkTheme == true
+                                          ? myWhite
+                                          : myBlack.withOpacity(.3),
+                                    ),
+                                    child: Radio(
+                                      value: index,
+                                      activeColor: myRed,
+                                      groupValue: int.parse(group.toString()),
+                                      onChanged: (value) {
+                                        group.value = value as int;
+                                      },
+                                      visualDensity: VisualDensity(
+                                        vertical: -4.0,
+                                      ),
+                                    ),
+                                  );
+                                }),
+                                Container(
+                                  width: dynamicWidth(context, 0.75),
+                                  decoration: BoxDecoration(
+                                    color: myWhite,
+                                    border: Border.all(
+                                      width: .3,
+                                      color: darkTheme == true
+                                          ? myWhite
+                                          : myBlack.withOpacity(.3),
+                                    ),
+                                    borderRadius: BorderRadius.circular(
+                                      dynamicWidth(context, 0.03),
+                                    ),
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: dynamicWidth(context, 0.04),
+                                    vertical: dynamicHeight(context, .01),
+                                  ),
+                                  child: Text(
+                                    addressList[index]["node"]["address1"]
+                                            .toString() +
+                                        ", " +
+                                        addressList[index]["node"]["city"]
+                                            .toString(),
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: myBlack,
+                                      fontSize: dynamicWidth(context, 0.032),
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    maxLines: 2,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: dynamicHeight(context, .006),
+                              horizontal: dynamicWidth(context, .04),
+                            ),
+                            child: Container(
+                              width: dynamicWidth(context, 0.75),
+                              decoration: BoxDecoration(
+                                color: myWhite,
+                                border: Border.all(
+                                  width: .3,
+                                  color: darkTheme == true
+                                      ? myWhite
+                                      : myBlack.withOpacity(.3),
+                                ),
+                                borderRadius: BorderRadius.circular(
+                                  dynamicWidth(context, 0.03),
+                                ),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: dynamicWidth(context, 0.04),
+                                vertical: dynamicHeight(context, .01),
+                              ),
+                              child: Text(
+                                addressList[index]["node"]["address1"]
+                                        .toString() +
+                                    ", " +
+                                    addressList[index]["node"]["city"]
+                                        .toString(),
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: myBlack,
+                                  fontSize: dynamicWidth(context, 0.032),
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                maxLines: 2,
+                              ),
                             ),
                           );
-                        }),
-                        Container(
-                          width: dynamicWidth(context, 0.75),
-                          decoration: BoxDecoration(
-                            color: myWhite,
-                            border: Border.all(
-                              width: .3,
-                              color: darkTheme == true
-                                  ? myWhite
-                                  : myBlack.withOpacity(.3),
-                            ),
-                            borderRadius: BorderRadius.circular(
-                              dynamicWidth(context, 0.03),
-                            ),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: dynamicWidth(context, 0.04),
-                            vertical: dynamicHeight(context, .01),
-                          ),
-                          child: Text(
-                            addressList[index]["node"]["address1"].toString() +
-                                ", " +
-                                addressList[index]["node"]["city"].toString(),
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: myBlack,
-                              fontSize: dynamicWidth(context, 0.032),
-                              fontWeight: FontWeight.w400,
-                            ),
-                            maxLines: 2,
-                          ),
-                        ),
-                      ],
-                    );
                   },
                 ),
     );

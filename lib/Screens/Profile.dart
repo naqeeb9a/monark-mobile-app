@@ -202,6 +202,7 @@ class _ProfileState extends State<Profile>
                                     context,
                                     AddressPage(
                                       check: true,
+                                      profileCheck: true,
                                     ),
                                   );
                                 },

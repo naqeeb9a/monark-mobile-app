@@ -489,14 +489,14 @@ UrlType getUrlType(String url) {
 }
 
 Widget sliderContainer(context, image, bool detail) {
-  dynamic intializeVideoPlayer;
+  dynamic initializeVideoPlayer;
   late VideoPlayerController _controller;
   var type;
   if (image != false) {
     type = getUrlType(image);
     if (type == UrlType.VIDEO) {
       _controller = VideoPlayerController.network(image);
-      intializeVideoPlayer = _controller.initialize();
+      initializeVideoPlayer = _controller.initialize();
       _controller.setLooping(true);
       _controller.setVolume(0);
     }
@@ -544,7 +544,7 @@ Widget sliderContainer(context, image, bool detail) {
                                 },
                               )
                             : FutureBuilder(
-                                future: intializeVideoPlayer,
+                                future: initializeVideoPlayer,
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState ==
                                       ConnectionState.done) {
