@@ -60,7 +60,7 @@ class _PaymentState extends State<Payment> {
           )
         : Scaffold(
             key: _scaffoldKey,
-            backgroundColor: myWhite,
+            backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
             appBar: bar(
               context,
               leadingIcon: true,
