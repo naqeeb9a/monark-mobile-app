@@ -135,19 +135,24 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Checkbox(
-                          value: emailCheck,
-                          activeColor: darkTheme == true ? myWhite : myRed,
-                          checkColor: darkTheme == true ? myBlack : myWhite,
-                          side: BorderSide(
-                            width: .4,
+                        Theme(
+                          data: Theme.of(context).copyWith(
+                            unselectedWidgetColor: darkTheme == true
+                                ? myWhite
+                                : myBlack.withOpacity(.3),
                           ),
-                          onChanged: (value) {
-                            setState(() {
-                              emailCheck = value!;
-                            });
-                          },
-                          visualDensity: VisualDensity(vertical: -4),
+                          child: Checkbox(
+                            value: emailCheck,
+                            splashRadius: .4,
+                            checkColor: darkTheme == true ? myRed : myWhite,
+                            activeColor: darkTheme == true ? myWhite : myRed,
+                            visualDensity: VisualDensity(vertical: -4),
+                            onChanged: (value) {
+                              setState(() {
+                                emailCheck = value!;
+                              });
+                            },
+                          ),
                         ),
                         Text(
                           "via email",
@@ -161,19 +166,24 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Checkbox(
-                          value: textCheck,
-                          activeColor: darkTheme == true ? myWhite : myRed,
-                          checkColor: darkTheme == true ? myBlack : myWhite,
-                          side: BorderSide(
-                            width: .4,
+                        Theme(
+                          data: Theme.of(context).copyWith(
+                            unselectedWidgetColor: darkTheme == true
+                                ? myWhite
+                                : myBlack.withOpacity(.3),
                           ),
-                          onChanged: (value1) {
-                            setState(() {
-                              textCheck = value1!;
-                            });
-                          },
-                          visualDensity: VisualDensity(vertical: -4),
+                          child: Checkbox(
+                            value: textCheck,
+                            splashRadius: .4,
+                            checkColor: darkTheme == true ? myRed : myWhite,
+                            activeColor: darkTheme == true ? myWhite : myRed,
+                            visualDensity: VisualDensity(vertical: -4),
+                            onChanged: (value1) {
+                              setState(() {
+                                textCheck = value1!;
+                              });
+                            },
+                          ),
                         ),
                         Text(
                           "via text",

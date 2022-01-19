@@ -152,7 +152,7 @@ Widget searchbar(context, {enabled = true, controller, setStateFunction}) {
 Widget addressInput(context, hintText, type, {localAddressList, function}) {
   return Container(
     decoration: BoxDecoration(
-      color: myWhite,
+      color: noColor,
       borderRadius: BorderRadius.circular(
         dynamicWidth(context, .4),
       ),

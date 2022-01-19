@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monark_app/Screens/Categories.dart';
 import 'package:monark_app/api/api.dart';
 import 'package:monark_app/utils/config.dart';
 import 'package:monark_app/widgets/app_bar.dart';
@@ -6,9 +7,14 @@ import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 
 class TrackOrder extends StatefulWidget {
-  final String orderNumber;
+  final String orderNumber, fulfilmentStatus, trackingNumber;
 
-  const TrackOrder({Key? key, required this.orderNumber}) : super(key: key);
+  const TrackOrder({
+    Key? key,
+    required this.orderNumber,
+    required this.fulfilmentStatus,
+    required this.trackingNumber,
+  }) : super(key: key);
 
   @override
   State<TrackOrder> createState() => _TrackOrderState();
@@ -21,7 +27,7 @@ class _TrackOrderState extends State<TrackOrder> {
   @override
   void initState() {
     super.initState();
-    apiData = ApiData().getInfo("trackorder/${widget.orderNumber}");
+    apiData = ApiData().trackingOrder(widget.trackingNumber);
   }
 
   @override
@@ -41,7 +47,9 @@ class _TrackOrderState extends State<TrackOrder> {
       drawerScrimColor: darkTheme == true ? Colors.black54 : Colors.white54,
       endDrawer: drawer(context),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(
+          horizontal: dynamicWidth(context, .05),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -63,66 +71,48 @@ class _TrackOrderState extends State<TrackOrder> {
                 ),
               ),
             ),
-            FutureBuilder(
-              future: apiData,
-              builder: (context, snapshot) {
-                print("object = ${(snapshot.data as List)[0]}");
-                if (snapshot.hasData) {
-                  return Column(
-                    children: [
-                      heightBox(context, 0.05),
-                      radioRow(
-                        context,
-                        "1. Confirmed",
-                        (snapshot.data as List)[0]["confirmed"],
-                      ),
-                      radioRow(
-                        context,
-                        "2. Dispatched",
-                        (snapshot.data as List)[0]["dispached"],
-                      ),
-                      radioRow(
-                        context,
-                        "3. Delivered",
-                        (snapshot.data as List)[0]["delivered"],
-                      ),
-                      heightBox(context, 0.1),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Estimated Delivery Date",
-                            style: TextStyle(
-                              color: darkTheme == true ? myWhite : myBlack,
-                              fontSize: dynamicWidth(context, .032),
-                            ),
+            widget.fulfilmentStatus == "UNFULFILLED"
+                ? Expanded(
+                    child: Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          bottom: dynamicHeight(context, .24),
+                        ),
+                        child: Text(
+                          "Tracking not Available!!",
+                          style: TextStyle(
+                            color: myWhite,
+                            fontSize: dynamicWidth(context, .032),
                           ),
-                          Text(
-                            (snapshot.data as List)[0]["delivery_date"]
-                                .toString(),
-                            style: TextStyle(
-                              color: darkTheme == true ? myWhite : myBlack,
-                              fontSize: dynamicWidth(context, .032),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ],
-                  );
-                } else if (snapshot.data == false) {
-                  return Text(
-                    "Something Went Wrong!!",
-                    style: TextStyle(
-                      color: darkTheme == true ? myWhite : myBlack,
-                      fontSize: dynamicWidth(context, .028),
                     ),
-                  );
-                }
-                return Center(
-                  child: jumpingDots(context),
-                );
-              },
-            ),
+                  )
+                : Expanded(
+                    child: FutureBuilder(
+                      future: apiData,
+                      builder: (context, snapshot) {
+                        print("objectAPi = $snapshot");
+                        print("objectResponse = ${(snapshot.data as List)[0]}");
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          if (snapshot.data == false) {
+                            return Center(
+                              child: retryFunction(context),
+                            );
+                          } else {
+                            return Text(
+                              snapshot.data.toString(),
+                              style: TextStyle(color: myWhite),
+                            );
+                          }
+                        } else {
+                          return Center(
+                            child: jumpingDots(context),
+                          );
+                        }
+                      },
+                    ),
+                  ),
           ],
         ),
       ),

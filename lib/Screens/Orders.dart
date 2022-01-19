@@ -73,6 +73,15 @@ Widget orderCards(
             MaterialPageRoute(
               builder: (context) => TrackOrder(
                 orderNumber: snapshot[index]["node"]["orderNumber"].toString(),
+                fulfilmentStatus:
+                    snapshot[index]["node"]["fulfillmentStatus"].toString(),
+                trackingNumber:
+                    snapshot[index]["node"]["fulfillmentStatus"].toString() ==
+                            "UNFULFILLED"
+                        ? "0"
+                        : snapshot[index]["node"]["successfulFulfillments"]
+                                ["trackingInfo"]["number"]
+                            .toString(),
               ),
             ),
           );

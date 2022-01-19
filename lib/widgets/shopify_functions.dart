@@ -293,6 +293,12 @@ getUserOrders() async {
                      fulfillmentStatus 
                      cancelReason
                      processedAt
+                     successfulFulfillments(first:10) {
+						              trackingCompany 
+						              trackingInfo {
+							                number
+						              }
+					           } 
                      lineItems(first:5){
                          edges{
                              node{

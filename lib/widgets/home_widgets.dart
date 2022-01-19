@@ -511,7 +511,7 @@ Widget sliderContainer(context, image, bool detail) {
             ? SizedBox(
                 height: dynamicHeight(context, 0.4),
                 child: Center(
-                  child: retryFunction(context, check: true),
+                  child: retryFunction(context, check: false),
                 ),
               )
             : Stack(
@@ -652,22 +652,22 @@ filterContainer(context, function) {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: dynamicWidth(context, .26),
-                              top: dynamicHeight(context, .1),
-                              bottom: dynamicHeight(context, .01),
-                            ),
-                            child: Text(
-                              "Size",
-                              style: TextStyle(
-                                fontFamily: "Aeonik",
-                                fontSize: dynamicWidth(context, .04),
-                                fontWeight: FontWeight.w600,
-                                color: darkTheme == true ? myWhite : myBlack,
-                              ),
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: EdgeInsets.only(
+                          //     left: dynamicWidth(context, .26),
+                          //     top: dynamicHeight(context, .1),
+                          //     bottom: dynamicHeight(context, .01),
+                          //   ),
+                          //   child: Text(
+                          //     "Size",
+                          //     style: TextStyle(
+                          //       fontFamily: "Aeonik",
+                          //       fontSize: dynamicWidth(context, .04),
+                          //       fontWeight: FontWeight.w600,
+                          //       color: darkTheme == true ? myWhite : myBlack,
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                       Padding(
@@ -718,181 +718,181 @@ filterContainer(context, function) {
                                 ),
                               ),
                             ),
-                            Container(
-                              width: dynamicWidth(context, .34),
-                              height: dynamicHeight(context, .166),
-                              child: Theme(
-                                data: Theme.of(context).copyWith(
-                                  unselectedWidgetColor: darkTheme == true
-                                      ? myWhite
-                                      : myBlack.withOpacity(.3),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Transform.scale(
-                                          scale: .8,
-                                          child: Checkbox(
-                                            value: sizeArray[0],
-                                            splashRadius: .4,
-                                            checkColor: darkTheme == true
-                                                ? myRed
-                                                : myWhite,
-                                            activeColor: darkTheme == true
-                                                ? myWhite
-                                                : myRed,
-                                            materialTapTargetSize:
-                                                MaterialTapTargetSize
-                                                    .shrinkWrap,
-                                            visualDensity: VisualDensity(
-                                                horizontal: -4, vertical: -4),
-                                            onChanged: (value) {
-                                              setState(() {
-                                                sizeArray[0] = value!;
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                        Text(
-                                          "Small",
-                                          style: TextStyle(
-                                            color: darkTheme == true
-                                                ? myWhite
-                                                : myBlack,
-                                            fontSize:
-                                                dynamicWidth(context, .03),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Transform.scale(
-                                          scale: .8,
-                                          child: Checkbox(
-                                            value: sizeArray[1],
-                                            splashRadius: .4,
-                                            checkColor: darkTheme == true
-                                                ? myRed
-                                                : myWhite,
-                                            activeColor: darkTheme == true
-                                                ? myWhite
-                                                : myRed,
-                                            materialTapTargetSize:
-                                                MaterialTapTargetSize
-                                                    .shrinkWrap,
-                                            visualDensity: VisualDensity(
-                                              horizontal: -4,
-                                              vertical: -4,
-                                            ),
-                                            onChanged: (value) {
-                                              setState(() {
-                                                sizeArray[1] = value!;
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                        Text(
-                                          "Medium",
-                                          style: TextStyle(
-                                            color: darkTheme == true
-                                                ? myWhite
-                                                : myBlack,
-                                            fontSize:
-                                                dynamicWidth(context, .03),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Transform.scale(
-                                          scale: .8,
-                                          child: Checkbox(
-                                            value: sizeArray[2],
-                                            splashRadius: .4,
-                                            checkColor: darkTheme == true
-                                                ? myRed
-                                                : myWhite,
-                                            activeColor: darkTheme == true
-                                                ? myWhite
-                                                : myRed,
-                                            materialTapTargetSize:
-                                                MaterialTapTargetSize
-                                                    .shrinkWrap,
-                                            visualDensity: VisualDensity(
-                                                horizontal: -4, vertical: -4),
-                                            onChanged: (value) {
-                                              setState(() {
-                                                sizeArray[2] = value!;
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                        Text(
-                                          "Large",
-                                          style: TextStyle(
-                                            color: darkTheme == true
-                                                ? myWhite
-                                                : myBlack,
-                                            fontSize:
-                                                dynamicWidth(context, .03),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Transform.scale(
-                                          scale: .8,
-                                          child: Checkbox(
-                                            value: sizeArray[3],
-                                            splashRadius: .4,
-                                            checkColor: darkTheme == true
-                                                ? myRed
-                                                : myWhite,
-                                            activeColor: darkTheme == true
-                                                ? myWhite
-                                                : myRed,
-                                            materialTapTargetSize:
-                                                MaterialTapTargetSize
-                                                    .shrinkWrap,
-                                            visualDensity: VisualDensity(
-                                                horizontal: -4, vertical: -4),
-                                            onChanged: (value) {
-                                              setState(() {
-                                                sizeArray[3] = value!;
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                        Text(
-                                          "Extra Large",
-                                          style: TextStyle(
-                                            color: darkTheme == true
-                                                ? myWhite
-                                                : myBlack,
-                                            fontSize:
-                                                dynamicWidth(context, .03),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            // Container(
+                            //   width: dynamicWidth(context, .34),
+                            //   height: dynamicHeight(context, .166),
+                            //   child: Theme(
+                            //     data: Theme.of(context).copyWith(
+                            //       unselectedWidgetColor: darkTheme == true
+                            //           ? myWhite
+                            //           : myBlack.withOpacity(.3),
+                            //     ),
+                            //     child: Column(
+                            //       mainAxisAlignment: MainAxisAlignment.start,
+                            //       crossAxisAlignment: CrossAxisAlignment.start,
+                            //       children: [
+                            //         Row(
+                            //           mainAxisAlignment:
+                            //           MainAxisAlignment.start,
+                            //           children: [
+                            //             Transform.scale(
+                            //               scale: .8,
+                            //               child: Checkbox(
+                            //                 value: sizeArray[0],
+                            //                 splashRadius: .4,
+                            //                 checkColor: darkTheme == true
+                            //                     ? myRed
+                            //                     : myWhite,
+                            //                 activeColor: darkTheme == true
+                            //                     ? myWhite
+                            //                     : myRed,
+                            //                 materialTapTargetSize:
+                            //                 MaterialTapTargetSize
+                            //                     .shrinkWrap,
+                            //                 visualDensity: VisualDensity(
+                            //                     horizontal: -4, vertical: -4),
+                            //                 onChanged: (value) {
+                            //                   setState(() {
+                            //                     sizeArray[0] = value!;
+                            //                   });
+                            //                 },
+                            //               ),
+                            //             ),
+                            //             Text(
+                            //               "Small",
+                            //               style: TextStyle(
+                            //                 color: darkTheme == true
+                            //                     ? myWhite
+                            //                     : myBlack,
+                            //                 fontSize:
+                            //                 dynamicWidth(context, .03),
+                            //               ),
+                            //             ),
+                            //           ],
+                            //         ),
+                            //         Row(
+                            //           mainAxisAlignment:
+                            //           MainAxisAlignment.start,
+                            //           children: [
+                            //             Transform.scale(
+                            //               scale: .8,
+                            //               child: Checkbox(
+                            //                 value: sizeArray[1],
+                            //                 splashRadius: .4,
+                            //                 checkColor: darkTheme == true
+                            //                     ? myRed
+                            //                     : myWhite,
+                            //                 activeColor: darkTheme == true
+                            //                     ? myWhite
+                            //                     : myRed,
+                            //                 materialTapTargetSize:
+                            //                 MaterialTapTargetSize
+                            //                     .shrinkWrap,
+                            //                 visualDensity: VisualDensity(
+                            //                   horizontal: -4,
+                            //                   vertical: -4,
+                            //                 ),
+                            //                 onChanged: (value) {
+                            //                   setState(() {
+                            //                     sizeArray[1] = value!;
+                            //                   });
+                            //                 },
+                            //               ),
+                            //             ),
+                            //             Text(
+                            //               "Medium",
+                            //               style: TextStyle(
+                            //                 color: darkTheme == true
+                            //                     ? myWhite
+                            //                     : myBlack,
+                            //                 fontSize:
+                            //                 dynamicWidth(context, .03),
+                            //               ),
+                            //             ),
+                            //           ],
+                            //         ),
+                            //         Row(
+                            //           mainAxisAlignment:
+                            //           MainAxisAlignment.start,
+                            //           children: [
+                            //             Transform.scale(
+                            //               scale: .8,
+                            //               child: Checkbox(
+                            //                 value: sizeArray[2],
+                            //                 splashRadius: .4,
+                            //                 checkColor: darkTheme == true
+                            //                     ? myRed
+                            //                     : myWhite,
+                            //                 activeColor: darkTheme == true
+                            //                     ? myWhite
+                            //                     : myRed,
+                            //                 materialTapTargetSize:
+                            //                 MaterialTapTargetSize
+                            //                     .shrinkWrap,
+                            //                 visualDensity: VisualDensity(
+                            //                     horizontal: -4, vertical: -4),
+                            //                 onChanged: (value) {
+                            //                   setState(() {
+                            //                     sizeArray[2] = value!;
+                            //                   });
+                            //                 },
+                            //               ),
+                            //             ),
+                            //             Text(
+                            //               "Large",
+                            //               style: TextStyle(
+                            //                 color: darkTheme == true
+                            //                     ? myWhite
+                            //                     : myBlack,
+                            //                 fontSize:
+                            //                 dynamicWidth(context, .03),
+                            //               ),
+                            //             ),
+                            //           ],
+                            //         ),
+                            //         Row(
+                            //           mainAxisAlignment:
+                            //           MainAxisAlignment.start,
+                            //           children: [
+                            //             Transform.scale(
+                            //               scale: .8,
+                            //               child: Checkbox(
+                            //                 value: sizeArray[3],
+                            //                 splashRadius: .4,
+                            //                 checkColor: darkTheme == true
+                            //                     ? myRed
+                            //                     : myWhite,
+                            //                 activeColor: darkTheme == true
+                            //                     ? myWhite
+                            //                     : myRed,
+                            //                 materialTapTargetSize:
+                            //                 MaterialTapTargetSize
+                            //                     .shrinkWrap,
+                            //                 visualDensity: VisualDensity(
+                            //                     horizontal: -4, vertical: -4),
+                            //                 onChanged: (value) {
+                            //                   setState(() {
+                            //                     sizeArray[3] = value!;
+                            //                   });
+                            //                 },
+                            //               ),
+                            //             ),
+                            //             Text(
+                            //               "Extra Large",
+                            //               style: TextStyle(
+                            //                 color: darkTheme == true
+                            //                     ? myWhite
+                            //                     : myBlack,
+                            //                 fontSize:
+                            //                 dynamicWidth(context, .03),
+                            //               ),
+                            //             ),
+                            //           ],
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
