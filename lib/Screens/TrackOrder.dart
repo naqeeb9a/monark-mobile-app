@@ -62,7 +62,9 @@ class _TrackOrderState extends State<TrackOrder> {
                   dynamicWidth(context, 0.1),
                 ),
               ),
-              padding: EdgeInsets.all(dynamicWidth(context, 0.03)),
+              padding: EdgeInsets.all(
+                dynamicWidth(context, 0.03),
+              ),
               child: Text(
                 "Order #MNK" + widget.orderNumber,
                 style: TextStyle(
@@ -92,17 +94,39 @@ class _TrackOrderState extends State<TrackOrder> {
                     child: FutureBuilder(
                       future: apiData,
                       builder: (context, snapshot) {
-                        print("objectAPi = $snapshot");
-                        print("objectResponse = ${(snapshot.data as List)[0]}");
                         if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.data == false) {
                             return Center(
                               child: retryFunction(context),
                             );
                           } else {
-                            return Text(
-                              snapshot.data.toString(),
-                              style: TextStyle(color: myWhite),
+                            return Column(
+                              children: [
+                                heightBox(context, .04),
+                                trackingRow(
+                                  context,
+                                  "1. Booking Date",
+                                  (snapshot.data as List)[0]['tracking_Details']
+                                          [0]['BookingDate']
+                                      .toString()
+                                      .split('-')
+                                      .join('/'),
+                                ),
+                                trackingRow(
+                                  context,
+                                  "2. Status",
+                                  (snapshot.data as List)[0]['tracking_Details']
+                                          [0]['Details'][0]["Status"]
+                                      .toString(),
+                                ),
+                                trackingRow(
+                                  context,
+                                  "3. Detail",
+                                  (snapshot.data as List)[0]['tracking_Details']
+                                          [0]['Details'][0]["Detail"]
+                                      .toString(),
+                                ),
+                              ],
                             );
                           }
                         } else {
@@ -120,35 +144,34 @@ class _TrackOrderState extends State<TrackOrder> {
   }
 }
 
-Widget radioRow(context, text, radioState) {
+Widget trackingRow(context, text, text2) {
   return Column(
     children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            text,
-            style: TextStyle(
-              color: darkTheme == true ? myWhite : myBlack,
-              fontSize: dynamicWidth(context, .03),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: dynamicHeight(context, .01)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              text,
+              style: TextStyle(
+                color: darkTheme == true ? myWhite : myBlack,
+                fontSize: dynamicWidth(context, .03),
+              ),
             ),
-          ),
-          Theme(
-            data: Theme.of(context).copyWith(
-              unselectedWidgetColor: darkTheme == true ? myWhite : myBlack,
+            Text(
+              text2,
+              style: TextStyle(
+                color: darkTheme == true ? myWhite : myBlack,
+                fontSize: dynamicWidth(context, .03),
+              ),
             ),
-            child: Radio(
-              value: true,
-              groupValue: radioState,
-              onChanged: (value) {},
-              activeColor: stockGreen,
-            ),
-          )
-        ],
+          ],
+        ),
       ),
-      heightBox(context, 0.005),
+      // heightBox(context, 0.005),
       Divider(
-        color: darkTheme == true ? myWhite : myBlack,
+        color: darkTheme == true ? myWhite : myBlack.withOpacity(.3),
       ),
     ],
   );

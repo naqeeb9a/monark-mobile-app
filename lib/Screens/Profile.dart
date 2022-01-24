@@ -242,7 +242,8 @@ class _ProfileState extends State<Profile>
                       } else {
                         return Center(child: jumpingDots(context));
                       }
-                    }),
+                    },
+                  ),
           ),
         ),
       ),

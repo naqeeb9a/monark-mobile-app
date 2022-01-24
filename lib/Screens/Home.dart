@@ -48,8 +48,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     super.initState();
     sliderImageApi();
     getHomeData();
-
-    print("object $globalAccessToken");
   }
 
   @override
