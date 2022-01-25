@@ -9,7 +9,8 @@ import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
 
 class Home extends StatefulWidget {
-  Home({Key? key}) : super(key: key);
+  final PageController controller;
+  Home({Key? key, required this.controller}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -49,6 +50,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     sliderImageApi();
     getHomeData();
   }
+
   @override
   Widget build(BuildContext context) {
     globalContextHome = context;
@@ -102,65 +104,76 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                             true,
                           ),
                         )
-                      : Stack(
-                          children: [
-                            homeSlider(
-                              context,
-                              dynamicHeight(context, .8),
-                              sliderImage.length,
-                              .96,
-                              sliderImage,
-                              true,
-                            ),
-                            Center(
-                              child: Container(
-                                width: dynamicWidth(context, .9),
-                                height: dynamicHeight(context, .08),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        buttonCarouselController.previousPage(
-                                          duration: Duration(milliseconds: 300),
-                                          curve: Curves.linear,
-                                        );
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.all(
-                                          dynamicWidth(context, .014),
-                                        ),
-                                        child: Image.asset(
-                                          "assets/icons/backIcon.png",
-                                          color: myWhite,
-                                          height: dynamicHeight(context, .034),
-                                        ),
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        buttonCarouselController.nextPage(
-                                          duration: Duration(milliseconds: 300),
-                                          curve: Curves.linear,
-                                        );
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.all(
-                                          dynamicWidth(context, .014),
-                                        ),
-                                        child: Image.asset(
-                                          "assets/icons/backIcon2.png",
-                                          color: myWhite,
-                                          height: dynamicHeight(context, .034),
+                      : InkWell(
+                          onTap: () {
+                            widget.controller.animateToPage(2,
+                                duration: const Duration(milliseconds: 600),
+                                curve: Curves.easeInOut);
+                          },
+                          child: Stack(
+                            children: [
+                              homeSlider(
+                                context,
+                                dynamicHeight(context, .8),
+                                sliderImage.length,
+                                .96,
+                                sliderImage,
+                                true,
+                              ),
+                              Center(
+                                child: Container(
+                                  width: dynamicWidth(context, .9),
+                                  height: dynamicHeight(context, .08),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          buttonCarouselController.previousPage(
+                                            duration:
+                                                Duration(milliseconds: 300),
+                                            curve: Curves.linear,
+                                          );
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.all(
+                                            dynamicWidth(context, .014),
+                                          ),
+                                          child: Image.asset(
+                                            "assets/icons/backIcon.png",
+                                            color: myWhite,
+                                            height:
+                                                dynamicHeight(context, .034),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      InkWell(
+                                        onTap: () {
+                                          buttonCarouselController.nextPage(
+                                            duration:
+                                                Duration(milliseconds: 300),
+                                            curve: Curves.linear,
+                                          );
+                                        },
+                                        child: Padding(
+                                          padding: EdgeInsets.all(
+                                            dynamicWidth(context, .014),
+                                          ),
+                                          child: Image.asset(
+                                            "assets/icons/backIcon2.png",
+                                            color: myWhite,
+                                            height:
+                                                dynamicHeight(context, .034),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
             ),
           ),
