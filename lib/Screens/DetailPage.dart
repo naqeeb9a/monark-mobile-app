@@ -468,8 +468,7 @@ class _DetailPageState extends State<DetailPage>
                                     dragBool = true;
                                     fadeAnimation.forward();
                                   });
-                                }
-                                else if (dragBool == true) {
+                                } else if (dragBool == true) {
                                   setState(() {
                                     dragBool = false;
                                     fadeAnimation.reset();
@@ -479,8 +478,19 @@ class _DetailPageState extends State<DetailPage>
                               child: Text(
                                 "Description",
                                 style: TextStyle(
-                                  color: darkTheme == true ? myWhite : myBlack,
+                                  shadows: [
+                                    Shadow(
+                                      color:
+                                      darkTheme == true ? myWhite : myBlack,
+                                      offset: Offset(0, -5),
+                                    )
+                                  ],
+                                  color: noColor,
                                   fontSize: dynamicWidth(context, .035),
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: myRed,
+                                  decorationThickness: 4,
+                                  decorationStyle: TextDecorationStyle.solid,
                                 ),
                               ),
                             ),

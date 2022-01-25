@@ -432,20 +432,21 @@ dynamic imageAlert(context, image, assetImage) {
 CarouselController buttonCarouselController = CarouselController();
 
 Widget homeSlider(context, height, length, viewFraction, image, bool detail,
-    {function = "", page = ""}) {
+    {function = "", page = "", videoController = ""}) {
   return CarouselSlider.builder(
     itemCount: length,
     carouselController: buttonCarouselController,
     itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
         detail == true
             ? (image == "loading")
-                ? sliderContainer(context, "loading", detail)
+                ? sliderContainer(context, "loading", detail, videoController)
                 : (image == false)
-                    ? sliderContainer(context, image, detail)
+                    ? sliderContainer(context, image, detail, videoController)
                     : sliderContainer(
                         context,
                         image[itemIndex]["image_url"],
                         detail,
+                        videoController,
                       )
             : InkWell(
                 onTap: page == "" ? () {} : page,
@@ -453,6 +454,7 @@ Widget homeSlider(context, height, length, viewFraction, image, bool detail,
                   context,
                   image[itemIndex]["node"]["src"].toString(),
                   detail,
+                  videoController,
                 ),
               ),
     options: CarouselOptions(
@@ -488,7 +490,7 @@ UrlType getUrlType(String url) {
   }
 }
 
-Widget sliderContainer(context, image, bool detail) {
+Widget sliderContainer(context, image, bool detail, videoController) {
   dynamic initializeVideoPlayer;
   late VideoPlayerController _controller;
   var type;
