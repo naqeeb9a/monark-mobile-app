@@ -431,32 +431,32 @@ dynamic imageAlert(context, image, assetImage) {
 
 CarouselController buttonCarouselController = CarouselController();
 
-Widget homeSlider(context, height, length, viewFraction, image, bool detail,
-    {function = "", page = "", videoController = ""}) {
+Widget homeSlider(
+  context,
+  height,
+  length,
+  viewFraction,
+  image,
+  bool detail, {
+  function = "",
+  page = "",
+}) {
   return CarouselSlider.builder(
     itemCount: length,
     carouselController: buttonCarouselController,
     itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) =>
         detail == true
             ? (image == "loading")
-                ? sliderContainer(context, "loading", detail, videoController)
+                ? SliderContainer(image: "loading", detail: detail)
                 : (image == false)
-                    ? sliderContainer(context, image, detail, videoController)
-                    : sliderContainer(
-                        context,
-                        image[itemIndex]["image_url"],
-                        detail,
-                        videoController,
-                      )
+                    ? SliderContainer(image: image, detail: detail)
+                    : SliderContainer(
+                        image: image[itemIndex]["image_url"], detail: detail)
             : InkWell(
                 onTap: page == "" ? () {} : page,
-                child: sliderContainer(
-                  context,
-                  image[itemIndex]["node"]["src"].toString(),
-                  detail,
-                  videoController,
-                ),
-              ),
+                child: SliderContainer(
+                    image: image[itemIndex]["node"]["src"].toString(),
+                    detail: detail)),
     options: CarouselOptions(
       enableInfiniteScroll: detail,
       height: height,
@@ -466,7 +466,7 @@ Widget homeSlider(context, height, length, viewFraction, image, bool detail,
             }
           : null,
       enlargeStrategy: CenterPageEnlargeStrategy.height,
-      autoPlay: detail,
+      autoPlay: false,
       autoPlayInterval: Duration(seconds: 6),
       viewportFraction: viewFraction,
       autoPlayAnimationDuration: Duration(seconds: 2),
@@ -490,98 +490,124 @@ UrlType getUrlType(String url) {
   }
 }
 
-Widget sliderContainer(context, image, bool detail, videoController) {
+class SliderContainer extends StatefulWidget {
+  final image;
+  final bool detail;
+
+  const SliderContainer({Key? key, required this.image, required this.detail})
+      : super(key: key);
+
+  @override
+  State<SliderContainer> createState() => _SliderContainerState();
+}
+
+class _SliderContainerState extends State<SliderContainer> {
   dynamic initializeVideoPlayer;
   late VideoPlayerController _controller;
   var type;
-  if (image != false) {
-    type = getUrlType(image);
-    if (type == UrlType.VIDEO) {
-      _controller = VideoPlayerController.network(image);
-      initializeVideoPlayer = _controller.initialize();
-      _controller.setLooping(true);
-      _controller.setVolume(0);
+  @override
+  void initState() {
+    if (widget.image != false) {
+      type = getUrlType(widget.image);
+      if (type == UrlType.VIDEO) {
+        _controller = VideoPlayerController.network(widget.image);
+        initializeVideoPlayer = _controller.initialize();
+        _controller.setLooping(true);
+        _controller.setVolume(0);
+      } else {
+        _controller = VideoPlayerController.network(
+            "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4");
+      }
     }
+    super.initState();
   }
-  return InteractiveViewer(
-    child: (image == "loading")
-        ? Image.asset(
-            "assets/loader.gif",
-            scale: 6,
-          )
-        : (image == false)
-            ? SizedBox(
-                height: dynamicHeight(context, 0.4),
-                child: Center(
-                  child: retryFunction(context, check: false),
-                ),
-              )
-            : Stack(
-                children: [
-                  SizedBox(
-                    width: dynamicWidth(context, 1),
-                    height: dynamicHeight(context, 1),
-                    child: Padding(
-                      padding: detail == false
-                          ? EdgeInsets.all(0)
-                          : EdgeInsets.symmetric(
-                              horizontal: dynamicWidth(context, 0.02),
-                            ),
-                      child: ClipRRect(
-                        borderRadius: (detail == true)
-                            ? BorderRadius.circular(
-                                dynamicWidth(context, 0.08),
-                              )
-                            : BorderRadius.circular(0),
-                        child: type == UrlType.IMAGE
-                            ? CachedNetworkImage(
-                                imageUrl: image,
-                                fit: BoxFit.cover,
-                                width: dynamicWidth(context, 1),
-                                placeholder: (context, string) {
-                                  return Image.asset(
-                                    "assets/loader.gif",
-                                    scale: 6,
-                                  );
-                                },
-                              )
-                            : FutureBuilder(
-                                future: initializeVideoPlayer,
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.done) {
-                                    _controller.play();
-                                    return InkWell(
-                                      onTap: () {
-                                        if (_controller.value.isPlaying)
-                                          _controller.pause();
-                                        else {
-                                          _controller.play();
-                                        }
-                                      },
-                                      child: Center(
-                                        child: AspectRatio(
-                                          aspectRatio:
-                                              _controller.value.aspectRatio,
-                                          child: VideoPlayer(_controller),
-                                        ),
-                                      ),
-                                    );
-                                  } else {
-                                    return Center(
-                                        child: Image.asset(
+
+  @override
+  Widget build(BuildContext context) {
+    return containerVideoPhoto();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  containerVideoPhoto() {
+    return InteractiveViewer(
+      child: (widget.image == "loading")
+          ? Image.asset(
+              "assets/loader.gif",
+              scale: 6,
+            )
+          : (widget.image == false)
+              ? SizedBox(
+                  height: dynamicHeight(context, 0.4),
+                  child: Center(
+                    child: retryFunction(context, check: false),
+                  ),
+                )
+              : Stack(
+                  children: [
+                    SizedBox(
+                      width: dynamicWidth(context, 1),
+                      height: dynamicHeight(context, 1),
+                      child: Padding(
+                        padding: widget.detail == false
+                            ? EdgeInsets.all(0)
+                            : EdgeInsets.symmetric(
+                                horizontal: dynamicWidth(context, 0.02),
+                              ),
+                        child: ClipRRect(
+                          borderRadius: (widget.detail == true)
+                              ? BorderRadius.circular(
+                                  dynamicWidth(context, 0.08),
+                                )
+                              : BorderRadius.circular(0),
+                          child: type == UrlType.IMAGE
+                              ? CachedNetworkImage(
+                                  imageUrl: widget.image,
+                                  fit: BoxFit.cover,
+                                  width: dynamicWidth(context, 1),
+                                  placeholder: (context, string) {
+                                    return Image.asset(
                                       "assets/loader.gif",
                                       scale: 6,
-                                    ));
-                                  }
-                                },
-                              ),
+                                    );
+                                  },
+                                )
+                              : FutureBuilder(
+                                  future: initializeVideoPlayer,
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.done) {
+                                      _controller.play();
+                                      return InkWell(
+                                        onTap: () {
+                                          if (_controller.value.isPlaying)
+                                            _controller.pause();
+                                          else {
+                                            _controller.play();
+                                          }
+                                        },
+                                        child: VideoPlayer(_controller),
+                                      );
+                                    } else {
+                                      return Center(
+                                          child: Image.asset(
+                                        "assets/loader.gif",
+                                        scale: 6,
+                                      ));
+                                    }
+                                  },
+                                ),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-  );
+                  ],
+                ),
+    );
+  }
 }
 
 Widget drawer(context) {

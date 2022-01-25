@@ -7,7 +7,6 @@ import 'package:monark_app/widgets/app_bar.dart';
 import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
-import 'package:video_player/video_player.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -50,9 +49,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     sliderImageApi();
     getHomeData();
   }
-
-  VideoPlayerController? _controller;
-
   @override
   Widget build(BuildContext context) {
     globalContextHome = context;
@@ -91,7 +87,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                       1.0,
                       "loading",
                       true,
-                      videoController: _controller,
                     )
                   : sliderImage == false
                       ? InkWell(
@@ -105,7 +100,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                             .96,
                             sliderImage,
                             true,
-                            videoController: _controller,
                           ),
                         )
                       : Stack(
@@ -117,7 +111,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                               .96,
                               sliderImage,
                               true,
-                              videoController: _controller,
                             ),
                             Center(
                               child: Container(
@@ -174,12 +167,5 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    _controller?.dispose();
   }
 }
