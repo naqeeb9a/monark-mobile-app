@@ -86,9 +86,18 @@ class _CategoriesPageState extends State<CategoriesPage>
               padding: EdgeInsets.symmetric(
                 horizontal: dynamicWidth(context, 0.04),
               ),
-              child: searchbar(
-                context,
-                enabled: false,
+              child: InkWell(
+                onTap: () {
+                  widget.controller.animateToPage(
+                    1,
+                    duration: const Duration(milliseconds: 600),
+                    curve: Curves.easeInOut,
+                  );
+                },
+                child: searchbar(
+                  context,
+                  enabled: false,
+                ),
               ),
             ),
             heightBox(context, .02),
