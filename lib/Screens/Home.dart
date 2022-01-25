@@ -10,6 +10,7 @@ import 'package:monark_app/widgets/shopify_functions.dart';
 
 class Home extends StatefulWidget {
   final PageController controller;
+
   Home({Key? key, required this.controller}) : super(key: key);
 
   @override
@@ -106,9 +107,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                         )
                       : InkWell(
                           onTap: () {
-                            widget.controller.animateToPage(2,
-                                duration: const Duration(milliseconds: 600),
-                                curve: Curves.easeInOut);
+                            widget.controller.animateToPage(
+                              2,
+                              duration: const Duration(milliseconds: 600),
+                              curve: Curves.easeInOut,
+                            );
                           },
                           child: Stack(
                             children: [
