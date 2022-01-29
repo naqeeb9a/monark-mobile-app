@@ -11,6 +11,7 @@ import 'package:monark_app/widgets/home_widgets.dart';
 import 'package:monark_app/widgets/media_query.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io' show Platform;
 
 class BottomNav extends StatefulWidget {
   const BottomNav({Key? key}) : super(key: key);
@@ -52,7 +53,7 @@ class _BottomNavState extends State<BottomNav> {
         : Scaffold(
             body: pageDecider(),
             bottomNavigationBar: SizedBox(
-              height: dynamicHeight(context, .056),
+              height: Platform.isAndroid ? dynamicHeight(context, .056) : dynamicHeight(context, .074),
               child: BottomNavigationBar(
                 enableFeedback: true,
                 type: BottomNavigationBarType.fixed,
@@ -105,7 +106,6 @@ class _BottomNavState extends State<BottomNav> {
 
   bottomItemModel(icon, text, {check = false}) {
     return BottomNavigationBarItem(
-      backgroundColor: myRed,
       icon: (check == true)
           ? Obx(() {
               return Badge(
