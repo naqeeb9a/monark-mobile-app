@@ -19,51 +19,49 @@ class Welcome extends StatefulWidget {
 class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
-        body: Center(
-          child: Container(
-            height: dynamicHeight(context, .3),
-            width: dynamicWidth(context, .9),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                coloredButton(
-                  context,
-                  "Log In",
-                  function: () {
-                    push(
-                      context,
-                      Login(),
-                    );
-                  },
-                ),
-                coloredButton(
-                  context,
-                  "Sign Up",
-                  function: () {
-                    push(
-                      context,
-                      SignUp(),
-                    );
-                  },
-                ),
-                coloredButton(
-                  context,
-                  "Sign In as Guest",
-                  function: () async {
-                    SharedPreferences saveUser =
-                        await SharedPreferences.getInstance();
-                    saveUser.setString("loginInfo", "guest");
-                    pushAndRemoveUntil(
-                      context,
-                      BottomNav(),
-                    );
-                  },
-                ),
-              ],
-            ),
+    return Scaffold(
+      backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
+      body: Center(
+        child: Container(
+          height: dynamicHeight(context, .3),
+          width: dynamicWidth(context, .9),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              coloredButton(
+                context,
+                "Log In",
+                function: () {
+                  push(
+                    context,
+                    Login(),
+                  );
+                },
+              ),
+              coloredButton(
+                context,
+                "Sign Up",
+                function: () {
+                  push(
+                    context,
+                    SignUp(),
+                  );
+                },
+              ),
+              coloredButton(
+                context,
+                "Sign In as Guest",
+                function: () async {
+                  SharedPreferences saveUser =
+                      await SharedPreferences.getInstance();
+                  saveUser.setString("loginInfo", "guest");
+                  pushAndRemoveUntil(
+                    context,
+                    BottomNav(),
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),

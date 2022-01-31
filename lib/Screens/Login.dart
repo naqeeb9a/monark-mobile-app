@@ -36,21 +36,29 @@ class _LoginState extends State<Login> {
         ? Scaffold(
             body: jumpingDots(context),
           )
-        : SafeArea(
-            child: SizedBox(
+        : Scaffold(
+            backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
+            appBar: bar(
+              context,
+              bgColor: myRed,
+              iconColor: myWhite,
+              leadingIcon: true,
+            ),
+            body: SizedBox(
               width: dynamicWidth(context, 1),
               height: dynamicHeight(context, 1),
               child: Material(
+                color: myRed,
                 child: Stack(
                   children: [
                     Container(
                       width: dynamicWidth(context, 1),
-                      height: dynamicHeight(context, .32),
+                      height: dynamicHeight(context, .2),
                       color: myRed,
                       child: Center(
                         child: Padding(
                           padding: EdgeInsets.only(
-                            bottom: dynamicHeight(context, .08),
+                            bottom: dynamicHeight(context, .13),
                           ),
                           child: Text(
                             "Welcome Back",
@@ -68,7 +76,7 @@ class _LoginState extends State<Login> {
                       bottom: 0.0,
                       child: Container(
                         width: dynamicWidth(context, 1),
-                        height: dynamicHeight(context, .7),
+                        height: dynamicHeight(context, .73),
                         decoration: BoxDecoration(
                           color: darkTheme == false ? myWhite : darkThemeBlack,
                           borderRadius: BorderRadius.only(
@@ -287,16 +295,16 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: dynamicWidth(context, 1),
-                      height: dynamicHeight(context, .06),
-                      child: bar(
-                        context,
-                        bgColor: noColor,
-                        iconColor: myWhite,
-                        leadingIcon: true,
-                      ),
-                    ),
+                    // SizedBox(
+                    //   width: dynamicWidth(context, 1),
+                    //   height: dynamicHeight(context, .06),
+                    //   child: bar(
+                    //     context,
+                    //     bgColor: noColor,
+                    //     iconColor: myWhite,
+                    //     leadingIcon: true,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
