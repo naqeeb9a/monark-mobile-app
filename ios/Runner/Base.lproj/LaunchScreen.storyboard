@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,21 +20,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" image="LaunchImage" id="YRO-k0-Ey4">
-                                <rect key="frame" x="162.33548387096675" y="434.55268817210299" width="101.33333333333323" height="60.666666666666686"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
-                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ikw-ng-Gfs">
+                                <rect key="frame" x="0.0" y="44" width="428" height="848"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="LaunchImage" translatesAutoresizingMaskIntoConstraints="NO" id="mVp-p4-m0x">
+                                        <rect key="frame" x="0.0" y="-1" width="428" height="848"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="mVp-p4-m0x" firstAttribute="leading" secondItem="ikw-ng-Gfs" secondAttribute="leading" id="HVl-XR-mhz"/>
+                                    <constraint firstAttribute="bottom" secondItem="mVp-p4-m0x" secondAttribute="bottom" id="mCV-qI-lb1"/>
+                                    <constraint firstItem="mVp-p4-m0x" firstAttribute="top" secondItem="ikw-ng-Gfs" secondAttribute="top" id="nGQ-vl-QI2"/>
+                                    <constraint firstAttribute="trailing" secondItem="mVp-p4-m0x" secondAttribute="trailing" id="rtW-oV-k8f"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ikw-ng-Gfs" secondAttribute="trailing" id="2G5-W0-Tzu"/>
+                            <constraint firstItem="ikw-ng-Gfs" firstAttribute="top" secondItem="Ydg-fD-yQy" secondAttribute="bottom" id="BW8-Di-4pb"/>
+                            <constraint firstItem="xbc-2k-c8Z" firstAttribute="top" secondItem="ikw-ng-Gfs" secondAttribute="bottom" id="Oe7-Hf-47Z"/>
+                            <constraint firstItem="ikw-ng-Gfs" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="mhX-EO-pf0"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75.700934579439249" y="250.75593952483803"/>
+            <point key="canvasLocation" x="582" y="117"/>
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchImage" width="101.33333587646484" height="60.666667938232422"/>
+        <image name="LaunchImage" width="375" height="812"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

@@ -53,6 +53,7 @@ class _CategoriesPageState extends State<CategoriesPage>
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: darkTheme == true ? darkThemeBlack : myWhite,
+      resizeToAvoidBottomInset: false,
       appBar: bar(
         context,
         menuIcon: true,
@@ -67,7 +68,6 @@ class _CategoriesPageState extends State<CategoriesPage>
               curve: Curves.easeInOut);
         },
       ),
-      resizeToAvoidBottomInset: false,
       drawerScrimColor: darkTheme == true ? Colors.black54 : Colors.white54,
       endDrawer: drawer(context),
       body: SafeArea(

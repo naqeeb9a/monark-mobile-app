@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:monark_app/widgets/shopify_functions.dart';
 
 import '../utils/config.dart';
@@ -102,7 +103,7 @@ PreferredSizeWidget bar(context,
                 ),
               )
             : Container(),
-      ],
+      ], systemOverlayStyle: SystemUiOverlayStyle.dark,
     ),
   );
 }

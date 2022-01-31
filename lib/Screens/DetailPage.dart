@@ -113,6 +113,8 @@ class _DetailPageState extends State<DetailPage>
   @override
   void initState() {
     super.initState();
+
+
     fadeAnimation =
         AnimationController(vsync: this, duration: Duration(milliseconds: 400));
     controlAnimation = Tween(begin: 0.0, end: 1.0).animate(fadeAnimation);
@@ -124,6 +126,8 @@ class _DetailPageState extends State<DetailPage>
               .toInt();
     }
 
+
+
     sizeImage();
     sizeList();
     variantIndex();
@@ -132,6 +136,12 @@ class _DetailPageState extends State<DetailPage>
 
   @override
   Widget build(BuildContext context) {
+    print(
+        "pricea -> ${widget.variantProduct[productIndex]["node"]["compareAtPrice"]} + ${widget.variantProduct[productIndex]["node"]["price"]} ${double.parse(
+            widget.variantProduct[productIndex]["node"]["compareAtPrice"])
+            .toInt() -
+            double.parse(widget.variantProduct[productIndex]["node"]["price"])
+                .toInt()}");
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: darkTheme == false ? myWhite : darkThemeBlack,
@@ -281,7 +291,7 @@ class _DetailPageState extends State<DetailPage>
                                                     ["node"]["price"])
                                                 .toInt()
                                                 .toString())
-                                        : "PKR. " + numberFormat(double.parse(widget.variantProduct[productIndex]["node"]["compareAtPrice"]).toInt().toString()),
+                                        : "PKR. " + numberFormat(double.parse(widget.variantProduct[productIndex]["node"]["price"]).toInt().toString()),
                                     style: TextStyle(
                                       fontFamily: "Aeonik",
                                       color:
@@ -536,7 +546,7 @@ class _DetailPageState extends State<DetailPage>
                 top: 0.0,
                 child: SizedBox(
                   width: dynamicWidth(context, 1),
-                  height:  dynamicHeight(context, .062),
+                  height: dynamicHeight(context, .062),
                   child: bar(
                     context,
                     menuIcon: true,
